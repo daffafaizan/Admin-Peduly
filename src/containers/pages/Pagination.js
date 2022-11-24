@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import React from 'react';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 import { Colxx } from 'components/common/CustomBootstrap';

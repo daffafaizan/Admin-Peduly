@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import {
   defaultDirection,
   defaultLocale,
@@ -178,23 +179,23 @@ export const setCurrentUser = (user) => {
 export const orderData = (option, transaksi) => {
   let array;
 
-  if(option === 'Terbaru') {
-    array = transaksi.sort(function(a,b){
+  if (option === 'Terbaru') {
+    array = transaksi.sort(function (a, b) {
       // Transaksi terbaru
       return new Date(b.created_at) - new Date(a.created_at);
     });
-  } else if(option === 'Terlama') {
-    array = transaksi.sort(function(a,b){
+  } else if (option === 'Terlama') {
+    array = transaksi.sort(function (a, b) {
       // Transaksi terlama
       return new Date(a.created_at) - new Date(b.created_at);
     });
-  } else if(option === 'Paling Rendah') {
-    array = transaksi.sort(function(a,b){
+  } else if (option === 'Paling Rendah') {
+    array = transaksi.sort(function (a, b) {
       // Jumlah donasi peling rendah
       return Number(a.donasi) - Number(b.donasi);
     });
-  } else if(option === 'Paling Tinggi') {
-    array = transaksi.sort(function(a,b){
+  } else if (option === 'Paling Tinggi') {
+    array = transaksi.sort(function (a, b) {
       // Jumlah donasi peling tinggi
       return Number(b.donasi) - Number(a.donasi);
     });
