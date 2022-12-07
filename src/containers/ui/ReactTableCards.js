@@ -147,35 +147,32 @@ export const ReactTableWithPaginationCard = () => {
 };
 
 export const ReactTableDivided = () => {
-  const cols = React.useMemo(
-    () => [
-      {
-        Header: 'Name',
-        accessor: 'title',
-        cellClass: 'list-item-heading w-40',
-        Cell: (props) => <>{props.value}</>,
-      },
-      {
-        Header: 'Sales',
-        accessor: 'sales',
-        cellClass: 'text-muted  w-10',
-        Cell: (props) => <>{props.value}</>,
-      },
-      {
-        Header: 'Stock',
-        accessor: 'stock',
-        cellClass: 'text-muted  w-10',
-        Cell: (props) => <>{props.value}</>,
-      },
-      {
-        Header: 'Category',
-        accessor: 'category',
-        cellClass: 'text-muted  w-40',
-        Cell: (props) => <>{props.value}</>,
-      },
-    ],
-    []
-  );
+  const cols = React.useMemo(() => [
+    {
+      Header: 'Name',
+      accessor: 'title',
+      cellClass: 'list-item-heading w-40',
+      Cell: (props) => <>{props.value}</>,
+    },
+    {
+      Header: 'Sales',
+      accessor: 'sales',
+      cellClass: 'text-muted  w-10',
+      Cell: (props) => <>{props.value}</>,
+    },
+    {
+      Header: 'Stock',
+      accessor: 'stock',
+      cellClass: 'text-muted  w-10',
+      Cell: (props) => <>{props.value}</>,
+    },
+    {
+      Header: 'Category',
+      accessor: 'category',
+      cellClass: 'text-muted  w-40',
+      Cell: (props) => <>{props.value}</>,
+    },
+  ]);
   return (
     <div className="mb-4">
       <CardTitle>

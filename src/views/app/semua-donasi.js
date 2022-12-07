@@ -32,7 +32,7 @@ const pageSizes = [4, 8, 12, 20];
 
 const initialData = orderData('Terbaru', transaksi);
 
-const TransaksiDonasi = () => {
+const SemuaDonasi = () => {
   const [selectedOrder, setSelectedOrder] = useState('Terbaru');
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
@@ -138,13 +138,11 @@ const TransaksiDonasi = () => {
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Nama</th>
-                    <th>User</th>
-                    <th>Tanggal</th>
-                    <th>ID Transaksi</th>
-                    <th>ID GD</th>
-                    <th>Nominal</th>
-                    <th>Metode</th>
+                    <th>Halaman Galang Dana</th>
+                    <th>Dibuat Oleh</th>
+                    <th>Target</th>
+                    <th>Terkumpul</th>
+                    <th>Sisa Waktu</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -185,4 +183,4 @@ const TransaksiDonasi = () => {
   );
 };
 
-export default TransaksiDonasi;
+export default SemuaDonasi;

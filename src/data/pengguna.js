@@ -54,6 +54,15 @@ const pengguna = [
     role: 'user',
     created_at: '2022-05-28T07:23:22.000000Z',
   },
+  {
+    id: 7,
+    nama: 'Maudy ',
+    username: 'maudyyayu',
+    email: 'maudyayunda@mail.com',
+    telepon: '081234567890',
+    role: 'user',
+    created_at: '2022-05-28T07:23:22.000000Z',
+  },
 ];
 
 export default pengguna;

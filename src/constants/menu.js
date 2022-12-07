@@ -41,6 +41,12 @@ const data = [
     to: `${adminRoot}/transaksi-donasi`,
   },
   {
+    id: 'semuagalangdana',
+    icon: 'iconsminds-newspaper',
+    label: 'menu.galangdana',
+    to: `${adminRoot}/semua-galangdana`,
+  },
+  {
     id: 'pengguna',
     icon: 'iconsminds-male-female',
     label: 'menu.pengguna',

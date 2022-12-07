@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+// eslint-disable-next-line import/no-unresolved
 import AppLayout from 'layout/AppLayout';
 // import { ProtectedRoute, UserRole } from 'helpers/authHelper';
 
@@ -16,6 +17,7 @@ const BlankPage = React.lazy(() =>
 );
 const TransaksiDonasi = React.lazy(() => import('./transaksi-donasi'));
 const Pengguna = React.lazy(() => import('./pengguna'));
+const SemuaDonasi = React.lazy(() => import('./semua-donasi'));
 
 const App = ({ match }) => {
   return (
@@ -44,6 +46,10 @@ const App = ({ match }) => {
             <Route
               path={`${match.url}/transaksi-donasi`}
               render={(props) => <TransaksiDonasi {...props} />}
+            />
+            <Route
+              path={`${match.url}/semua-donasi`}
+              render={(props) => <SemuaDonasi {...props} />}
             />
             <Route
               path={`${match.url}/pengguna`}
