@@ -167,5 +167,5 @@ const knowledgebase = [
       },
     ],
   },
-];
-export default knowledgebase;
+]
+export default knowledgebase

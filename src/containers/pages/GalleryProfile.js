@@ -1,9 +1,9 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react';
-import Lightbox from 'react-image-lightbox';
-import { NavLink } from 'react-router-dom';
-import { Row } from 'reactstrap';
-import { Colxx } from 'components/common/CustomBootstrap';
+import React, { useState } from 'react'
+import Lightbox from 'react-image-lightbox'
+import { NavLink } from 'react-router-dom'
+import { Row } from 'reactstrap'
+import { Colxx } from 'components/common/CustomBootstrap'
 
 const images1 = [
   '/assets/img/products/tea-loaf.jpg',
@@ -12,7 +12,7 @@ const images1 = [
   '/assets/img/products/parkin.jpg',
   '/assets/img/products/napoleonshat.jpg',
   '/assets/img/products/fruitcake.jpg',
-];
+]
 
 const thumbs1 = [
   '/assets/img/products/tea-loaf-thumb.jpg',
@@ -21,39 +21,39 @@ const thumbs1 = [
   '/assets/img/products/parkin-thumb.jpg',
   '/assets/img/products/napoleonshat-thumb.jpg',
   '/assets/img/products/fruitcake-thumb.jpg',
-];
+]
 
 const images2 = [
   '/assets/img/products/fruitcake.jpg',
   '/assets/img/products/napoleonshat.jpg',
   '/assets/img/products/tea-loaf.jpg',
   '/assets/img/products/magdalena.jpg',
-];
+]
 
 const thumbs2 = [
   '/assets/img/products/fruitcake-thumb.jpg',
   '/assets/img/products/napoleonshat-thumb.jpg',
   '/assets/img/products/tea-loaf-thumb.jpg',
   '/assets/img/products/magdalena-thumb.jpg',
-];
+]
 
 const GalleryProfile = () => {
-  const [photoIndex, setPhotoIndex] = useState(0);
-  const [openedGallery, setOpenedGallery] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0)
+  const [openedGallery, setOpenedGallery] = useState(0)
+  const [isOpen, setIsOpen] = useState(false)
 
   const onThumbClick = (index, gallery) => {
-    setPhotoIndex(index);
-    setIsOpen(true);
-    setOpenedGallery(gallery);
-  };
+    setPhotoIndex(index)
+    setIsOpen(true)
+    setOpenedGallery(gallery)
+  }
 
   const getGallery = () => {
     if (openedGallery === 1) {
-      return images1;
+      return images1
     }
-    return images2;
-  };
+    return images2
+  }
 
   return (
     <>
@@ -78,7 +78,7 @@ const GalleryProfile = () => {
                 />
               </NavLink>
             </Colxx>
-          );
+          )
         })}
       </Row>
       <Row>
@@ -102,7 +102,7 @@ const GalleryProfile = () => {
                 />
               </NavLink>
             </Colxx>
-          );
+          )
         })}
       </Row>
 
@@ -127,7 +127,7 @@ const GalleryProfile = () => {
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default GalleryProfile;
+export default GalleryProfile

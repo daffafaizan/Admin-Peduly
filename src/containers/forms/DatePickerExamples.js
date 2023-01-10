@@ -1,21 +1,19 @@
-/* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
-import { injectIntl } from 'react-intl';
-import { Row, Card, CardBody, CardTitle } from 'reactstrap';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import React, { useState } from 'react'
+import { injectIntl } from 'react-intl'
+import { Row, Card, CardBody, CardTitle } from 'reactstrap'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
-import IntlMessages from 'helpers/IntlMessages';
-import { Colxx } from 'components/common/CustomBootstrap';
+import IntlMessages from 'helpers/IntlMessages'
+import { Colxx } from 'components/common/CustomBootstrap'
 
 const DatePickerExamples = ({ intl }) => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [startDateTime, setStartDateTime] = useState(new Date());
-  const [startDateRange, setStartDateRange] = useState(new Date());
-  const [endDateRange, setEndDateRange] = useState(new Date());
-  const [embeddedDate, setEmbeddedDate] = useState(new Date());
-  const { messages } = intl;
+  const [startDate, setStartDate] = useState(new Date())
+  const [startDateTime, setStartDateTime] = useState(new Date())
+  const [startDateRange, setStartDateRange] = useState(new Date())
+  const [endDateRange, setEndDateRange] = useState(new Date())
+  const [embeddedDate, setEmbeddedDate] = useState(new Date())
+  const { messages } = intl
 
   return (
     <Row>
@@ -97,6 +95,6 @@ const DatePickerExamples = ({ intl }) => {
         </Card>
       </Colxx>
     </Row>
-  );
-};
-export default injectIntl(DatePickerExamples);
+  )
+}
+export default injectIntl(DatePickerExamples)

@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React from 'react'
 
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
+import { Formik, Form, Field } from 'formik'
+import * as Yup from 'yup'
 
-import { Row, Card, CardBody, FormGroup, Label, Button } from 'reactstrap';
-import { Colxx } from 'components/common/CustomBootstrap';
+import { Row, Card, CardBody, FormGroup, Label, Button } from 'reactstrap'
+import { Colxx } from 'components/common/CustomBootstrap'
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -20,12 +20,12 @@ const SignupSchema = Yup.object().shape({
     .email('Invalid email')
     .required('Please enter your email address'),
   details: Yup.string().required('Please provide the details'),
-});
+})
 
 const FormikValidationSchema = () => {
   const onSubmit = (values) => {
-    console.log(values);
-  };
+    console.log(values)
+  }
 
   return (
     <Row className="mb-4">
@@ -108,7 +108,7 @@ const FormikValidationSchema = () => {
         </Card>
       </Colxx>
     </Row>
-  );
-};
+  )
+}
 
-export default FormikValidationSchema;
+export default FormikValidationSchema

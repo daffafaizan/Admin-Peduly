@@ -1,7 +1,7 @@
-import React from 'react';
-import { Card, CardBody } from 'reactstrap';
-import { Colxx } from 'components/common/CustomBootstrap';
-import IntlMessages from 'helpers/IntlMessages';
+import React from 'react'
+import { Card, CardBody } from 'reactstrap'
+import { Colxx } from 'components/common/CustomBootstrap'
+import IntlMessages from 'helpers/IntlMessages'
 
 const FeatureComparison = () => {
   return (
@@ -324,7 +324,7 @@ const FeatureComparison = () => {
         </Card>
       </Colxx>
     </>
-  );
-};
+  )
+}
 
-export default FeatureComparison;
+export default FeatureComparison

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 // eslint-disable-next-line
 const transaksi = [
   {
@@ -53,6 +52,6 @@ const transaksi = [
     campaign_id: 13,
     created_at: '2022-06-31T04:24:01.000000Z',
   },
-];
+]
 
-export default transaksi;
+export default transaksi

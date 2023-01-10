@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const DataListIcon = () => {
   return (
@@ -16,7 +16,7 @@ const DataListIcon = () => {
         d="M17.5,17H.5a.5.5,0,0,1,0-1h17a.5.5,0,0,1,0,1Z"
       />
     </svg>
-  );
-};
+  )
+}
 
-export default DataListIcon;
+export default DataListIcon

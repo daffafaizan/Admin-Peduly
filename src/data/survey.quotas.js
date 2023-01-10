@@ -21,6 +21,6 @@ const data = [
       { title: '30-40', count: 60, quota: 75 },
     ],
   },
-];
+]
 
-export default data;
+export default data

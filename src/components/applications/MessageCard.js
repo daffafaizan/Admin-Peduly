@@ -1,5 +1,5 @@
-import React from 'react';
-import { Card, CardBody } from 'reactstrap';
+import React from 'react'
+import { Card, CardBody } from 'reactstrap'
 
 const MessageCard = ({ sender, item, currentUserid }) => {
   return (
@@ -37,7 +37,7 @@ const MessageCard = ({ sender, item, currentUserid }) => {
       </Card>
       <div className="clearfix" />
     </>
-  );
-};
+  )
+}
 
-export default React.memo(MessageCard);
+export default React.memo(MessageCard)

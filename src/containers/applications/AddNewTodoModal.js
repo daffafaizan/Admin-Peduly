@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import {
   CustomInput,
   Button,
@@ -9,12 +9,12 @@ import {
   ModalFooter,
   Input,
   Label,
-} from 'reactstrap';
-import Select from 'react-select';
-import CustomSelectInput from 'components/common/CustomSelectInput';
-import IntlMessages from 'helpers/IntlMessages';
+} from 'reactstrap'
+import Select from 'react-select'
+import CustomSelectInput from 'components/common/CustomSelectInput'
+import IntlMessages from 'helpers/IntlMessages'
 
-import { addTodoItem } from 'redux/actions';
+import { addTodoItem } from 'redux/actions'
 
 const initialState = {
   title: '',
@@ -22,7 +22,7 @@ const initialState = {
   label: {},
   category: {},
   status: 'PENDING',
-};
+}
 
 const AddNewTodoModal = ({
   modalOpen,
@@ -31,7 +31,7 @@ const AddNewTodoModal = ({
   categories,
   addTodoItemAction,
 }) => {
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState(initialState)
 
   const addNetItem = () => {
     const newItem = {
@@ -41,11 +41,11 @@ const AddNewTodoModal = ({
       labelColor: state.label.color,
       category: state.category.value,
       status: state.status,
-    };
-    addTodoItemAction(newItem);
-    toggleModal();
-    setState(initialState);
-  };
+    }
+    addTodoItemAction(newItem)
+    toggleModal()
+    setState(initialState)
+  }
 
   return (
     <Modal
@@ -88,7 +88,7 @@ const AddNewTodoModal = ({
           classNamePrefix="react-select"
           name="form-field-name"
           options={categories.map((x, i) => {
-            return { label: x, value: x, key: i };
+            return { label: x, value: x, key: i }
           })}
           value={state.category}
           onChange={(val) => setState({ ...state, category: val })}
@@ -107,7 +107,7 @@ const AddNewTodoModal = ({
               value: x.label,
               key: i,
               color: x.color,
-            };
+            }
           })}
           value={state.label}
           onChange={(val) => setState({ ...state, label: val })}
@@ -152,16 +152,16 @@ const AddNewTodoModal = ({
         </Button>{' '}
       </ModalFooter>
     </Modal>
-  );
-};
+  )
+}
 
 const mapStateToProps = ({ todoApp }) => {
-  const { labels, categories } = todoApp;
+  const { labels, categories } = todoApp
   return {
     labels,
     categories,
-  };
-};
+  }
+}
 export default connect(mapStateToProps, {
   addTodoItemAction: addTodoItem,
-})(AddNewTodoModal);
+})(AddNewTodoModal)

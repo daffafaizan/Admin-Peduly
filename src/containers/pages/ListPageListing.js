@@ -1,13 +1,13 @@
-import React from 'react';
-import { Row } from 'reactstrap';
-import Pagination from './Pagination';
-import ContextMenuContainer from './ContextMenuContainer';
-import DataListView from './DataListView';
-import ImageListView from './ImageListView';
-import ThumbListView from './ThumbListView';
+import React from 'react'
+import { Row } from 'reactstrap'
+import Pagination from './Pagination'
+import ContextMenuContainer from './ContextMenuContainer'
+import DataListView from './DataListView'
+import ImageListView from './ImageListView'
+import ThumbListView from './ThumbListView'
 
 function collect(props) {
-  return { data: props.data };
+  return { data: props.data }
 }
 
 const ListPageListing = ({
@@ -33,7 +33,7 @@ const ListPageListing = ({
               collect={collect}
               onCheckItem={onCheckItem}
             />
-          );
+          )
         }
         if (displayMode === 'thumblist') {
           return (
@@ -44,7 +44,7 @@ const ListPageListing = ({
               collect={collect}
               onCheckItem={onCheckItem}
             />
-          );
+          )
         }
         return (
           <DataListView
@@ -54,7 +54,7 @@ const ListPageListing = ({
             onCheckItem={onCheckItem}
             collect={collect}
           />
-        );
+        )
       })}
       <Pagination
         currentPage={currentPage}
@@ -66,7 +66,7 @@ const ListPageListing = ({
         onContextMenu={onContextMenu}
       />
     </Row>
-  );
-};
+  )
+}
 
-export default React.memo(ListPageListing);
+export default React.memo(ListPageListing)

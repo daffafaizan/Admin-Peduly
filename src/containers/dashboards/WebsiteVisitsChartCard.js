@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Card,
   CardBody,
@@ -6,12 +6,12 @@ import {
   DropdownItem,
   DropdownToggle,
   DropdownMenu,
-} from 'reactstrap';
+} from 'reactstrap'
 
-import IntlMessages from 'helpers/IntlMessages';
-import { AreaChart } from 'components/charts';
+import IntlMessages from 'helpers/IntlMessages'
+import { AreaChart } from 'components/charts'
 
-import { areaChartData } from 'data/charts';
+import { areaChartData } from 'data/charts'
 
 const WebsiteVisitsChartCard = ({ className = '', controls = true }) => {
   return (
@@ -50,7 +50,7 @@ const WebsiteVisitsChartCard = ({ className = '', controls = true }) => {
         <AreaChart shadow data={areaChartData} />
       </div>
     </Card>
-  );
-};
+  )
+}
 
-export default WebsiteVisitsChartCard;
+export default WebsiteVisitsChartCard

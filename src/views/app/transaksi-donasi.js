@@ -1,24 +1,26 @@
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable import/no-unresolved */
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect } from 'react'
 import {
   Row,
   Card,
   CardBody,
   Table,
-  Badge,
+  // Badge,
   UncontrolledDropdown,
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
-} from 'reactstrap';
-import { Colxx, Separator } from 'components/common/CustomBootstrap';
-import IntlMessages from 'helpers/IntlMessages';
+} from 'reactstrap'
+import { Colxx, Separator } from 'components/common/CustomBootstrap'
+import IntlMessages from 'helpers/IntlMessages'
 // import transaksi from 'data/transaksi-donasi';
-import { orderData } from 'helpers/Utils';
-import axios from 'axios';
-import transaksi from 'data/transaksi-donasi';
-import Pagination from 'containers/pages/Pagination';
+import { orderData } from 'helpers/Utils'
+import axios from 'axios'
+import transaksi from 'data/transaksi-donasi'
+// import Pagination from 'containers/pages/Pagination';
+import IdrFormat from 'helpers/IdrFormat'
+import DateFormat from 'helpers/DateFormat'
 // import axios from 'axios';
 
 const orderOptions = [
@@ -26,55 +28,57 @@ const orderOptions = [
   { label: `Terlama` },
   { label: `Paling Tinggi` },
   { label: `Paling Rendah` },
-];
+]
 
-const pageSizes = [4, 8, 12, 20];
+const pageSizes = [4, 8, 12, 20]
 
-const initialData = orderData('Terbaru', transaksi);
+const initialData = orderData('Terbaru', transaksi)
 
 const TransaksiDonasi = () => {
-  const [selectedOrder, setSelectedOrder] = useState('Terbaru');
-  const [data, setData] = useState([]);
-  const [search, setSearch] = useState('');
+  const [selectedOrder, setSelectedOrder] = useState('Terbaru')
+  const [data, setData] = useState([])
+  const [search, setSearch] = useState('')
+  const [status] = useState(true)
 
   const handleChange = (e) => {
-    e.preventDefault();
-    setSearch(e.target.value);
-  };
+    e.preventDefault()
+    setSearch(e.target.value)
+  }
 
   useEffect(() => {
     // eslint-disable-next-line no-use-before-define
-    getData();
-  }, []);
+    getData()
+  }, [])
 
   const getData = async () => {
-    const response = await axios.get('https://dev.peduly.com/api/galangdana');
-    setData(response.data.data);
-  };
+    const response = await axios.get('https://api.peduly.com/api/galangdana')
+    setData(response.data.data)
+    // console.log(response.data.data[0].item.status_donasi);
+  }
 
   const handleOrder = (option) => {
-    const array = orderData(option, initialData);
-    setData(array);
-    setSelectedOrder(option);
-  };
+    const array = orderData(option, initialData)
+    setData(array)
+    setSelectedOrder(option)
+  }
 
-  const statusColor = (status) => {
-    if (status === `Approved`) {
-      return `success`;
-    }
+  // const statusColor = (status) => {
+  //   if (status === `Approved`) {
+  //     return `success`;
+  //   }
 
-    if (status === `Pending`) {
-      return `warning`;
-    }
+  //   if (status === `Pending`) {
+  //     return `warning`;
+  //   }
 
-    return `danger`;
-  };
+  //   return `danger`;
+  // };
 
   return (
     <>
       <Row>
         <Colxx xxs="12">
-          <h1>Transaksi Donasi</h1>
+          <h1>Semua Transaksi</h1>
           <Separator className="mb-3" />
         </Colxx>
       </Row>
@@ -94,7 +98,7 @@ const TransaksiDonasi = () => {
                     >
                       {order.label}
                     </DropdownItem>
-                  );
+                  )
                 })}
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -123,7 +127,7 @@ const TransaksiDonasi = () => {
                     <DropdownItem key={index} onClick="">
                       {size}
                     </DropdownItem>
-                  );
+                  )
                 })}
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -132,20 +136,20 @@ const TransaksiDonasi = () => {
       </Row>
       <Row>
         <Colxx xs="12" className="mb-4">
-          <Card className="mb-4">
-            <CardBody>
+          <Card className="mb-4" style={{ borderRadius: '15px' }}>
+            <CardBody style={{ padding: '24px' }}>
               <Table hover responsive>
                 <thead>
                   <tr>
-                    <th>#</th>
-                    <th>Nama</th>
-                    <th>User</th>
-                    <th>Tanggal</th>
-                    <th>ID Transaksi</th>
-                    <th>ID GD</th>
-                    <th>Nominal</th>
-                    <th>Metode</th>
-                    <th>Status</th>
+                    <th style={{ borderTop: '0px' }}>#</th>
+                    <th style={{ borderTop: '0px' }}>Nama</th>
+                    <th style={{ borderTop: '0px' }}>User</th>
+                    <th style={{ borderTop: '0px' }}>Tanggal</th>
+                    <th style={{ borderTop: '0px' }}>ID Transaksi</th>
+                    <th style={{ borderTop: '0px' }}>ID GD</th>
+                    <th style={{ borderTop: '0px' }}>Nominal</th>
+                    <th style={{ borderTop: '0px' }}>Metode</th>
+                    <th style={{ borderTop: '0px' }}>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -156,21 +160,90 @@ const TransaksiDonasi = () => {
                     .map((item) => (
                       <tr key={item.id}>
                         <td>{item.id}</td>
-                        <td>{item.judul_campaign}</td>
-                        <td>
-                          <Badge color="success" pill>
-                            Terdaftar
-                          </Badge>
+                        <td style={{ maxWidth: '150px' }}>
+                          {item.judul_campaign}
                         </td>
-                        <td>{item.created_at}</td>
-                        <td>{item.kode_donasi}</td>
-                        <td>{item.campaign_id}</td>
-                        <td>{item.nominal_campaign}</td>
-                        <td>{item.metode_pembayaran}</td>
                         <td>
-                          <Badge color={statusColor(item.status_donasi)} pill>
-                            {item.status_donasi}
-                          </Badge>
+                          {status ? (
+                            <p
+                              className="text-success text-center rounded"
+                              style={{
+                                padding: '3px 12px',
+                                border: '1px solid #28a745',
+                                maxWidth: '85px',
+                              }}
+                            >
+                              Terdaftar
+                            </p>
+                          ) : (
+                            <p
+                              className="text-center rounded"
+                              style={{
+                                color: '#E7513B',
+                                padding: '3px 12px',
+                                border: '1px solid #E7513B',
+                                maxWidth: '61px',
+                              }}
+                            >
+                              Tidak
+                            </p>
+                          )}
+                        </td>
+                        <td>{DateFormat(item.created_at)}</td>
+                        <td>
+                          {/* {item.kode_donasi} */}
+                          INV83452879
+                        </td>
+                        <td>
+                          {/* {item.campaign_id} */}
+                          10553
+                        </td>
+                        <td>
+                          {/* {item.nominal_campaign} */}
+                          Rp {IdrFormat(item.nominal_campaign)}
+                        </td>
+                        <td>
+                          {item.metode_pembayaran}
+                          Gopay
+                        </td>
+                        <td>
+                          {/* {item.status_donasi} */}
+                          {true && (
+                            <p
+                              className="text-success rounded text-center"
+                              style={{
+                                background: 'rgba(52, 168, 83, 0.2)',
+                                padding: '3px 12px',
+                                maxWidth: '77px',
+                              }}
+                            >
+                              Berhasil
+                            </p>
+                          )}
+                          {false && (
+                            <p
+                              className="text-warning rounded text-center"
+                              style={{
+                                background: 'rgba(252, 174, 3, 0.2)',
+                                padding: '3px 12px',
+                                maxWidth: '80px',
+                              }}
+                            >
+                              pending
+                            </p>
+                          )}
+                          {false && (
+                            <p
+                              className="text-danger rounded text-center"
+                              style={{
+                                background: 'rgba(231, 81, 59, 0.2)',
+                                padding: '3px 12px',
+                                maxWidth: '94px',
+                              }}
+                            >
+                              Dibatalkan
+                            </p>
+                          )}
                         </td>
                       </tr>
                     ))}
@@ -179,10 +252,10 @@ const TransaksiDonasi = () => {
             </CardBody>
           </Card>
         </Colxx>
-        <Pagination totalPage={10} currentPage={1} numberLimit={2} />
+        {/* <Pagination totalPage={10} currentPage={1} numberLimit={1} /> */}
       </Row>
     </>
-  );
-};
+  )
+}
 
-export default TransaksiDonasi;
+export default TransaksiDonasi

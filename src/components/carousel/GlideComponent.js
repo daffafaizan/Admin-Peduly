@@ -1,58 +1,58 @@
 // eslint-disable react/forbid-prop-types
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import Glide from '@glidejs/glide';
-import { getDirection } from 'helpers/Utils';
-import '@glidejs/glide/dist/css/glide.core.min.css';
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
+import Glide from '@glidejs/glide'
+import { getDirection } from 'helpers/Utils'
+import '@glidejs/glide/dist/css/glide.core.min.css'
 
-let resizeTimeOut = -1;
-let mountTimeOut = -1;
+let resizeTimeOut = -1
+let mountTimeOut = -1
 
 function GlideComponent(props) {
-  let carousel;
-  let glideCarousel;
+  let carousel
+  let glideCarousel
 
   const onResize = () => {
-    clearTimeout(resizeTimeOut);
+    clearTimeout(resizeTimeOut)
     resizeTimeOut = setTimeout(() => {
-      glideCarousel.update();
-      resizeTimeOut = -1;
-    }, 500);
-  };
+      glideCarousel.update()
+      resizeTimeOut = -1
+    }, 500)
+  }
 
   const initGlide = () => {
     glideCarousel = new Glide(carousel, {
       ...props.settings,
       direction: getDirection().direction,
-    });
-    glideCarousel.mount();
-    glideCarousel.on('resize', onResize);
+    })
+    glideCarousel.mount()
+    glideCarousel.on('resize', onResize)
     mountTimeOut = setTimeout(() => {
-      const event = document.createEvent('HTMLEvents');
-      event.initEvent('resize', false, false);
-      window.dispatchEvent(event);
-    }, 500);
-  };
+      const event = document.createEvent('HTMLEvents')
+      event.initEvent('resize', false, false)
+      window.dispatchEvent(event)
+    }, 500)
+  }
 
   const destroyGlide = () => {
-    clearTimeout(resizeTimeOut);
-    clearTimeout(mountTimeOut);
+    clearTimeout(resizeTimeOut)
+    clearTimeout(mountTimeOut)
     if (glideCarousel) {
-      glideCarousel.destroy();
+      glideCarousel.destroy()
     }
-  };
+  }
 
   useEffect(() => {
-    initGlide();
+    initGlide()
     return () => {
-      destroyGlide();
-    };
+      destroyGlide()
+    }
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  }, []);
+  }, [])
 
   const renderDots = () => {
-    const total = React.Children.count(props.children);
-    const dots = [];
+    const total = React.Children.count(props.children)
+    const dots = []
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < total; i++) {
       dots.push(
@@ -62,10 +62,10 @@ function GlideComponent(props) {
           key={i}
           data-glide-dir={`=${i}`}
         />
-      );
+      )
     }
-    return dots;
-  };
+    return dots
+  }
 
   return (
     <div>
@@ -104,12 +104,12 @@ function GlideComponent(props) {
         )}
       </div>
     </div>
-  );
+  )
 }
 
 GlideComponent.defaultProps = {
   settings: {},
-};
+}
 
 GlideComponent.propTypes = {
   settings: PropTypes.shape({
@@ -142,6 +142,6 @@ GlideComponent.propTypes = {
   }),
   // id: PropTypes.string,
   // className: PropTypes.string,
-};
+}
 
-export default GlideComponent;
+export default GlideComponent

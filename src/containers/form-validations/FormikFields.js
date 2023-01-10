@@ -1,19 +1,18 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/label-has-for */
+
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable max-classes-per-file */
-import React from 'react';
-import Select from 'react-select';
-import { CustomInput } from 'reactstrap';
+import React from 'react'
+import Select from 'react-select'
+import { CustomInput } from 'reactstrap'
 
-import TagsInput from 'react-tagsinput';
-import 'react-tagsinput/react-tagsinput.css';
-import Switch from 'rc-switch';
-import 'rc-switch/assets/index.css';
+import TagsInput from 'react-tagsinput'
+import 'react-tagsinput/react-tagsinput.css'
+import Switch from 'rc-switch'
+import 'rc-switch/assets/index.css'
 
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 const FormikReactSelect = ({
   name,
@@ -25,12 +24,12 @@ const FormikReactSelect = ({
   onBlur,
 }) => {
   const handleChange = (val) => {
-    onChange(name, val);
-  };
+    onChange(name, val)
+  }
 
   const handleBlur = () => {
-    onBlur(name, true);
-  };
+    onBlur(name, true)
+  }
 
   return (
     <Select
@@ -42,8 +41,8 @@ const FormikReactSelect = ({
       onBlur={handleBlur}
       value={value}
     />
-  );
-};
+  )
+}
 
 const FormikCheckboxGroup = ({
   name,
@@ -54,18 +53,18 @@ const FormikCheckboxGroup = ({
   onBlur,
 }) => {
   const handleChange = (val) => {
-    const valueArray = [...value] || [];
+    const valueArray = [...value] || []
     if (!valueArray.includes(val)) {
-      valueArray.push(val);
+      valueArray.push(val)
     } else {
-      valueArray.splice(valueArray.indexOf(val), 1);
+      valueArray.splice(valueArray.indexOf(val), 1)
     }
-    onChange(name, valueArray);
-  };
+    onChange(name, valueArray)
+  }
 
   const handleBlur = () => {
-    onBlur(name, true);
-  };
+    onBlur(name, true)
+  }
 
   return (
     <>
@@ -88,11 +87,11 @@ const FormikCheckboxGroup = ({
             />
             <label className="form-check-label">{child.label}</label>
           </div>
-        );
+        )
       })}
     </>
-  );
-};
+  )
+}
 
 const FormikCustomCheckboxGroup = ({
   name,
@@ -103,18 +102,18 @@ const FormikCustomCheckboxGroup = ({
   onBlur,
 }) => {
   const handleChange = (val) => {
-    const valueArray = [...value] || [];
+    const valueArray = [...value] || []
     if (!valueArray.includes(val)) {
-      valueArray.push(val);
+      valueArray.push(val)
     } else {
-      valueArray.splice(valueArray.indexOf(val), 1);
+      valueArray.splice(valueArray.indexOf(val), 1)
     }
-    onChange(name, valueArray);
-  };
+    onChange(name, valueArray)
+  }
 
   const handleBlur = () => {
-    onBlur(name, true);
-  };
+    onBlur(name, true)
+  }
 
   return (
     <>
@@ -132,19 +131,19 @@ const FormikCustomCheckboxGroup = ({
             disabled={child.disabled}
             inline={inline}
           />
-        );
+        )
       })}
     </>
-  );
-};
+  )
+}
 
 const FormikCheckbox = ({ name, value, disabled, label, onChange, onBlur }) => {
   const handleChange = (_event) => {
-    onChange(name, !value);
-  };
+    onChange(name, !value)
+  }
   const handleBlur = () => {
-    onBlur(name, true);
-  };
+    onBlur(name, true)
+  }
   return (
     <div className="position-relative form-check form-check-inline">
       <input
@@ -158,8 +157,8 @@ const FormikCheckbox = ({ name, value, disabled, label, onChange, onBlur }) => {
       />
       <label className="form-check-label">{label}</label>
     </div>
-  );
-};
+  )
+}
 
 const FormikCustomCheckbox = ({
   name,
@@ -170,11 +169,11 @@ const FormikCustomCheckbox = ({
   onBlur,
 }) => {
   const handleChange = (_event) => {
-    onChange(name, !value);
-  };
+    onChange(name, !value)
+  }
   const handleBlur = () => {
-    onBlur(name, true);
-  };
+    onBlur(name, true)
+  }
   return (
     <CustomInput
       type="checkbox"
@@ -187,8 +186,8 @@ const FormikCustomCheckbox = ({
       disabled={disabled}
       inline
     />
-  );
-};
+  )
+}
 
 const FormikRadioButtonGroup = ({
   name,
@@ -199,12 +198,12 @@ const FormikRadioButtonGroup = ({
   onBlur,
 }) => {
   const handleChange = (val) => {
-    onChange(name, val);
-  };
+    onChange(name, val)
+  }
 
   const handleBlur = () => {
-    onBlur(name, true);
-  };
+    onBlur(name, true)
+  }
 
   return (
     <>
@@ -228,11 +227,11 @@ const FormikRadioButtonGroup = ({
             />
             <label className="form-check-label">{child.label}</label>
           </div>
-        );
+        )
       })}
     </>
-  );
-};
+  )
+}
 
 const FormikCustomRadioGroup = ({
   name,
@@ -243,12 +242,12 @@ const FormikCustomRadioGroup = ({
   onBlur,
 }) => {
   const handleChange = (val) => {
-    onChange(name, val);
-  };
+    onChange(name, val)
+  }
 
   const handleBlur = () => {
-    onBlur(name, true);
-  };
+    onBlur(name, true)
+  }
 
   return (
     <>
@@ -266,26 +265,26 @@ const FormikCustomRadioGroup = ({
             disabled={child.disabled}
             inline={inline}
           />
-        );
+        )
       })}
     </>
-  );
-};
+  )
+}
 
 const FormikTagsInput = ({ name, value, onChange, onBlur }) => {
   const handleChange = (val) => {
-    onBlur(name, true);
-    onChange(name, val);
-  };
+    onBlur(name, true)
+    onChange(name, val)
+  }
 
-  return <TagsInput name={name} value={value} onChange={handleChange} />;
-};
+  return <TagsInput name={name} value={value} onChange={handleChange} />
+}
 
 const FormikSwitch = ({ name, value, className, onChange, onBlur }) => {
   const handleChange = (val) => {
-    onBlur(name, true);
-    onChange(name, val);
-  };
+    onBlur(name, true)
+    onChange(name, val)
+  }
 
   return (
     <Switch
@@ -294,17 +293,17 @@ const FormikSwitch = ({ name, value, className, onChange, onBlur }) => {
       checked={value}
       onChange={handleChange}
     />
-  );
-};
+  )
+}
 
 const FormikDatePicker = ({ name, value, className, onChange, onBlur }) => {
   const handleChange = (val) => {
-    onChange(name, val);
-  };
+    onChange(name, val)
+  }
 
   const handleBlur = (_val) => {
-    onBlur(name, true);
-  };
+    onBlur(name, true)
+  }
 
   return (
     <DatePicker
@@ -314,8 +313,8 @@ const FormikDatePicker = ({ name, value, className, onChange, onBlur }) => {
       onChange={handleChange}
       onBlur={handleBlur}
     />
-  );
-};
+  )
+}
 
 export {
   FormikReactSelect,
@@ -328,4 +327,4 @@ export {
   FormikTagsInput,
   FormikSwitch,
   FormikDatePicker,
-};
+}

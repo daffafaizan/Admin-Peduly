@@ -3,15 +3,15 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/display-name */
-import React from 'react';
-import { Card, CardBody, CardTitle } from 'reactstrap';
-import { useTable, usePagination, useSortBy } from 'react-table';
-import classnames from 'classnames';
+import React from 'react'
+import { Card, CardBody, CardTitle } from 'reactstrap'
+import { useTable, usePagination, useSortBy } from 'react-table'
+import classnames from 'classnames'
 
-import IntlMessages from 'helpers/IntlMessages';
-import DatatablePagination from 'components/DatatablePagination';
+import IntlMessages from 'helpers/IntlMessages'
+import DatatablePagination from 'components/DatatablePagination'
 
-import products from 'data/products';
+import products from 'data/products'
 
 function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
   const {
@@ -34,7 +34,7 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
     },
     useSortBy,
     usePagination
-  );
+  )
 
   return (
     <>
@@ -67,7 +67,7 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
 
         <tbody {...getTableBodyProps()}>
           {page.map((row) => {
-            prepareRow(row);
+            prepareRow(row)
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell, cellIndex) => (
@@ -81,7 +81,7 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
                   </td>
                 ))}
               </tr>
-            );
+            )
           })}
         </tbody>
       </table>
@@ -100,7 +100,7 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
         paginationMaxSize={pageCount}
       />
     </>
-  );
+  )
 }
 
 export const ReactTableWithPaginationCard = () => {
@@ -132,7 +132,7 @@ export const ReactTableWithPaginationCard = () => {
       },
     ],
     []
-  );
+  )
 
   return (
     <Card className="mb-4">
@@ -143,8 +143,8 @@ export const ReactTableWithPaginationCard = () => {
         <Table columns={cols} data={products} />
       </CardBody>
     </Card>
-  );
-};
+  )
+}
 
 export const ReactTableDivided = () => {
   const cols = React.useMemo(() => [
@@ -172,7 +172,7 @@ export const ReactTableDivided = () => {
       cellClass: 'text-muted  w-40',
       Cell: (props) => <>{props.value}</>,
     },
-  ]);
+  ])
   return (
     <div className="mb-4">
       <CardTitle>
@@ -180,5 +180,5 @@ export const ReactTableDivided = () => {
       </CardTitle>
       <Table columns={cols} data={products} divided />
     </div>
-  );
-};
+  )
+}

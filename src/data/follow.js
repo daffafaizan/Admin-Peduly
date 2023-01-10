@@ -62,6 +62,6 @@ const follow = [
     large: '/assets/img/profiles/11.jpg',
     key: 9,
   },
-];
+]
 
-export default follow;
+export default follow

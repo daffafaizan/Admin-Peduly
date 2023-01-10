@@ -1,9 +1,9 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
-import React from 'react';
-import { WithWizard } from 'react-albus';
-import { Button } from 'reactstrap';
+import React from 'react'
+import { WithWizard } from 'react-albus'
+import { Button } from 'reactstrap'
 
 const BottomNavigation = ({
   className,
@@ -20,7 +20,7 @@ const BottomNavigation = ({
             color="primary"
             className={`mr-1 ${steps.indexOf(step) <= 0 ? 'disabled' : ''}`}
             onClick={() => {
-              onClickPrev(previous, steps, step);
+              onClickPrev(previous, steps, step)
             }}
           >
             {prevLabel}
@@ -32,7 +32,7 @@ const BottomNavigation = ({
               steps.indexOf(step) >= steps.length - 1 ? 'disabled' : ''
             }
             onClick={() => {
-              onClickNext(next, steps, step);
+              onClickNext(next, steps, step)
             }}
           >
             {nextLabel}
@@ -40,6 +40,6 @@ const BottomNavigation = ({
         </div>
       )}
     />
-  );
-};
-export default BottomNavigation;
+  )
+}
+export default BottomNavigation

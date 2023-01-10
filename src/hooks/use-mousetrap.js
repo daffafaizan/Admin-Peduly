@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
-import mousetrap from 'mousetrap';
-import { useEffect, useRef } from 'react';
+import mousetrap from 'mousetrap'
+import { useEffect, useRef } from 'react'
 
 /**
  * Use mousetrap hook
@@ -9,16 +9,16 @@ import { useEffect, useRef } from 'react';
  * @param  { function } handlerCallback - A function that is triggered on key combo catch.
  */
 export default (handlerKey, handlerCallback) => {
-  const actionRef = useRef(null);
-  actionRef.current = handlerCallback;
+  const actionRef = useRef(null)
+  actionRef.current = handlerCallback
 
   useEffect(() => {
     mousetrap.bind(handlerKey, (evt, combo) => {
-      typeof actionRef.current === 'function' && actionRef.current(evt, combo);
-      evt.preventDefault();
-    });
+      typeof actionRef.current === 'function' && actionRef.current(evt, combo)
+      evt.preventDefault()
+    })
     return () => {
-      mousetrap.unbind(handlerKey);
-    };
-  }, [handlerKey]);
-};
+      mousetrap.unbind(handlerKey)
+    }
+  }, [handlerKey])
+}

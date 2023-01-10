@@ -1,12 +1,12 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import { Card, CardBody, CardTitle, Badge } from 'reactstrap';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import { Card, CardBody, CardTitle, Badge } from 'reactstrap'
 
-import IntlMessages from 'helpers/IntlMessages';
-import data from 'data/products';
-import { adminRoot } from 'constants/defaultValues';
+import IntlMessages from 'helpers/IntlMessages'
+import data from 'data/products'
+import { adminRoot } from 'constants/defaultValues'
 
 const RecentOrders = () => {
   return (
@@ -60,12 +60,12 @@ const RecentOrders = () => {
                     </NavLink>
                   </div>
                 </div>
-              );
+              )
             })}
           </PerfectScrollbar>
         </div>
       </CardBody>
     </Card>
-  );
-};
-export default RecentOrders;
+  )
+}
+export default RecentOrders

@@ -1,33 +1,33 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { Formik, Form, Field } from 'formik';
+import React from 'react'
+import { Formik, Form, Field } from 'formik'
 
-import { Row, Card, CardBody, FormGroup, Label, Button } from 'reactstrap';
-import { Colxx } from 'components/common/CustomBootstrap';
+import { Row, Card, CardBody, FormGroup, Label, Button } from 'reactstrap'
+import { Colxx } from 'components/common/CustomBootstrap'
 
 const FormikBasicFormLevel = () => {
   const onSubmit = (values) => {
-    console.log(values);
-  };
+    console.log(values)
+  }
 
   const validate = (values) => {
-    const errors = {};
+    const errors = {}
 
     if (!values.email) {
-      errors.email = 'Please enter your email address';
+      errors.email = 'Please enter your email address'
     } else if (
       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
     ) {
-      errors.email = 'Invalid email address';
+      errors.email = 'Invalid email address'
     }
 
     if (!values.name) {
-      errors.name = 'Please enter your name';
+      errors.name = 'Please enter your name'
     } else if (values.name === 'admin') {
-      errors.name = 'Value must be longer than 2 characters';
+      errors.name = 'Value must be longer than 2 characters'
     }
-    return errors;
-  };
+    return errors
+  }
 
   return (
     <Row className="mb-4">
@@ -75,7 +75,7 @@ const FormikBasicFormLevel = () => {
         </Card>
       </Colxx>
     </Row>
-  );
-};
+  )
+}
 
-export default FormikBasicFormLevel;
+export default FormikBasicFormLevel

@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 
 import {
   AvForm,
   AvGroup,
   AvInput,
   AvFeedback,
-} from 'availity-reactstrap-validation';
-import { Button, Label, Card, CardBody, Row } from 'reactstrap';
-import { Colxx } from 'components/common/CustomBootstrap';
+} from 'availity-reactstrap-validation'
+import { Button, Label, Card, CardBody, Row } from 'reactstrap'
+import { Colxx } from 'components/common/CustomBootstrap'
 
 const TooltipLocations = () => {
   return (
@@ -165,7 +165,7 @@ const TooltipLocations = () => {
         </AvForm>
       </CardBody>
     </Card>
-  );
-};
+  )
+}
 
-export default TooltipLocations;
+export default TooltipLocations

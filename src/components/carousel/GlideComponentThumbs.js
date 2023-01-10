@@ -1,118 +1,118 @@
-import React, { useEffect, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
-import Glide from '@glidejs/glide';
-import { getDirection } from 'helpers/Utils';
-import '@glidejs/glide/dist/css/glide.core.min.css';
-import '@glidejs/glide/dist/css/glide.theme.min.css';
+import React, { useEffect, useState, useRef } from 'react'
+import PropTypes from 'prop-types'
+import Glide from '@glidejs/glide'
+import { getDirection } from 'helpers/Utils'
+import '@glidejs/glide/dist/css/glide.core.min.css'
+import '@glidejs/glide/dist/css/glide.theme.min.css'
 
-let resizeTimeOut = -1;
-let mountTimeOut = -1;
+let resizeTimeOut = -1
+let mountTimeOut = -1
 
 const defaultProps = {
   settingsImages: {},
   settingsThumbs: {},
-};
+}
 
-let carouselImages;
-let carouselThumbs;
+let carouselImages
+let carouselThumbs
 
 function GlideComponentThumbs(props = defaultProps) {
-  const glideCarouselImages = useRef(null);
-  const glideCarouselThumbs = useRef(null);
+  const glideCarouselImages = useRef(null)
+  const glideCarouselThumbs = useRef(null)
   // eslint-disable-next-line react/destructuring-assignment
-  const total = props.settingsImages.data.length;
+  const total = props.settingsImages.data.length
 
-  const [activeIndex, setactiveIndex] = useState(0);
+  const [activeIndex, setactiveIndex] = useState(0)
   const [thumbsPerView, setThumbsPerView] = useState(
     // eslint-disable-next-line react/destructuring-assignment
     Math.min(props.settingsThumbs.perView, props.settingsImages.data.length)
-  );
-  const [renderArrows, setRenderArrows] = useState(true);
+  )
+  const [renderArrows, setRenderArrows] = useState(true)
 
   const updateThumbBreakpoints = () => {
-    const thumbBreakpoints = props.settingsThumbs.breakpoints;
-    const newBreakpoints = {};
+    const thumbBreakpoints = props.settingsThumbs.breakpoints
+    const newBreakpoints = {}
     // eslint-disable-next-line guard-for-in,no-restricted-syntax
     for (const prop in thumbBreakpoints) {
       newBreakpoints[prop] = {
         perView: Math.min(thumbBreakpoints[prop].perView, total),
-      };
+      }
     }
     // eslint-disable-next-line no-param-reassign
-    props.settingsThumbs.breakpoints = newBreakpoints;
-  };
+    props.settingsThumbs.breakpoints = newBreakpoints
+  }
 
   const thumbsResize = () => {
     const perView = Math.min(
       props.settingsThumbs.perView,
       props.settingsImages.data.length
-    );
-    setThumbsPerView(perView);
+    )
+    setThumbsPerView(perView)
     if (total <= perView) {
-      setRenderArrows(false);
+      setRenderArrows(false)
     }
-  };
+  }
 
   const imagesSwipeEnd = () => {
-    const gap = carouselThumbs.index + thumbsPerView;
-    setactiveIndex(carouselImages.index);
+    const gap = carouselThumbs.index + thumbsPerView
+    setactiveIndex(carouselImages.index)
     if (activeIndex >= gap) {
-      carouselThumbs.go('>');
+      carouselThumbs.go('>')
     }
     if (activeIndex < carouselThumbs.index) {
-      carouselThumbs.go('<');
+      carouselThumbs.go('<')
     }
-  };
+  }
 
   const onResize = () => {
-    clearTimeout(resizeTimeOut);
+    clearTimeout(resizeTimeOut)
     resizeTimeOut = setTimeout(() => {
-      carouselImages.update();
-      carouselThumbs.update();
-      clearTimeout(resizeTimeOut);
-    }, 500);
-  };
+      carouselImages.update()
+      carouselThumbs.update()
+      clearTimeout(resizeTimeOut)
+    }, 500)
+  }
 
   const onThumbClick = (index) => {
-    setactiveIndex(index);
-    carouselImages.go(`=${index}`);
-  };
+    setactiveIndex(index)
+    carouselImages.go(`=${index}`)
+  }
 
   useEffect(() => {
     /* glideCarouselImages init */
     carouselImages = new Glide(glideCarouselImages.current, {
       ...props.settingsImages,
       direction: getDirection().direction,
-    });
-    carouselImages.mount();
+    })
+    carouselImages.mount()
     // eslint-disable-next-line no-use-before-define
-    carouselImages.on('swipe.end', imagesSwipeEnd);
+    carouselImages.on('swipe.end', imagesSwipeEnd)
 
     /* glideCarouselThumbs init */
     carouselThumbs = new Glide(glideCarouselThumbs.current, {
       ...props.settingsThumbs,
       direction: getDirection().direction,
-    });
-    carouselThumbs.mount();
-    carouselThumbs.on('resize', thumbsResize);
+    })
+    carouselThumbs.mount()
+    carouselThumbs.on('resize', thumbsResize)
 
     mountTimeOut = setTimeout(() => {
-      const event = document.createEvent('HTMLEvents');
-      event.initEvent('resize', false, false);
-      window.dispatchEvent(event);
-      carouselImages.on('resize', onResize);
-    }, 500);
+      const event = document.createEvent('HTMLEvents')
+      event.initEvent('resize', false, false)
+      window.dispatchEvent(event)
+      carouselImages.on('resize', onResize)
+    }, 500)
 
-    updateThumbBreakpoints();
+    updateThumbBreakpoints()
 
     return () => {
-      clearTimeout(resizeTimeOut);
-      clearTimeout(mountTimeOut);
-      carouselImages.destroy();
-      carouselThumbs.destroy();
-    };
+      clearTimeout(resizeTimeOut)
+      clearTimeout(mountTimeOut)
+      carouselImages.destroy()
+      carouselThumbs.destroy()
+    }
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
-  }, []);
+  }, [])
 
   return (
     <div>
@@ -131,7 +131,7 @@ function GlideComponentThumbs(props = defaultProps) {
                     />
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
         </div>
@@ -143,7 +143,6 @@ function GlideComponentThumbs(props = defaultProps) {
             {/* eslint-disable-next-line react/destructuring-assignment */}
             {props.settingsThumbs.data.map((item, index) => {
               return (
-                // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
                 <div
                   className={
                     index === activeIndex
@@ -152,7 +151,7 @@ function GlideComponentThumbs(props = defaultProps) {
                   }
                   key={item.id}
                   onClick={() => {
-                    onThumbClick(index);
+                    onThumbClick(index)
                   }}
                 >
                   <img
@@ -161,7 +160,7 @@ function GlideComponentThumbs(props = defaultProps) {
                     className="responsive border-0 border-radius img-fluid"
                   />
                 </div>
-              );
+              )
             })}
           </div>
         </div>
@@ -186,13 +185,13 @@ function GlideComponentThumbs(props = defaultProps) {
         )}
       </div>
     </div>
-  );
+  )
 }
 
 GlideComponentThumbs.defaultProps = {
   settingsImages: {},
   settingsThumbs: {},
-};
+}
 
 GlideComponentThumbs.propTypes = {
   settingsImages: PropTypes.shape({
@@ -257,6 +256,6 @@ GlideComponentThumbs.propTypes = {
   }),
   // id: PropTypes.string,
   // className: PropTypes.string,
-};
+}
 
-export default GlideComponentThumbs;
+export default GlideComponentThumbs

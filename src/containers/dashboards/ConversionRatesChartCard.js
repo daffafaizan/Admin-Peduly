@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Card,
   CardBody,
@@ -6,12 +6,12 @@ import {
   DropdownItem,
   DropdownToggle,
   DropdownMenu,
-} from 'reactstrap';
+} from 'reactstrap'
 
-import IntlMessages from 'helpers/IntlMessages';
-import { AreaChart } from 'components/charts';
+import IntlMessages from 'helpers/IntlMessages'
+import { AreaChart } from 'components/charts'
 
-import { conversionChartData } from 'data/charts';
+import { conversionChartData } from 'data/charts'
 
 const ConversionRatesChartCard = () => {
   return (
@@ -49,7 +49,7 @@ const ConversionRatesChartCard = () => {
         <AreaChart shadow data={conversionChartData} />
       </div>
     </Card>
-  );
-};
+  )
+}
 
-export default ConversionRatesChartCard;
+export default ConversionRatesChartCard

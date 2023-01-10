@@ -1,12 +1,12 @@
 /* eslint-disable no-alert */
-import React from 'react';
-import { Card, CardBody, CardTitle, Button, CardSubtitle } from 'reactstrap';
-import IntlMessages from 'helpers/IntlMessages';
-import { NotificationManager } from 'components/common/react-notifications';
+import React from 'react'
+import { Card, CardBody, CardTitle, Button, CardSubtitle } from 'reactstrap'
+import IntlMessages from 'helpers/IntlMessages'
+import { NotificationManager } from 'components/common/react-notifications'
 
 const NotificationExamples = () => {
   const createNotification = (type, className) => {
-    const cName = className || '';
+    const cName = className || ''
     switch (type) {
       case 'primary':
         NotificationManager.primary(
@@ -16,8 +16,8 @@ const NotificationExamples = () => {
           null,
           null,
           cName
-        );
-        break;
+        )
+        break
       case 'secondary':
         NotificationManager.secondary(
           'This is a notification!',
@@ -26,11 +26,11 @@ const NotificationExamples = () => {
           null,
           null,
           cName
-        );
-        break;
+        )
+        break
       case 'info':
-        NotificationManager.info('Info message', '', 3000, null, null, cName);
-        break;
+        NotificationManager.info('Info message', '', 3000, null, null, cName)
+        break
       case 'success':
         NotificationManager.success(
           'Success message',
@@ -39,8 +39,8 @@ const NotificationExamples = () => {
           null,
           null,
           cName
-        );
-        break;
+        )
+        break
       case 'warning':
         NotificationManager.warning(
           'Warning message',
@@ -49,25 +49,25 @@ const NotificationExamples = () => {
           null,
           null,
           cName
-        );
-        break;
+        )
+        break
       case 'error':
         NotificationManager.error(
           'Error message',
           'Click me!',
           5000,
           () => {
-            alert('callback');
+            alert('callback')
           },
           null,
           cName
-        );
-        break;
+        )
+        break
       default:
-        NotificationManager.info('Info message');
-        break;
+        NotificationManager.info('Info message')
+        break
     }
-  };
+  }
 
   return (
     <Card>
@@ -173,7 +173,7 @@ const NotificationExamples = () => {
         </Button>
       </CardBody>
     </Card>
-  );
-};
+  )
+}
 
-export default NotificationExamples;
+export default NotificationExamples

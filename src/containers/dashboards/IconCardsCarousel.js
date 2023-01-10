@@ -1,8 +1,8 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
-import IconCard from 'components/cards/IconCard';
-import data from 'data/iconCards';
-import GlideComponent from 'components/carousel/GlideComponent';
+import React from 'react'
+import IconCard from 'components/cards/IconCard'
+import data from 'data/iconCards'
+import GlideComponent from 'components/carousel/GlideComponent'
 
 const IconCardsCarousel = ({ className = 'icon-cards-row' }) => {
   return (
@@ -26,10 +26,10 @@ const IconCardsCarousel = ({ className = 'icon-cards-row' }) => {
             <div key={`icon_card_${index}`}>
               <IconCard {...item} className="mb-4" />
             </div>
-          );
+          )
         })}
       </GlideComponent>
     </div>
-  );
-};
-export default IconCardsCarousel;
+  )
+}
+export default IconCardsCarousel

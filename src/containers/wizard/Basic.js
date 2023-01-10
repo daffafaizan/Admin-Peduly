@@ -1,37 +1,37 @@
 /* eslint-disable no-param-reassign */
-import React, { useState } from 'react';
-import { Card, CardBody, Form, FormGroup, Input, Label } from 'reactstrap';
-import { Wizard, Steps, Step } from 'react-albus';
-import { injectIntl } from 'react-intl';
-import IntlMessages from 'helpers/IntlMessages';
-import BottomNavigation from 'components/wizard/BottomNavigation';
-import TopNavigation from 'components/wizard/TopNavigation';
+import React, { useState } from 'react'
+import { Card, CardBody, Form, FormGroup, Input, Label } from 'reactstrap'
+import { Wizard, Steps, Step } from 'react-albus'
+import { injectIntl } from 'react-intl'
+import IntlMessages from 'helpers/IntlMessages'
+import BottomNavigation from 'components/wizard/BottomNavigation'
+import TopNavigation from 'components/wizard/TopNavigation'
 
 const Basic = ({ intl }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const topNavClick = (stepItem, push) => {
-    push(stepItem.id);
-  };
+    push(stepItem.id)
+  }
 
   const onClickNext = (goToNext, steps, step) => {
-    step.isDone = true;
+    step.isDone = true
     if (steps.length - 1 <= steps.indexOf(step)) {
-      return;
+      return
     }
-    goToNext();
-  };
+    goToNext()
+  }
 
   const onClickPrev = (goToPrev, steps, step) => {
     if (steps.indexOf(step) <= 0) {
-      return;
+      return
     }
-    goToPrev();
-  };
+    goToPrev()
+  }
 
-  const { messages } = intl;
+  const { messages } = intl
   return (
     <Card>
       <CardBody className="wizard wizard-default">
@@ -129,6 +129,6 @@ const Basic = ({ intl }) => {
         </Wizard>
       </CardBody>
     </Card>
-  );
-};
-export default injectIntl(Basic);
+  )
+}
+export default injectIntl(Basic)

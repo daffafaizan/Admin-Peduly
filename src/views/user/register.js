@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   Row,
   Card,
@@ -8,26 +8,26 @@ import {
   Label,
   Input,
   Button,
-} from 'reactstrap';
-import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { registerUser } from 'redux/actions';
+} from 'reactstrap'
+import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { registerUser } from 'redux/actions'
 
-import IntlMessages from 'helpers/IntlMessages';
-import { Colxx } from 'components/common/CustomBootstrap';
-import { adminRoot } from 'constants/defaultValues';
+import IntlMessages from 'helpers/IntlMessages'
+import { Colxx } from 'components/common/CustomBootstrap'
+import { adminRoot } from 'constants/defaultValues'
 
 const Register = ({ history }) => {
-  const [email] = useState('demo@gogo.com');
-  const [password] = useState('gogo123');
-  const [name] = useState('Sarah Kortney');
+  const [email] = useState('demo@gogo.com')
+  const [password] = useState('gogo123')
+  const [name] = useState('Sarah Kortney')
 
   const onUserRegister = () => {
     if (email !== '' && password !== '') {
-      history.push(adminRoot);
+      history.push(adminRoot)
     }
     // call registerUserAction()
-  };
+  }
 
   return (
     <Row className="h-100">
@@ -88,10 +88,10 @@ const Register = ({ history }) => {
         </Card>
       </Colxx>
     </Row>
-  );
-};
-const mapStateToProps = () => {};
+  )
+}
+const mapStateToProps = () => {}
 
 export default connect(mapStateToProps, {
   registerUserAction: registerUser,
-})(Register);
+})(Register)

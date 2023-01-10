@@ -1,6 +1,6 @@
-import React from 'react';
-import { FormGroup, Label, CustomInput, Form } from 'reactstrap';
-import IntlMessages from 'helpers/IntlMessages';
+import React from 'react'
+import { FormGroup, Label, CustomInput, Form } from 'reactstrap'
+import IntlMessages from 'helpers/IntlMessages'
 
 const CustomInputExample = () => {
   return (
@@ -73,7 +73,7 @@ const CustomInputExample = () => {
         </div>
       </FormGroup>
     </Form>
-  );
-};
+  )
+}
 
-export default CustomInputExample;
+export default CustomInputExample

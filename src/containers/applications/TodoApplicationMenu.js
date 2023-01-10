@@ -1,18 +1,14 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
-import { connect } from 'react-redux';
-import { NavItem, Badge } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import classnames from 'classnames';
+import React from 'react'
+import { connect } from 'react-redux'
+import { NavItem, Badge } from 'reactstrap'
+import { NavLink } from 'react-router-dom'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import classnames from 'classnames'
 
-import IntlMessages from 'helpers/IntlMessages';
-import ApplicationMenu from 'components/common/ApplicationMenu';
-import { getTodoListWithFilter } from 'redux/actions';
+import IntlMessages from 'helpers/IntlMessages'
+import ApplicationMenu from 'components/common/ApplicationMenu'
+import { getTodoListWithFilter } from 'redux/actions'
 
 const TodoApplicationMenu = ({
   todoItems,
@@ -24,8 +20,8 @@ const TodoApplicationMenu = ({
   getTodoListWithFilterAction,
 }) => {
   const addFilter = (column, value) => {
-    getTodoListWithFilterAction(column, value);
-  };
+    getTodoListWithFilterAction(column, value)
+  }
 
   return (
     <ApplicationMenu>
@@ -111,7 +107,7 @@ const TodoApplicationMenu = ({
                     </div>
                   </div>
                 </NavItem>
-              );
+              )
             })}
           </ul>
           <p className="text-muted text-small">
@@ -141,24 +137,18 @@ const TodoApplicationMenu = ({
                     </Badge>
                   </NavLink>
                 </p>
-              );
+              )
             })}
           </div>
         </div>
       </PerfectScrollbar>
     </ApplicationMenu>
-  );
-};
+  )
+}
 
 const mapStateToProps = ({ todoApp }) => {
-  const {
-    todoItems,
-    filter,
-    allTodoItems,
-    loading,
-    labels,
-    categories,
-  } = todoApp;
+  const { todoItems, filter, allTodoItems, loading, labels, categories } =
+    todoApp
 
   return {
     todoItems,
@@ -167,8 +157,8 @@ const mapStateToProps = ({ todoApp }) => {
     loading,
     labels,
     categories,
-  };
-};
+  }
+}
 export default connect(mapStateToProps, {
   getTodoListWithFilterAction: getTodoListWithFilter,
-})(TodoApplicationMenu);
+})(TodoApplicationMenu)

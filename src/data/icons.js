@@ -188,7 +188,7 @@ export const simplelineicons = [
   'simple-icon-social-dropbox',
   'simple-icon-social-vkontakte',
   'simple-icon-social-steam',
-];
+]
 export const iconsmind = [
   {
     title: 'Alignment & Paragraph',
@@ -1262,4 +1262,4 @@ export const iconsmind = [
       'iconsminds-sun-cloudy-rain',
     ],
   },
-];
+]

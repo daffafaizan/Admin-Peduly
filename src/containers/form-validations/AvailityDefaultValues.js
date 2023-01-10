@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import {
   AvForm,
@@ -10,8 +10,8 @@ import {
   AvRadio,
   AvCheckboxGroup,
   AvCheckbox,
-} from 'availity-reactstrap-validation';
-import { Button, Label, FormGroup, Card, CardBody } from 'reactstrap';
+} from 'availity-reactstrap-validation'
+import { Button, Label, FormGroup, Card, CardBody } from 'reactstrap'
 
 const defaultValues = {
   locationType: 'work',
@@ -25,16 +25,16 @@ const defaultValues = {
     state: 'Florida',
     zip: '32256',
   },
-};
+}
 
 const AvailityDefaultValues = () => {
   const onSubmit = (event, errors, values) => {
-    console.log(errors);
-    console.log(values);
+    console.log(errors)
+    console.log(values)
     if (errors.length === 0) {
       // submit
     }
-  };
+  }
 
   return (
     <Card className="mb-5">
@@ -84,7 +84,7 @@ const AvailityDefaultValues = () => {
         </AvForm>
       </CardBody>
     </Card>
-  );
-};
+  )
+}
 
-export default AvailityDefaultValues;
+export default AvailityDefaultValues

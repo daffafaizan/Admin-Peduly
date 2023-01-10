@@ -1,10 +1,10 @@
-import React from 'react';
-import { Card, CardBody, CardTitle } from 'reactstrap';
+import React from 'react'
+import { Card, CardBody, CardTitle } from 'reactstrap'
 
-import IntlMessages from 'helpers/IntlMessages';
-import { DoughnutChart } from 'components/charts';
+import IntlMessages from 'helpers/IntlMessages'
+import { DoughnutChart } from 'components/charts'
 
-import { doughnutChartData } from 'data/charts';
+import { doughnutChartData } from 'data/charts'
 
 const ProductCategoriesDoughnut = () => {
   return (
@@ -18,7 +18,7 @@ const ProductCategoriesDoughnut = () => {
         </div>
       </CardBody>
     </Card>
-  );
-};
+  )
+}
 
-export default ProductCategoriesDoughnut;
+export default ProductCategoriesDoughnut

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Row } from 'reactstrap';
-import IntlMessages from 'helpers/IntlMessages';
-import { Colxx, Separator } from 'components/common/CustomBootstrap';
-import Breadcrumb from 'containers/navs/Breadcrumb';
+import React from 'react'
+import { Row } from 'reactstrap'
+import IntlMessages from 'helpers/IntlMessages'
+import { Colxx, Separator } from 'components/common/CustomBootstrap'
+import Breadcrumb from 'containers/navs/Breadcrumb'
 
 const Second = ({ match }) => (
   <>
@@ -20,5 +20,5 @@ const Second = ({ match }) => (
       </Colxx>
     </Row>
   </>
-);
-export default Second;
+)
+export default Second

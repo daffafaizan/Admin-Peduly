@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable import/no-unresolved */
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect } from 'react'
 import {
   Row,
   Card,
@@ -11,14 +11,14 @@ import {
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
-} from 'reactstrap';
-import { Colxx, Separator } from 'components/common/CustomBootstrap';
-import IntlMessages from 'helpers/IntlMessages';
+} from 'reactstrap'
+import { Colxx, Separator } from 'components/common/CustomBootstrap'
+import IntlMessages from 'helpers/IntlMessages'
 // import transaksi from 'data/transaksi-donasi';
-import { orderData } from 'helpers/Utils';
-import axios from 'axios';
-import transaksi from 'data/transaksi-donasi';
-import Pagination from 'containers/pages/Pagination';
+import { orderData } from 'helpers/Utils'
+import axios from 'axios'
+import transaksi from 'data/transaksi-donasi'
+import Pagination from 'containers/pages/Pagination'
 // import axios from 'axios';
 
 const orderOptions = [
@@ -26,49 +26,49 @@ const orderOptions = [
   { label: `Terlama` },
   { label: `Paling Tinggi` },
   { label: `Paling Rendah` },
-];
+]
 
-const pageSizes = [4, 8, 12, 20];
+const pageSizes = [4, 8, 12, 20]
 
-const initialData = orderData('Terbaru', transaksi);
+const initialData = orderData('Terbaru', transaksi)
 
 const SemuaDonasi = () => {
-  const [selectedOrder, setSelectedOrder] = useState('Terbaru');
-  const [data, setData] = useState([]);
-  const [search, setSearch] = useState('');
+  const [selectedOrder, setSelectedOrder] = useState('Terbaru')
+  const [data, setData] = useState([])
+  const [search, setSearch] = useState('')
 
   const handleChange = (e) => {
-    e.preventDefault();
-    setSearch(e.target.value);
-  };
+    e.preventDefault()
+    setSearch(e.target.value)
+  }
 
   useEffect(() => {
     // eslint-disable-next-line no-use-before-define
-    getData();
-  }, []);
+    getData()
+  }, [])
 
   const getData = async () => {
-    const response = await axios.get('https://dev.peduly.com/api/galangdana');
-    setData(response.data.data);
-  };
+    const response = await axios.get('https://dev.peduly.com/api/galangdana')
+    setData(response.data.data)
+  }
 
   const handleOrder = (option) => {
-    const array = orderData(option, initialData);
-    setData(array);
-    setSelectedOrder(option);
-  };
+    const array = orderData(option, initialData)
+    setData(array)
+    setSelectedOrder(option)
+  }
 
   const statusColor = (status) => {
     if (status === `Approved`) {
-      return `success`;
+      return `success`
     }
 
     if (status === `Pending`) {
-      return `warning`;
+      return `warning`
     }
 
-    return `danger`;
-  };
+    return `danger`
+  }
 
   return (
     <>
@@ -94,7 +94,7 @@ const SemuaDonasi = () => {
                     >
                       {order.label}
                     </DropdownItem>
-                  );
+                  )
                 })}
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -123,7 +123,7 @@ const SemuaDonasi = () => {
                     <DropdownItem key={index} onClick="">
                       {size}
                     </DropdownItem>
-                  );
+                  )
                 })}
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -180,7 +180,7 @@ const SemuaDonasi = () => {
         <Pagination totalPage={10} currentPage={1} numberLimit={2} />
       </Row>
     </>
-  );
-};
+  )
+}
 
-export default SemuaDonasi;
+export default SemuaDonasi

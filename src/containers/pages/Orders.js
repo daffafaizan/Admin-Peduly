@@ -1,9 +1,9 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
-import { Row, Card, CardBody, Badge } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
-import { Colxx } from 'components/common/CustomBootstrap';
-import orders from 'data/orders';
+import React from 'react'
+import { Row, Card, CardBody, Badge } from 'reactstrap'
+import { NavLink } from 'react-router-dom'
+import { Colxx } from 'components/common/CustomBootstrap'
+import orders from 'data/orders'
 
 const OrderItem = ({ name, address, date, status, statusColor }) => {
   return (
@@ -28,19 +28,19 @@ const OrderItem = ({ name, address, date, status, statusColor }) => {
         </CardBody>
       </div>
     </Card>
-  );
-};
+  )
+}
 
 const Orders = () => {
   return (
     <Row>
       <Colxx>
         {orders.map((order, index) => {
-          return <OrderItem key={`order_${index}`} {...order} />;
+          return <OrderItem key={`order_${index}`} {...order} />
         })}
       </Colxx>
     </Row>
-  );
-};
+  )
+}
 
-export default Orders;
+export default Orders

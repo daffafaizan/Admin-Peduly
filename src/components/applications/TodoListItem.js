@@ -1,8 +1,8 @@
-import React from 'react';
-import { Card, CardBody, Badge, CustomInput } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+import React from 'react'
+import { Card, CardBody, Badge, CustomInput } from 'reactstrap'
+import { NavLink } from 'react-router-dom'
 
-import { Colxx } from '../common/CustomBootstrap';
+import { Colxx } from '../common/CustomBootstrap'
 
 const TodoListItem = ({ item, handleCheckChange, isSelected }) => {
   return (
@@ -53,7 +53,7 @@ const TodoListItem = ({ item, handleCheckChange, isSelected }) => {
         </div>
       </Card>
     </Colxx>
-  );
-};
+  )
+}
 
-export default React.memo(TodoListItem);
+export default React.memo(TodoListItem)

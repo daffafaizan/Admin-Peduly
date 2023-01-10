@@ -1,4 +1,4 @@
-import { chartTooltip } from './util';
+import { chartTooltip } from './util'
 
 export const lineChartOptions = {
   legend: {
@@ -38,7 +38,7 @@ export const lineChartOptions = {
       },
     ],
   },
-};
+}
 export const polarAreaChartOptions = {
   legend: {
     position: 'bottom',
@@ -61,7 +61,7 @@ export const polarAreaChartOptions = {
     },
   },
   tooltips: chartTooltip,
-};
+}
 
 export const areaChartOptions = {
   legend: {
@@ -96,7 +96,7 @@ export const areaChartOptions = {
       },
     ],
   },
-};
+}
 
 export const scatterChartOptions = {
   legend: {
@@ -177,7 +177,7 @@ export const scatterChartOptions = {
   //     },
   //   ],
   // },
-};
+}
 
 export const barChartOptions = {
   legend: {
@@ -217,7 +217,7 @@ export const barChartOptions = {
     ],
   },
   tooltips: chartTooltip,
-};
+}
 
 export const radarChartOptions = {
   legend: {
@@ -236,7 +236,7 @@ export const radarChartOptions = {
     },
   },
   tooltips: chartTooltip,
-};
+}
 
 export const pieChartOptions = {
   legend: {
@@ -258,7 +258,7 @@ export const pieChartOptions = {
     },
   },
   tooltips: chartTooltip,
-};
+}
 
 export const doughnutChartOptions = {
   legend: {
@@ -281,7 +281,7 @@ export const doughnutChartOptions = {
     },
   },
   tooltips: chartTooltip,
-};
+}
 
 export const smallLineChartOptions = {
   layout: {
@@ -312,4 +312,4 @@ export const smallLineChartOptions = {
       },
     ],
   },
-};
+}

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Card, CardBody } from 'reactstrap';
-import { CircularProgressbar } from 'react-circular-progressbar';
+import React from 'react'
+import { Card, CardBody } from 'reactstrap'
+import { CircularProgressbar } from 'react-circular-progressbar'
 
 const GradientWithRadialProgressCard = ({
   icon = 'iconsminds-bell',
@@ -30,6 +30,6 @@ const GradientWithRadialProgressCard = ({
         </div>
       </CardBody>
     </Card>
-  );
-};
-export default React.memo(GradientWithRadialProgressCard);
+  )
+}
+export default React.memo(GradientWithRadialProgressCard)

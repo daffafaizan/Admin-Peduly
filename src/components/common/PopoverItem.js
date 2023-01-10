@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Button, Popover, PopoverBody } from 'reactstrap';
+import React, { useState } from 'react'
+import { Button, Popover, PopoverBody } from 'reactstrap'
 
 const PopoverItem = ({ id, item }) => {
-  const [popoverOpen, setPopoverOpen] = useState(false);
+  const [popoverOpen, setPopoverOpen] = useState(false)
 
   return (
     <span>
@@ -23,6 +23,6 @@ const PopoverItem = ({ id, item }) => {
         <PopoverBody>{item.body}</PopoverBody>
       </Popover>
     </span>
-  );
-};
-export default PopoverItem;
+  )
+}
+export default PopoverItem

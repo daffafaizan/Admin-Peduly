@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react';
-import Lightbox from 'react-image-lightbox';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react'
+import Lightbox from 'react-image-lightbox'
+import { NavLink } from 'react-router-dom'
 
 const images = [
   '/assets/img/products/fruitcake.jpg',
@@ -10,7 +10,7 @@ const images = [
   '/assets/img/products/magdalena.jpg',
   '/assets/img/products/marble-cake.jpg',
   '/assets/img/products/parkin.jpg',
-];
+]
 
 const thumbs = [
   '/assets/img/products/fruitcake-thumb.jpg',
@@ -19,11 +19,11 @@ const thumbs = [
   '/assets/img/products/magdalena-thumb.jpg',
   '/assets/img/products/marble-cake-thumb.jpg',
   '/assets/img/products/parkin-thumb.jpg',
-];
+]
 
 const GalleryDetail = () => {
-  const [photoIndex, setPhotoIndex] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0)
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div>
@@ -34,8 +34,8 @@ const GalleryDetail = () => {
               <NavLink
                 to="#"
                 onClick={() => {
-                  setPhotoIndex(index);
-                  setIsOpen(true);
+                  setPhotoIndex(index)
+                  setIsOpen(true)
                 }}
                 location={{}}
               >
@@ -46,7 +46,7 @@ const GalleryDetail = () => {
                 />
               </NavLink>
             </div>
-          );
+          )
         })}
       </div>
       {isOpen && (
@@ -64,7 +64,7 @@ const GalleryDetail = () => {
         />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default GalleryDetail;
+export default GalleryDetail

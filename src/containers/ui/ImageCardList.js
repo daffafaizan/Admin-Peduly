@@ -1,16 +1,9 @@
-import React from 'react';
-import {
-  Row,
-  Card,
-  CustomInput,
-  CardTitle,
-  FormGroup,
-  Badge,
-} from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+import React from 'react'
+import { Row, Card, CustomInput, CardTitle, FormGroup, Badge } from 'reactstrap'
+import { NavLink } from 'react-router-dom'
 
-import IntlMessages from 'helpers/IntlMessages';
-import { Colxx } from 'components/common/CustomBootstrap';
+import IntlMessages from 'helpers/IntlMessages'
+import { Colxx } from 'components/common/CustomBootstrap'
 
 const ImageCardList = () => {
   return (
@@ -95,7 +88,7 @@ const ImageCardList = () => {
         </Row>
       </Colxx>
     </Row>
-  );
-};
+  )
+}
 
-export default ImageCardList;
+export default ImageCardList

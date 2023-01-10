@@ -1,7 +1,6 @@
-/* eslint-disable import/no-unresolved */
-import React from 'react';
-import { Nav, NavItem, NavLink } from 'reactstrap';
-import { Colxx } from 'components/common/CustomBootstrap';
+import React from 'react'
+import { Nav, NavItem, NavLink } from 'reactstrap'
+import { Colxx } from 'components/common/CustomBootstrap'
 
 const Pagination = ({
   totalPage = 0,
@@ -11,32 +10,32 @@ const Pagination = ({
   firstIsActive = true,
   onChangePage,
 }) => {
-  let startPoint = 1;
-  let endPoint = numberLimit;
+  let startPoint = 1
+  let endPoint = numberLimit
 
   if (numberLimit > totalPage) {
-    startPoint = 1;
-    endPoint = totalPage;
+    startPoint = 1
+    endPoint = totalPage
   } else if (currentPage <= parseInt(numberLimit / 2, 10)) {
-    startPoint = 1;
-    endPoint = numberLimit;
+    startPoint = 1
+    endPoint = numberLimit
   } else if (currentPage + parseInt(numberLimit / 2, 10) <= totalPage) {
-    startPoint = currentPage - parseInt(numberLimit / 2, 10);
-    endPoint = currentPage + parseInt(numberLimit / 2, 10);
+    startPoint = currentPage - parseInt(numberLimit / 2, 10)
+    endPoint = currentPage + parseInt(numberLimit / 2, 10)
   } else {
-    startPoint = totalPage - (numberLimit - 1);
-    endPoint = totalPage;
+    startPoint = totalPage - (numberLimit - 1)
+    endPoint = totalPage
   }
-  startPoint = startPoint === 0 ? 1 : startPoint;
-  const points = [];
+  startPoint = startPoint === 0 ? 1 : startPoint
+  const points = []
   for (let i = startPoint; i <= endPoint; i += 1) {
-    points.push(i);
+    points.push(i)
   }
 
-  const firstPageButtonClassName = currentPage <= 1 ? 'disabled' : '';
-  const lastPageButtonClassName = currentPage >= totalPage ? 'disabled' : '';
-  const prevPageButtonClassName = currentPage <= 1 ? 'disabled' : '';
-  const nextPageButtonClassName = currentPage >= totalPage ? 'disabled' : '';
+  const firstPageButtonClassName = currentPage <= 1 ? 'disabled' : ''
+  const lastPageButtonClassName = currentPage >= totalPage ? 'disabled' : ''
+  const prevPageButtonClassName = currentPage <= 1 ? 'disabled' : ''
+  const nextPageButtonClassName = currentPage >= totalPage ? 'disabled' : ''
   return totalPage > 1 ? (
     <Colxx xxs="12" className="mt-3 mb-3">
       <Nav className="pagination justify-content-center">
@@ -72,7 +71,7 @@ const Pagination = ({
                 {i}
               </NavLink>
             </NavItem>
-          );
+          )
         })}
         <NavItem className={`page-item ${nextPageButtonClassName}`}>
           <NavLink
@@ -96,7 +95,7 @@ const Pagination = ({
     </Colxx>
   ) : (
     <Colxx xxs="12" className="mt-2" />
-  );
-};
+  )
+}
 
-export default Pagination;
+export default Pagination

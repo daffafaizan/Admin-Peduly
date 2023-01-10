@@ -4,31 +4,31 @@ import {
   SURVEY_GET_DETAILS_ERROR,
   SURVEY_DELETE_QUESTION,
   SURVEY_SAVE,
-} from '../actions';
+} from '../actions'
 
 const INIT_STATE = {
   survey: null,
   loading: false,
-};
+}
 
 export default (state = INIT_STATE, action) => {
   switch (action.type) {
     case SURVEY_GET_DETAILS:
-      return { ...state, loading: false };
+      return { ...state, loading: false }
 
     case SURVEY_GET_DETAILS_SUCCESS:
-      return { ...state, loading: true, survey: action.payload };
+      return { ...state, loading: true, survey: action.payload }
 
     case SURVEY_GET_DETAILS_ERROR:
-      return { ...state, loading: true, error: action.payload };
+      return { ...state, loading: true, error: action.payload }
 
     case SURVEY_DELETE_QUESTION:
-      return { ...state, loading: false };
+      return { ...state, loading: false }
 
     case SURVEY_SAVE:
-      return { ...state, loading: true, survey: action.payload };
+      return { ...state, loading: true, survey: action.payload }
 
     default:
-      return { ...state };
+      return { ...state }
   }
-};
+}

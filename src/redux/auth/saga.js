@@ -1,14 +1,14 @@
-import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-import { auth } from 'helpers/Firebase';
-import { adminRoot, currentUser } from 'constants/defaultValues';
-import { setCurrentUser } from 'helpers/Utils';
+import { all, call, fork, put, takeEvery } from 'redux-saga/effects'
+import { auth } from 'helpers/Firebase'
+import { adminRoot, currentUser } from 'constants/defaultValues'
+import { setCurrentUser } from 'helpers/Utils'
 import {
   LOGIN_USER,
   REGISTER_USER,
   LOGOUT_USER,
   FORGOT_PASSWORD,
   RESET_PASSWORD,
-} from '../actions';
+} from '../actions'
 
 import {
   loginUserSuccess,
@@ -19,11 +19,11 @@ import {
   forgotPasswordError,
   resetPasswordSuccess,
   resetPasswordError,
-} from './actions';
+} from './actions'
 
 export function* watchLoginUser() {
   // eslint-disable-next-line no-use-before-define
-  yield takeEvery(LOGIN_USER, loginWithEmailPassword);
+  yield takeEvery(LOGIN_USER, loginWithEmailPassword)
 }
 
 const loginWithEmailPasswordAsync = async (email, password) =>
@@ -31,29 +31,29 @@ const loginWithEmailPasswordAsync = async (email, password) =>
   await auth
     .signInWithEmailAndPassword(email, password)
     .then((user) => user)
-    .catch((error) => error);
+    .catch((error) => error)
 
 function* loginWithEmailPassword({ payload }) {
-  const { email, password } = payload.user;
-  const { history } = payload;
+  const { email, password } = payload.user
+  const { history } = payload
   try {
-    const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
+    const loginUser = yield call(loginWithEmailPasswordAsync, email, password)
     if (!loginUser.message) {
-      const item = { uid: loginUser.user.uid, ...currentUser };
-      setCurrentUser(item);
-      yield put(loginUserSuccess(item));
-      history.push(adminRoot);
+      const item = { uid: loginUser.user.uid, ...currentUser }
+      setCurrentUser(item)
+      yield put(loginUserSuccess(item))
+      history.push(adminRoot)
     } else {
-      yield put(loginUserError(loginUser.message));
+      yield put(loginUserError(loginUser.message))
     }
   } catch (error) {
-    yield put(loginUserError(error));
+    yield put(loginUserError(error))
   }
 }
 
 export function* watchRegisterUser() {
   // eslint-disable-next-line no-use-before-define
-  yield takeEvery(REGISTER_USER, registerWithEmailPassword);
+  yield takeEvery(REGISTER_USER, registerWithEmailPassword)
 }
 
 const registerWithEmailPasswordAsync = async (email, password) =>
@@ -61,52 +61,52 @@ const registerWithEmailPasswordAsync = async (email, password) =>
   await auth
     .createUserWithEmailAndPassword(email, password)
     .then((user) => user)
-    .catch((error) => error);
+    .catch((error) => error)
 
 function* registerWithEmailPassword({ payload }) {
-  const { email, password } = payload.user;
-  const { history } = payload;
+  const { email, password } = payload.user
+  const { history } = payload
   try {
     const registerUser = yield call(
       registerWithEmailPasswordAsync,
       email,
       password
-    );
+    )
     if (!registerUser.message) {
-      const item = { uid: registerUser.user.uid, ...currentUser };
-      setCurrentUser(item);
-      yield put(registerUserSuccess(item));
-      history.push(adminRoot);
+      const item = { uid: registerUser.user.uid, ...currentUser }
+      setCurrentUser(item)
+      yield put(registerUserSuccess(item))
+      history.push(adminRoot)
     } else {
-      yield put(registerUserError(registerUser.message));
+      yield put(registerUserError(registerUser.message))
     }
   } catch (error) {
-    yield put(registerUserError(error));
+    yield put(registerUserError(error))
   }
 }
 
 export function* watchLogoutUser() {
   // eslint-disable-next-line no-use-before-define
-  yield takeEvery(LOGOUT_USER, logout);
+  yield takeEvery(LOGOUT_USER, logout)
 }
 
 const logoutAsync = async (history) => {
   await auth
     .signOut()
     .then((user) => user)
-    .catch((error) => error);
-  history.push(adminRoot);
-};
+    .catch((error) => error)
+  history.push(adminRoot)
+}
 
 function* logout({ payload }) {
-  const { history } = payload;
-  setCurrentUser();
-  yield call(logoutAsync, history);
+  const { history } = payload
+  setCurrentUser()
+  yield call(logoutAsync, history)
 }
 
 export function* watchForgotPassword() {
   // eslint-disable-next-line no-use-before-define
-  yield takeEvery(FORGOT_PASSWORD, forgotPassword);
+  yield takeEvery(FORGOT_PASSWORD, forgotPassword)
 }
 
 const forgotPasswordAsync = async (email) => {
@@ -114,26 +114,26 @@ const forgotPasswordAsync = async (email) => {
   return await auth
     .sendPasswordResetEmail(email)
     .then((user) => user)
-    .catch((error) => error);
-};
+    .catch((error) => error)
+}
 
 function* forgotPassword({ payload }) {
-  const { email } = payload.forgotUserMail;
+  const { email } = payload.forgotUserMail
   try {
-    const forgotPasswordStatus = yield call(forgotPasswordAsync, email);
+    const forgotPasswordStatus = yield call(forgotPasswordAsync, email)
     if (!forgotPasswordStatus) {
-      yield put(forgotPasswordSuccess('success'));
+      yield put(forgotPasswordSuccess('success'))
     } else {
-      yield put(forgotPasswordError(forgotPasswordStatus.message));
+      yield put(forgotPasswordError(forgotPasswordStatus.message))
     }
   } catch (error) {
-    yield put(forgotPasswordError(error));
+    yield put(forgotPasswordError(error))
   }
 }
 
 export function* watchResetPassword() {
   // eslint-disable-next-line no-use-before-define
-  yield takeEvery(RESET_PASSWORD, resetPassword);
+  yield takeEvery(RESET_PASSWORD, resetPassword)
 }
 
 const resetPasswordAsync = async (resetPasswordCode, newPassword) => {
@@ -141,24 +141,24 @@ const resetPasswordAsync = async (resetPasswordCode, newPassword) => {
   return await auth
     .confirmPasswordReset(resetPasswordCode, newPassword)
     .then((user) => user)
-    .catch((error) => error);
-};
+    .catch((error) => error)
+}
 
 function* resetPassword({ payload }) {
-  const { newPassword, resetPasswordCode } = payload;
+  const { newPassword, resetPasswordCode } = payload
   try {
     const resetPasswordStatus = yield call(
       resetPasswordAsync,
       resetPasswordCode,
       newPassword
-    );
+    )
     if (!resetPasswordStatus) {
-      yield put(resetPasswordSuccess('success'));
+      yield put(resetPasswordSuccess('success'))
     } else {
-      yield put(resetPasswordError(resetPasswordStatus.message));
+      yield put(resetPasswordError(resetPasswordStatus.message))
     }
   } catch (error) {
-    yield put(resetPasswordError(error));
+    yield put(resetPasswordError(error))
   }
 }
 
@@ -169,5 +169,5 @@ export default function* rootSaga() {
     fork(watchRegisterUser),
     fork(watchForgotPassword),
     fork(watchResetPassword),
-  ]);
+  ])
 }

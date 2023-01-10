@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import IntlMessages from 'helpers/IntlMessages';
-import GradientCard from 'components/cards/GradientCard';
+import IntlMessages from 'helpers/IntlMessages'
+import GradientCard from 'components/cards/GradientCard'
 
 const GradientCardContainer = () => {
   return (
@@ -16,6 +16,6 @@ const GradientCardContainer = () => {
         <IntlMessages id="dashboards.yes-it-is-indeed" />
       </p>
     </GradientCard>
-  );
-};
-export default GradientCardContainer;
+  )
+}
+export default GradientCardContainer

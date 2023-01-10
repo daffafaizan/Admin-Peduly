@@ -1,10 +1,10 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
-import TopNav from 'containers/navs/Topnav';
-import Sidebar from 'containers/navs/Sidebar';
-import Footer from 'containers/navs/Footer';
+import TopNav from 'containers/navs/Topnav'
+import Sidebar from 'containers/navs/Sidebar'
+import Footer from 'containers/navs/Footer'
 
 const AppLayout = ({ containerClassnames, children, history }) => {
   return (
@@ -16,14 +16,12 @@ const AppLayout = ({ containerClassnames, children, history }) => {
       </main>
       <Footer />
     </div>
-  );
-};
+  )
+}
 const mapStateToProps = ({ menu }) => {
-  const { containerClassnames } = menu;
-  return { containerClassnames };
-};
-const mapActionToProps = {};
+  const { containerClassnames } = menu
+  return { containerClassnames }
+}
+const mapActionToProps = {}
 
-export default withRouter(
-  connect(mapStateToProps, mapActionToProps)(AppLayout)
-);
+export default withRouter(connect(mapStateToProps, mapActionToProps)(AppLayout))

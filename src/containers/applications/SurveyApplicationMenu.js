@@ -1,19 +1,15 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
-import { connect } from 'react-redux';
-import { NavItem, Badge } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import classnames from 'classnames';
+import React from 'react'
+import { connect } from 'react-redux'
+import { NavItem, Badge } from 'reactstrap'
+import { NavLink } from 'react-router-dom'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import classnames from 'classnames'
 
-import IntlMessages from 'helpers/IntlMessages';
-import ApplicationMenu from 'components/common/ApplicationMenu';
+import IntlMessages from 'helpers/IntlMessages'
+import ApplicationMenu from 'components/common/ApplicationMenu'
 
-import { getSurveyListWithFilter } from 'redux/actions';
+import { getSurveyListWithFilter } from 'redux/actions'
 
 const SurveyApplicationMenu = ({
   surveyItems,
@@ -25,8 +21,8 @@ const SurveyApplicationMenu = ({
   getSurveyListWithFilterAction,
 }) => {
   const addFilter = (column, value) => {
-    getSurveyListWithFilterAction(column, value);
-  };
+    getSurveyListWithFilterAction(column, value)
+  }
 
   return (
     <ApplicationMenu>
@@ -113,7 +109,7 @@ const SurveyApplicationMenu = ({
                     </div>
                   </div>
                 </NavItem>
-              );
+              )
             })}
           </ul>
           <p className="text-muted text-small">
@@ -143,23 +139,17 @@ const SurveyApplicationMenu = ({
                     </Badge>
                   </NavLink>
                 </p>
-              );
+              )
             })}
           </div>
         </div>
       </PerfectScrollbar>
     </ApplicationMenu>
-  );
-};
+  )
+}
 const mapStateToProps = ({ surveyListApp }) => {
-  const {
-    surveyItems,
-    filter,
-    allSurveyItems,
-    loading,
-    labels,
-    categories,
-  } = surveyListApp;
+  const { surveyItems, filter, allSurveyItems, loading, labels, categories } =
+    surveyListApp
 
   return {
     surveyItems,
@@ -168,8 +158,8 @@ const mapStateToProps = ({ surveyListApp }) => {
     loading,
     labels,
     categories,
-  };
-};
+  }
+}
 export default connect(mapStateToProps, {
   getSurveyListWithFilterAction: getSurveyListWithFilter,
-})(SurveyApplicationMenu);
+})(SurveyApplicationMenu)

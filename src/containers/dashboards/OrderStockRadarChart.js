@@ -1,10 +1,10 @@
-import React from 'react';
-import { Card, CardBody, CardTitle } from 'reactstrap';
+import React from 'react'
+import { Card, CardBody, CardTitle } from 'reactstrap'
 
-import IntlMessages from 'helpers/IntlMessages';
-import { RadarChart } from 'components/charts';
+import IntlMessages from 'helpers/IntlMessages'
+import { RadarChart } from 'components/charts'
 
-import { radarChartData } from 'data/charts';
+import { radarChartData } from 'data/charts'
 
 const OrderStockRadarChart = () => {
   return (
@@ -18,7 +18,7 @@ const OrderStockRadarChart = () => {
         </div>
       </CardBody>
     </Card>
-  );
-};
+  )
+}
 
-export default OrderStockRadarChart;
+export default OrderStockRadarChart

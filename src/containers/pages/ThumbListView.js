@@ -1,9 +1,9 @@
-import React from 'react';
-import { Card, CustomInput, Badge } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
-import classnames from 'classnames';
-import { ContextMenuTrigger } from 'react-contextmenu';
-import { Colxx } from 'components/common/CustomBootstrap';
+import React from 'react'
+import { Card, CustomInput, Badge } from 'reactstrap'
+import { NavLink } from 'react-router-dom'
+import classnames from 'classnames'
+import { ContextMenuTrigger } from 'react-contextmenu'
+import { Colxx } from 'components/common/CustomBootstrap'
 
 const ThumbListView = ({ product, isSelect, collect, onCheckItem }) => {
   return (
@@ -55,8 +55,8 @@ const ThumbListView = ({ product, isSelect, collect, onCheckItem }) => {
         </Card>
       </ContextMenuTrigger>
     </Colxx>
-  );
-};
+  )
+}
 
 /* React.memo detail : https://reactjs.org/docs/react-api.html#reactpurecomponent  */
-export default React.memo(ThumbListView);
+export default React.memo(ThumbListView)

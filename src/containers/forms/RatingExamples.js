@@ -1,11 +1,9 @@
-/* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { Row } from 'reactstrap';
-import { Colxx } from 'components/common/CustomBootstrap';
-import IntlMessages from 'helpers/IntlMessages';
-import Rating from 'components/common/Rating';
+import React from 'react'
+import { Row } from 'reactstrap'
+import { Colxx } from 'components/common/CustomBootstrap'
+import IntlMessages from 'helpers/IntlMessages'
+import Rating from 'components/common/Rating'
 
 const RatingExamples = () => {
   return (
@@ -23,6 +21,6 @@ const RatingExamples = () => {
         <Rating total={5} rating={5} interactive={false} />
       </Colxx>
     </Row>
-  );
-};
-export default RatingExamples;
+  )
+}
+export default RatingExamples

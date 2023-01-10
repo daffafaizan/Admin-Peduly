@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const MobileMenuIcon = () => {
   return (
@@ -7,7 +7,7 @@ const MobileMenuIcon = () => {
       <rect x="0.5" y="7.5" width="25" height="1" />
       <rect x="0.5" y="15.5" width="25" height="1" />
     </svg>
-  );
-};
+  )
+}
 
-export default MobileMenuIcon;
+export default MobileMenuIcon

@@ -1,14 +1,14 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
+import React from 'react'
 import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   NavLink,
-} from 'reactstrap';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import notifications from 'data/notifications';
-import { adminRoot } from 'constants/defaultValues';
+} from 'reactstrap'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import notifications from 'data/notifications'
+import { adminRoot } from 'constants/defaultValues'
 
 const NotificationItem = ({ img, title, date }) => {
   return (
@@ -27,8 +27,8 @@ const NotificationItem = ({ img, title, date }) => {
         </NavLink>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const TopnavNotifications = () => {
   return (
@@ -50,13 +50,13 @@ const TopnavNotifications = () => {
             options={{ suppressScrollX: true, wheelPropagation: false }}
           >
             {notifications.map((notification, index) => {
-              return <NotificationItem key={index} {...notification} />;
+              return <NotificationItem key={index} {...notification} />
             })}
           </PerfectScrollbar>
         </DropdownMenu>
       </UncontrolledDropdown>
     </div>
-  );
-};
+  )
+}
 
-export default TopnavNotifications;
+export default TopnavNotifications

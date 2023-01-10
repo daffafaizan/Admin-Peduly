@@ -72,7 +72,7 @@ export const items = [
       },
     ],
   },
-];
+]
 
 export const detailImages = [
   {
@@ -99,7 +99,7 @@ export const detailImages = [
     id: 'large6',
     img: '/assets/img/products/tea-loaf.jpg',
   },
-];
+]
 
 export const detailThumbs = [
   {
@@ -126,4 +126,4 @@ export const detailThumbs = [
     id: 'thumb6',
     img: '/assets/img/products/tea-loaf-thumb.jpg',
   },
-];
+]

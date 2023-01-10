@@ -1,29 +1,29 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable prefer-promise-reject-errors */
-import React from 'react';
-import { Card, CardBody, CardTitle } from 'reactstrap';
+import React from 'react'
+import { Card, CardBody, CardTitle } from 'reactstrap'
 
-import IntlMessages from 'helpers/IntlMessages';
-import { Colxx } from 'components/common/CustomBootstrap';
+import IntlMessages from 'helpers/IntlMessages'
+import { Colxx } from 'components/common/CustomBootstrap'
 
-import StateButton from 'components/StateButton';
+import StateButton from 'components/StateButton'
 
 const StateButtonExample = () => {
   const handleSuccessButtonClick = () => {
     return new Promise((success, fail) => {
       setTimeout(() => {
-        success('Everything went right!');
-      }, 2000);
-    });
-  };
+        success('Everything went right!')
+      }, 2000)
+    })
+  }
 
   const handleFailButtonClick = () => {
     return new Promise((success, fail) => {
       setTimeout(() => {
-        fail('Something is wrong!');
-      }, 2000);
-    });
-  };
+        fail('Something is wrong!')
+      }, 2000)
+    })
+  }
 
   return (
     <Colxx xxs="12" className="mb-4">
@@ -57,6 +57,6 @@ const StateButtonExample = () => {
         </CardBody>
       </Card>
     </Colxx>
-  );
-};
-export default StateButtonExample;
+  )
+}
+export default StateButtonExample

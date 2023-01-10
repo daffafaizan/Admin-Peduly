@@ -34,6 +34,6 @@ const tickets = [
     detail: '24.05.2018 - 11:00',
     thumb: '/assets/img/profiles/l-1.jpg',
   },
-];
+]
 
-export default tickets;
+export default tickets

@@ -50,7 +50,7 @@ export const comments = [
     rate: 4,
     key: 6,
   },
-];
+]
 
 export const commentWithLikesData = [
   {
@@ -106,4 +106,4 @@ export const commentWithLikesData = [
     likes: 14,
     key: 5,
   },
-];
+]

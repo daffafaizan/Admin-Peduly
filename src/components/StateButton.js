@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
-import { Button, Popover, PopoverBody } from 'reactstrap';
-import classnames from 'classnames';
+import React, { useState } from 'react'
+import { Button, Popover, PopoverBody } from 'reactstrap'
+import classnames from 'classnames'
 
 const StateButton = ({ id, className, color, children, onClick }) => {
-  const [status, setStatus] = useState('default');
-  const [message, setMessage] = useState('');
-  const [messageShow, setMessageShow] = useState(false);
+  const [status, setStatus] = useState('default')
+  const [message, setMessage] = useState('')
+  const [messageShow, setMessageShow] = useState(false)
 
   const handleOnClick = () => {
-    setStatus('processing');
+    setStatus('processing')
 
     onClick()
       .then((res) => {
-        setMessage(res);
-        setStatus('success');
+        setMessage(res)
+        setStatus('success')
       })
       .catch((err) => {
-        setMessage(err);
-        setStatus('fail');
+        setMessage(err)
+        setStatus('fail')
       })
       .finally(() => {
-        setMessageShow(true);
+        setMessageShow(true)
         setTimeout(() => {
-          setStatus('default');
-          setMessageShow(false);
-        }, 3000);
-      });
-  };
+          setStatus('default')
+          setMessageShow(false)
+        }, 3000)
+      })
+  }
 
   return (
     <span>
@@ -58,7 +58,7 @@ const StateButton = ({ id, className, color, children, onClick }) => {
         <span className="label">{children}</span>
       </Button>
     </span>
-  );
-};
+  )
+}
 
-export default StateButton;
+export default StateButton

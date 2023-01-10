@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   Row,
   Card,
@@ -10,16 +10,16 @@ import {
   TabContent,
   TabPane,
   Button,
-} from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+} from 'reactstrap'
+import { NavLink } from 'react-router-dom'
 
-import classnames from 'classnames';
-import IntlMessages from 'helpers/IntlMessages';
-import { Colxx } from 'components/common/CustomBootstrap';
+import classnames from 'classnames'
+import IntlMessages from 'helpers/IntlMessages'
+import { Colxx } from 'components/common/CustomBootstrap'
 
 const TabCardExamples = () => {
-  const [activeFirstTab, setActiveFirstTab] = useState('1');
-  const [activeSecondTab, setActiveSecondTab] = useState('1');
+  const [activeFirstTab, setActiveFirstTab] = useState('1')
+  const [activeSecondTab, setActiveSecondTab] = useState('1')
 
   return (
     <Row>
@@ -41,7 +41,7 @@ const TabCardExamples = () => {
                         'nav-link': true,
                       })}
                       onClick={() => {
-                        setActiveFirstTab('1');
+                        setActiveFirstTab('1')
                       }}
                     >
                       Tab 1
@@ -56,7 +56,7 @@ const TabCardExamples = () => {
                         'nav-link': true,
                       })}
                       onClick={() => {
-                        setActiveFirstTab('2');
+                        setActiveFirstTab('2')
                       }}
                     >
                       Tab 2
@@ -71,7 +71,7 @@ const TabCardExamples = () => {
                         'nav-link': true,
                       })}
                       onClick={() => {
-                        setActiveFirstTab('3');
+                        setActiveFirstTab('3')
                       }}
                     >
                       Tab 3
@@ -140,7 +140,7 @@ const TabCardExamples = () => {
                         'nav-link': true,
                       })}
                       onClick={() => {
-                        setActiveSecondTab('1');
+                        setActiveSecondTab('1')
                       }}
                     >
                       Tab 1
@@ -155,7 +155,7 @@ const TabCardExamples = () => {
                         'nav-link': true,
                       })}
                       onClick={() => {
-                        setActiveSecondTab('2');
+                        setActiveSecondTab('2')
                       }}
                     >
                       Tab 2
@@ -213,7 +213,7 @@ const TabCardExamples = () => {
         </Row>
       </Colxx>
     </Row>
-  );
-};
+  )
+}
 
-export default TabCardExamples;
+export default TabCardExamples

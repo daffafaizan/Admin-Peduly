@@ -1,8 +1,8 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
+import React from 'react'
+import { Formik, Form, Field } from 'formik'
+import * as Yup from 'yup'
 import {
   Row,
   Card,
@@ -11,14 +11,14 @@ import {
   Label,
   Button,
   CardTitle,
-} from 'reactstrap';
+} from 'reactstrap'
 import {
   FormikReactSelect,
   FormikTagsInput,
   FormikDatePicker,
-} from './FormikFields';
-import IntlMessages from 'helpers/IntlMessages';
-import { Colxx } from 'components/common/CustomBootstrap';
+} from './FormikFields'
+import IntlMessages from 'helpers/IntlMessages'
+import { Colxx } from 'components/common/CustomBootstrap'
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string()
@@ -36,7 +36,7 @@ const SignupSchema = Yup.object().shape({
     })
     .nullable()
     .required('State is required!'),
-});
+})
 
 const options = [
   { value: 'food', label: 'Food' },
@@ -44,19 +44,19 @@ const options = [
   { value: 'reasonml', label: 'ReasonML' },
   { value: 'unicorns', label: 'Unicorns' },
   { value: 'kittens', label: 'Kittens' },
-];
+]
 
 const FormikCustomWithTopLabels = () => {
   const onSubmit = (values, { setSubmitting }) => {
     const payload = {
       ...values,
       state: values.state.value,
-    };
+    }
     setTimeout(() => {
-      console.log(JSON.stringify(payload, null, 2));
-      setSubmitting(false);
-    }, 1000);
-  };
+      console.log(JSON.stringify(payload, null, 2))
+      setSubmitting(false)
+    }, 1000)
+  }
 
   return (
     <div>
@@ -306,6 +306,6 @@ const FormikCustomWithTopLabels = () => {
         </Colxx>
       </Row>
     </div>
-  );
-};
-export default FormikCustomWithTopLabels;
+  )
+}
+export default FormikCustomWithTopLabels

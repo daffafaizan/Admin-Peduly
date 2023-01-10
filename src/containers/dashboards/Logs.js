@@ -1,10 +1,10 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import { Card, CardBody, CardTitle } from 'reactstrap';
+import React from 'react'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import { Card, CardBody, CardTitle } from 'reactstrap'
 
-import IntlMessages from 'helpers/IntlMessages';
-import data from 'data/logs';
+import IntlMessages from 'helpers/IntlMessages'
+import data from 'data/logs'
 
 const Logs = () => {
   return (
@@ -37,7 +37,7 @@ const Logs = () => {
                           <span className="text-muted">{log.time}</span>
                         </td>
                       </tr>
-                    );
+                    )
                   })}
                 </tbody>
               </table>
@@ -46,6 +46,6 @@ const Logs = () => {
         </CardBody>
       </Card>
     </div>
-  );
-};
-export default Logs;
+  )
+}
+export default Logs

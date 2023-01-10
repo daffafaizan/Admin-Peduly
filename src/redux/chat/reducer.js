@@ -9,7 +9,7 @@ import {
   CHAT_CREATE_CONVERSATION,
   CHAT_SEARCH_CONTACT,
   CHAT_CHANGE_CONVERSATION,
-} from '../actions';
+} from '../actions'
 
 const INIT_STATE = {
   allContacts: null,
@@ -22,12 +22,12 @@ const INIT_STATE = {
   currentUser: null,
   selectedUser: null,
   selectedUserId: null,
-};
+}
 
 export default (state = INIT_STATE, action) => {
   switch (action.type) {
     case CHAT_GET_CONTACTS:
-      return { ...state, loadingContacts: false };
+      return { ...state, loadingContacts: false }
 
     case CHAT_GET_CONTACTS_SUCCESS:
       return {
@@ -36,13 +36,13 @@ export default (state = INIT_STATE, action) => {
         allContacts: action.payload.contacts,
         contacts: action.payload.contacts,
         currentUser: action.payload.currentUser,
-      };
+      }
 
     case CHAT_GET_CONTACTS_ERROR:
-      return { ...state, loadingContacts: false, error: action.payload };
+      return { ...state, loadingContacts: false, error: action.payload }
 
     case CHAT_GET_CONVERSATIONS:
-      return { ...state, loadingConversations: false };
+      return { ...state, loadingConversations: false }
 
     case CHAT_GET_CONVERSATIONS_SUCCESS:
       return {
@@ -50,36 +50,36 @@ export default (state = INIT_STATE, action) => {
         loadingConversations: true,
         conversations: action.payload.conversations,
         selectedUserId: action.payload.selectedUser,
-      };
+      }
 
     case CHAT_GET_CONVERSATIONS_ERROR:
-      return { ...state, loadingConversations: false, error: action.payload };
+      return { ...state, loadingConversations: false, error: action.payload }
 
     case CHAT_CHANGE_CONVERSATION:
       return {
         ...state,
         selectedUser: state.allContacts.find((x) => x.id === action.payload),
-      };
+      }
 
     case CHAT_ADD_MESSAGE_TO_CONVERSATION:
-      return { ...state };
+      return { ...state }
 
     case CHAT_CREATE_CONVERSATION:
-      return { ...state };
+      return { ...state }
 
     case CHAT_SEARCH_CONTACT:
       if (action.payload === '') {
-        return { ...state, contacts: state.allContacts };
+        return { ...state, contacts: state.allContacts }
       }
       // eslint-disable-next-line no-case-declarations
-      const keyword = action.payload.toLowerCase();
+      const keyword = action.payload.toLowerCase()
       // eslint-disable-next-line no-case-declarations
       const searchedContacts = state.allContacts.filter(
         (item) => item.name.toLowerCase().indexOf(keyword) > -1
-      );
-      return { ...state, contacts: searchedContacts };
+      )
+      return { ...state, contacts: searchedContacts }
 
     default:
-      return { ...state };
+      return { ...state }
   }
-};
+}

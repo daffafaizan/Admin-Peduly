@@ -3,13 +3,13 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-key */
-import React from 'react';
-import { useTable, usePagination, useSortBy } from 'react-table';
-import { Card, CardBody, CardTitle } from 'reactstrap'; //
-import DatatablePagination from 'components/DatatablePagination';
-import IntlMessages from 'helpers/IntlMessages';
+import React from 'react'
+import { useTable, usePagination, useSortBy } from 'react-table'
+import { Card, CardBody, CardTitle } from 'reactstrap' //
+import DatatablePagination from 'components/DatatablePagination'
+import IntlMessages from 'helpers/IntlMessages'
 
-import products from 'data/products';
+import products from 'data/products'
 
 function Table({ columns, data }) {
   const {
@@ -32,7 +32,7 @@ function Table({ columns, data }) {
     },
     useSortBy,
     usePagination
-  );
+  )
 
   return (
     <>
@@ -61,7 +61,7 @@ function Table({ columns, data }) {
         </thead>
         <tbody {...getTableBodyProps()}>
           {page.map((row) => {
-            prepareRow(row);
+            prepareRow(row)
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell, cellIndex) => (
@@ -75,7 +75,7 @@ function Table({ columns, data }) {
                   </td>
                 ))}
               </tr>
-            );
+            )
           })}
         </tbody>
       </table>
@@ -94,7 +94,7 @@ function Table({ columns, data }) {
         paginationMaxSize={pageCount}
       />
     </>
-  );
+  )
 }
 
 const BestSellers = () => {
@@ -123,7 +123,7 @@ const BestSellers = () => {
       },
     ],
     []
-  );
+  )
 
   return (
     <Card className="h-100">
@@ -134,7 +134,7 @@ const BestSellers = () => {
         <Table columns={cols} data={products} />
       </CardBody>
     </Card>
-  );
-};
+  )
+}
 
-export default BestSellers;
+export default BestSellers

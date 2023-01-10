@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   Card,
   Button,
@@ -10,17 +10,17 @@ import {
   Input,
   Badge,
   CustomInput,
-} from 'reactstrap';
-import Select from 'react-select';
-import { ReactSortable } from 'react-sortablejs';
+} from 'reactstrap'
+import Select from 'react-select'
+import { ReactSortable } from 'react-sortablejs'
 
-import CustomSelectInput from 'components/common/CustomSelectInput';
+import CustomSelectInput from 'components/common/CustomSelectInput'
 
 const answerTypes = [
   { label: 'Text Area', value: '1', id: 1 },
   { label: 'Checkbox', value: '2', id: 2 },
   { label: 'Radiobutton', value: '3', id: 3 },
-];
+]
 
 const SurveyQuestionBuilder = ({
   expanded,
@@ -32,68 +32,68 @@ const SurveyQuestionBuilder = ({
   order,
   deleteClick,
 }) => {
-  const [collapse, setCollapse] = useState(expanded || false);
-  const [mode, setMode] = useState('edit-quesiton');
-  const [qId] = useState(id);
-  const [qTitle, setQTitle] = useState(title);
-  const [qQuestion, setQQuestion] = useState(question || '');
+  const [collapse, setCollapse] = useState(expanded || false)
+  const [mode, setMode] = useState('edit-quesiton')
+  const [qId] = useState(id)
+  const [qTitle, setQTitle] = useState(title)
+  const [qQuestion, setQQuestion] = useState(question || '')
   const [qAnswerType, setQAnswerType] = useState(
     answerType
       ? answerTypes.find((item) => {
-          return item.id === answerType;
+          return item.id === answerType
         })
       : null
-  );
-  const [qAnswers, setQAnswers] = useState(answers || []);
+  )
+  const [qAnswers, setQAnswers] = useState(answers || [])
 
   const editClick = () => {
-    setMode('edit-quesiton');
-    setCollapse(true);
-  };
+    setMode('edit-quesiton')
+    setCollapse(true)
+  }
 
   const viewClick = () => {
-    setMode('view-quesiton');
-    setCollapse(true);
-  };
+    setMode('view-quesiton')
+    setCollapse(true)
+  }
 
   const typeChange = (aType) => {
     if (qAnswerType) {
       if ((qAnswerType.id === 2 || qAnswerType.id === 3) && aType.id === 1) {
-        setQAnswers([]);
+        setQAnswers([])
       }
     }
-    setQAnswerType(aType);
-  };
+    setQAnswerType(aType)
+  }
 
   const removeAnswer = (answerId) => {
-    setQAnswers(qAnswers.filter((item) => item.id !== answerId));
-  };
+    setQAnswers(qAnswers.filter((item) => item.id !== answerId))
+  }
 
   const addAnswer = () => {
-    let nextId = 0;
+    let nextId = 0
     if (qAnswers.length > 0) {
       const orderedAnswers = qAnswers.slice().sort((a, b) => {
-        return a.id < b.id;
-      });
-      nextId = orderedAnswers[0].id + 1;
+        return a.id < b.id
+      })
+      nextId = orderedAnswers[0].id + 1
     }
-    setQAnswers([...qAnswers, { id: nextId, label: '' }]);
-  };
+    setQAnswers([...qAnswers, { id: nextId, label: '' }])
+  }
 
   const updateAnswer = (answerId, event) => {
-    const answerIndex = qAnswers.findIndex((item) => item.id === answerId);
-    const tempAnswers = [...qAnswers];
-    tempAnswers[answerIndex].label = event.target.value;
-    setQAnswers(tempAnswers);
-  };
+    const answerIndex = qAnswers.findIndex((item) => item.id === answerId)
+    const tempAnswers = [...qAnswers]
+    tempAnswers[answerIndex].label = event.target.value
+    setQAnswers(tempAnswers)
+  }
 
   const renderViewModeAnswers = () => {
     if (!qAnswerType) {
-      return;
+      return
     }
     switch (qAnswerType.id) {
       case 1:
-        return <Input type="text" />;
+        return <Input type="text" />
       case 2:
         return (
           <FormGroup>
@@ -106,10 +106,10 @@ const SurveyQuestionBuilder = ({
                   name={`checkbox${qId}`}
                   label={answer.label}
                 />
-              );
+              )
             })}
           </FormGroup>
-        );
+        )
       case 3:
         return (
           <FormGroup>
@@ -122,16 +122,14 @@ const SurveyQuestionBuilder = ({
                   id={`radio${qId}_${answer.id}`}
                   label={answer.label}
                 />
-              );
+              )
             })}
           </FormGroup>
-        );
+        )
       default:
-        return (
-          <Input type="text" placeholder="" value="" onChange={() => {}} />
-        );
+        return <Input type="text" placeholder="" value="" onChange={() => {}} />
     }
-  };
+  }
 
   return (
     <Card className={`question d-flex mb-4 ${mode}`}>
@@ -236,7 +234,7 @@ const SurveyQuestionBuilder = ({
                         value={item.label}
                         autoFocus
                         onChange={(event) => {
-                          updateAnswer(item.id, event);
+                          updateAnswer(item.id, event)
                         }}
                       />
                       <div className="input-icons">
@@ -252,7 +250,7 @@ const SurveyQuestionBuilder = ({
                         </Badge>
                       </div>
                     </FormGroup>
-                  );
+                  )
                 })}
               </ReactSortable>
 
@@ -279,6 +277,6 @@ const SurveyQuestionBuilder = ({
         </div>
       </Collapse>
     </Card>
-  );
-};
-export default SurveyQuestionBuilder;
+  )
+}
+export default SurveyQuestionBuilder

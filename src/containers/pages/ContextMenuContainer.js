@@ -1,5 +1,5 @@
-import React from 'react';
-import { ContextMenu, MenuItem } from 'react-contextmenu';
+import React from 'react'
+import { ContextMenu, MenuItem } from 'react-contextmenu'
 
 const ContextMenuContainer = ({ onContextMenu, onContextMenuClick }) => {
   return (
@@ -14,7 +14,7 @@ const ContextMenuContainer = ({ onContextMenu, onContextMenuClick }) => {
         <i className="simple-icon-trash" /> <span>Delete</span>
       </MenuItem>
     </ContextMenu>
-  );
-};
+  )
+}
 
-export default ContextMenuContainer;
+export default ContextMenuContainer

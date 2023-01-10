@@ -1,4 +1,4 @@
-import { adminRoot } from 'constants/defaultValues';
+import { adminRoot } from 'constants/defaultValues'
 
 const cakes = [
   {
@@ -97,5 +97,5 @@ const cakes = [
     title: 'Streuselkuchen',
     link: `${adminRoot}/pages/product/details`,
   },
-];
-export default cakes;
+]
+export default cakes

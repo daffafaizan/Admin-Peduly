@@ -9,7 +9,7 @@ import {
   TODO_ADD_ITEM_SUCCESS,
   TODO_ADD_ITEM_ERROR,
   TODO_SELECTED_ITEMS_CHANGE,
-} from '../actions';
+} from '../actions'
 
 const INIT_STATE = {
   allTodoItems: null,
@@ -32,12 +32,12 @@ const INIT_STATE = {
   ],
   categories: ['Flexbox', 'Sass', 'React'],
   selectedItems: [],
-};
+}
 
 export default (state = INIT_STATE, action) => {
   switch (action.type) {
     case TODO_GET_LIST:
-      return { ...state, loading: false };
+      return { ...state, loading: false }
 
     case TODO_GET_LIST_SUCCESS:
       return {
@@ -45,10 +45,10 @@ export default (state = INIT_STATE, action) => {
         loading: true,
         allTodoItems: action.payload,
         todoItems: action.payload,
-      };
+      }
 
     case TODO_GET_LIST_ERROR:
-      return { ...state, loading: true, error: action.payload };
+      return { ...state, loading: true, error: action.payload }
 
     case TODO_GET_LIST_WITH_FILTER:
       if (action.payload.column === '' || action.payload.value === '') {
@@ -57,12 +57,12 @@ export default (state = INIT_STATE, action) => {
           loading: true,
           todoItems: state.allTodoItems,
           filter: null,
-        };
+        }
       }
       // eslint-disable-next-line no-case-declarations
       const filteredItems = state.allTodoItems.filter(
         (item) => item[action.payload.column] === action.payload.value
-      );
+      )
       return {
         ...state,
         loading: true,
@@ -71,7 +71,7 @@ export default (state = INIT_STATE, action) => {
           column: action.payload.column,
           value: action.payload.value,
         },
-      };
+      }
 
     case TODO_GET_LIST_WITH_ORDER:
       if (action.payload === '') {
@@ -80,14 +80,14 @@ export default (state = INIT_STATE, action) => {
           loading: true,
           todoItems: state.todoItems,
           orderColumn: null,
-        };
+        }
       }
       // eslint-disable-next-line no-case-declarations
       const sortedItems = state.todoItems.sort((a, b) => {
-        if (a[action.payload] < b[action.payload]) return -1;
-        if (a[action.payload] > b[action.payload]) return 1;
-        return 0;
-      });
+        if (a[action.payload] < b[action.payload]) return -1
+        if (a[action.payload] > b[action.payload]) return 1
+        return 0
+      })
       return {
         ...state,
         loading: true,
@@ -95,14 +95,14 @@ export default (state = INIT_STATE, action) => {
         orderColumn: state.orderColumns.find(
           (x) => x.column === action.payload
         ),
-      };
+      }
 
     case TODO_GET_LIST_SEARCH:
       if (action.payload === '') {
-        return { ...state, todoItems: state.allTodoItems };
+        return { ...state, todoItems: state.allTodoItems }
       }
       // eslint-disable-next-line no-case-declarations
-      const keyword = action.payload.toLowerCase();
+      const keyword = action.payload.toLowerCase()
       // eslint-disable-next-line no-case-declarations
       const searchItems = state.allTodoItems.filter(
         (item) =>
@@ -111,16 +111,16 @@ export default (state = INIT_STATE, action) => {
           item.status.toLowerCase().indexOf(keyword) > -1 ||
           item.category.toLowerCase().indexOf(keyword) > -1 ||
           item.label.toLowerCase().indexOf(keyword) > -1
-      );
+      )
       return {
         ...state,
         loading: true,
         todoItems: searchItems,
         searchKeyword: action.payload,
-      };
+      }
 
     case TODO_ADD_ITEM:
-      return { ...state, loading: false };
+      return { ...state, loading: false }
 
     case TODO_ADD_ITEM_SUCCESS:
       return {
@@ -128,14 +128,14 @@ export default (state = INIT_STATE, action) => {
         loading: true,
         allTodoItems: action.payload,
         todoItems: action.payload,
-      };
+      }
 
     case TODO_ADD_ITEM_ERROR:
-      return { ...state, loading: true, error: action.payload };
+      return { ...state, loading: true, error: action.payload }
 
     case TODO_SELECTED_ITEMS_CHANGE:
-      return { ...state, loading: true, selectedItems: action.payload };
+      return { ...state, loading: true, selectedItems: action.payload }
     default:
-      return { ...state };
+      return { ...state }
   }
-};
+}

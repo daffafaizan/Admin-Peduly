@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const ThumbListIcon = () => {
   return (
@@ -28,7 +28,7 @@ const ThumbListIcon = () => {
         d="M17.5,17H6.5a.5.5,0,0,1,0-1h11a.5.5,0,0,1,0,1Z"
       />
     </svg>
-  );
-};
+  )
+}
 
-export default ThumbListIcon;
+export default ThumbListIcon

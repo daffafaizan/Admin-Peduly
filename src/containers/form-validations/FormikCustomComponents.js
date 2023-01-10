@@ -1,9 +1,9 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
-import React, { Component } from 'react';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import { Row, Card, CardBody, FormGroup, Label, Button } from 'reactstrap';
+import React, { Component } from 'react'
+import { Formik, Form, Field } from 'formik'
+import * as Yup from 'yup'
+import { Row, Card, CardBody, FormGroup, Label, Button } from 'reactstrap'
 import {
   FormikReactSelect,
   FormikCheckboxGroup,
@@ -15,9 +15,9 @@ import {
   FormikTagsInput,
   FormikSwitch,
   FormikDatePicker,
-} from './FormikFields';
-import { Colxx } from 'components/common/CustomBootstrap';
-import IntlMessages from 'helpers/IntlMessages';
+} from './FormikFields'
+import { Colxx } from 'components/common/CustomBootstrap'
+import IntlMessages from 'helpers/IntlMessages'
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string()
@@ -49,7 +49,7 @@ const SignupSchema = Yup.object().shape({
     .required('At least one checkbox is required'),
   switch: Yup.bool().oneOf([true], 'Must agree to something'),
   date: Yup.date().nullable().required('Date required'),
-});
+})
 
 const options = [
   { value: 'food', label: 'Food' },
@@ -57,19 +57,19 @@ const options = [
   { value: 'reasonml', label: 'ReasonML' },
   { value: 'unicorns', label: 'Unicorns' },
   { value: 'kittens', label: 'Kittens' },
-];
+]
 
 const FormikCustomComponents = () => {
   const onSubmit = (values, { setSubmitting }) => {
     const payload = {
       ...values,
       reactSelect: values.reactSelect.map((t) => t.value),
-    };
+    }
     setTimeout(() => {
-      console.log(JSON.stringify(payload, null, 2));
-      setSubmitting(false);
-    }, 1000);
-  };
+      console.log(JSON.stringify(payload, null, 2))
+      setSubmitting(false)
+    }, 1000)
+  }
 
   return (
     <Row className="mb-4">
@@ -328,6 +328,6 @@ const FormikCustomComponents = () => {
         </Card>
       </Colxx>
     </Row>
-  );
-};
-export default FormikCustomComponents;
+  )
+}
+export default FormikCustomComponents

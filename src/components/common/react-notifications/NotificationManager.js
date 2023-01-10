@@ -1,14 +1,14 @@
 /* eslint-disable no-bitwise */
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'events'
 
 const createUUID = () => {
-  const pattern = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
+  const pattern = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
   return pattern.replace(/[xy]/g, (c) => {
-    const r = (Math.random() * 16) | 0;
-    const v = c === 'x' ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-};
+    const r = (Math.random() * 16) | 0
+    const v = c === 'x' ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
+}
 
 const Constants = {
   CHANGE: 'change',
@@ -18,12 +18,12 @@ const Constants = {
   SUCCESS: 'success',
   WARNING: 'warning',
   ERROR: 'error',
-};
+}
 
 class NotificationManager extends EventEmitter {
   constructor() {
-    super();
-    this.listNotify = [];
+    super()
+    this.listNotify = []
   }
 
   create(notify) {
@@ -34,13 +34,13 @@ class NotificationManager extends EventEmitter {
       message: null,
       timeOut: 5000,
       customClassName: '',
-    };
-    if (notify.priority) {
-      this.listNotify.unshift(Object.assign(defaultNotify, notify));
-    } else {
-      this.listNotify.push(Object.assign(defaultNotify, notify));
     }
-    this.emitChange();
+    if (notify.priority) {
+      this.listNotify.unshift(Object.assign(defaultNotify, notify))
+    } else {
+      this.listNotify.push(Object.assign(defaultNotify, notify))
+    }
+    this.emitChange()
   }
 
   primary(message, title, timeOut, onClick, priority, customClassName) {
@@ -52,7 +52,7 @@ class NotificationManager extends EventEmitter {
       onClick,
       priority,
       customClassName,
-    });
+    })
   }
 
   secondary(message, title, timeOut, onClick, priority, customClassName) {
@@ -64,7 +64,7 @@ class NotificationManager extends EventEmitter {
       onClick,
       priority,
       customClassName,
-    });
+    })
   }
 
   info(message, title, timeOut, onClick, priority, customClassName) {
@@ -76,7 +76,7 @@ class NotificationManager extends EventEmitter {
       onClick,
       priority,
       customClassName,
-    });
+    })
   }
 
   success(message, title, timeOut, onClick, priority, customClassName) {
@@ -88,7 +88,7 @@ class NotificationManager extends EventEmitter {
       onClick,
       priority,
       customClassName,
-    });
+    })
   }
 
   warning(message, title, timeOut, onClick, priority, customClassName) {
@@ -100,7 +100,7 @@ class NotificationManager extends EventEmitter {
       onClick,
       priority,
       customClassName,
-    });
+    })
   }
 
   error(message, title, timeOut, onClick, priority, customClassName) {
@@ -112,25 +112,25 @@ class NotificationManager extends EventEmitter {
       onClick,
       priority,
       customClassName,
-    });
+    })
   }
 
   remove(notification) {
-    this.listNotify = this.listNotify.filter((n) => notification.id !== n.id);
-    this.emitChange();
+    this.listNotify = this.listNotify.filter((n) => notification.id !== n.id)
+    this.emitChange()
   }
 
   emitChange() {
-    this.emit(Constants.CHANGE, this.listNotify);
+    this.emit(Constants.CHANGE, this.listNotify)
   }
 
   addChangeListener(callback) {
-    this.addListener(Constants.CHANGE, callback);
+    this.addListener(Constants.CHANGE, callback)
   }
 
   removeChangeListener(callback) {
-    this.removeListener(Constants.CHANGE, callback);
+    this.removeListener(Constants.CHANGE, callback)
   }
 }
 
-export default new NotificationManager();
+export default new NotificationManager()

@@ -26,6 +26,6 @@ const recentPosts = [
     title: 'Performing a Deep Dive',
     thumb: '/assets/img/products/petit-gateau-thumb.jpg',
   },
-];
+]
 
-export default recentPosts;
+export default recentPosts

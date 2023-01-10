@@ -1,5 +1,5 @@
-import React from 'react';
-import { Input, Button } from 'reactstrap';
+import React from 'react'
+import { Input, Button } from 'reactstrap'
 
 const SaySomething = ({
   placeholder,
@@ -32,6 +32,6 @@ const SaySomething = ({
         </Button>
       </div>
     </div>
-  );
-};
-export default React.memo(SaySomething);
+  )
+}
+export default React.memo(SaySomething)

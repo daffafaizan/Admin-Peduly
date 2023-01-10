@@ -1,16 +1,16 @@
-import React from 'react';
+import React from 'react'
 
-import { AvForm, AvField, AvGroup } from 'availity-reactstrap-validation';
-import { Button, Label, Card, CardBody } from 'reactstrap';
+import { AvForm, AvField, AvGroup } from 'availity-reactstrap-validation'
+import { Button, Label, Card, CardBody } from 'reactstrap'
 
 const AvailityCustom = () => {
   const onSubmit = (event, errors, values) => {
-    console.log(errors);
-    console.log(values);
+    console.log(errors)
+    console.log(values)
     if (errors.length === 0) {
       // submit
     }
-  };
+  }
 
   return (
     <Card className="mb-5">
@@ -152,7 +152,7 @@ const AvailityCustom = () => {
         </AvForm>
       </CardBody>
     </Card>
-  );
-};
+  )
+}
 
-export default AvailityCustom;
+export default AvailityCustom

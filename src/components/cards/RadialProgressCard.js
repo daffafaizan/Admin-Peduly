@@ -1,6 +1,6 @@
-import React from 'react';
-import { Card, CardBody, CardTitle, CardHeader } from 'reactstrap';
-import { CircularProgressbar } from 'react-circular-progressbar';
+import React from 'react'
+import { Card, CardBody, CardTitle, CardHeader } from 'reactstrap'
+import { CircularProgressbar } from 'react-circular-progressbar'
 
 const RadialProgressCard = ({
   title = 'title',
@@ -27,6 +27,6 @@ const RadialProgressCard = ({
         </div>
       </CardBody>
     </Card>
-  );
-};
-export default React.memo(RadialProgressCard);
+  )
+}
+export default React.memo(RadialProgressCard)

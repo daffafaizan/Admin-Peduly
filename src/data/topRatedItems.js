@@ -23,5 +23,5 @@ const data = [
     rate: 4,
     rateCount: '18',
   },
-];
-export default data;
+]
+export default data

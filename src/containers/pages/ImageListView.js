@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Row,
   Card,
@@ -8,11 +8,11 @@ import {
   CardText,
   CustomInput,
   Badge,
-} from 'reactstrap';
-import { NavLink } from 'react-router-dom';
-import classnames from 'classnames';
-import { ContextMenuTrigger } from 'react-contextmenu';
-import { Colxx } from 'components/common/CustomBootstrap';
+} from 'reactstrap'
+import { NavLink } from 'react-router-dom'
+import classnames from 'classnames'
+import { ContextMenuTrigger } from 'react-contextmenu'
+import { Colxx } from 'components/common/CustomBootstrap'
 
 const ImageListView = ({ product, isSelect, collect, onCheckItem }) => {
   return (
@@ -59,8 +59,8 @@ const ImageListView = ({ product, isSelect, collect, onCheckItem }) => {
         </Card>
       </ContextMenuTrigger>
     </Colxx>
-  );
-};
+  )
+}
 
 /* React.memo detail : https://reactjs.org/docs/react-api.html#reactpurecomponent  */
-export default React.memo(ImageListView);
+export default React.memo(ImageListView)

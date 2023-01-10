@@ -65,5 +65,5 @@ const logs = [
     color: 'border-theme-2',
     key: 10,
   },
-];
-export default logs;
+]
+export default logs

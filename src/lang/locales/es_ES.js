@@ -50,4 +50,4 @@ module.exports = {
   'layouts.error-title': 'Vaya, parece que ha ocurrido un error!',
   'layouts.error-code': 'Código de error',
   'layouts.go-back-home': 'REGRESAR A INICIO',
-};
+}

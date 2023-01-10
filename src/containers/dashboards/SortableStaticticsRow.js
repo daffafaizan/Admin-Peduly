@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { ReactSortable } from 'react-sortablejs';
+import React, { useState } from 'react'
+import { ReactSortable } from 'react-sortablejs'
 
-import { Colxx } from 'components/common/CustomBootstrap';
-import RadialProgressCard from 'components/cards/RadialProgressCard';
+import { Colxx } from 'components/common/CustomBootstrap'
+import RadialProgressCard from 'components/cards/RadialProgressCard'
 
 const SortableStaticticsRow = ({ messages }) => {
   const [state, setState] = useState([
@@ -26,7 +26,7 @@ const SortableStaticticsRow = ({ messages }) => {
       title: 'dashboards.payments-done',
       percent: 45,
     },
-  ]);
+  ])
 
   return (
     <ReactSortable
@@ -44,9 +44,9 @@ const SortableStaticticsRow = ({ messages }) => {
               isSortable
             />
           </Colxx>
-        );
+        )
       })}
     </ReactSortable>
-  );
-};
-export default SortableStaticticsRow;
+  )
+}
+export default SortableStaticticsRow

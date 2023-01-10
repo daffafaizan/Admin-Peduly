@@ -5,6 +5,7 @@
 
   .image-side {
     width: 40%;
+    // background: url('/assets/img/login/background-image.jpg') no-repeat center top;
     background: url('/assets/img/login/balloon.jpg') no-repeat center top;
     background-size: cover;
     padding: 80px 40px;
@@ -51,6 +52,10 @@
     }
 
     .logo-single {
+      margin-bottom: 20px;
+    }
+
+    .logo-peduly {
       margin-bottom: 20px;
     }
 

@@ -1,47 +1,47 @@
 /* eslint-disable no-param-reassign */
-import React, { createRef, useState } from 'react';
-import { Card, CardBody, FormGroup, Label, Spinner } from 'reactstrap';
-import { Wizard, Steps, Step } from 'react-albus';
-import { injectIntl } from 'react-intl';
-import { Formik, Form, Field } from 'formik';
-import IntlMessages from 'helpers/IntlMessages';
-import BottomNavigation from 'components/wizard/BottomNavigation';
-import TopNavigation from 'components/wizard/TopNavigation';
+import React, { createRef, useState } from 'react'
+import { Card, CardBody, FormGroup, Label, Spinner } from 'reactstrap'
+import { Wizard, Steps, Step } from 'react-albus'
+import { injectIntl } from 'react-intl'
+import { Formik, Form, Field } from 'formik'
+import IntlMessages from 'helpers/IntlMessages'
+import BottomNavigation from 'components/wizard/BottomNavigation'
+import TopNavigation from 'components/wizard/TopNavigation'
 
 const validateEmail = (value) => {
-  let error;
+  let error
   if (!value) {
-    error = 'Please enter your email address';
+    error = 'Please enter your email address'
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-    error = 'Invalid email address';
+    error = 'Invalid email address'
   }
-  return error;
-};
+  return error
+}
 
 const validateName = (value) => {
-  let error;
+  let error
   if (!value) {
-    error = 'Please enter your name';
+    error = 'Please enter your name'
   } else if (value.length < 2) {
-    error = 'Value must be longer than 2 characters';
+    error = 'Value must be longer than 2 characters'
   }
-  return error;
-};
+  return error
+}
 
 const validatePassword = (value) => {
-  let error;
+  let error
   if (!value) {
-    error = 'Please enter your password';
+    error = 'Please enter your password'
   } else if (value.length < 6) {
-    error = 'Password must be longer than 6 characters';
+    error = 'Password must be longer than 6 characters'
   }
-  return error;
-};
+  return error
+}
 
 const Validation = ({ intl }) => {
-  const forms = [createRef(null), createRef(null), createRef(null)];
-  const [bottomNavHidden, setBottomNavHidden] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const forms = [createRef(null), createRef(null), createRef(null)]
+  const [bottomNavHidden, setBottomNavHidden] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [fields, setFields] = useState([
     {
       valid: false,
@@ -58,48 +58,48 @@ const Validation = ({ intl }) => {
       name: 'password',
       value: '',
     },
-  ]);
+  ])
 
   const asyncLoading = () => {
-    setLoading(true);
+    setLoading(true)
     setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  };
+      setLoading(false)
+    }, 3000)
+  }
 
   const onClickNext = (goToNext, steps, step) => {
     if (steps.length - 1 <= steps.indexOf(step)) {
-      return;
+      return
     }
-    const formIndex = steps.indexOf(step);
-    const form = forms[formIndex].current;
-    const { name } = fields[formIndex];
+    const formIndex = steps.indexOf(step)
+    const form = forms[formIndex].current
+    const { name } = fields[formIndex]
     form.submitForm().then(() => {
-      const newFields = [...fields];
+      const newFields = [...fields]
 
-      newFields[formIndex].value = form.values[name];
-      newFields[formIndex].valid = !form.errors[name];
-      setFields(newFields);
+      newFields[formIndex].value = form.values[name]
+      newFields[formIndex].valid = !form.errors[name]
+      setFields(newFields)
 
       if (!form.errors[name] && form.touched[name]) {
-        goToNext();
-        step.isDone = true;
+        goToNext()
+        step.isDone = true
         if (steps.length - 2 <= steps.indexOf(step)) {
-          setBottomNavHidden(true);
-          asyncLoading();
+          setBottomNavHidden(true)
+          asyncLoading()
         }
       }
-    });
-  };
+    })
+  }
 
   const onClickPrev = (goToPrev, steps, step) => {
     if (steps.indexOf(step) <= 0) {
-      return;
+      return
     }
-    goToPrev();
-  };
+    goToPrev()
+  }
 
-  const { messages } = intl;
+  const { messages } = intl
   return (
     <Card>
       <CardBody className="wizard wizard-default">
@@ -240,6 +240,6 @@ const Validation = ({ intl }) => {
         </Wizard>
       </CardBody>
     </Card>
-  );
-};
-export default injectIntl(Validation);
+  )
+}
+export default injectIntl(Validation)

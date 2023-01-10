@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { injectIntl } from 'react-intl';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import { injectIntl } from 'react-intl'
 import {
   Card,
   CardBody,
@@ -9,10 +9,10 @@ import {
   InputGroupAddon,
   Input,
   Button,
-} from 'reactstrap';
-import SingleLightbox from '../pages/SingleLightbox';
-import VideoPlayer from '../common/VideoPlayer';
-import CommentWithLikes from '../pages/CommentWithLikes';
+} from 'reactstrap'
+import SingleLightbox from '../pages/SingleLightbox'
+import VideoPlayer from '../common/VideoPlayer'
+import CommentWithLikes from '../pages/CommentWithLikes'
 
 const renderLikeAndCommentCount = (messages) => {
   return (
@@ -31,8 +31,8 @@ const renderLikeAndCommentCount = (messages) => {
         <span>6 {messages['pages.comments-title']}</span>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const renderContent = (data) => {
   if (data.type === 'image') {
@@ -42,7 +42,7 @@ const renderContent = (data) => {
         large={data.image}
         className="img-fluid border-0 border-radius mb-3"
       />
-    );
+    )
   }
   if (data.type === 'video') {
     return (
@@ -58,19 +58,19 @@ const renderContent = (data) => {
           },
         ]}
       />
-    );
+    )
   }
-  return <></>;
-};
+  return <></>
+}
 
 const renderComments = (data) => {
   return data.comments.map((item, index) => {
-    return <CommentWithLikes data={item} key={index} />;
-  });
-};
+    return <CommentWithLikes data={item} key={index} />
+  })
+}
 
 const Post = ({ data, className, intl }) => {
-  const { messages } = intl;
+  const { messages } = intl
   return (
     <Card className={className}>
       <CardBody>
@@ -104,7 +104,7 @@ const Post = ({ data, className, intl }) => {
         </InputGroup>
       </CardBody>
     </Card>
-  );
-};
+  )
+}
 
-export default injectIntl(React.memo(Post));
+export default injectIntl(React.memo(Post))

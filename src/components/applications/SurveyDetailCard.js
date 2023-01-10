@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
-import React from 'react';
-import { Card, CardBody, Badge } from 'reactstrap';
-import { Colxx } from '../common/CustomBootstrap';
+import React from 'react'
+import { Card, CardBody, Badge } from 'reactstrap'
+import { Colxx } from '../common/CustomBootstrap'
 
 const SurveyDetailCard = ({ survey }) => {
   return (
@@ -35,7 +35,7 @@ const SurveyDetailCard = ({ survey }) => {
         </CardBody>
       </Card>
     </Colxx>
-  );
-};
+  )
+}
 
-export default React.memo(SurveyDetailCard);
+export default React.memo(SurveyDetailCard)

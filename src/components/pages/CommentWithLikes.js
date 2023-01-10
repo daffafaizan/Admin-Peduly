@@ -1,14 +1,14 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { injectIntl } from 'react-intl';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import { injectIntl } from 'react-intl'
 
 const CommentWithLikes = ({ intl, className, data }) => {
   const getLikeLabel = (likeCount) => {
     if (likeCount === 1) {
-      return intl.messages['pages.like'];
+      return intl.messages['pages.like']
     }
-    return intl.messages['pages.likes'];
-  };
+    return intl.messages['pages.likes']
+  }
 
   return (
     <div
@@ -41,7 +41,7 @@ const CommentWithLikes = ({ intl, className, data }) => {
         </span>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default injectIntl(CommentWithLikes);
+export default injectIntl(CommentWithLikes)

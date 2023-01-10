@@ -1,19 +1,19 @@
-import React from 'react';
-import classnames from 'classnames';
+import React from 'react'
+import classnames from 'classnames'
 
 const ThumbnailLetters = ({ text, color, className, rounded, small }) => {
-  let letters = '';
+  let letters = ''
   if (text.indexOf(' ') > -1) {
     text.split(' ').map((word) => {
-      if (word.length > 1) letters += word.slice(0, 1);
-      return '';
-    });
+      if (word.length > 1) letters += word.slice(0, 1)
+      return ''
+    })
   } else {
-    letters += text.slice(0, 2);
+    letters += text.slice(0, 2)
   }
 
   if (letters.length > 2) {
-    letters = letters.slice(0, 2);
+    letters = letters.slice(0, 2)
   }
 
   return (
@@ -28,7 +28,7 @@ const ThumbnailLetters = ({ text, color, className, rounded, small }) => {
     >
       {letters}
     </div>
-  );
-};
+  )
+}
 
-export default React.memo(ThumbnailLetters);
+export default React.memo(ThumbnailLetters)

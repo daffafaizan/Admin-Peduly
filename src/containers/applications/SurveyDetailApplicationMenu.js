@@ -1,9 +1,9 @@
-import React from 'react';
-import { Badge, FormGroup, CustomInput } from 'reactstrap';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import { NavLink } from 'react-router-dom';
+import React from 'react'
+import { Badge, FormGroup, CustomInput } from 'reactstrap'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import { NavLink } from 'react-router-dom'
 
-import ApplicationMenu from 'components/common/ApplicationMenu';
+import ApplicationMenu from 'components/common/ApplicationMenu'
 
 const SurveyDetailApplicationMenu = () => {
   return (
@@ -74,7 +74,7 @@ const SurveyDetailApplicationMenu = () => {
         </div>
       </PerfectScrollbar>
     </ApplicationMenu>
-  );
-};
+  )
+}
 
-export default SurveyDetailApplicationMenu;
+export default SurveyDetailApplicationMenu

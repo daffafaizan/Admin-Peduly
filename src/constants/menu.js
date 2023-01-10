@@ -1,4 +1,9 @@
-import { adminRoot } from './defaultValues';
+import DashboardIcon from 'assets/icons/DashboardIcon'
+import TransaksiIcon from 'assets/icons/TransaksiIcon'
+import HalamanIcon from 'assets/icons/HalamanIcon'
+import PenggunaIcon from 'assets/icons/PenggunaIcon'
+import SlideIcon from 'assets/icons/SlideIcon'
+import { adminRoot } from './defaultValues'
 
 const data = [
   // {
@@ -35,29 +40,39 @@ const data = [
   //   to: `${adminRoot}/blank-page`,
   // },
   {
-    id: 'transaksidonasi',
-    icon: 'iconsminds-money-bag',
-    label: 'menu.transaksi',
+    id: 'dashboard',
+    // eslint-disable-next-line react/react-in-jsx-scope
+    icon: <DashboardIcon />,
+    label: 'dashboard',
+    to: `${adminRoot}/dashboard`,
+  },
+  {
+    id: 'transaksi',
+    // eslint-disable-next-line react/react-in-jsx-scope
+    icon: <TransaksiIcon />,
+    label: 'transaksi',
     to: `${adminRoot}/transaksi-donasi`,
   },
   {
-    id: 'semuagalangdana',
-    icon: 'iconsminds-newspaper',
-    label: 'menu.galangdana',
-    to: `${adminRoot}/semua-galangdana`,
+    id: 'halaman',
+    // eslint-disable-next-line react/react-in-jsx-scope
+    icon: <HalamanIcon />,
+    label: 'halaman',
+    to: `${adminRoot}/transaksi-donasi`,
   },
   {
     id: 'pengguna',
-    icon: 'iconsminds-male-female',
-    label: 'menu.pengguna',
+    // eslint-disable-next-line react/react-in-jsx-scope
+    icon: <PenggunaIcon />,
+    label: 'pengguna',
     to: `${adminRoot}/pengguna`,
   },
   {
-    id: 'docs',
-    icon: 'iconsminds-library',
-    label: 'menu.docs',
-    to: 'https://gogo-react-docs.coloredstrategies.com/',
-    newWindow: true,
+    id: 'slide',
+    // eslint-disable-next-line react/react-in-jsx-scope
+    icon: <SlideIcon />,
+    label: 'slide',
+    to: `${adminRoot}/transaksi-donasi`,
   },
-];
-export default data;
+]
+export default data

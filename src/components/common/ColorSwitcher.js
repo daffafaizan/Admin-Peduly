@@ -1,60 +1,60 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useRef, useEffect } from 'react';
-import { FormGroup, Label, CustomInput } from 'reactstrap';
-import { colors } from 'constants/defaultValues';
+import React, { useState, useRef, useEffect } from 'react'
+import { FormGroup, Label, CustomInput } from 'reactstrap'
+import { colors } from 'constants/defaultValues'
 import {
   getCurrentColor,
   setCurrentColor,
   getCurrentRadius,
   setCurrentRadius,
-} from 'helpers/Utils';
+} from 'helpers/Utils'
 
 const ColorSwitcher = () => {
-  const containerRef = useRef();
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedColor] = useState(getCurrentColor());
-  const [radius, setRadius] = useState(getCurrentRadius());
+  const containerRef = useRef()
+  const [isOpen, setIsOpen] = useState(false)
+  const [selectedColor] = useState(getCurrentColor())
+  const [radius, setRadius] = useState(getCurrentRadius())
 
   useEffect(() => {
     if (radius === 'flat') {
-      document.body.classList.remove('rounded');
+      document.body.classList.remove('rounded')
     } else {
-      document.body.classList.add('rounded');
+      document.body.classList.add('rounded')
     }
-    setCurrentRadius(radius);
-    if (isOpen) setIsOpen(false);
-  }, [radius]);
+    setCurrentRadius(radius)
+    if (isOpen) setIsOpen(false)
+  }, [radius])
 
   const handleDocumentClick = (e) => {
     if (isOpen) {
-      const container = containerRef.current;
+      const container = containerRef.current
       if (container.contains(e.target) || container === e.target) {
-        return;
+        return
       }
-      setIsOpen(false);
+      setIsOpen(false)
     }
-  };
+  }
 
   useEffect(() => {
-    ['click', 'touchstart'].forEach((event) =>
+    ;['click', 'touchstart'].forEach((event) =>
       document.addEventListener(event, handleDocumentClick, false)
-    );
+    )
 
     return () => {
-      ['click', 'touchstart'].forEach((event) =>
+      ;['click', 'touchstart'].forEach((event) =>
         document.removeEventListener(event, handleDocumentClick, false)
-      );
-    };
-  }, [isOpen]);
+      )
+    }
+  }, [isOpen])
 
   const changeThemeColor = (e, color) => {
-    e.preventDefault();
-    setCurrentColor(color);
-    setIsOpen(false);
+    e.preventDefault()
+    setCurrentColor(color)
+    setIsOpen(false)
     setTimeout(() => {
-      window.location.reload();
-    }, 500);
-  };
+      window.location.reload()
+    }, 500)
+  }
 
   return (
     <div ref={containerRef} className={`theme-colors ${isOpen ? 'shown' : ''}`}>
@@ -148,15 +148,15 @@ const ColorSwitcher = () => {
         href="#section"
         className="theme-button"
         onClick={(e) => {
-          e.preventDefault();
-          setIsOpen(!isOpen);
+          e.preventDefault()
+          setIsOpen(!isOpen)
         }}
       >
         {' '}
         <i className="simple-icon-magic-wand" />{' '}
       </a>
     </div>
-  );
-};
+  )
+}
 
-export default ColorSwitcher;
+export default ColorSwitcher

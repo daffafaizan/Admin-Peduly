@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/no-array-index-key */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import {
   Pagination,
   PaginationItem,
@@ -9,7 +9,7 @@ import {
   DropdownMenu,
   DropdownToggle,
   DropdownItem,
-} from 'reactstrap';
+} from 'reactstrap'
 
 const DataTablePagination = ({
   page,
@@ -24,80 +24,80 @@ const DataTablePagination = ({
   onPageSizeChange,
   paginationMaxSize,
 }) => {
-  const [pageState, setPageState] = useState(page);
-  const [pageSize, setPageSize] = useState(defaultPageSize);
+  const [pageState, setPageState] = useState(page)
+  const [pageSize, setPageSize] = useState(defaultPageSize)
 
   useEffect(() => {
-    setPageState(page);
-  }, [page]);
+    setPageState(page)
+  }, [page])
   const getSafePage = (_page) => {
-    let p = _page;
+    let p = _page
     if (Number.isNaN(_page)) {
-      p = page;
+      p = page
     }
-    return Math.min(Math.max(p, 0), pages - 1);
-  };
+    return Math.min(Math.max(p, 0), pages - 1)
+  }
 
   const changePageSize = (size) => {
-    onPageSizeChange(size);
-    setPageSize(size);
-  };
+    onPageSizeChange(size)
+    setPageSize(size)
+  }
 
   const changePage = (_page) => {
-    const p = getSafePage(_page);
+    const p = getSafePage(_page)
 
     if (p !== pageState) {
-      setPageState(p);
-      onPageChange(p);
+      setPageState(p)
+      onPageChange(p)
     }
-  };
+  }
 
   const pageClick = (pageIndex) => {
-    changePage(pageIndex);
-  };
+    changePage(pageIndex)
+  }
 
   const renderPages = () => {
-    const totalPages = pages;
-    let endPage = pages;
-    const currentPage = pageState;
-    let startPage = 0;
-    const maxSize = paginationMaxSize;
+    const totalPages = pages
+    let endPage = pages
+    const currentPage = pageState
+    let startPage = 0
+    const maxSize = paginationMaxSize
 
     if (maxSize) {
       if (endPage > maxSize) {
-        startPage = Math.max(currentPage + 1 - Math.floor(maxSize / 2), 1);
-        endPage = startPage + maxSize - 1;
+        startPage = Math.max(currentPage + 1 - Math.floor(maxSize / 2), 1)
+        endPage = startPage + maxSize - 1
         if (endPage > totalPages) {
-          endPage = totalPages;
-          startPage = endPage - maxSize + 1;
+          endPage = totalPages
+          startPage = endPage - maxSize + 1
         }
-        startPage -= 1;
+        startPage -= 1
       }
     }
 
-    const pageButtons = [];
+    const pageButtons = []
     for (let i = startPage; i < endPage; i += 1) {
-      const active = currentPage === i;
+      const active = currentPage === i
       pageButtons.push(
         <PaginationItem key={i} active={active}>
           <PaginationLink onClick={() => pageClick(i)}>{i + 1}</PaginationLink>
         </PaginationItem>
-      );
+      )
     }
-    return pageButtons;
-  };
+    return pageButtons
+  }
 
   const renderPageJump = () => {
-    const pageNumbers = [];
+    const pageNumbers = []
     for (let i = 0; i < pages; i += 1) {
       pageNumbers.push(
         <DropdownItem key={i} onClick={() => changePage(i)}>
           {i + 1}
         </DropdownItem>
-      );
+      )
     }
-    return pageNumbers;
-  };
+    return pageNumbers
+  }
 
   return (
     <>
@@ -126,8 +126,8 @@ const DataTablePagination = ({
             <PaginationLink
               className="prev"
               onClick={() => {
-                if (!canPrevious) return;
-                changePage(page - 1);
+                if (!canPrevious) return
+                changePage(page - 1)
               }}
               disabled={!canPrevious}
             >
@@ -140,8 +140,8 @@ const DataTablePagination = ({
             <PaginationLink
               className="next"
               onClick={() => {
-                if (!canNext) return;
-                changePage(page + 1);
+                if (!canNext) return
+                changePage(page + 1)
               }}
               disabled={!canNext}
             >
@@ -165,7 +165,7 @@ const DataTablePagination = ({
                     >
                       {size}
                     </DropdownItem>
-                  );
+                  )
                 })}
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -173,6 +173,6 @@ const DataTablePagination = ({
         )}
       </div>
     </>
-  );
-};
-export default DataTablePagination;
+  )
+}
+export default DataTablePagination

@@ -23,5 +23,5 @@ const data = [
     date: '09.04.2018 - 12:45',
     id: 4,
   },
-];
-export default data;
+]
+export default data

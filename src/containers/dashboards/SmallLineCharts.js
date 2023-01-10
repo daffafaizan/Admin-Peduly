@@ -1,15 +1,15 @@
-import React from 'react';
-import { Row, Card, CardBody } from 'reactstrap';
+import React from 'react'
+import { Row, Card, CardBody } from 'reactstrap'
 
-import { Colxx } from 'components/common/CustomBootstrap';
-import { SmallLineChart } from 'components/charts';
+import { Colxx } from 'components/common/CustomBootstrap'
+import { SmallLineChart } from 'components/charts'
 
 import {
   smallChartData1,
   smallChartData2,
   smallChartData3,
   smallChartData4,
-} from 'data/charts';
+} from 'data/charts'
 
 const SmallLineCharts = ({ itemClass = 'dashboard-small-chart' }) => {
   return (
@@ -43,7 +43,7 @@ const SmallLineCharts = ({ itemClass = 'dashboard-small-chart' }) => {
         </Card>
       </Colxx>
     </Row>
-  );
-};
+  )
+}
 
-export default SmallLineCharts;
+export default SmallLineCharts

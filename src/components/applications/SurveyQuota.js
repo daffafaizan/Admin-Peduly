@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
-import { Progress } from 'reactstrap';
+import React from 'react'
+import { Progress } from 'reactstrap'
 
 const SurveyQuota = ({
   title = 'Gender',
@@ -9,8 +9,8 @@ const SurveyQuota = ({
     { title: 'Female', count: 90, quota: 125 },
   ],
 }) => {
-  const reducer = (accumulator, currentValue) => accumulator + currentValue;
-  const totalCount = data.map((x) => x.count).reduce(reducer);
+  const reducer = (accumulator, currentValue) => accumulator + currentValue
+  const totalCount = data.map((x) => x.count).reduce(reducer)
 
   return (
     <div className="mb-4">
@@ -24,7 +24,7 @@ const SurveyQuota = ({
               color={`theme-${index + 1}`}
               value={(item.count / totalCount) * 100}
             />
-          );
+          )
         })}
       </Progress>
       <table className="table table-sm table-borderless">
@@ -43,12 +43,12 @@ const SurveyQuota = ({
                   <span className="font-weight-medium text-muted text-small">{`${item.count}/${item.quota} ${item.title}`}</span>
                 </td>
               </tr>
-            );
+            )
           })}
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
-export default React.memo(SurveyQuota);
+export default React.memo(SurveyQuota)

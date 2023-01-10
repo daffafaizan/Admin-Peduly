@@ -1,9 +1,9 @@
-import React from 'react';
-import { Card, CardBody, CardTitle } from 'reactstrap';
-import IntlMessages from 'helpers/IntlMessages';
-import Rating from 'components/common/Rating';
-import data from 'data/topRatedItems';
-import GlideComponent from 'components/carousel/GlideComponent';
+import React from 'react'
+import { Card, CardBody, CardTitle } from 'reactstrap'
+import IntlMessages from 'helpers/IntlMessages'
+import Rating from 'components/common/Rating'
+import data from 'data/topRatedItems'
+import GlideComponent from 'components/carousel/GlideComponent'
 
 const TopRatedItem = ({ image, order, title, rate, rateCount }) => (
   <div>
@@ -15,7 +15,7 @@ const TopRatedItem = ({ image, order, title, rate, rateCount }) => (
     <Rating total={5} rating={rate} interactive={false} />
     <p className="text-small text-muted mb-0 d-inline-block">({rateCount})</p>
   </div>
-);
+)
 
 const TopRatedItems = () => {
   return (
@@ -43,12 +43,12 @@ const TopRatedItems = () => {
               <div key={item.id}>
                 <TopRatedItem {...item} />
               </div>
-            );
+            )
           })}
         </GlideComponent>
       </CardBody>
     </Card>
-  );
-};
+  )
+}
 
-export default TopRatedItems;
+export default TopRatedItems

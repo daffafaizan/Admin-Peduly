@@ -1,7 +1,7 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { injectIntl } from 'react-intl';
-import { Badge } from 'reactstrap';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import { injectIntl } from 'react-intl'
+import { Badge } from 'reactstrap'
 
 const RecentPost = ({ data }) => {
   return (
@@ -28,7 +28,7 @@ const RecentPost = ({ data }) => {
         </NavLink>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default injectIntl(RecentPost);
+export default injectIntl(RecentPost)

@@ -1,32 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useRef, useEffect } from 'react';
-import { NavLink } from 'reactstrap';
+import React, { useState, useRef, useEffect } from 'react'
+import { NavLink } from 'reactstrap'
 
 const ApplicationMenu = ({ children }) => {
-  const containerRef = useRef();
-  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef()
+  const [isOpen, setIsOpen] = useState(false)
 
   const handleDocumentClick = (e) => {
     if (isOpen) {
-      const container = containerRef.current;
+      const container = containerRef.current
       if (container.contains(e.target) || container === e.target) {
-        return;
+        return
       }
-      setIsOpen(false);
+      setIsOpen(false)
     }
-  };
+  }
 
   useEffect(() => {
-    ['click', 'touchstart'].forEach((event) =>
+    ;['click', 'touchstart'].forEach((event) =>
       document.addEventListener(event, handleDocumentClick, false)
-    );
+    )
 
     return () => {
-      ['click', 'touchstart'].forEach((event) =>
+      ;['click', 'touchstart'].forEach((event) =>
         document.removeEventListener(event, handleDocumentClick, false)
-      );
-    };
-  }, [isOpen]);
+      )
+    }
+  }, [isOpen])
 
   return (
     <div ref={containerRef} className={`app-menu ${isOpen ? 'shown' : ''}`}>
@@ -38,7 +38,7 @@ const ApplicationMenu = ({ children }) => {
         <i className="simple-icon-options" />
       </NavLink>
     </div>
-  );
-};
+  )
+}
 
-export default ApplicationMenu;
+export default ApplicationMenu

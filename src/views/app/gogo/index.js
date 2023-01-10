@@ -1,19 +1,24 @@
-import React, { Suspense } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import React from 'react'
+import { Row } from 'reactstrap'
+import IntlMessages from 'helpers/IntlMessages'
+import { Colxx, Separator } from 'components/common/CustomBootstrap'
+import Breadcrumb from 'containers/navs/Breadcrumb'
 
-const Start = React.lazy(() =>
-  import(/* webpackChunkName: "start" */ './start')
-);
 const Gogo = ({ match }) => (
-  <Suspense fallback={<div className="loading" />}>
-    <Switch>
-      <Redirect exact from={`${match.url}/`} to={`${match.url}/start`} />
-      <Route
-        path={`${match.url}/start`}
-        render={(props) => <Start {...props} />}
-      />
-      <Redirect to="/error" />
-    </Switch>
-  </Suspense>
-);
-export default Gogo;
+  <>
+    <Row>
+      <Colxx xxs="12">
+        <Breadcrumb heading="Dashboard" match={match} />
+        <Separator className="mb-5" />
+      </Colxx>
+    </Row>
+    <Row>
+      <Colxx xxs="12" className="mb-4">
+        <p>
+          <IntlMessages id="Dashboard" />
+        </p>
+      </Colxx>
+    </Row>
+  </>
+)
+export default Gogo

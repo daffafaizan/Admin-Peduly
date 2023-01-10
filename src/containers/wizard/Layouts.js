@@ -1,34 +1,34 @@
 /* eslint-disable no-param-reassign */
-import React from 'react';
-import { Card, CardBody, Row } from 'reactstrap';
-import { Wizard, Steps, Step } from 'react-albus';
-import { injectIntl } from 'react-intl';
-import IntlMessages from 'helpers/IntlMessages';
-import BottomNavigation from 'components/wizard/BottomNavigation';
-import TopNavigation from 'components/wizard/TopNavigation';
-import { Colxx } from 'components/common/CustomBootstrap';
+import React from 'react'
+import { Card, CardBody, Row } from 'reactstrap'
+import { Wizard, Steps, Step } from 'react-albus'
+import { injectIntl } from 'react-intl'
+import IntlMessages from 'helpers/IntlMessages'
+import BottomNavigation from 'components/wizard/BottomNavigation'
+import TopNavigation from 'components/wizard/TopNavigation'
+import { Colxx } from 'components/common/CustomBootstrap'
 
 const Layouts = ({ intl }) => {
   const topNavClick = (stepItem, push) => {
-    push(stepItem.id);
-  };
+    push(stepItem.id)
+  }
 
   const onClickNext = (goToNext, steps, step) => {
-    step.isDone = true;
+    step.isDone = true
     if (steps.length - 1 <= steps.indexOf(step)) {
-      return;
+      return
     }
-    goToNext();
-  };
+    goToNext()
+  }
 
   const onClickPrev = (goToPrev, steps, step) => {
     if (steps.indexOf(step) <= 0) {
-      return;
+      return
     }
-    goToPrev();
-  };
+    goToPrev()
+  }
 
-  const { messages } = intl;
+  const { messages } = intl
   return (
     <Row>
       <Colxx xxs="12" xl="6" className="mb-5">
@@ -150,6 +150,6 @@ const Layouts = ({ intl }) => {
         </Card>
       </Colxx>
     </Row>
-  );
-};
-export default injectIntl(Layouts);
+  )
+}
+export default injectIntl(Layouts)

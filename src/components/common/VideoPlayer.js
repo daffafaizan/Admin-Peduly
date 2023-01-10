@@ -1,23 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/media-has-caption */
-import React, { useRef, useEffect } from 'react';
-import videojs from 'video.js';
+
+import React, { useRef, useEffect } from 'react'
+import videojs from 'video.js'
 
 const VideoPlayer = (props) => {
-  const playerRef = useRef();
+  const playerRef = useRef()
 
   useEffect(() => {
     const player = videojs(
       playerRef.current,
       props,
       function onPlayerReady() {}
-    );
+    )
     return () => {
-      player.dispose();
-    };
-  }, []);
+      player.dispose()
+    }
+  }, [])
 
-  const { className } = props;
+  const { className } = props
 
   return (
     <div>
@@ -29,7 +29,7 @@ const VideoPlayer = (props) => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default VideoPlayer;
+export default VideoPlayer

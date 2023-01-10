@@ -1,75 +1,74 @@
-import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-import { getCurrentTime } from 'helpers/Utils';
+import { all, call, fork, put, takeEvery } from 'redux-saga/effects'
+import { getCurrentTime } from 'helpers/Utils'
 
-import contactsData from 'data/chat.contacts.json';
-import conversationsData from 'data/chat.conversations.json';
+import contactsData from 'data/chat.contacts.json'
+import conversationsData from 'data/chat.conversations.json'
 import {
   CHAT_GET_CONTACTS,
   CHAT_GET_CONVERSATIONS,
   CHAT_ADD_MESSAGE_TO_CONVERSATION,
   CHAT_CREATE_CONVERSATION,
-} from '../actions';
+} from '../actions'
 
 import {
   getContactsSuccess,
   getContactsError,
   getConversationsSuccess,
   getConversationsError,
-} from './actions';
+} from './actions'
 
 function* loadContacts() {
   try {
     // eslint-disable-next-line no-use-before-define
-    const response = yield call(loadContactsAsync);
-    const { contacts, currentUser } = response;
-    yield put(getContactsSuccess(contacts, currentUser));
+    const response = yield call(loadContactsAsync)
+    const { contacts, currentUser } = response
+    yield put(getContactsSuccess(contacts, currentUser))
   } catch (error) {
-    yield put(getContactsError(error));
+    yield put(getContactsError(error))
   }
 }
 
 const loadContactsAsync = async () => {
-  const contacts = contactsData.data;
-  const currentUser = contacts[0];
+  const contacts = contactsData.data
+  const currentUser = contacts[0]
   // eslint-disable-next-line no-return-await
   return await new Promise((success) => {
     setTimeout(() => {
-      success({ contacts, currentUser });
-    }, 2000);
+      success({ contacts, currentUser })
+    }, 2000)
   })
     .then((response) => response)
-    .catch((error) => error);
-};
+    .catch((error) => error)
+}
 
 function* loadConversations(userId) {
   try {
     // eslint-disable-next-line no-use-before-define
-    const response = yield call(loadConversationsAsync, userId);
-    const { conversations, selectedUser } = response;
-    yield put(getConversationsSuccess(conversations, selectedUser));
+    const response = yield call(loadConversationsAsync, userId)
+    const { conversations, selectedUser } = response
+    yield put(getConversationsSuccess(conversations, selectedUser))
   } catch (error) {
-    yield put(getConversationsError(error));
+    yield put(getConversationsError(error))
   }
 }
 
 const loadConversationsAsync = async ({ payload }) => {
-  let conversations = conversationsData.data;
-  conversations = conversations.filter((x) => x.users.includes(payload));
-  const selectedUser = conversations[0].users.find((x) => x !== payload);
+  let conversations = conversationsData.data
+  conversations = conversations.filter((x) => x.users.includes(payload))
+  const selectedUser = conversations[0].users.find((x) => x !== payload)
   // eslint-disable-next-line no-return-await
   return await new Promise((success) => {
     setTimeout(() => {
-      success({ conversations, selectedUser });
-    }, 1000);
+      success({ conversations, selectedUser })
+    }, 1000)
   })
     .then((response) => response)
-    .catch((error) => error);
-};
+    .catch((error) => error)
+}
 
 function* addMessageToConversation({ payload }) {
   try {
-    const { currentUserId, selectedUserId, message, allConversations } =
-      payload;
+    const { currentUserId, selectedUserId, message, allConversations } = payload
 
     const response = yield call(
       // eslint-disable-next-line no-use-before-define
@@ -78,11 +77,11 @@ function* addMessageToConversation({ payload }) {
       selectedUserId,
       message,
       allConversations
-    );
-    const { conversations, selectedUser } = response;
-    yield put(getConversationsSuccess(conversations, selectedUser));
+    )
+    const { conversations, selectedUser } = response
+    yield put(getConversationsSuccess(conversations, selectedUser))
   } catch (error) {
-    yield put(getConversationsError(error));
+    yield put(getConversationsError(error))
   }
 }
 const addMessageToConversationAsync = async (
@@ -94,45 +93,45 @@ const addMessageToConversationAsync = async (
 ) => {
   const conversation = allConversations.find(
     (x) => x.users.includes(currentUserId) && x.users.includes(selectedUserId)
-  );
-  const time = getCurrentTime();
+  )
+  const time = getCurrentTime()
   if (conversation) {
     conversation.messages.push({
       sender: currentUserId,
       time,
       text: message,
-    });
-    conversation.lastMessageTime = time;
+    })
+    conversation.lastMessageTime = time
     const conversations = allConversations.filter(
       (x) => x.id !== conversation.id
-    );
-    conversations.splice(0, 0, conversation);
+    )
+    conversations.splice(0, 0, conversation)
 
     // eslint-disable-next-line no-return-await
     return await new Promise((success) => {
       setTimeout(() => {
-        success({ conversations, selectedUser: selectedUserId });
-      }, 500);
+        success({ conversations, selectedUser: selectedUserId })
+      }, 500)
     })
       .then((response) => response)
-      .catch((error) => error);
+      .catch((error) => error)
   }
-};
+}
 
 function* createNewConversation({ payload }) {
   try {
-    const { currentUserId, selectedUserId, allConversations } = payload;
+    const { currentUserId, selectedUserId, allConversations } = payload
     const response = yield call(
       // eslint-disable-next-line no-use-before-define
       createNewConversationAsync,
       currentUserId,
       selectedUserId,
       allConversations
-    );
-    const { conversations, selectedUser } = response;
-    yield put(getConversationsSuccess(conversations, selectedUser));
+    )
+    const { conversations, selectedUser } = response
+    yield put(getConversationsSuccess(conversations, selectedUser))
   } catch (error) {
-    yield put(getConversationsError(error));
+    yield put(getConversationsError(error))
   }
 }
 
@@ -146,33 +145,33 @@ const createNewConversationAsync = async (
     users: [currentUserId, selectedUserId],
     lastMessageTime: '-',
     messages: [],
-  };
+  }
 
-  allConversations.splice(0, 0, conversation);
+  allConversations.splice(0, 0, conversation)
   // eslint-disable-next-line no-return-await
   return await new Promise((success) => {
     setTimeout(() => {
       success({
         conversations: allConversations,
         selectedUser: selectedUserId,
-      });
-    }, 500);
+      })
+    }, 500)
   })
     .then((response) => response)
-    .catch((error) => error);
-};
+    .catch((error) => error)
+}
 
 export function* watchGetContact() {
-  yield takeEvery(CHAT_GET_CONTACTS, loadContacts);
+  yield takeEvery(CHAT_GET_CONTACTS, loadContacts)
 }
 export function* watchGetConversation() {
-  yield takeEvery(CHAT_GET_CONVERSATIONS, loadConversations);
+  yield takeEvery(CHAT_GET_CONVERSATIONS, loadConversations)
 }
 export function* watchAddMessageToConversation() {
-  yield takeEvery(CHAT_ADD_MESSAGE_TO_CONVERSATION, addMessageToConversation);
+  yield takeEvery(CHAT_ADD_MESSAGE_TO_CONVERSATION, addMessageToConversation)
 }
 export function* watchCreateConversation() {
-  yield takeEvery(CHAT_CREATE_CONVERSATION, createNewConversation);
+  yield takeEvery(CHAT_CREATE_CONVERSATION, createNewConversation)
 }
 
 export default function* rootSaga() {
@@ -181,5 +180,5 @@ export default function* rootSaga() {
     fork(watchGetConversation),
     fork(watchAddMessageToConversation),
     fork(watchCreateConversation),
-  ]);
+  ])
 }

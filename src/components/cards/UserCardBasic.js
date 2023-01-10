@@ -1,7 +1,7 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { Card, CardBody, CardSubtitle, CardText } from 'reactstrap';
-import ThumbnailImage from './ThumbnailImage';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import { Card, CardBody, CardSubtitle, CardText } from 'reactstrap'
+import ThumbnailImage from './ThumbnailImage'
 
 const UserCardBasic = ({ link = '#', data }) => {
   return (
@@ -28,7 +28,7 @@ const UserCardBasic = ({ link = '#', data }) => {
         </CardBody>
       </div>
     </Card>
-  );
-};
+  )
+}
 
-export default React.memo(UserCardBasic);
+export default React.memo(UserCardBasic)

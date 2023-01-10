@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Button, Tooltip } from 'reactstrap';
+import React, { useState } from 'react'
+import { Button, Tooltip } from 'reactstrap'
 
 const TooltipItem = ({ id, item }) => {
-  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [tooltipOpen, setTooltipOpen] = useState(false)
 
   return (
     <span>
@@ -18,6 +18,6 @@ const TooltipItem = ({ id, item }) => {
         {item.body}
       </Tooltip>
     </span>
-  );
-};
-export default TooltipItem;
+  )
+}
+export default TooltipItem

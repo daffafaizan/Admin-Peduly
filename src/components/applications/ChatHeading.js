@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const ChatHeading = ({ name, thumb, lastSeenDate }) => {
   return (
@@ -26,7 +26,7 @@ const ChatHeading = ({ name, thumb, lastSeenDate }) => {
       </div>
       <div className="separator mb-5" />
     </>
-  );
-};
+  )
+}
 
-export default React.memo(ChatHeading);
+export default React.memo(ChatHeading)

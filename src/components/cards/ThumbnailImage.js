@@ -1,5 +1,5 @@
-import React from 'react';
-import classnames from 'classnames';
+import React from 'react'
+import classnames from 'classnames'
 
 const ThumbnailImage = ({ alt, src, className, rounded, small }) => {
   return (
@@ -13,7 +13,7 @@ const ThumbnailImage = ({ alt, src, className, rounded, small }) => {
         }
       )}`}
     />
-  );
-};
+  )
+}
 
-export default React.memo(ThumbnailImage);
+export default React.memo(ThumbnailImage)

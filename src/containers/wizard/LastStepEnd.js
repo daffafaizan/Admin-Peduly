@@ -1,46 +1,46 @@
 /* eslint-disable no-param-reassign */
-import React, { useState } from 'react';
-import { Card, CardBody, Form, FormGroup, Input, Label } from 'reactstrap';
-import { Wizard, Steps, Step } from 'react-albus';
-import { injectIntl } from 'react-intl';
-import IntlMessages from 'helpers/IntlMessages';
-import BottomNavigation from 'components/wizard/BottomNavigation';
-import TopNavigation from 'components/wizard/TopNavigation';
+import React, { useState } from 'react'
+import { Card, CardBody, Form, FormGroup, Input, Label } from 'reactstrap'
+import { Wizard, Steps, Step } from 'react-albus'
+import { injectIntl } from 'react-intl'
+import IntlMessages from 'helpers/IntlMessages'
+import BottomNavigation from 'components/wizard/BottomNavigation'
+import TopNavigation from 'components/wizard/TopNavigation'
 
 const LastStepEnd = ({ intl }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [bottomNavHidden, setBottomNavHidden] = useState(false);
-  const [topNavDisabled, setTopNavDisabled] = useState(false);
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [bottomNavHidden, setBottomNavHidden] = useState(false)
+  const [topNavDisabled, setTopNavDisabled] = useState(false)
 
   const topNavClick = (stepItem, push) => {
     if (topNavDisabled) {
-      return;
+      return
     }
-    push(stepItem.id);
-  };
+    push(stepItem.id)
+  }
 
   const onClickNext = (goToNext, steps, step) => {
-    step.isDone = true;
+    step.isDone = true
     if (steps.length - 2 <= steps.indexOf(step)) {
-      setBottomNavHidden(true);
-      setTopNavDisabled(true);
+      setBottomNavHidden(true)
+      setTopNavDisabled(true)
     }
     if (steps.length - 1 <= steps.indexOf(step)) {
-      return;
+      return
     }
-    goToNext();
-  };
+    goToNext()
+  }
 
   const onClickPrev = (goToPrev, steps, step) => {
     if (steps.indexOf(step) <= 0) {
-      return;
+      return
     }
-    goToPrev();
-  };
+    goToPrev()
+  }
 
-  const { messages } = intl;
+  const { messages } = intl
   return (
     <Card>
       <CardBody className="wizard wizard-default">
@@ -140,6 +140,6 @@ const LastStepEnd = ({ intl }) => {
         </Wizard>
       </CardBody>
     </Card>
-  );
-};
-export default injectIntl(LastStepEnd);
+  )
+}
+export default injectIntl(LastStepEnd)

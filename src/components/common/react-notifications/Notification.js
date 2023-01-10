@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
+
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
+import classnames from 'classnames'
 
 const Notification = ({
   title,
@@ -16,35 +15,35 @@ const Notification = ({
 }) => {
   const requestHide = () => {
     if (onRequestHide) {
-      onRequestHide();
+      onRequestHide()
     }
-  };
+  }
 
   useEffect(() => {
-    let timer = null;
+    let timer = null
     if (timeOut !== 0) {
-      timer = setTimeout(requestHide, timeOut);
+      timer = setTimeout(requestHide, timeOut)
     }
     return () => {
       if (timer) {
-        clearTimeout(timer);
+        clearTimeout(timer)
       }
-    };
-  }, []);
+    }
+  }, [])
 
   const handleClick = () => {
     if (onClick) {
-      onClick();
+      onClick()
     }
-    requestHide();
-  };
+    requestHide()
+  }
 
   const className = classnames([
     'notification',
     `notification-${type}`,
     customClassName,
-  ]);
-  const titleHtml = title ? <h4 className="title">{title}</h4> : null;
+  ])
+  const titleHtml = title ? <h4 className="title">{title}</h4> : null
   return (
     <div className={className} onClick={() => handleClick()}>
       <div className="notification-message" role="alert">
@@ -52,8 +51,8 @@ const Notification = ({
         <div className="message">{message}</div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 Notification.propTypes = {
   type: PropTypes.oneOf([
@@ -70,7 +69,7 @@ Notification.propTypes = {
   onClick: PropTypes.func,
   onRequestHide: PropTypes.func,
   customClassName: PropTypes.string,
-};
+}
 
 Notification.defaultProps = {
   type: 'info',
@@ -80,6 +79,6 @@ Notification.defaultProps = {
   onClick: () => {},
   onRequestHide: () => {},
   customClassName: '',
-};
+}
 
-export default Notification;
+export default Notification

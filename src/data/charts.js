@@ -1,6 +1,6 @@
-import { ThemeColors } from 'helpers/ThemeColors';
+import { ThemeColors } from 'helpers/ThemeColors'
 
-const colors = ThemeColors();
+const colors = ThemeColors()
 
 export const lineChartData = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -19,7 +19,7 @@ export const lineChartData = {
       fill: false,
     },
   ],
-};
+}
 
 export const polarAreaChartData = {
   labels: ['Sales', 'Orders', 'Stock'],
@@ -35,7 +35,7 @@ export const polarAreaChartData = {
       ],
     },
   ],
-};
+}
 
 export const areaChartData = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -56,7 +56,7 @@ export const areaChartData = {
       backgroundColor: colors.themeColor1_10,
     },
   ],
-};
+}
 
 export const scatterChartData = {
   datasets: [
@@ -93,7 +93,7 @@ export const scatterChartData = {
       ],
     },
   ],
-};
+}
 
 export const barChartData = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June'],
@@ -113,7 +113,7 @@ export const barChartData = {
       borderWidth: 2,
     },
   ],
-};
+}
 
 export const radarChartData = {
   datasets: [
@@ -135,7 +135,7 @@ export const radarChartData = {
     },
   ],
   labels: ['Cakes', 'Desserts', 'Cupcakes'],
-};
+}
 
 export const pieChartData = {
   labels: ['Cakes', 'Cupcakes', 'Desserts'],
@@ -152,7 +152,7 @@ export const pieChartData = {
       data: [15, 25, 20],
     },
   ],
-};
+}
 
 export const doughnutChartData = {
   labels: ['Cakes', 'Cupcakes', 'Desserts'],
@@ -169,7 +169,7 @@ export const doughnutChartData = {
       data: [15, 25, 20],
     },
   ],
-};
+}
 
 export const smallChartData1 = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -192,7 +192,7 @@ export const smallChartData1 = {
       },
     },
   ],
-};
+}
 
 export const smallChartData2 = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -215,7 +215,7 @@ export const smallChartData2 = {
       },
     },
   ],
-};
+}
 
 export const smallChartData3 = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -238,7 +238,7 @@ export const smallChartData3 = {
       },
     },
   ],
-};
+}
 
 export const smallChartData4 = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -261,7 +261,7 @@ export const smallChartData4 = {
       },
     },
   ],
-};
+}
 
 export const conversionChartData = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -282,4 +282,4 @@ export const conversionChartData = {
       backgroundColor: colors.themeColor2_10,
     },
   ],
-};
+}

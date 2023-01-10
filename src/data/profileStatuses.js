@@ -24,5 +24,5 @@ const data = [
     total: 2,
     status: 1,
   },
-];
-export default data;
+]
+export default data

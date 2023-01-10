@@ -1,13 +1,12 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import React, { Component } from 'react';
-import DropzoneComponent from 'react-dropzone-component';
-import 'dropzone/dist/min/dropzone.min.css';
+import React, { Component } from 'react'
+import DropzoneComponent from 'react-dropzone-component'
+import 'dropzone/dist/min/dropzone.min.css'
 
-const ReactDOMServer = require('react-dom/server');
+const ReactDOMServer = require('react-dom/server')
 
 const dropzoneComponentConfig = {
   postUrl: 'https://httpbin.org/post',
-};
+}
 const dropzoneConfig = {
   thumbnailHeight: 160,
   maxFilesize: 2,
@@ -26,7 +25,6 @@ const dropzoneConfig = {
             </span>
           </div>
           <div className="preview-container">
-            {/*  eslint-disable-next-line jsx-a11y/alt-text */}
             <img data-dz-thumbnail className="img-thumbnail border-0" />
             <i className="simple-icon-doc preview-icon" />
           </div>
@@ -52,11 +50,11 @@ const dropzoneConfig = {
     </div>
   ),
   headers: { 'My-Awesome-Header': 'header value' },
-};
+}
 
 export default class DropzoneExample extends Component {
   clear() {
-    this.myDropzone.removeAllFiles(true);
+    this.myDropzone.removeAllFiles(true)
   }
 
   render() {
@@ -66,10 +64,10 @@ export default class DropzoneExample extends Component {
         djsConfig={dropzoneConfig}
         eventHandlers={{
           init: (dropzone) => {
-            this.myDropzone = dropzone;
+            this.myDropzone = dropzone
           },
         }}
       />
-    );
+    )
   }
 }

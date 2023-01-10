@@ -1,6 +1,5 @@
-/* eslint-disable import/prefer-default-export */
 export const ThemeColors = () => {
-  const rootStyle = getComputedStyle(document.body);
+  const rootStyle = getComputedStyle(document.body)
   return {
     themeColor1: rootStyle.getPropertyValue('--theme-color-1').trim(),
     themeColor2: rootStyle.getPropertyValue('--theme-color-2').trim(),
@@ -17,5 +16,5 @@ export const ThemeColors = () => {
     primaryColor: rootStyle.getPropertyValue('--primary-color').trim(),
     foregroundColor: rootStyle.getPropertyValue('--foreground-color').trim(),
     separatorColor: rootStyle.getPropertyValue('--separator-color').trim(),
-  };
-};
+  }
+}

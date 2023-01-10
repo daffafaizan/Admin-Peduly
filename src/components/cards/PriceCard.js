@@ -1,8 +1,8 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { Card, CardBody } from 'reactstrap';
-import IntlMessages from 'helpers/IntlMessages';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import { Card, CardBody } from 'reactstrap'
+import IntlMessages from 'helpers/IntlMessages'
 
 const PriceCard = ({ data }) => {
   return (
@@ -23,7 +23,7 @@ const PriceCard = ({ data }) => {
                 <li key={index}>
                   <p className="mb-0">{feature}</p>
                 </li>
-              );
+              )
             })}
           </ul>
           <div className="text-center">
@@ -35,7 +35,7 @@ const PriceCard = ({ data }) => {
         </div>
       </CardBody>
     </Card>
-  );
-};
+  )
+}
 
-export default React.memo(PriceCard);
+export default React.memo(PriceCard)

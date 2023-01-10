@@ -241,6 +241,6 @@ const produtcs = [
     sales: 524,
     stock: 14,
   },
-];
+]
 
-export default produtcs;
+export default produtcs

@@ -1,10 +1,10 @@
-import React from 'react';
-import { Card, CardBody, CardTitle } from 'reactstrap';
+import React from 'react'
+import { Card, CardBody, CardTitle } from 'reactstrap'
 
-import IntlMessages from 'helpers/IntlMessages';
-import { PolarAreaChart } from 'components/charts';
+import IntlMessages from 'helpers/IntlMessages'
+import { PolarAreaChart } from 'components/charts'
 
-import { polarAreaChartData } from 'data/charts';
+import { polarAreaChartData } from 'data/charts'
 
 const ProductCategoriesPolarArea = ({ chartClass = 'chart-container' }) => {
   return (
@@ -18,7 +18,7 @@ const ProductCategoriesPolarArea = ({ chartClass = 'chart-container' }) => {
         </div>
       </CardBody>
     </Card>
-  );
-};
+  )
+}
 
-export default ProductCategoriesPolarArea;
+export default ProductCategoriesPolarArea

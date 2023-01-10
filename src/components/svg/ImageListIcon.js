@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const ImageListIcon = () => {
   return (
@@ -20,7 +20,7 @@ const ImageListIcon = () => {
         d="M17,12v6H11V12h6m.12-1H10.88a.87.87,0,0,0-.88.88v6.24a.87.87,0,0,0,.88.88h6.24a.87.87,0,0,0,.88-.88V11.88a.87.87,0,0,0-.88-.88Z"
       />
     </svg>
-  );
-};
+  )
+}
 
-export default ImageListIcon;
+export default ImageListIcon

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Card, CardBody } from 'reactstrap';
-import IntlMessages from 'helpers/IntlMessages';
+import React from 'react'
+import { Card, CardBody } from 'reactstrap'
+import IntlMessages from 'helpers/IntlMessages'
 
 const IconCard = ({ className = 'mb-4', icon, title, value }) => {
   return (
@@ -15,7 +15,7 @@ const IconCard = ({ className = 'mb-4', icon, title, value }) => {
         </CardBody>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default React.memo(IconCard);
+export default React.memo(IconCard)

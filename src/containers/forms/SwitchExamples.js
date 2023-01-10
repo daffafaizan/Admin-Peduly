@@ -1,28 +1,23 @@
-/* eslint-disable jsx-a11y/label-has-for */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
-import { Card, CardBody, CardTitle, Row } from 'reactstrap';
-import Switch from 'rc-switch';
-import 'rc-switch/assets/index.css';
+import React, { useState } from 'react'
+import { Card, CardBody, CardTitle, Row } from 'reactstrap'
+import Switch from 'rc-switch'
+import 'rc-switch/assets/index.css'
 
-import IntlMessages from 'helpers/IntlMessages';
-import { Colxx } from 'components/common/CustomBootstrap';
+import IntlMessages from 'helpers/IntlMessages'
+import { Colxx } from 'components/common/CustomBootstrap'
 
 const SwitchExamples = () => {
-  const [checkedPrimary, setCheckedPrimary] = useState(false);
-  const [checkedSecondary, setCheckedSecondary] = useState(true);
-  const [checkedPrimaryInverse, setCheckedPrimaryInverse] = useState(true);
-  const [checkedSecondaryInverse, setCheckedSecondaryInverse] = useState(false);
+  const [checkedPrimary, setCheckedPrimary] = useState(false)
+  const [checkedSecondary, setCheckedSecondary] = useState(true)
+  const [checkedPrimaryInverse, setCheckedPrimaryInverse] = useState(true)
+  const [checkedSecondaryInverse, setCheckedSecondaryInverse] = useState(false)
 
-  const [checkedPrimarySmall, setCheckedPrimarySmall] = useState(false);
-  const [checkedSecondarySmall, setCheckedSecondarySmall] = useState(true);
-  const [checkedPrimaryInverseSmall, setCheckedPrimaryInverseSmall] = useState(
-    true
-  );
-  const [
-    checkedSecondaryInverseSmall,
-    setCheckedSecondaryInverseSmall,
-  ] = useState(false);
+  const [checkedPrimarySmall, setCheckedPrimarySmall] = useState(false)
+  const [checkedSecondarySmall, setCheckedSecondarySmall] = useState(true)
+  const [checkedPrimaryInverseSmall, setCheckedPrimaryInverseSmall] =
+    useState(true)
+  const [checkedSecondaryInverseSmall, setCheckedSecondaryInverseSmall] =
+    useState(false)
 
   return (
     <Card>
@@ -135,6 +130,6 @@ const SwitchExamples = () => {
         </Row>
       </CardBody>
     </Card>
-  );
-};
-export default SwitchExamples;
+  )
+}
+export default SwitchExamples

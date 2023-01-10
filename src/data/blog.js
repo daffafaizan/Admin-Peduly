@@ -58,7 +58,7 @@ export const blogData = [
     thumb: '/assets/img/blog/small-8.jpg',
     type: 'image',
   },
-];
+]
 
 export const blogCategories = [
   {
@@ -81,4 +81,4 @@ export const blogCategories = [
     link: '#',
     icon: 'iconsminds-newspaper',
   },
-];
+]

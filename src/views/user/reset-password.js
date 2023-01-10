@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { Row, Card, CardTitle, Label, FormGroup, Button } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
-import { Formik, Form, Field } from 'formik';
-import { connect } from 'react-redux';
-import { Colxx } from 'components/common/CustomBootstrap';
-import IntlMessages from 'helpers/IntlMessages';
-import { resetPassword } from 'redux/actions';
-import { NotificationManager } from 'components/common/react-notifications';
+import React, { useState, useEffect } from 'react'
+import { Row, Card, CardTitle, Label, FormGroup, Button } from 'reactstrap'
+import { NavLink } from 'react-router-dom'
+import { Formik, Form, Field } from 'formik'
+import { connect } from 'react-redux'
+import { Colxx } from 'components/common/CustomBootstrap'
+import IntlMessages from 'helpers/IntlMessages'
+import { resetPassword } from 'redux/actions'
+import { NotificationManager } from 'components/common/react-notifications'
 
 const validateNewPassword = (values) => {
-  const { newPassword, newPasswordAgain } = values;
-  const errors = {};
+  const { newPassword, newPasswordAgain } = values
+  const errors = {}
   if (newPasswordAgain && newPassword !== newPasswordAgain) {
-    errors.newPasswordAgain = 'Please check your new password';
+    errors.newPasswordAgain = 'Please check your new password'
   }
-  return errors;
-};
+  return errors
+}
 
 const ResetPassword = ({
   location,
@@ -24,8 +24,8 @@ const ResetPassword = ({
   error,
   resetPasswordAction,
 }) => {
-  const [newPassword] = useState('');
-  const [newPasswordAgain] = useState('');
+  const [newPassword] = useState('')
+  const [newPasswordAgain] = useState('')
 
   useEffect(() => {
     if (error) {
@@ -36,7 +36,7 @@ const ResetPassword = ({
         null,
         null,
         ''
-      );
+      )
     } else if (!loading && newPassword === 'success')
       NotificationManager.success(
         'Please login with your new password.',
@@ -45,20 +45,20 @@ const ResetPassword = ({
         null,
         null,
         ''
-      );
-  }, [error, loading, newPassword]);
+      )
+  }, [error, loading, newPassword])
 
   const onResetPassword = (values) => {
     if (!loading) {
-      const params = new URLSearchParams(location.search);
-      const oobCode = params.get('oobCode');
+      const params = new URLSearchParams(location.search)
+      const oobCode = params.get('oobCode')
       if (oobCode) {
         if (values.newPassword !== '') {
           resetPasswordAction({
             newPassword: values.newPassword,
             resetPasswordCode: oobCode,
             history,
-          });
+          })
         }
       } else {
         NotificationManager.warning(
@@ -68,12 +68,12 @@ const ResetPassword = ({
           null,
           null,
           ''
-        );
+        )
       }
     }
-  };
+  }
 
-  const initialValues = { newPassword, newPasswordAgain };
+  const initialValues = { newPassword, newPasswordAgain }
 
   return (
     <Row className="h-100">
@@ -159,14 +159,14 @@ const ResetPassword = ({
         </Card>
       </Colxx>
     </Row>
-  );
-};
+  )
+}
 
 const mapStateToProps = ({ authUser }) => {
-  const { newPassword, resetPasswordCode, loading, error } = authUser;
-  return { newPassword, resetPasswordCode, loading, error };
-};
+  const { newPassword, resetPasswordCode, loading, error } = authUser
+  return { newPassword, resetPasswordCode, loading, error }
+}
 
 export default connect(mapStateToProps, {
   resetPasswordAction: resetPassword,
-})(ResetPassword);
+})(ResetPassword)

@@ -1,23 +1,23 @@
-import React, { Suspense } from 'react';
-import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { Suspense } from 'react'
+import { Route, withRouter, Switch, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-// eslint-disable-next-line import/no-unresolved
-import AppLayout from 'layout/AppLayout';
+import AppLayout from 'layout/AppLayout'
 // import { ProtectedRoute, UserRole } from 'helpers/authHelper';
 
 const Gogo = React.lazy(() =>
   import(/* webpackChunkName: "viwes-gogo" */ './gogo')
-);
+)
 const SecondMenu = React.lazy(() =>
   import(/* webpackChunkName: "viwes-second-menu" */ './second-menu')
-);
+)
 const BlankPage = React.lazy(() =>
   import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
-);
-const TransaksiDonasi = React.lazy(() => import('./transaksi-donasi'));
-const Pengguna = React.lazy(() => import('./pengguna'));
-const SemuaDonasi = React.lazy(() => import('./semua-donasi'));
+)
+const TransaksiDonasi = React.lazy(() => import('./transaksi-donasi'))
+const Pengguna = React.lazy(() => import('./pengguna'))
+const SemuaDonasi = React.lazy(() => import('./semua-donasi'))
+const GalangDana = React.lazy(() => import('./GalangDana'))
 
 const App = ({ match }) => {
   return (
@@ -25,9 +25,13 @@ const App = ({ match }) => {
       <div className="dashboard-wrapper">
         <Suspense fallback={<div className="loading" />}>
           <Switch>
-            <Redirect exact from={`${match.url}/`} to={`${match.url}/gogo`} />
+            <Redirect
+              exact
+              from={`${match.url}/`}
+              to={`${match.url}/dashboard`}
+            />
             <Route
-              path={`${match.url}/gogo`}
+              path={`${match.url}/dashboard`}
               render={(props) => <Gogo {...props} />}
             />
             <Route
@@ -55,17 +59,21 @@ const App = ({ match }) => {
               path={`${match.url}/pengguna`}
               render={(props) => <Pengguna {...props} />}
             />
+            <Route
+              path={`${match.url}/galang-dana`}
+              render={(props) => <GalangDana {...props} />}
+            />
             <Redirect to="/error" />
           </Switch>
         </Suspense>
       </div>
     </AppLayout>
-  );
-};
+  )
+}
 
 const mapStateToProps = ({ menu }) => {
-  const { containerClassnames } = menu;
-  return { containerClassnames };
-};
+  const { containerClassnames } = menu
+  return { containerClassnames }
+}
 
-export default withRouter(connect(mapStateToProps, {})(App));
+export default withRouter(connect(mapStateToProps, {})(App))

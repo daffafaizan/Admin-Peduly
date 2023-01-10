@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import {
   CustomInput,
   Button,
@@ -9,19 +9,19 @@ import {
   ModalFooter,
   Input,
   Label,
-} from 'reactstrap';
-import Select from 'react-select';
-import CustomSelectInput from 'components/common/CustomSelectInput';
-import IntlMessages from 'helpers/IntlMessages';
+} from 'reactstrap'
+import Select from 'react-select'
+import CustomSelectInput from 'components/common/CustomSelectInput'
+import IntlMessages from 'helpers/IntlMessages'
 
-import { addSurveyItem } from 'redux/actions';
+import { addSurveyItem } from 'redux/actions'
 
 const initialState = {
   title: '',
   label: {},
   category: {},
   status: 'ACTIVE',
-};
+}
 
 const AddNewSurveyModal = ({
   modalOpen,
@@ -30,7 +30,7 @@ const AddNewSurveyModal = ({
   categories,
   addSurveyItemAction,
 }) => {
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState(initialState)
 
   const addNetItem = () => {
     const newItem = {
@@ -39,11 +39,11 @@ const AddNewSurveyModal = ({
       labelColor: state.label.color,
       category: state.category.value,
       status: state.status,
-    };
-    addSurveyItemAction(newItem);
-    toggleModal();
-    setState(initialState);
-  };
+    }
+    addSurveyItemAction(newItem)
+    toggleModal()
+    setState(initialState)
+  }
 
   return (
     <Modal
@@ -76,7 +76,7 @@ const AddNewSurveyModal = ({
           classNamePrefix="react-select"
           name="form-field-name"
           options={categories.map((x, i) => {
-            return { label: x, value: x, key: i };
+            return { label: x, value: x, key: i }
           })}
           value={state.category}
           onChange={(val) => setState({ ...state, category: val })}
@@ -95,7 +95,7 @@ const AddNewSurveyModal = ({
               value: x.label,
               key: i,
               color: x.color,
-            };
+            }
           })}
           value={state.label}
           onChange={(val) => setState({ ...state, label: val })}
@@ -140,16 +140,16 @@ const AddNewSurveyModal = ({
         </Button>
       </ModalFooter>
     </Modal>
-  );
-};
+  )
+}
 
 const mapStateToProps = ({ surveyListApp }) => {
-  const { labels, categories } = surveyListApp;
+  const { labels, categories } = surveyListApp
   return {
     labels,
     categories,
-  };
-};
+  }
+}
 export default connect(mapStateToProps, {
   addSurveyItemAction: addSurveyItem,
-})(AddNewSurveyModal);
+})(AddNewSurveyModal)

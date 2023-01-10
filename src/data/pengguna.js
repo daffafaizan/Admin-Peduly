@@ -1,5 +1,6 @@
 // eslint-disable-next-line
 const pengguna = [
+  // created_at: '2022-06-29T07:23:22.000000Z',
   {
     id: 1,
     nama: 'Maudy Ayunda',
@@ -8,6 +9,7 @@ const pengguna = [
     telepon: '081234567890',
     role: 'user',
     created_at: '2022-06-29T07:23:22.000000Z',
+    verifikasi: 'terverifikasi',
   },
   {
     id: 2,
@@ -16,7 +18,8 @@ const pengguna = [
     email: 'maudyayunda@mail.com',
     telepon: '081234567890',
     role: 'user',
-    created_at: '2022-09-28T07:23:22.000000Z',
+    created_at: '2022-05-29T07:23:22.000000Z',
+    verifikasi: 'tidak',
   },
   {
     id: 3,
@@ -25,7 +28,8 @@ const pengguna = [
     email: 'maudyayunda@mail.com',
     telepon: '081234567890',
     role: 'user',
-    created_at: '2022-08-28T07:23:22.000000Z',
+    created_at: '2022-01-29T07:23:22.000000Z',
+    verifikasi: 'pending',
   },
   {
     id: 4,
@@ -34,7 +38,8 @@ const pengguna = [
     email: 'maudyayunda@mail.com',
     telepon: '081234567890',
     role: 'user',
-    created_at: '2022-07-28T07:23:22.000000Z',
+    created_at: '2022-08-29T07:23:22.000000Z',
+    verifikasi: 'tidak',
   },
   {
     id: 5,
@@ -43,7 +48,8 @@ const pengguna = [
     email: 'maudyayunda@mail.com',
     telepon: '081234567890',
     role: 'user',
-    created_at: '2022-06-28T07:23:22.000000Z',
+    created_at: '2022-09-29T07:23:22.000000Z',
+    verifikasi: 'tidak',
   },
   {
     id: 6,
@@ -52,7 +58,8 @@ const pengguna = [
     email: 'maudyayunda@mail.com',
     telepon: '081234567890',
     role: 'user',
-    created_at: '2022-05-28T07:23:22.000000Z',
+    created_at: '2021-06-29T07:23:22.000000Z',
+    verifikasi: 'pending',
   },
   {
     id: 7,
@@ -61,8 +68,9 @@ const pengguna = [
     email: 'maudyayunda@mail.com',
     telepon: '081234567890',
     role: 'user',
-    created_at: '2022-05-28T07:23:22.000000Z',
+    created_at: '2022-03-29T07:23:22.000000Z',
+    verifikasi: 'terverifikasi',
   },
-];
+]
 
-export default pengguna;
+export default pengguna

@@ -34,5 +34,5 @@ const orders = [
     statusColor: 'secondary',
     status: 'ON HOLD',
   },
-];
-export default orders;
+]
+export default orders

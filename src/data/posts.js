@@ -96,6 +96,6 @@ const posts = [
     ],
     key: 4,
   },
-];
+]
 
-export default posts;
+export default posts

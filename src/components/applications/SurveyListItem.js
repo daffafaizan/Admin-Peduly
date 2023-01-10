@@ -1,9 +1,9 @@
-import React from 'react';
-import { Card, CardBody, Badge, CustomInput } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+import React from 'react'
+import { Card, CardBody, Badge, CustomInput } from 'reactstrap'
+import { NavLink } from 'react-router-dom'
 
-import { Colxx } from '../common/CustomBootstrap';
-import { adminRoot } from 'constants/defaultValues';
+import { Colxx } from '../common/CustomBootstrap'
+import { adminRoot } from 'constants/defaultValues'
 
 const SurveyListItem = ({ item, handleCheckChange, isSelected }) => {
   return (
@@ -49,7 +49,7 @@ const SurveyListItem = ({ item, handleCheckChange, isSelected }) => {
         </div>
       </Card>
     </Colxx>
-  );
-};
+  )
+}
 
-export default React.memo(SurveyListItem);
+export default React.memo(SurveyListItem)

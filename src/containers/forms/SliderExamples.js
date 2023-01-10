@@ -1,14 +1,9 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/label-has-for */
-import React from 'react';
-import { Row } from 'reactstrap';
-import { Colxx } from 'components/common/CustomBootstrap';
-import IntlMessages from 'helpers/IntlMessages';
+import React from 'react'
+import { Row } from 'reactstrap'
+import { Colxx } from 'components/common/CustomBootstrap'
+import IntlMessages from 'helpers/IntlMessages'
 
-import {
-  SliderTooltip,
-  RangeTooltip,
-} from 'components/common/SliderTooltips';
+import { SliderTooltip, RangeTooltip } from 'components/common/SliderTooltips'
 
 const SliderExamples = () => {
   return (
@@ -40,7 +35,7 @@ const SliderExamples = () => {
         />
       </Colxx>
     </Row>
-  );
-};
+  )
+}
 
-export default SliderExamples;
+export default SliderExamples

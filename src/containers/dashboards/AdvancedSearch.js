@@ -1,6 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/label-has-for */
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   Card,
   CardBody,
@@ -11,11 +9,11 @@ import {
   Label,
   Input,
   CustomInput,
-} from 'reactstrap';
-import Select from 'react-select';
+} from 'reactstrap'
+import Select from 'react-select'
 
-import IntlMessages from 'helpers/IntlMessages';
-import CustomSelectInput from 'components/common/CustomSelectInput';
+import IntlMessages from 'helpers/IntlMessages'
+import CustomSelectInput from 'components/common/CustomSelectInput'
 
 const selectData = [
   { label: 'Chocolate', value: 'chocolate', key: 0 },
@@ -24,17 +22,17 @@ const selectData = [
   { label: 'Caramel', value: 'caramel', key: 3 },
   { label: 'Cookies and Cream', value: 'cookiescream', key: 4 },
   { label: 'Peppermint', value: 'peppermint', key: 5 },
-];
+]
 
 const selectDataType = [
   { label: 'Cake', value: 'cake', key: 0 },
   { label: 'Cupcake', value: 'cupcake', key: 1 },
   { label: 'Dessert', value: 'dessert', key: 2 },
-];
+]
 
 const AdvancedSearch = ({ messages }) => {
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  const [selectedOptionsType, setSelectedOptionsType] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState([])
+  const [selectedOptionsType, setSelectedOptionsType] = useState([])
 
   return (
     <Card className="dashboard-search">
@@ -92,6 +90,6 @@ const AdvancedSearch = ({ messages }) => {
         </Form>
       </CardBody>
     </Card>
-  );
-};
-export default AdvancedSearch;
+  )
+}
+export default AdvancedSearch

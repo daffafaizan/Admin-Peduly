@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import {
   defaultDirection,
   defaultLocale,
@@ -6,122 +5,116 @@ import {
   localeOptions,
   themeColorStorageKey,
   themeRadiusStorageKey,
-} from 'constants/defaultValues';
+} from 'constants/defaultValues'
 
 export const mapOrder = (array, order, key) => {
   // eslint-disable-next-line func-names
   array.sort(function (a, b) {
-    const A = a[key];
-    const B = b[key];
+    const A = a[key]
+    const B = b[key]
 
     if (order.indexOf(`${A}`) > order.indexOf(`${B}`)) {
-      return 1;
+      return 1
     }
-    return -1;
-  });
-  return array;
-};
+    return -1
+  })
+  return array
+}
 
 export const getDateWithFormat = () => {
-  const today = new Date();
-  let dd = today.getDate();
-  let mm = today.getMonth() + 1; // January is 0!
+  const today = new Date()
+  let dd = today.getDate()
+  let mm = today.getMonth() + 1 // January is 0!
 
-  const yyyy = today.getFullYear();
+  const yyyy = today.getFullYear()
   if (dd < 10) {
-    dd = `0${dd}`;
+    dd = `0${dd}`
   }
   if (mm < 10) {
-    mm = `0${mm}`;
+    mm = `0${mm}`
   }
-  return `${dd}.${mm}.${yyyy}`;
-};
+  return `${dd}.${mm}.${yyyy}`
+}
 
 export const getCurrentTime = () => {
-  const now = new Date();
-  return `${now.getHours()}:${now.getMinutes()}`;
-};
+  const now = new Date()
+  return `${now.getHours()}:${now.getMinutes()}`
+}
 
 export const getDirection = () => {
-  let direction = defaultDirection;
+  let direction = defaultDirection
 
   try {
     if (localStorage.getItem('direction')) {
-      const localValue = localStorage.getItem('direction');
+      const localValue = localStorage.getItem('direction')
       if (localValue === 'rtl' || localValue === 'ltr') {
-        direction = localValue;
+        direction = localValue
       }
     }
   } catch (error) {
-    console.log('>>>>: src/helpers/Utils.js : getDirection -> error', error);
-    direction = defaultDirection;
+    console.log('>>>>: src/helpers/Utils.js : getDirection -> error', error)
+    direction = defaultDirection
   }
   return {
     direction,
     isRtl: direction === 'rtl',
-  };
-};
+  }
+}
 export const setDirection = (localValue) => {
-  let direction = 'ltr';
+  let direction = 'ltr'
   if (localValue === 'rtl' || localValue === 'ltr') {
-    direction = localValue;
+    direction = localValue
   }
   try {
-    localStorage.setItem('direction', direction);
+    localStorage.setItem('direction', direction)
   } catch (error) {
-    console.log('>>>>: src/helpers/Utils.js : setDirection -> error', error);
+    console.log('>>>>: src/helpers/Utils.js : setDirection -> error', error)
   }
-};
+}
 
 export const getCurrentColor = () => {
-  let currentColor = defaultColor;
+  let currentColor = defaultColor
   try {
     if (localStorage.getItem(themeColorStorageKey)) {
-      currentColor = localStorage.getItem(themeColorStorageKey);
+      currentColor = localStorage.getItem(themeColorStorageKey)
     }
   } catch (error) {
-    console.log('>>>>: src/helpers/Utils.js : getCurrentColor -> error', error);
-    currentColor = defaultColor;
+    console.log('>>>>: src/helpers/Utils.js : getCurrentColor -> error', error)
+    currentColor = defaultColor
   }
-  return currentColor;
-};
+  return currentColor
+}
 
 export const setCurrentColor = (color) => {
   try {
-    localStorage.setItem(themeColorStorageKey, color);
+    localStorage.setItem(themeColorStorageKey, color)
   } catch (error) {
-    console.log('>>>>: src/helpers/Utils.js : setCurrentColor -> error', error);
+    console.log('>>>>: src/helpers/Utils.js : setCurrentColor -> error', error)
   }
-};
+}
 
 export const getCurrentRadius = () => {
-  let currentRadius = 'rounded';
+  let currentRadius = 'rounded'
   try {
     if (localStorage.getItem(themeRadiusStorageKey)) {
-      currentRadius = localStorage.getItem(themeRadiusStorageKey);
+      currentRadius = localStorage.getItem(themeRadiusStorageKey)
     }
   } catch (error) {
-    console.log(
-      '>>>>: src/helpers/Utils.js : getCurrentRadius -> error',
-      error
-    );
-    currentRadius = 'rounded';
+    console.log('>>>>: src/helpers/Utils.js : getCurrentRadius -> error', error)
+    currentRadius = 'rounded'
   }
-  return currentRadius;
-};
+  return currentRadius
+}
 export const setCurrentRadius = (radius) => {
   try {
-    localStorage.setItem(themeRadiusStorageKey, radius);
+    localStorage.setItem(themeRadiusStorageKey, radius)
   } catch (error) {
-    console.log(
-      '>>>>: src/helpers/Utils.js : setCurrentRadius -> error',
-      error
-    );
+    console.log('>>>>: src/helpers/Utils.js : setCurrentRadius -> error', error)
   }
-};
+}
 
 export const getCurrentLanguage = () => {
-  let language = defaultLocale;
+  let language = defaultLocale
   try {
     language =
       localStorage.getItem('currentLanguage') &&
@@ -129,80 +122,80 @@ export const getCurrentLanguage = () => {
         (x) => x.id === localStorage.getItem('currentLanguage')
       ).length > 0
         ? localStorage.getItem('currentLanguage')
-        : defaultLocale;
+        : defaultLocale
   } catch (error) {
     console.log(
       '>>>>: src/helpers/Utils.js : getCurrentLanguage -> error',
       error
-    );
-    language = defaultLocale;
+    )
+    language = defaultLocale
   }
-  return language;
-};
+  return language
+}
 export const setCurrentLanguage = (locale) => {
   try {
-    localStorage.setItem('currentLanguage', locale);
+    localStorage.setItem('currentLanguage', locale)
   } catch (error) {
     console.log(
       '>>>>: src/helpers/Utils.js : setCurrentLanguage -> error',
       error
-    );
+    )
   }
-};
+}
 
 export const getCurrentUser = () => {
-  let user = null;
+  let user = null
   try {
     user =
       localStorage.getItem('gogo_current_user') != null
         ? JSON.parse(localStorage.getItem('gogo_current_user'))
-        : null;
+        : null
   } catch (error) {
-    console.log('>>>>: src/helpers/Utils.js  : getCurrentUser -> error', error);
-    user = null;
+    console.log('>>>>: src/helpers/Utils.js  : getCurrentUser -> error', error)
+    user = null
   }
-  return user;
-};
+  return user
+}
 
 export const setCurrentUser = (user) => {
   try {
     if (user) {
-      localStorage.setItem('gogo_current_user', JSON.stringify(user));
+      localStorage.setItem('gogo_current_user', JSON.stringify(user))
     } else {
-      localStorage.removeItem('gogo_current_user');
+      localStorage.removeItem('gogo_current_user')
     }
   } catch (error) {
-    console.log('>>>>: src/helpers/Utils.js : setCurrentUser -> error', error);
+    console.log('>>>>: src/helpers/Utils.js : setCurrentUser -> error', error)
   }
-};
+}
 
 export const orderData = (option, transaksi) => {
-  let array;
+  let array
 
   if (option === 'Terbaru') {
     array = transaksi.sort(function (a, b) {
       // Transaksi terbaru
-      return new Date(b.created_at) - new Date(a.created_at);
-    });
+      return new Date(b.created_at) - new Date(a.created_at)
+    })
   } else if (option === 'Terlama') {
     array = transaksi.sort(function (a, b) {
       // Transaksi terlama
-      return new Date(a.created_at) - new Date(b.created_at);
-    });
+      return new Date(a.created_at) - new Date(b.created_at)
+    })
   } else if (option === 'Paling Rendah') {
     array = transaksi.sort(function (a, b) {
       // Jumlah donasi peling rendah
-      return Number(a.donasi) - Number(b.donasi);
-    });
+      return Number(a.donasi) - Number(b.donasi)
+    })
   } else if (option === 'Paling Tinggi') {
     array = transaksi.sort(function (a, b) {
       // Jumlah donasi peling tinggi
-      return Number(b.donasi) - Number(a.donasi);
-    });
+      return Number(b.donasi) - Number(a.donasi)
+    })
   }
 
-  return array;
-};
+  return array
+}
 
 // export const searchKey = (key, data) => {
 

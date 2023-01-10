@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import Lightbox from 'react-image-lightbox';
+import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
+import Lightbox from 'react-image-lightbox'
 
 const SingleLightbox = ({ thumb, className, large }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <>
@@ -15,6 +15,6 @@ const SingleLightbox = ({ thumb, className, large }) => {
         <Lightbox mainSrc={large} onCloseRequest={() => setIsOpen(false)} />
       )}
     </>
-  );
-};
-export default SingleLightbox;
+  )
+}
+export default SingleLightbox

@@ -1,11 +1,11 @@
-import React from 'react';
-import { Card, CardBody, CardTitle } from 'reactstrap';
+import React from 'react'
+import { Card, CardBody, CardTitle } from 'reactstrap'
 
-import { Colxx } from 'components/common/CustomBootstrap';
-import { ThemeColors } from 'helpers/ThemeColors';
-import { DoughnutChart } from 'components/charts';
+import { Colxx } from 'components/common/CustomBootstrap'
+import { ThemeColors } from 'helpers/ThemeColors'
+import { DoughnutChart } from 'components/charts'
 
-const colors = ThemeColors();
+const colors = ThemeColors()
 
 const ageChartData = {
   labels: ['12-24', '24-30', '30-40', '40-50', '50-60'],
@@ -30,7 +30,7 @@ const ageChartData = {
       data: [15, 25, 20, 30, 14],
     },
   ],
-};
+}
 const genderChartData = {
   labels: ['Male', 'Female', 'Other'],
   datasets: [
@@ -46,7 +46,7 @@ const genderChartData = {
       data: [85, 45, 20],
     },
   ],
-};
+}
 const workChartData = {
   labels: [
     'Employed for wages',
@@ -73,7 +73,7 @@ const workChartData = {
       data: [15, 25, 20, 8],
     },
   ],
-};
+}
 const codingChartData = {
   labels: ['Python', 'JavaScript', 'PHP', 'Java', 'C#'],
   datasets: [
@@ -97,7 +97,7 @@ const codingChartData = {
       data: [15, 25, 20, 8, 25],
     },
   ],
-};
+}
 
 const SurveyCharts = () => {
   return (
@@ -138,7 +138,7 @@ const SurveyCharts = () => {
         </CardBody>
       </Card>
     </Colxx>
-  );
-};
+  )
+}
 
-export default SurveyCharts;
+export default SurveyCharts

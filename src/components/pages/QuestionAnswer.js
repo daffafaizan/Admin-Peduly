@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, UncontrolledCollapse } from 'reactstrap';
+import React from 'react'
+import { Button, UncontrolledCollapse } from 'reactstrap'
 
 const QuestionAnswer = ({ data }) => {
   return (
@@ -11,6 +11,6 @@ const QuestionAnswer = ({ data }) => {
         <div className="pb-4">{data.answer}</div>
       </UncontrolledCollapse>
     </div>
-  );
-};
-export default QuestionAnswer;
+  )
+}
+export default QuestionAnswer

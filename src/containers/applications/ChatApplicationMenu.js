@@ -1,20 +1,20 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { injectIntl } from 'react-intl';
-import { Nav, TabContent, TabPane, CardHeader, NavItem } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import classnames from 'classnames';
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { injectIntl } from 'react-intl'
+import { Nav, TabContent, TabPane, CardHeader, NavItem } from 'reactstrap'
+import { NavLink } from 'react-router-dom'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import classnames from 'classnames'
 
-import IntlMessages from 'helpers/IntlMessages';
-import ApplicationMenu from 'components/common/ApplicationMenu';
+import IntlMessages from 'helpers/IntlMessages'
+import ApplicationMenu from 'components/common/ApplicationMenu'
 
 import {
   changeConversation,
   createConversation,
   searchContact,
-} from 'redux/actions';
+} from 'redux/actions'
 
 const ChatApplicationMenu = ({
   intl,
@@ -31,53 +31,53 @@ const ChatApplicationMenu = ({
   createConversationAction,
   searchContactAction,
 }) => {
-  const [searchKey, setSearchKey] = useState('');
+  const [searchKey, setSearchKey] = useState('')
 
   const handleSearchContact = (keyword) => {
-    setSearchKey(keyword);
+    setSearchKey(keyword)
 
     if (keyword.length > 0) {
       if (activeTab !== 'contacts') {
-        toggleAppMenu('contacts');
+        toggleAppMenu('contacts')
       }
-      searchContactAction(keyword);
+      searchContactAction(keyword)
     } else {
-      searchContactAction('');
+      searchContactAction('')
     }
-  };
+  }
 
   const toggleMenu = (tab) => {
     if (activeTab !== tab) {
-      toggleAppMenu(tab);
+      toggleAppMenu(tab)
     }
     if (tab === 'messages') {
-      handleSearchContact('');
+      handleSearchContact('')
     }
-  };
+  }
 
   const handleConversationClick = (e, selectedUserId) => {
-    changeConversationAction(selectedUserId);
-    handleSearchContact('');
-  };
+    changeConversationAction(selectedUserId)
+    handleSearchContact('')
+  }
 
   const handleContactClick = (userId) => {
     if (activeTab !== 'messages') {
-      toggleAppMenu('messages');
-      searchContactAction('');
+      toggleAppMenu('messages')
+      searchContactAction('')
     }
 
     const conversation = conversations.find(
       (x) => x.users.includes(currentUser.id) && x.users.includes(userId)
-    );
+    )
     if (conversation) {
-      changeConversationAction(userId);
+      changeConversationAction(userId)
     } else {
-      createConversationAction(currentUser.id, userId, conversations);
-      changeConversationAction(userId);
+      createConversationAction(currentUser.id, userId, conversations)
+      changeConversationAction(userId)
     }
-  };
+  }
 
-  const { messages } = intl;
+  const { messages } = intl
 
   return (
     <ApplicationMenu>
@@ -135,7 +135,7 @@ const ChatApplicationMenu = ({
                 conversations.map((item, index) => {
                   const otherUser = allContacts.find(
                     (u) => u.id === item.users.find((x) => x !== currentUser.id)
-                  );
+                  )
                   return (
                     <div
                       key={index}
@@ -166,7 +166,7 @@ const ChatApplicationMenu = ({
                         </div>
                       </NavLink>
                     </div>
-                  );
+                  )
                 })}
             </div>
           </PerfectScrollbar>
@@ -205,15 +205,15 @@ const ChatApplicationMenu = ({
                           </div>
                         </NavLink>
                       </div>
-                    );
+                    )
                   })}
             </div>
           </PerfectScrollbar>
         </TabPane>
       </TabContent>
     </ApplicationMenu>
-  );
-};
+  )
+}
 
 const mapStateToProps = ({ chatApp }) => {
   const {
@@ -223,7 +223,7 @@ const mapStateToProps = ({ chatApp }) => {
     loadingConversations,
     loadingContacts,
     currentUser,
-  } = chatApp;
+  } = chatApp
   return {
     contacts,
     allContacts,
@@ -231,12 +231,12 @@ const mapStateToProps = ({ chatApp }) => {
     loadingConversations,
     loadingContacts,
     currentUser,
-  };
-};
+  }
+}
 export default injectIntl(
   connect(mapStateToProps, {
     changeConversationAction: changeConversation,
     createConversationAction: createConversation,
     searchContactAction: searchContact,
   })(ChatApplicationMenu)
-);
+)
