@@ -18,6 +18,7 @@ const TransaksiDonasi = React.lazy(() => import('./transaksi-donasi'))
 const Pengguna = React.lazy(() => import('./pengguna'))
 const SemuaDonasi = React.lazy(() => import('./semua-donasi'))
 const GalangDana = React.lazy(() => import('./GalangDana'))
+const AddSlide = React.lazy(() => import('./Slide/AddSlide'))
 
 const App = ({ match }) => {
   return (
@@ -62,6 +63,10 @@ const App = ({ match }) => {
             <Route
               path={`${match.url}/galang-dana`}
               render={(props) => <GalangDana {...props} />}
+            />
+            <Route
+              path={`${match.url}/tambah-slide`}
+              render={(props) => <AddSlide {...props} />}
             />
             <Redirect to="/error" />
           </Switch>

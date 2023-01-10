@@ -601,13 +601,13 @@ class Sidebar extends Component {
                 <NavItem
                   className={`${
                     // eslint-disable-next-line react/destructuring-assignment
-                    this.props.location.pathname === '/app/slide' && 'active'
+                    this.props.location.pathname === '/app/tambah-slide' && 'active'
                   }`}
                   onMouseEnter={this.handleSlideMouseEnter}
                   onMouseLeave={this.handleSlideMouseLeave}
                 >
                   <NavLink
-                    to={`${adminRoot}/slide`}
+                    to={`${adminRoot}/tambah-slide`}
                     // onClick={(e) => this.openSubMenu(e, item)}
                     data-flag="slide"
                   >
