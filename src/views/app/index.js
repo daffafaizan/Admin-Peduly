@@ -5,19 +5,23 @@ import { connect } from 'react-redux'
 import AppLayout from 'layout/AppLayout'
 // import { ProtectedRoute, UserRole } from 'helpers/authHelper';
 
-const Gogo = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-gogo" */ './gogo')
+const Dashboard = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-gogo" */ './Dashboard')
 )
-const SecondMenu = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-second-menu" */ './second-menu')
-)
+// const Gogo = React.lazy(() =>
+//   import(/* webpackChunkName: "viwes-gogo" */ './gogo')
+// )
+// const SecondMenu = React.lazy(() =>
+//   import(/* webpackChunkName: "viwes-second-menu" */ './second-menu')
+// )
 const BlankPage = React.lazy(() =>
   import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
 )
-const TransaksiDonasi = React.lazy(() => import('./transaksi-donasi'))
-const Pengguna = React.lazy(() => import('./pengguna'))
-const SemuaDonasi = React.lazy(() => import('./semua-donasi'))
-const GalangDana = React.lazy(() => import('./GalangDana'))
+const TransaksiDonasi = React.lazy(() => import('./Transaksi'))
+const Pengguna = React.lazy(() => import('./Pengguna'))
+const SemuaDonasi = React.lazy(() => import('./Halaman'))
+// const GalangDana = React.lazy(() => import('./GalangDana'))
+const HalamanGalangDana = React.lazy(() => import('./Halaman'))
 
 const App = ({ match }) => {
   return (
@@ -32,12 +36,12 @@ const App = ({ match }) => {
             />
             <Route
               path={`${match.url}/dashboard`}
-              render={(props) => <Gogo {...props} />}
+              render={(props) => <Dashboard {...props} />}
             />
-            <Route
+            {/* <Route
               path={`${match.url}/second-menu`}
               render={(props) => <SecondMenu {...props} />}
-            />
+            /> */}
             {/* <ProtectedRoute
                     path={`${match.url}/second-menu`}
                     component={SecondMenu}
@@ -60,8 +64,8 @@ const App = ({ match }) => {
               render={(props) => <Pengguna {...props} />}
             />
             <Route
-              path={`${match.url}/galang-dana`}
-              render={(props) => <GalangDana {...props} />}
+              path={`${match.url}/halaman-galang-dana`}
+              render={(props) => <HalamanGalangDana {...props} />}
             />
             <Redirect to="/error" />
           </Switch>

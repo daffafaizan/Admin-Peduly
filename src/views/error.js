@@ -30,10 +30,14 @@ const Error = () => {
           <Row className="h-100">
             <Colxx xxs="12" md="10" className="mx-auto my-auto">
               <Card className="auth-card">
-                <div className="position-relative image-side ">
-                  <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
-                  <p className="white mb-0">Yes, it is indeed!</p>
-                </div>
+                <div className="position-relative image-side "></div>
+                {/* <img
+                  src="assets/img/login/background.jpg"
+                  style={{
+                    width: '40%',
+                    objectFit: 'cover',
+                  }}
+                /> */}
                 <div className="form-side">
                   <NavLink to="/" className="white">
                     {/* <span className="logo-single" /> */}

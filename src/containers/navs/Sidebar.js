@@ -506,14 +506,14 @@ class Sidebar extends Component {
                 <NavItem
                   className={`${
                     // eslint-disable-next-line react/destructuring-assignment
-                    this.props.location.pathname === '/app/galang-dana' &&
-                    'active'
+                    this.props.location.pathname ===
+                      '/app/halaman-galang-dana' && 'active'
                   }`}
                   onMouseEnter={this.handleHalamanMouseEnter}
                   onMouseLeave={this.handleHalamanMouseLeave}
                 >
                   <NavLink
-                    to={`${adminRoot}/galang-dana`}
+                    to={`${adminRoot}/halaman-galang-dana`}
                     // onClick={(e) => this.openSubMenu(e, item)}
                     data-flag="halaman"
                   >
@@ -529,7 +529,7 @@ class Sidebar extends Component {
                           stroke={
                             // eslint-disable-next-line react/destructuring-assignment
                             this.props.location.pathname ===
-                              '/app/galang-dana' ||
+                              '/app/halaman-galang-dana' ||
                             // eslint-disable-next-line react/destructuring-assignment
                             this.state.isHalamanHovered
                               ? '#E7513B'
@@ -544,7 +544,7 @@ class Sidebar extends Component {
                           stroke={
                             // eslint-disable-next-line react/destructuring-assignment
                             this.props.location.pathname ===
-                              '/app/galang-dana' ||
+                              '/app/halaman-galang-dana' ||
                             // eslint-disable-next-line react/destructuring-assignment
                             this.state.isHalamanHovered
                               ? '#E7513B'

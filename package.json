@@ -1,6 +1,6 @@
 {
-  "name": "gogo-react",
-  "version": "5.3.1",
+  "name": "peduly-admin",
+  "version": "1.0.0",
   "description": "Gogo - React Bootstrap 4 Admin Dashboard Template",
   "private": true,
   "dependencies": {
