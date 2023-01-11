@@ -26,3 +26,26 @@
   font-size: 10pt;
   cursor: pointer;
 }
+
+.input-text, .input-date {
+  border: 1px solid #F4F4F4;
+  border-radius: 15px;
+  height: 50px;
+}
+
+.btn-batal {
+  border-color: #717171;
+  color: #717171;
+}
+
+.btn-batal:hover {
+  border-color: #717171;
+  background-color: #717171;
+  color: #F4f4f4;
+}
+
+.btn-hapus, .btn-hapus:hover {
+  border-color: #717171;
+  background-color: #717171;
+  color: #F4f4f4;
+}
