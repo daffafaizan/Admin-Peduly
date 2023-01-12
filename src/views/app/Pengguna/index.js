@@ -172,10 +172,8 @@ const Pengguna = () => {
                         <td>
                           {item.verifikasi === 'terverifikasi' && (
                             <p
-                              className="text-success rounded text-center"
+                              className="text-success rounded text-center status bg-status-success"
                               style={{
-                                background: 'rgba(52, 168, 83, 0.2)',
-                                padding: '3px 12px',
                                 maxWidth: '105px',
                               }}
                             >
@@ -184,10 +182,8 @@ const Pengguna = () => {
                           )}
                           {item.verifikasi === 'pending' && (
                             <p
-                              className="text-warning rounded text-center"
+                              className="text-warning rounded text-center status bg-status-pending"
                               style={{
-                                background: 'rgba(252, 174, 3, 0.2)',
-                                padding: '3px 12px',
                                 maxWidth: '80px',
                               }}
                             >
@@ -196,10 +192,8 @@ const Pengguna = () => {
                           )}
                           {item.verifikasi === 'tidak' && (
                             <p
-                              className="text-danger rounded text-center"
+                              className="text-danger rounded text-center status bg-status-danger"
                               style={{
-                                background: 'rgba(231, 81, 59, 0.2)',
-                                padding: '3px 12px',
                                 maxWidth: '62px',
                               }}
                             >

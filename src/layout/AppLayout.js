@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom'
 
 import TopNav from 'containers/navs/Topnav'
 import Sidebar from 'containers/navs/Sidebar'
-import Footer from 'containers/navs/Footer'
 
 const AppLayout = ({ containerClassnames, children, history }) => {
   return (
@@ -14,7 +13,6 @@ const AppLayout = ({ containerClassnames, children, history }) => {
       <main>
         <div className="container-fluid">{children}</div>
       </main>
-      <Footer />
     </div>
   )
 }

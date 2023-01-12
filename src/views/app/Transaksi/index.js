@@ -166,10 +166,8 @@ const TransaksiDonasi = () => {
                         <td>
                           {status ? (
                             <p
-                              className="text-success text-center rounded"
+                              className="text-success text-center rounded status border-status-success"
                               style={{
-                                padding: '3px 12px',
-                                border: '1px solid #28a745',
                                 maxWidth: '85px',
                               }}
                             >
@@ -177,11 +175,8 @@ const TransaksiDonasi = () => {
                             </p>
                           ) : (
                             <p
-                              className="text-center rounded"
+                              className="text-danger text-center rounded status border-status-danger"
                               style={{
-                                color: '#E7513B',
-                                padding: '3px 12px',
-                                border: '1px solid #E7513B',
                                 maxWidth: '61px',
                               }}
                             >
@@ -210,10 +205,10 @@ const TransaksiDonasi = () => {
                           {/* {item.status_donasi} */}
                           {true && (
                             <p
-                              className="text-success rounded text-center"
+                              className="text-success rounded text-center status bg-status-success"
                               style={{
-                                background: 'rgba(52, 168, 83, 0.2)',
-                                padding: '3px 12px',
+                                // background: 'rgba(52, 168, 83, 0.2)',
+                                // padding: '3px 12px',
                                 maxWidth: '77px',
                               }}
                             >
@@ -222,10 +217,10 @@ const TransaksiDonasi = () => {
                           )}
                           {false && (
                             <p
-                              className="text-warning rounded text-center"
+                              className="text-warning rounded text-center status bg-status-pending"
                               style={{
-                                background: 'rgba(252, 174, 3, 0.2)',
-                                padding: '3px 12px',
+                                // background: 'rgba(252, 174, 3, 0.2)',
+                                // padding: '3px 12px',
                                 maxWidth: '80px',
                               }}
                             >
@@ -234,10 +229,10 @@ const TransaksiDonasi = () => {
                           )}
                           {false && (
                             <p
-                              className="text-danger rounded text-center"
+                              className="text-danger rounded text-center status bg-status-danger"
                               style={{
-                                background: 'rgba(231, 81, 59, 0.2)',
-                                padding: '3px 12px',
+                                // background: 'rgba(231, 81, 59, 0.2)',
+                                // padding: '3px 12px',
                                 maxWidth: '94px',
                               }}
                             >

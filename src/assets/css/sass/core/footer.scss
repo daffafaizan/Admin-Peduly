@@ -1,7 +1,7 @@
 body {
   min-height: calc(100% - 150px);
   position: relative;
-  padding-bottom: 90px;
+  // padding-bottom: 90px;
 
   @include respond-below(xl) {
     min-height: calc(100% - 130px);

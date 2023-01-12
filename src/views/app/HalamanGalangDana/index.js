@@ -162,7 +162,7 @@ const HalamanGalangDana = () => {
                     <th style={{ borderTop: '0px' }}>Target</th>
                     <th style={{ borderTop: '0px' }}>Terkumpul</th>
                     <th style={{ borderTop: '0px' }}>Sisa Waktu</th>
-                    <th style={{ borderTop: '0px' }}>Terkumpul</th>
+                    <th style={{ borderTop: '0px' }}>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -191,12 +191,9 @@ const HalamanGalangDana = () => {
                         <td>
                           {item.status === 'aktif' && (
                             <p
-                              className="text-success rounded text-center"
+                              className="text-success rounded text-center status bg-status-success"
                               style={{
-                                background: 'rgba(52, 168, 83, 0.2)',
-                                padding: '3px 12px',
                                 maxWidth: '55px',
-                                margin: '0px',
                               }}
                             >
                               Aktif
@@ -204,12 +201,9 @@ const HalamanGalangDana = () => {
                           )}
                           {item.status === 'suspend' && (
                             <p
-                              className="text-warning rounded text-center"
+                              className="text-warning rounded text-center status bg-status-pending"
                               style={{
-                                background: 'rgba(252, 174, 3, 0.2)',
-                                padding: '3px 12px',
                                 maxWidth: '80px',
-                                margin: '0px',
                               }}
                             >
                               Suspend
@@ -217,12 +211,9 @@ const HalamanGalangDana = () => {
                           )}
                           {item.status === 'berakhir' && (
                             <p
-                              className="text-danger rounded text-center"
+                              className="text-danger rounded text-center status bg-status-danger"
                               style={{
-                                background: 'rgba(231, 81, 59, 0.2)',
-                                padding: '3px 12px',
                                 maxWidth: '82px',
-                                margin: '0px',
                               }}
                             >
                               Berakhir

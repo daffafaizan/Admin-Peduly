@@ -49,9 +49,6 @@ body {
 }
 
 .fixed-background {
-  // background: url('/assets/img/login/balloon-lg.jpg') no-repeat center center
-  //   fixed;
-  // background-size: cover;
   background-color: #f8f8f8;
   width: 100%;
   height: 100%;
@@ -209,35 +206,6 @@ hr {
       background: rgba(255, 255, 255, 0.85);
     }
   }
-}
-
-.logo-single {
-  width: 110px;
-  height: 35px;
-  background: url($logo-path) no-repeat;
-  background-position: center center;
-  display: inline-block;
-  margin-bottom: 60px;
-}
-
-.logo-peduly {
-  display: inline-block;
-  margin-bottom: 60px;
-}
-
-.line-clamp {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  white-space: normal;
-  text-overflow: ellipsis;
-}
-
-.thumbnail-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .list-item-heading-container {
@@ -675,3 +643,71 @@ p {
     border-radius: $border-radius-rounded;
   }
 }
+
+// custom css
+.logo-single {
+  width: 110px;
+  height: 35px;
+  background: url($logo-path) no-repeat;
+  background-position: center center;
+  display: inline-block;
+  margin-bottom: 60px;
+}
+
+.logo-peduly {
+  display: inline-block;
+  margin-bottom: 60px;
+}
+
+.line-clamp {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal;
+  text-overflow: ellipsis;
+}
+
+.thumbnail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.status {
+  padding: 3px 12px;
+  margin: 0px;
+}
+
+.bg-status-success {
+  background: rgba(52, 168, 83, 0.2);
+}
+
+.bg-status-pending {
+  background: rgba(252, 174, 3, 0.2);
+}
+
+.bg-status-danger {
+  background: rgba(231, 81, 59, 0.2);
+}
+
+.border-status-success {
+  border: 1px solid #34A853;
+}
+
+.border-status-pending {
+  border: 1px solid #FCAE03;
+}
+
+.border-status-danger {
+  border: 1px solid #E7513B;
+}
+
+.text-peduly-dark {
+  color: #212121;
+}
+
+.w-full {
+  width: 100%;
+}
+

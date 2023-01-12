@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap'
 import { NavLink } from 'react-router-dom'
 import IntlMessages from 'helpers/IntlMessages'
@@ -15,6 +15,10 @@ const getUrl = (path, sub) => {
 }
 
 const BreadcrumbContainer = ({ heading, match }) => {
+  useEffect(() => {
+    console.log(match)
+  }, [])
+
   return (
     <>
       {heading && (
