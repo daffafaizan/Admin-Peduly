@@ -46,7 +46,7 @@ const AddSlide = () => {
                     onChange={handleImage}
                   />
                   <label htmlFor="slideGambar" className="custom-input-image d-flex justify-content-center align-items-center" >
-                  {preview ? ( <img src={preview} alt="Preview Image" width={183} height={80}/>) : (<svg
+                  {preview ? ( <img src={preview} alt="Preview Image" className="img-preview"/>) : (<svg
                       width={33}
                       height={34}
                       viewBox="0 0 33 34"
