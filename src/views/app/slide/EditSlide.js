@@ -141,7 +141,7 @@ const AddSlide = () => {
                     className="input-date"
                   />
                 </Col>
-                <Col md={2} className="mt-sm-4 mt-md-0 pl-5">
+                <Col md={2} className="mt-3 mt-md-0 pl-sm-0 pl-md-5">
                   <Label for="tanggalBerakhir">Tanggal Berakhir</Label>
                 </Col>
                 <Col md={4} className="">
@@ -156,21 +156,24 @@ const AddSlide = () => {
               </Row>
 
               <FormGroup>
-                <Row className="d-flex mt-5">
+                <Row className="d-flex mt-3 mt-md-5 justify-content-sm-center align-items-sm-center flex-no-wrap">
                   <Col>
-                    <Button className="px-5 btn-hapus" onClick={handleHapus}>
-                      hapus
+                    <Button
+                      className="px-sm-2 px-md-5 btn-hapus"
+                      onClick={handleHapus}
+                    >
+                      Hapus
                     </Button>
                   </Col>
                   <Col className="d-flex justify-content-end">
                     <Button
-                      className="px-4 mx-3 btn-batal"
+                      className="px-md-4 px-sm-2 mx-1 mx-md-3 btn-batal"
                       outline
                       onClick={handleBatal}
                     >
                       Batal
                     </Button>
-                    <Button className="px-4">Simpan</Button>
+                    <Button className="px-sm-2 px-md-4">Simpan</Button>
                   </Col>
                 </Row>
               </FormGroup>
