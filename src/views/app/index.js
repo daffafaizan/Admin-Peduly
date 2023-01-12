@@ -18,6 +18,7 @@ const TransaksiDonasi = React.lazy(() => import('./transaksi-donasi'))
 const Pengguna = React.lazy(() => import('./pengguna'))
 const SemuaDonasi = React.lazy(() => import('./semua-donasi'))
 const GalangDana = React.lazy(() => import('./GalangDana'))
+const SlidePage = React.lazy(() => import('./Slide'))
 const AddSlide = React.lazy(() => import('./Slide/AddSlide'))
 const EditSlide = React.lazy(() => import('./Slide/EditSlide'))
 
@@ -64,6 +65,10 @@ const App = ({ match }) => {
             <Route
               path={`${match.url}/galang-dana`}
               render={(props) => <GalangDana {...props} />}
+            />
+            <Route
+              path={`${match.url}/slide`}
+              render={(props) => <SlidePage {...props} />}
             />
             <Route
               path={`${match.url}/tambah-slide`}

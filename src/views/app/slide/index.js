@@ -16,6 +16,8 @@ import { Colxx, Separator } from 'components/common/CustomBootstrap'
 import useMousetrap from 'hooks/use-mousetrap'
 import './index.scss'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
+import { adminRoot } from '../../../constants/defaultValues'
 
 const pageSizes = [4, 8, 12, 20]
 
@@ -257,7 +259,7 @@ const SlidePage = () => {
       <Row>
         <Colxx xxs="12">
           <h1>Semua Slide</h1>
-          <Button className="float-md-right">Buat Slide Baru</Button>
+          <Button className="float-md-right"><Link to={`${adminRoot}/tambah-slide`} className="text-white">Buat Slide Baru</Link></Button>
           <Separator />
         </Colxx>
       </Row>

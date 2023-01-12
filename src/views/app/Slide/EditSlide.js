@@ -11,7 +11,7 @@ import {
   Button,
 } from 'reactstrap'
 import { Colxx } from 'components/common/CustomBootstrap'
-import './index.css'
+import './index.scss'
 import loadImage from 'helpers/LoadImage'
 
 const AddSlide = () => {

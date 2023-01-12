@@ -11,7 +11,7 @@ import {
   Button,
 } from 'reactstrap'
 import { Colxx } from 'components/common/CustomBootstrap'
-import './index.css'
+import './index.scss'
 import loadImage from 'helpers/LoadImage'
 
 const AddSlide = () => {
@@ -134,7 +134,7 @@ const AddSlide = () => {
                     offset: 2,
                     size: 10,
                   }}
-                  className="d-flex justify-content-end mt-5"
+                  className="d-flex justify-content-end mt-2"
                 >
                   
                   <Button className="px-4 mt-4">simpan</Button>
