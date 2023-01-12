@@ -145,14 +145,8 @@ const AddSlide = () => {
               </Row>
 
               <FormGroup>
-                <Col
-                  sm={{
-                    offset: 2,
-                    size: 10,
-                  }}
-                  className="d-flex justify-content-end mt-2"
-                >
-                  <Button className="px-4 mt-3">Buat Slide</Button>
+                <Col className="d-flex justify-content-end mt-3 mt-md-5">
+                  <Button className="px-4">Buat Slide</Button>
                 </Col>
               </FormGroup>
             </Form>
