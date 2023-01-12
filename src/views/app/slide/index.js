@@ -13,11 +13,11 @@ import {
   DropdownItem,
 } from 'reactstrap'
 import { Colxx, Separator } from 'components/common/CustomBootstrap'
-import useMousetrap from 'hooks/use-mousetrap'
 import './index.scss'
 import moment from 'moment'
 import DataTablePagination from 'components/DatatablePagination'
 import TextAlert from 'components/TextAlert'
+import { useHistory } from 'react-router-dom'
 
 const pageSizes = [4, 8, 12, 20]
 
@@ -216,12 +216,12 @@ const initialData = dummySlideData.sort((a, b) => {
 })
 
 const SlidePage = () => {
-  const [selectedItems, setSelectedItems] = useState([])
   const [currentPageSize, setCurrentPageSize] = useState(pageSizes[0])
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPage, setTotalPage] = useState(0)
   const [data] = useState(initialData)
   const [search] = useState('')
+  const history = useHistory()
 
   useEffect(() => {
     setTotalPage(Math.ceil(data.length / currentPageSize))
@@ -233,33 +233,17 @@ const SlidePage = () => {
     }
   }, [totalPage, currentPage])
 
-  const handleChangeSelectAll = (isToggle) => {
-    if (selectedItems.length >= initialData.length) {
-      if (isToggle) {
-        setSelectedItems([])
-      }
-    } else {
-      setSelectedItems(initialData.map((x) => x.id))
-    }
-    document.activeElement.blur()
-    return false
-  }
-
-  useMousetrap(['ctrl+a', 'command+a'], () => {
-    handleChangeSelectAll(false)
-  })
-
-  useMousetrap(['ctrl+d', 'command+d'], () => {
-    setSelectedItems([])
-    return false
-  })
-
   return (
     <>
       <Row>
         <Colxx xxs="12">
           <h1>Semua Slide</h1>
-          <Button className="float-md-right">Buat Slide Baru</Button>
+          <Button
+            className="float-md-right"
+            onClick={() => history.push('/app/slide/add')}
+          >
+            Buat Slide Baru
+          </Button>
           <Separator />
         </Colxx>
       </Row>
@@ -320,7 +304,13 @@ const SlidePage = () => {
                       currentPage * currentPageSize
                     )
                     .map((item) => (
-                      <tr key={item.id} style={{ cursor: 'pointer' }}>
+                      <tr
+                        key={item.id}
+                        style={{ cursor: 'pointer' }}
+                        onClick={() =>
+                          history.push(`/app/slide/edit/${item.id}`)
+                        }
+                      >
                         <td>{item.id}</td>
                         <td
                           style={{
