@@ -114,7 +114,7 @@ const AddSlide = () => {
                     className="input-date"
                   />
                 </Col>
-                <Col md={2} className="mt-sm-4 mt-md-0">
+                <Col md={2} className="mt-sm-4 mt-md-0 pl-5">
                   <Label for="tanggalBerakhir">Tanggal Berakhir</Label>
                 </Col>
                 <Col md={4} className="">

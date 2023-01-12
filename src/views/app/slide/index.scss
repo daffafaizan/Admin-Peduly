@@ -53,17 +53,18 @@
   color: #717171;
 }
 
-.btn-batal:hover,
-.btn-batal:active {
-  border-color: #717171;
-  background-color: #717171;
+.btn-hapus {
+  border-color: #717171 !important;
+  background-color: #717171 !important;
   color: #f4f4f4;
 }
 
-.btn-hapus,
+.btn-batal:active,
+.btn-batal:hover,
 .btn-hapus:hover,
-.btn-hapus::after {
-  border-color: #717171;
-  background-color: #717171;
+.btn-hapus:active {
+  border-color: #717171 !important;
+  background-color: darken(#717171, 15%) !important;
   color: #f4f4f4;
+  transition: ease-in 0.2s;
 }
