@@ -137,7 +137,7 @@ const AddSlide = () => {
                   className="d-flex justify-content-end mt-2"
                 >
                   
-                  <Button className="px-4 mt-4">simpan</Button>
+                  <Button className="px-4 mt-3">simpan</Button>
                 </Col>
               </FormGroup>
             </Form>
