@@ -16,6 +16,8 @@ import { Colxx, Separator } from 'components/common/CustomBootstrap'
 import useMousetrap from 'hooks/use-mousetrap'
 import './index.scss'
 import moment from 'moment'
+import DataTablePagination from 'components/DatatablePagination'
+import TextAlert from 'components/TextAlert'
 
 const pageSizes = [4, 8, 12, 20]
 
@@ -294,7 +296,7 @@ const SlidePage = () => {
                 <thead>
                   <tr>
                     <th style={{ borderTop: '0px', width: '5%' }}>#</th>
-                    <th style={{ borderTop: '0px', width: '15%' }}>
+                    <th style={{ borderTop: '0px', width: '10%' }}>
                       Gambar Slide
                     </th>
                     <th style={{ borderTop: '0px', width: '15%' }}>Judul</th>
@@ -362,39 +364,20 @@ const SlidePage = () => {
           </Card>
         </Col>
       </Row>
+      <Row>
+        <Col>
+          <div className="float-md-right">
+            <DataTablePagination
+              page={currentPage - 1}
+              pages={totalPage}
+              canNext={currentPage < totalPage}
+              canPrevious={currentPage > 1}
+              onPageChange={(page) => setCurrentPage(page + 1)}
+            />
+          </div>
+        </Col>
+      </Row>
     </>
-  )
-}
-
-const TextAlert = ({ text, type = 'success', className }) => {
-  const styles = {
-    success: {
-      background: 'rgba(52, 168, 83, 0.2)',
-      padding: '3px 12px',
-      margin: '0px',
-      width: 'fit-content',
-    },
-    danger: {
-      background: 'rgba(231, 81, 59, 0.2)',
-      padding: '3px 12px',
-      margin: '0px',
-      width: 'fit-content',
-    },
-  }
-
-  const textStyles = {
-    success: 'text-success',
-    warning: 'text-warning',
-    danger: 'text-danger',
-  }
-
-  return (
-    <p
-      className={`${textStyles[type]} rounded text-center ${className}`}
-      style={styles[type]}
-    >
-      {text}
-    </p>
   )
 }
 
