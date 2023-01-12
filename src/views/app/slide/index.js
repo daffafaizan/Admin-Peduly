@@ -239,7 +239,7 @@ const SlidePage = () => {
         <Colxx xxs="12">
           <h1>Semua Slide</h1>
           <Button
-            className="float-md-right"
+            className="float-right"
             onClick={() => history.push('/app/slide/add')}
           >
             Buat Slide Baru
@@ -249,7 +249,7 @@ const SlidePage = () => {
       </Row>
       <Row style={{ margin: '12px 0' }}>
         <Col style={{ padding: 0 }}>
-          <div className="float-md-right">
+          <div className="float-right">
             <span className="text-muted text-small mr-1">{`1 of 1 `}</span>
             <UncontrolledDropdown className="d-inline-block">
               <DropdownToggle caret color="outline-dark" size="xs">
@@ -276,24 +276,18 @@ const SlidePage = () => {
         <Col>
           <Card className="mb-4" style={{ borderRadius: '15px' }}>
             <CardBody style={{ padding: '24px' }}>
-              <Table hover responsive>
+              <Table className="table-slide" hover responsive>
                 <thead>
-                  <tr>
-                    <th style={{ borderTop: '0px', width: '5%' }}>#</th>
-                    <th style={{ borderTop: '0px', width: '10%' }}>
-                      Gambar Slide
+                  <tr className="nowrap">
+                    <th style={{ borderTop: '0px' }}>#</th>
+                    <th style={{ borderTop: '0px' }}>Gambar Slide</th>
+                    <th style={{ borderTop: '0px' }}>Judul</th>
+                    <th style={{ borderTop: '0px' }}>Direct Link</th>
+                    <th style={{ borderTop: '0px' }}>Tanggal Mulai</th>
+                    <th style={{ borderTop: '0px' }}>Tanggal Berakhir</th>
+                    <th style={{ borderTop: '0px', maxWidth: '200px' }}>
+                      Status
                     </th>
-                    <th style={{ borderTop: '0px', width: '15%' }}>Judul</th>
-                    <th style={{ borderTop: '0px', width: '20%' }}>
-                      Direct Link
-                    </th>
-                    <th style={{ borderTop: '0px', width: '10%' }}>
-                      Tanggal Mulai
-                    </th>
-                    <th style={{ borderTop: '0px', width: '10%' }}>
-                      Tanggal Berakhir
-                    </th>
-                    <th style={{ borderTop: '0px', width: '10%' }}>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -312,11 +306,7 @@ const SlidePage = () => {
                         }
                       >
                         <td>{item.id}</td>
-                        <td
-                          style={{
-                            maxWidth: '300px',
-                          }}
-                        >
+                        <td>
                           <div className="slide-image-container">
                             <img
                               src={item.image}
@@ -341,9 +331,17 @@ const SlidePage = () => {
                         <td>{moment(item.end).format('DD/MM/YYYY')}</td>
                         <td>
                           {item.status ? (
-                            <TextAlert text="Aktif" type="success" />
+                            <TextAlert
+                              text="Aktif"
+                              type="success"
+                              className="nowrap"
+                            />
                           ) : (
-                            <TextAlert text="Tidak Aktif" type="danger" />
+                            <TextAlert
+                              text="Tidak Aktif"
+                              type="danger"
+                              className="nowrap"
+                            />
                           )}
                         </td>
                       </tr>
