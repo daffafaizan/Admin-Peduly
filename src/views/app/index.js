@@ -66,16 +66,16 @@ const App = ({ match }) => {
               path={`${match.url}/galang-dana`}
               render={(props) => <GalangDana {...props} />}
             />
-            <Route
+            <Route exact
               path={`${match.url}/slide`}
               render={(props) => <SlidePage {...props} />}
             />
             <Route
-              path={`${match.url}/tambah-slide`}
+              path={`${match.url}/slide/add`}
               render={(props) => <AddSlide {...props} />}
             />
             <Route
-              path={`${match.url}/edit-slide`}
+              path={`${match.url}/slide/edit`}
               render={(props) => <EditSlide {...props} />}
             />
             <Redirect to="/error" />
