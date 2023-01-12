@@ -26,11 +26,11 @@ const AddSlide = () => {
   }
 
   const handleBatal = () => {
-    history.push("/app/slide")
+    history.push('/app/slide')
   }
 
   const handleHapus = () => {
-    history.push("/app/slide")
+    history.push('/app/slide')
   }
 
   console.log(image)
@@ -64,8 +64,7 @@ const AddSlide = () => {
                       <img
                         src={preview}
                         alt="Preview Image"
-                        width={183}
-                        height={80}
+                        className="img-preview"
                       />
                     ) : (
                       <svg
@@ -159,12 +158,18 @@ const AddSlide = () => {
               <FormGroup>
                 <Row className="d-flex mt-5">
                   <Col>
-                  <Button className="px-5 btn-hapus" onClick={handleHapus}>hapus</Button>
+                    <Button className="px-5 btn-hapus" onClick={handleHapus}>
+                      hapus
+                    </Button>
                   </Col>
-                  <Col
-                    className="d-flex justify-content-end"
-                  >
-                    <Button className="px-4 mx-3 btn-batal" outline onClick={handleBatal}>Batal</Button>
+                  <Col className="d-flex justify-content-end">
+                    <Button
+                      className="px-4 mx-3 btn-batal"
+                      outline
+                      onClick={handleBatal}
+                    >
+                      Batal
+                    </Button>
                     <Button className="px-4">Simpan</Button>
                   </Col>
                 </Row>

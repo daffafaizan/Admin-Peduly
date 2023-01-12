@@ -66,7 +66,8 @@ const App = ({ match }) => {
               path={`${match.url}/galang-dana`}
               render={(props) => <GalangDana {...props} />}
             />
-            <Route exact
+            <Route
+              exact
               path={`${match.url}/slide`}
               render={(props) => <SlidePage {...props} />}
             />
