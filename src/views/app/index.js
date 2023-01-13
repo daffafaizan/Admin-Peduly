@@ -14,6 +14,7 @@ const BlankPage = React.lazy(() =>
 const TransaksiDonasi = React.lazy(() => import('./Transaksi'))
 const Pengguna = React.lazy(() => import('./Pengguna'))
 // const HalamanGalangDana = React.lazy(() => import('./HalamanGalangDana'))
+const HalamanGalangDana = React.lazy(() => import('./HalamanGalangDana'))
 const DetailGalangDana = React.lazy(() =>
   import('./HalamanGalangDana/DetailGalangDana')
 )
@@ -50,7 +51,12 @@ const App = ({ match }) => {
               render={(props) => <HalamanGalangDana {...props} />}
             /> */}
             <Route
+              exact
               path={`${match.url}/halaman-galang-dana`}
+              render={(props) => <HalamanGalangDana {...props} />}
+            />
+            <Route
+              path={`${match.url}/halaman-galang-dana/detail`}
               render={(props) => <DetailGalangDana {...props} />}
             />
             <Redirect to="/error" />
