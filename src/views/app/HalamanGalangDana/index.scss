@@ -1,0 +1,49 @@
+.judul-container {
+  justify-content: space-between;
+  .judul {
+    font-size: 24px;
+    max-width: calc(100% - 160px);
+  }
+  .edit-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    max-height: 43px;
+  }
+}
+
+.container-card {
+  padding: 50px 0;
+  border-radius: 15px;
+  margin-bottom: 32px;
+  .icon {
+    margin-bottom: 22px;
+  }
+  .judul {
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+  .content {
+    font-size: 28px;
+  }
+}
+
+.container-card-half {
+  border-radius: 15px;
+  padding: 24px 0 24px 24px;
+  .judul {
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+  .content {
+    font-size: 24px;
+  }
+}
+
+.card-top {
+  margin-bottom: 16px;
+}
+
+.card-bottom {
+  margin-top: 16px;
+  margin-bottom: 32px;
+}
