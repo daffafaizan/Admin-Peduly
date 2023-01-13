@@ -507,7 +507,11 @@ class Sidebar extends Component {
                   className={`${
                     // eslint-disable-next-line react/destructuring-assignment
                     this.props.location.pathname ===
-                      '/app/halaman-galang-dana' && 'active'
+                      '/app/halaman-galang-dana' ||
+                    this.props.location.pathname ===
+                      '/app/halaman-galang-dana/detail'
+                      ? 'active'
+                      : ''
                   }`}
                   onMouseEnter={this.handleHalamanMouseEnter}
                   onMouseLeave={this.handleHalamanMouseLeave}
@@ -530,6 +534,8 @@ class Sidebar extends Component {
                             // eslint-disable-next-line react/destructuring-assignment
                             this.props.location.pathname ===
                               '/app/halaman-galang-dana' ||
+                            this.props.location.pathname ===
+                              '/app/halaman-galang-dana/detail' ||
                             // eslint-disable-next-line react/destructuring-assignment
                             this.state.isHalamanHovered
                               ? '#E7513B'
@@ -545,6 +551,8 @@ class Sidebar extends Component {
                             // eslint-disable-next-line react/destructuring-assignment
                             this.props.location.pathname ===
                               '/app/halaman-galang-dana' ||
+                            this.props.location.pathname ===
+                              '/app/halaman-galang-dana/detail' ||
                             // eslint-disable-next-line react/destructuring-assignment
                             this.state.isHalamanHovered
                               ? '#E7513B'
