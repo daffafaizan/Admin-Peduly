@@ -645,6 +645,10 @@ p {
 }
 
 // custom css
+.rounded-peduly {
+  border-radius: 15px;
+}
+
 .logo-single {
   width: 110px;
   height: 35px;
@@ -692,15 +696,15 @@ p {
 }
 
 .border-status-success {
-  border: 1px solid #34A853;
+  border: 1px solid #34a853;
 }
 
 .border-status-pending {
-  border: 1px solid #FCAE03;
+  border: 1px solid #fcae03;
 }
 
 .border-status-danger {
-  border: 1px solid #E7513B;
+  border: 1px solid #e7513b;
 }
 
 .text-peduly-dark {
@@ -710,4 +714,3 @@ p {
 .w-full {
   width: 100%;
 }
-
