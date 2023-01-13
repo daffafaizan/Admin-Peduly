@@ -16,6 +16,7 @@ import useMousetrap from 'hooks/use-mousetrap'
 import pengguna from 'data/pengguna'
 import { orderData } from 'helpers/Utils'
 import DateFormat from 'helpers/DateFormat'
+import './index.scss'
 
 const orderOptions = [{ label: `Terbaru` }, { label: `Terlama` }]
 
@@ -139,19 +140,19 @@ const Pengguna = () => {
       </Row>
       <Row>
         <Colxx xxs="12" className="mb-4">
-          <Card className="mb-4" style={{ borderRadius: '15px' }}>
-            <CardBody style={{ padding: '24px' }}>
+          <Card className="mb-4 card-rounded">
+            <CardBody className="card-body">
               <Table hover responsive>
                 <thead>
                   <tr>
-                    <th style={{ borderTop: '0px' }}>#</th>
-                    <th style={{ borderTop: '0px' }}>Nama</th>
-                    <th style={{ borderTop: '0px' }}>Username</th>
-                    <th style={{ borderTop: '0px' }}>Email</th>
-                    <th style={{ borderTop: '0px' }}>No. Telepon</th>
-                    <th style={{ borderTop: '0px' }}>Role</th>
-                    <th style={{ borderTop: '0px' }}>Tanggal</th>
-                    <th style={{ borderTop: '0px' }}>Verifikasi Akun</th>
+                    <th>#</th>
+                    <th>Nama</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>No. Telepon</th>
+                    <th>Role</th>
+                    <th>Tanggal</th>
+                    <th>Verifikasi Akun</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -165,38 +166,20 @@ const Pengguna = () => {
                         <td>{item.email}</td>
                         <td>{item.telepon}</td>
                         <td>{item.role}</td>
-                        <td>
-                          {/* {formatter.format(Date.parse(item.created_at))} */}
-                          {DateFormat(item.created_at)}
-                        </td>
+                        <td>{DateFormat(item.created_at)}</td>
                         <td>
                           {item.verifikasi === 'terverifikasi' && (
-                            <p
-                              className="text-success rounded text-center status bg-status-success"
-                              style={{
-                                maxWidth: '105px',
-                              }}
-                            >
+                            <p className="text-success rounded text-center status status-success bg-status-success">
                               Terverifikasi
                             </p>
                           )}
                           {item.verifikasi === 'pending' && (
-                            <p
-                              className="text-warning rounded text-center status bg-status-pending"
-                              style={{
-                                maxWidth: '80px',
-                              }}
-                            >
+                            <p className="text-warning rounded text-center status status-pending bg-status-pending">
                               pending
                             </p>
                           )}
                           {item.verifikasi === 'tidak' && (
-                            <p
-                              className="text-danger rounded text-center status bg-status-danger"
-                              style={{
-                                maxWidth: '62px',
-                              }}
-                            >
+                            <p className="text-danger rounded text-center status status-danger bg-status-danger">
                               Tidak
                             </p>
                           )}

@@ -1,0 +1,18 @@
+.card-rounded {
+    border-radius: 15px;
+    .card-body {
+        padding: 24px;
+        th {
+            border-top: 0;
+        }
+        .status-success {
+            max-width: 105px;
+        }
+        .status-pending {
+            max-width: 80px;
+        }
+        .status-danger {
+            max-width: 62px;
+        }
+    }
+}
