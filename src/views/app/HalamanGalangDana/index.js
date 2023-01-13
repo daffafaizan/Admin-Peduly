@@ -16,6 +16,7 @@ import useMousetrap from 'hooks/use-mousetrap'
 import { orderData } from 'helpers/Utils'
 import IdrFormat from 'helpers/IdrFormat'
 import dayToGo from 'helpers/DayToGo'
+import { useHistory } from 'react-router-dom'
 
 const orderOptions = [{ label: `Terbaru` }, { label: `Terlama` }]
 
@@ -58,6 +59,8 @@ const HalamanGalangDana = () => {
   const [selectedOrder, setSelectedOrder] = useState('Terbaru')
   const [data, setData] = useState(initialData)
   const [search, setSearch] = useState('')
+  const history = useHistory()
+
   const handleChange = (e) => {
     e.preventDefault()
     setSearch(e.target.value)
@@ -169,7 +172,13 @@ const HalamanGalangDana = () => {
                   {data
                     .filter((tr) => tr.judul.toLowerCase().includes(search))
                     .map((item) => (
-                      <tr key={item.id}>
+                      <tr
+                        key={item.id}
+                        onClick={() =>
+                          history.push(`/app/halaman-galang-dana/detail`)
+                        }
+                        style={{ cursor: 'pointer' }}
+                      >
                         <td>{item.id}</td>
                         <td
                           style={{

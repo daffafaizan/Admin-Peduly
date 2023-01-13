@@ -13,11 +13,13 @@ const BlankPage = React.lazy(() =>
 )
 const TransaksiDonasi = React.lazy(() => import('./Transaksi'))
 const Pengguna = React.lazy(() => import('./Pengguna'))
-// const HalamanGalangDana = React.lazy(() => import('./HalamanGalangDana'))
 const HalamanGalangDana = React.lazy(() => import('./HalamanGalangDana'))
 const DetailGalangDana = React.lazy(() =>
   import('./HalamanGalangDana/DetailGalangDana')
 )
+const SlidePage = React.lazy(() => import('./slide'))
+const AddSlide = React.lazy(() => import('./slide/AddSlide'))
+const EditSlide = React.lazy(() => import('./slide/EditSlide'))
 
 const App = ({ match }) => {
   return (
@@ -46,10 +48,6 @@ const App = ({ match }) => {
               path={`${match.url}/pengguna`}
               render={(props) => <Pengguna {...props} />}
             />
-            {/* <Route
-              path={`${match.url}/halaman-galang-dana`}
-              render={(props) => <HalamanGalangDana {...props} />}
-            /> */}
             <Route
               exact
               path={`${match.url}/halaman-galang-dana`}
@@ -58,6 +56,19 @@ const App = ({ match }) => {
             <Route
               path={`${match.url}/halaman-galang-dana/detail`}
               render={(props) => <DetailGalangDana {...props} />}
+            />
+            <Route
+              exact
+              path={`${match.url}/slide`}
+              render={(props) => <SlidePage {...props} />}
+            />
+            <Route
+              path={`${match.url}/slide/add`}
+              render={(props) => <AddSlide {...props} />}
+            />
+            <Route
+              path={`${match.url}/slide/edit`}
+              render={(props) => <EditSlide {...props} />}
             />
             <Redirect to="/error" />
           </Switch>
