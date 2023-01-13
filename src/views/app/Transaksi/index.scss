@@ -1,0 +1,27 @@
+.card-rounded {
+    border-radius: 15px;
+    .card-body {
+        padding: 24px;
+        th {
+            border-top: 0;
+        }
+        .judul-campaign {
+            max-width: 150px;
+        }
+        .status-verifikasi-success {
+            max-width: 77px;
+        }
+        .status-verifikasi-pending {
+            max-width: 80px;
+        }
+        .status-verifikasi-danger {
+            max-width: 94px;
+        }
+        .status-success {
+            max-width: 85px;
+        }
+        .status-danger {
+            max-width: 62px;
+        }
+    }
+}

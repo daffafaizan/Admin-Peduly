@@ -14,13 +14,12 @@ import {
 } from 'reactstrap'
 import { Colxx, Separator } from 'components/common/CustomBootstrap'
 import IntlMessages from 'helpers/IntlMessages'
-// import transaksi from 'data/transaksi-donasi';
 import { orderData } from 'helpers/Utils'
 import axios from 'axios'
 import transaksi from 'data/transaksi-donasi'
-// import Pagination from 'containers/pages/Pagination';
 import IdrFormat from 'helpers/IdrFormat'
 import DateFormat from 'helpers/DateFormat'
+import './index.scss'
 // import axios from 'axios';
 
 const orderOptions = [
@@ -136,20 +135,20 @@ const TransaksiDonasi = () => {
       </Row>
       <Row>
         <Colxx xs="12" className="mb-4">
-          <Card className="mb-4" style={{ borderRadius: '15px' }}>
-            <CardBody style={{ padding: '24px' }}>
+          <Card className="mb-4 card-rounded">
+            <CardBody className="card-body">
               <Table hover responsive>
                 <thead>
                   <tr>
-                    <th style={{ borderTop: '0px' }}>#</th>
-                    <th style={{ borderTop: '0px' }}>Nama</th>
-                    <th style={{ borderTop: '0px' }}>User</th>
-                    <th style={{ borderTop: '0px' }}>Tanggal</th>
-                    <th style={{ borderTop: '0px' }}>ID Transaksi</th>
-                    <th style={{ borderTop: '0px' }}>ID GD</th>
-                    <th style={{ borderTop: '0px' }}>Nominal</th>
-                    <th style={{ borderTop: '0px' }}>Metode</th>
-                    <th style={{ borderTop: '0px' }}>Status</th>
+                    <th>#</th>
+                    <th>Nama</th>
+                    <th>User</th>
+                    <th>Tanggal</th>
+                    <th>ID Transaksi</th>
+                    <th>ID GD</th>
+                    <th>Nominal</th>
+                    <th>Metode</th>
+                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -160,26 +159,16 @@ const TransaksiDonasi = () => {
                     .map((item) => (
                       <tr key={item.id}>
                         <td>{item.id}</td>
-                        <td style={{ maxWidth: '150px' }}>
+                        <td className="judul-campaign">
                           {item.judul_campaign}
                         </td>
                         <td>
                           {status ? (
-                            <p
-                              className="text-success text-center rounded status border-status-success"
-                              style={{
-                                maxWidth: '85px',
-                              }}
-                            >
+                            <p className="text-success text-center rounded status status-success border-status-success">
                               Terdaftar
                             </p>
                           ) : (
-                            <p
-                              className="text-danger text-center rounded status border-status-danger"
-                              style={{
-                                maxWidth: '61px',
-                              }}
-                            >
+                            <p className="text-danger text-center rounded status status-danger border-status-danger">
                               Tidak
                             </p>
                           )}
@@ -204,38 +193,17 @@ const TransaksiDonasi = () => {
                         <td>
                           {/* {item.status_donasi} */}
                           {true && (
-                            <p
-                              className="text-success rounded text-center status bg-status-success"
-                              style={{
-                                // background: 'rgba(52, 168, 83, 0.2)',
-                                // padding: '3px 12px',
-                                maxWidth: '77px',
-                              }}
-                            >
+                            <p className="text-success rounded text-center status status-verifikasi-success bg-status-success">
                               Berhasil
                             </p>
                           )}
                           {false && (
-                            <p
-                              className="text-warning rounded text-center status bg-status-pending"
-                              style={{
-                                // background: 'rgba(252, 174, 3, 0.2)',
-                                // padding: '3px 12px',
-                                maxWidth: '80px',
-                              }}
-                            >
+                            <p className="text-warning rounded text-center status status-verifikasi-pending bg-status-pending">
                               pending
                             </p>
                           )}
                           {false && (
-                            <p
-                              className="text-danger rounded text-center status bg-status-danger"
-                              style={{
-                                // background: 'rgba(231, 81, 59, 0.2)',
-                                // padding: '3px 12px',
-                                maxWidth: '94px',
-                              }}
-                            >
+                            <p className="text-danger rounded text-center status status-verifikasi-danger  bg-status-danger">
                               Dibatalkan
                             </p>
                           )}
