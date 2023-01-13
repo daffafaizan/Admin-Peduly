@@ -29,15 +29,11 @@ const Error = () => {
         <div className="container">
           <Row className="h-100">
             <Colxx xxs="12" md="10" className="mx-auto my-auto">
-              <Card className="auth-card">
-                <div className="position-relative image-side "></div>
-                {/* <img
-                  src="assets/img/login/background.jpg"
-                  style={{
-                    width: '40%',
-                    objectFit: 'cover',
-                  }}
-                /> */}
+              <Card className="auth-card" style={{ borderRadius: '15px' }}>
+                <div
+                  className="position-relative image-side"
+                  style={{ borderRadius: '15px 0 0 15px' }}
+                ></div>
                 <div className="form-side">
                   <NavLink to="/" className="white">
                     {/* <span className="logo-single" /> */}
