@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
 const UserLogin = React.lazy(() =>
-  import(/* webpackChunkName: "start" */ './user/newLogin')
+  import(/* webpackChunkName: "start" */ './user/login')
 )
 
 const Home = () => (

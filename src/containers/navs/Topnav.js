@@ -32,6 +32,10 @@ import {
   changeLocale,
 } from 'redux/actions'
 
+import { API_URL } from 'config/api'
+import axios from 'axios'
+import Cookies from 'js-cookie'
+
 // import TopnavEasyAccess from './Topnav.EasyAccess';
 // import TopnavNotifications from './Topnav.Notifications';
 import TopnavDarkSwitch from './Topnav.DarkSwitch'
@@ -45,7 +49,9 @@ const TopNav = ({
   // locale,
   setContainerClassnamesAction,
   clickOnMobileMenuAction,
-  logoutUserAction,
+  // eslint-disable-next-line no-unused-vars
+  logoutUser
+  // logoutUserAction,
   // changeLocaleAction,
 }) => {
   // const [isInFullScreen, setIsInFullScreen] = useState(false);
@@ -181,7 +187,25 @@ const TopNav = ({
   // };
 
   const handleLogout = () => {
-    logoutUserAction(history)
+    const inputToken = Cookies.get('token')
+    
+      try {
+        axios
+          .post(`${API_URL}/api/auth/logout`, {
+            headers: {
+              Authorization: `Bearer ${inputToken}`,
+            },
+          })
+          .then((res) => res)
+          .catch((err) => err)
+      } catch (err) {
+        console.log(err)
+      }
+    Cookies.remove('token')
+    Cookies.remove('expireAt')
+    Cookies.remove('_id')
+    window.localStorage.clear()
+    history.push('/')
   }
 
   const menuButtonClick = (e, _clickCount, _conClassnames) => {
@@ -348,7 +372,7 @@ const TopNav = ({
               <DropdownItem>History</DropdownItem>
               <DropdownItem>Support</DropdownItem>
               <DropdownItem divider />
-              <DropdownItem onClick={() => handleLogout()}>
+              <DropdownItem onClick={handleLogout}>
                 Sign out
               </DropdownItem>
             </DropdownMenu>

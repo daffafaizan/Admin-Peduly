@@ -3,7 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import UserLayout from 'layout/UserLayout'
 
 const Login = React.lazy(() =>
-  import(/* webpackChunkName: "user-login" */ './newLogin')
+  import(/* webpackChunkName: "user-login" */ './login')
 )
 const Register = React.lazy(() =>
   import(/* webpackChunkName: "user-register" */ './register')
