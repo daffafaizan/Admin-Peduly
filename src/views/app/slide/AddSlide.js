@@ -30,7 +30,7 @@ const AddSlide = () => {
       <Colxx xs="12" className="mb-4">
         <Card className="mb-4">
           <CardBody>
-            <h2 className="judul mb-heading">Tambah Slide</h2>
+            <h2 className="judul mb-heading">Buat Slide</h2>
             <Form>
               <FormGroup row>
                 <Label for="exampleFile" sm={2}>
@@ -145,7 +145,7 @@ const AddSlide = () => {
               </Row>
 
               <FormGroup>
-                <Col className="d-flex justify-content-end mt-3 mt-md-5">
+                <Col className="d-flex justify-content-end mt-5">
                   <Button className="px-4">Buat Slide</Button>
                 </Col>
               </FormGroup>

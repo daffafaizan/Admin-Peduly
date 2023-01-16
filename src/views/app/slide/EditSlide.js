@@ -156,10 +156,10 @@ const AddSlide = () => {
               </Row>
 
               <FormGroup>
-                <Row className="d-flex mt-3 mt-md-5 justify-content-sm-center align-items-sm-center flex-no-wrap">
+                <Row className="d-flex mt-5 justify-content-sm-center align-items-sm-center flex-no-wrap">
                   <Col>
                     <Button
-                      className="px-sm-2 px-md-5 btn-hapus"
+                      className="px-3 px-md-5 btn-hapus"
                       onClick={handleHapus}
                     >
                       Hapus
@@ -167,13 +167,13 @@ const AddSlide = () => {
                   </Col>
                   <Col className="d-flex justify-content-end">
                     <Button
-                      className="px-md-4 px-sm-2 mx-1 mx-md-3 btn-batal"
+                      className="px-md-4 px-3 mx-1 mx-md-3 btn-batal"
                       outline
                       onClick={handleBatal}
                     >
                       Batal
                     </Button>
-                    <Button className="px-sm-2 px-md-4">Simpan</Button>
+                    <Button className="px-3 px-md-4">Simpan</Button>
                   </Col>
                 </Row>
               </FormGroup>
