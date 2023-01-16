@@ -250,7 +250,7 @@ const SlidePage = () => {
       <Row style={{ margin: '12px 0' }}>
         <Col style={{ padding: 0 }}>
           <div className="float-right">
-            <span className="text-muted text-small mr-1">{`1 of 1 `}</span>
+            <span className="text-muted text-small mr-1">{`${currentPage} of ${totalPage} `}</span>
             <UncontrolledDropdown className="d-inline-block">
               <DropdownToggle caret color="outline-dark" size="xs">
                 {' '}
