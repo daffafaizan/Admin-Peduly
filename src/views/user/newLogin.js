@@ -1,60 +1,56 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Card, CardTitle, Label, FormGroup, Button } from 'reactstrap'
 import { NavLink } from 'react-router-dom'
-import { connect } from 'react-redux'
-
-import { Formik, Form, Field } from 'formik'
-import { NotificationManager } from 'components/common/react-notifications'
-
-import { loginUser } from 'redux/actions'
 import { Colxx } from 'components/common/CustomBootstrap'
 import IntlMessages from 'helpers/IntlMessages'
 import { getCurrentColor } from 'helpers/Utils'
+import axios from 'axios'
+import jwt from 'jwt-decode'
+import Cookies from 'js-cookie'
+import { API_URL } from 'config/api'
+import {Redirect} from 'react-router-dom'
 
-const validatePassword = (value) => {
-  let error
-  if (!value) {
-    error = 'Please enter your password'
-  } else if (value.length < 4) {
-    error = 'Value must be longer than 3 characters'
-  }
-  return error
-}
-
-const validateEmail = (value) => {
-  let error
-  if (!value) {
-    error = 'Please enter your email address'
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-    error = 'Invalid email address'
-  }
-  return error
-}
-
-const Login = ({ history, loading, error, loginUserAction }) => {
-  const [email] = useState('demo@gogo.com')
-  const [password] = useState('gogo123')
+const Login = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [redirectToRoute, setRedirectToRoute] = useState(false)
 
   useEffect(() => {
     getCurrentColor()
   }, [])
   const color = getCurrentColor()
 
-  useEffect(() => {
-    if (error) {
-      NotificationManager.warning(error, 'Login Error', 3000, null, null, '')
-    }
-  }, [error])
-
-  const onUserLogin = (values) => {
-    if (!loading) {
-      if (values.email !== '' && values.password !== '') {
-        loginUserAction(values, history)
-      }
-    }
+  if (redirectToRoute) {
+    return <Redirect to="/app/dashboard" />
   }
 
-  const initialValues = { email, password }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const data = {
+      email: email,
+      password: password,
+    }
+
+    await axios
+      .post(`${API_URL}/api/auth/login`, data)
+      .then((res) => {
+        if (res.status === 200) {
+          sessionStorage.setItem('isLoggedIn', true)
+          const token = res.data.token
+          const decode = jwt(token)
+          const exp = decode.exp * 1000
+
+          Cookies.set('token', token)
+          Cookies.set('expireAt', new Date(exp))
+          console.log(res)
+          setRedirectToRoute(true);
+        }
+      })
+      .catch((err) => {
+        alert(err.message)
+      })
+  }
 
   return (
     <Row className="h-100">
@@ -109,75 +105,62 @@ const Login = ({ history, loading, error, loginUserAction }) => {
               <IntlMessages id="user.login-title" />
             </CardTitle>
 
-            <Formik initialValues={initialValues} onSubmit={onUserLogin}>
-              {({ errors, touched }) => (
-                <Form className="av-tooltip tooltip-label-bottom">
-                  <FormGroup className="form-group has-float-label">
-                    <Label>
-                      <IntlMessages id="user.email" />
-                    </Label>
-                    <Field
-                      className="form-control"
-                      name="email"
-                      validate={validateEmail}
-                    />
-                    {errors.email && touched.email && (
-                      <div className="invalid-feedback d-block">
-                        {errors.email}
-                      </div>
-                    )}
-                  </FormGroup>
-                  <FormGroup className="form-group has-float-label">
-                    <Label>
-                      <IntlMessages id="user.password" />
-                    </Label>
-                    <Field
-                      className="form-control"
-                      type="password"
-                      name="password"
-                      validate={validatePassword}
-                    />
-                    {errors.password && touched.password && (
-                      <div className="invalid-feedback d-block">
-                        {errors.password}
-                      </div>
-                    )}
-                  </FormGroup>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <NavLink to="/user/forgot-password">
-                      <IntlMessages id="user.forgot-password-question" />
-                    </NavLink>
-                    <Button
-                      color="primary"
-                      className={`btn-shadow btn-multiple-state ${
-                        loading ? 'show-spinner' : ''
-                      }`}
-                      size="lg"
-                    >
-                      <span className="spinner d-inline-block">
-                        <span className="bounce1" />
-                        <span className="bounce2" />
-                        <span className="bounce3" />
-                      </span>
-                      <span className="label">
-                        <IntlMessages id="user.login-button" />
-                      </span>
-                    </Button>
-                  </div>
-                </Form>
-              )}
-            </Formik>
+            <form
+              className="av-tooltip tooltip-label-bottom"
+              onSubmit={handleSubmit}
+            >
+              <FormGroup className="form-group has-float-label">
+                <Label>
+                  <IntlMessages id="user.email" />
+                </Label>
+                <input
+                  className="form-control"
+                  name="email"
+                  type="text"
+                  onChange={(e) => {
+                    setEmail(e.target.value)
+                  }}
+                />
+              </FormGroup>
+              <FormGroup className="form-group has-float-label">
+                <Label>
+                  <IntlMessages id="user.password" />
+                </Label>
+                <input
+                  className="form-control"
+                  type="password"
+                  name="password"
+                  autoComplete="true"
+                  onChange={(e) => {
+                    setPassword(e.target.value)
+                  }}
+                />
+              </FormGroup>
+              <div className="d-flex justify-content-between align-items-center">
+                <NavLink to="/user/forgot-password">
+                  <IntlMessages id="user.forgot-password-question" />
+                </NavLink>
+                <Button
+                  color="primary"
+                  className={`btn-shadow btn-multiple-state`}
+                  size="lg"
+                >
+                  <span className="spinner d-inline-block">
+                    <span className="bounce1" />
+                    <span className="bounce2" />
+                    <span className="bounce3" />
+                  </span>
+                  <span className="label">
+                    <IntlMessages id="user.login-button" />
+                  </span>
+                </Button>
+              </div>
+            </form>
           </div>
         </Card>
       </Colxx>
     </Row>
   )
 }
-const mapStateToProps = ({ authUser }) => {
-  const { loading, error } = authUser
-  return { loading, error }
-}
 
-export default connect(mapStateToProps, {
-  loginUserAction: loginUser,
-})(Login)
+export default Login
