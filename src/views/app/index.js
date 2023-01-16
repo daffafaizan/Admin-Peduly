@@ -67,7 +67,7 @@ const App = ({ match }) => {
               render={(props) => <AddSlide {...props} />}
             />
             <Route
-              path={`${match.url}/slide/edit`}
+              path={`${match.url}/slide/edit/:id`}
               render={(props) => <EditSlide {...props} />}
             />
             <Redirect to="/error" />
