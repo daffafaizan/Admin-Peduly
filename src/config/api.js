@@ -1,1 +1,1 @@
-export const API_URL = "https://dev.peduly.com"
+export const API_URL = 'https://dev.peduly.com'

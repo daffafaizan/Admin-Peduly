@@ -50,7 +50,7 @@ const TopNav = ({
   setContainerClassnamesAction,
   clickOnMobileMenuAction,
   // eslint-disable-next-line no-unused-vars
-  logoutUser
+  logoutUser,
   // logoutUserAction,
   // changeLocaleAction,
 }) => {
@@ -188,19 +188,19 @@ const TopNav = ({
 
   const handleLogout = () => {
     const inputToken = Cookies.get('token')
-    
-      try {
-        axios
-          .post(`${API_URL}/api/auth/logout`, {
-            headers: {
-              Authorization: `Bearer ${inputToken}`,
-            },
-          })
-          .then((res) => res)
-          .catch((err) => err)
-      } catch (err) {
-        console.log(err)
-      }
+
+    try {
+      axios
+        .post(`${API_URL}/api/auth/logout`, {
+          headers: {
+            Authorization: `Bearer ${inputToken}`,
+          },
+        })
+        .then((res) => res)
+        .catch((err) => err)
+    } catch (err) {
+      console.log(err)
+    }
     Cookies.remove('token')
     Cookies.remove('expireAt')
     Cookies.remove('_id')
@@ -299,7 +299,6 @@ const TopNav = ({
         to={adminRoot}
         style={{ width: '100%', maxWidth: '141px' }}
       >
-        {/* <span className="logo d-block" /> */}
         <svg
           className="d-block"
           xmlns="http://www.w3.org/2000/svg"
@@ -372,9 +371,7 @@ const TopNav = ({
               <DropdownItem>History</DropdownItem>
               <DropdownItem>Support</DropdownItem>
               <DropdownItem divider />
-              <DropdownItem onClick={handleLogout}>
-                Sign out
-              </DropdownItem>
+              <DropdownItem onClick={handleLogout}>Sign out</DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </div>

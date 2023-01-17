@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Row,
   Card,
@@ -12,6 +12,7 @@ import {
 } from 'reactstrap'
 import { Colxx, Separator } from 'components/common/CustomBootstrap'
 import IntlMessages from 'helpers/IntlMessages'
+import { getCurrentColor } from 'helpers/Utils'
 import useMousetrap from 'hooks/use-mousetrap'
 import { orderData } from 'helpers/Utils'
 import IdrFormat from 'helpers/IdrFormat'
@@ -60,6 +61,12 @@ const HalamanGalangDana = () => {
   const [data, setData] = useState(initialData)
   const [search, setSearch] = useState('')
   const history = useHistory()
+
+  useEffect(() => {
+    getCurrentColor()
+  }, [])
+
+  const color = getCurrentColor()
 
   const handleChange = (e) => {
     e.preventDefault()
@@ -156,7 +163,11 @@ const HalamanGalangDana = () => {
         <Colxx xxs="12" className="mb-4">
           <Card className="mb-4" style={{ borderRadius: '15px' }}>
             <CardBody style={{ padding: '24px' }}>
-              <Table hover responsive>
+              <Table
+                hover
+                responsive
+                className={!color.indexOf('dark') && 'table-dark-mode'}
+              >
                 <thead>
                   <tr>
                     <th style={{ borderTop: '0px' }}>#</th>

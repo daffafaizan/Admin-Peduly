@@ -1,0 +1,99 @@
+.trending-card {
+  height: 617px;
+  // overflow: auto;
+  .card-container {
+    margin-bottom: 17px;
+    margin-top: 13px;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    p {
+      margin-bottom: 0px;
+    }
+    .container-foto {
+      grid-column: span 4 / span 4;
+      .foto-campaign {
+        height: 121px;
+        width: 180px;
+        object-fit: cover;
+        border-radius: 15px;
+      }
+    }
+    .container-detail {
+      grid-column: span 8 / span 8;
+      margin-left: 20px;
+      .judul {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+      }
+      .progress {
+        height: 3px;
+        background-color: #e4e4e4;
+        width: 100%;
+        margin-top: 10px;
+      }
+      .container-info {
+        margin-top: 11px;
+        display: grid;
+        grid-template-columns: repeat(11, minmax(0, 1fr));
+        font-weight: 500;
+        font-size: 0.75rem;
+        line-height: 1rem;
+        .container-dana {
+          grid-column: span 4 / span 4;
+          .target {
+            font-size: 14px;
+          }
+          .nominal {
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+        .container-waktu {
+          grid-column: span 3 / span 3;
+          .judul {
+            font-size: 14px;
+          }
+          .nominal {
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+}
+
+.progress-container {
+  background-color: #e4e4e4;
+  width: 100%;
+  .progress-bar {
+    height: 3px;
+    z-index: 2px;
+  }
+  .active {
+    background-color: #e7513b;
+  }
+  .expired {
+    background-color: #717171;
+  }
+}
+
+.grafik-galang-dana {
+  height: 404px;
+  .title-container {
+    justify-content: space-between;
+    .date {
+      font-size: 14px;
+      line-height: 17px;
+      color: #717171;
+    }
+  }
+  .chart-container {
+    height: 300px;
+  }
+}
