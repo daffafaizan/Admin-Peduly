@@ -20,6 +20,9 @@ const DetailGalangDana = React.lazy(() =>
 const SlidePage = React.lazy(() => import('./slide'))
 const AddSlide = React.lazy(() => import('./slide/AddSlide'))
 const EditSlide = React.lazy(() => import('./slide/EditSlide'))
+const SurveyCharts = React.lazy(() =>
+  import('../../containers/applications/SurveyCharts')
+)
 
 const App = ({ match }) => {
   return (
@@ -69,6 +72,10 @@ const App = ({ match }) => {
             <Route
               path={`${match.url}/slide/edit`}
               render={(props) => <EditSlide {...props} />}
+            />
+            <Route
+              path={`${match.url}/chart`}
+              render={(props) => <SurveyCharts {...props} />}
             />
             <Redirect to="/error" />
           </Switch>

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Row,
   Card,
@@ -12,6 +12,7 @@ import {
 } from 'reactstrap'
 import { Colxx, Separator } from 'components/common/CustomBootstrap'
 import IntlMessages from 'helpers/IntlMessages'
+import { getCurrentColor } from 'helpers/Utils'
 import useMousetrap from 'hooks/use-mousetrap'
 import pengguna from 'data/pengguna'
 import { orderData } from 'helpers/Utils'
@@ -29,6 +30,13 @@ const Pengguna = () => {
   const [selectedOrder, setSelectedOrder] = useState('Terbaru')
   const [data, setData] = useState(initialData)
   const [search, setSearch] = useState('')
+
+  useEffect(() => {
+    getCurrentColor()
+  }, [])
+
+  const color = getCurrentColor()
+
   const handleChange = (e) => {
     e.preventDefault()
     setSearch(e.target.value)
@@ -142,7 +150,11 @@ const Pengguna = () => {
         <Colxx xxs="12" className="mb-4">
           <Card className="mb-4 card-rounded">
             <CardBody className="card-body">
-              <Table hover responsive>
+              <Table
+                hover
+                responsive
+                className={!color.indexOf('dark') && 'table-dark-mode'}
+              >
                 <thead>
                   <tr>
                     <th>#</th>

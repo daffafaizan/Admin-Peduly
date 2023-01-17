@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Row,
   Card,
@@ -13,6 +13,7 @@ import {
 import { Colxx } from 'components/common/CustomBootstrap'
 // import IntlMessages from 'helpers/IntlMessages'
 import useMousetrap from 'hooks/use-mousetrap'
+import { getCurrentColor } from 'helpers/Utils'
 import { orderData } from 'helpers/Utils'
 import IdrFormat from 'helpers/IdrFormat'
 import DateFormat from 'helpers/DateFormat'
@@ -78,6 +79,12 @@ const DetailGalangDana = ({ match }) => {
   //   setSelectedOrder(option)
   // }
 
+  useEffect(() => {
+    getCurrentColor()
+  }, [])
+
+  const color = getCurrentColor()
+
   const handleChangeSelectAll = (isToggle) => {
     if (selectedItems.length >= initialData.length) {
       if (isToggle) {
@@ -104,7 +111,6 @@ const DetailGalangDana = ({ match }) => {
       <Row>
         <Colxx xxs="12">
           <Breadcrumb match={match} />
-          {/* <Separator className="mb-3" /> */}
         </Colxx>
       </Row>
       <div className="d-flex" style={{ marginBottom: '38px' }}>
@@ -150,9 +156,7 @@ const DetailGalangDana = ({ match }) => {
                 d="M55 35.075v5.2c0 8.775-2.225 10.975-11.1 10.975H16.1C7.225 51.25 5 49.05 5 40.275v-20.55C5 10.95 7.225 8.75 16.1 8.75h20.15M50 8.75v15l5-5M50 23.75l-5-5"
               ></path>
             </svg>
-            <p className="text-peduly-dark mx-auto text-center judul">
-              Dana Terkumpul
-            </p>
+            <p className="mx-auto text-center judul">Dana Terkumpul</p>
             <p className="text-danger text-center content">
               Rp {IdrFormat(78050000)}
             </p>
@@ -176,9 +180,7 @@ const DetailGalangDana = ({ match }) => {
                 d="M30 30c6.904 0 12.5-5.596 12.5-12.5S36.904 5 30 5s-12.5 5.596-12.5 12.5S23.096 30 30 30zM51.475 55c0-9.675-9.625-17.5-21.475-17.5-11.85 0-21.475 7.825-21.475 17.5"
               ></path>
             </svg>
-            <p className="text-peduly-dark mx-auto text-center judul">
-              Jumlah Donatur
-            </p>
+            <p className="mx-auto text-center judul">Jumlah Donatur</p>
             <p className="text-danger text-center content">325 Donatur</p>
           </div>
         </Colxx>
@@ -186,13 +188,13 @@ const DetailGalangDana = ({ match }) => {
           <Row className="row-gap-3">
             <Colxx xxs="12">
               <div className="card container-card-half card-top">
-                <p className="text-peduly-dark judul">Biaya Payment Gateway</p>
+                <p className="judul">Biaya Payment Gateway</p>
                 <p className="text-danger content">Rp {IdrFormat(50000)}</p>
               </div>
             </Colxx>
             <Colxx xxs="12">
               <div className="card container-card-half card-bottom">
-                <p className="text-peduly-dark judul">Biaya Operasional</p>
+                <p className="judul">Biaya Operasional</p>
                 <p className="text-danger content">Rp {IdrFormat(23300000)}</p>
               </div>
             </Colxx>
@@ -202,13 +204,13 @@ const DetailGalangDana = ({ match }) => {
           <Row className="row-gap-3">
             <Colxx xxs="12">
               <div className="card container-card-half card-top">
-                <p className="text-peduly-dark judul">Biaya Referal & Iklan</p>
+                <p className="judul">Biaya Referal & Iklan</p>
                 <p className="text-danger content">Rp {IdrFormat(9300000)}</p>
               </div>
             </Colxx>
             <Colxx xxs="12">
               <div className="card container-card-half card-bottom">
-                <p className="text-peduly-dark judul">Total Payable</p>
+                <p className="judul">Total Payable</p>
                 <p className="text-danger content">Rp {IdrFormat(100300000)}</p>
               </div>
             </Colxx>
@@ -219,7 +221,11 @@ const DetailGalangDana = ({ match }) => {
         <Colxx xxs="12" className="mb-4">
           <Card className="mb-4" style={{ borderRadius: '15px' }}>
             <CardBody style={{ padding: '24px' }}>
-              <Table hover responsive>
+              <Table
+                hover
+                responsive
+                className={!color.indexOf('dark') && 'table-dark-mode'}
+              >
                 <thead>
                   <tr>
                     <th style={{ borderTop: '0px' }}>#</th>

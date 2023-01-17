@@ -275,7 +275,6 @@ const TopNav = ({
         to={adminRoot}
         style={{ width: '100%', maxWidth: '141px' }}
       >
-        {/* <span className="logo d-block" /> */}
         <svg
           className="d-block"
           xmlns="http://www.w3.org/2000/svg"
