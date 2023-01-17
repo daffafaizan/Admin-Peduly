@@ -9,6 +9,8 @@ import {
   FormGroup,
   Input,
   Button,
+  Modal,
+  ModalBody,
 } from 'reactstrap'
 import { Colxx } from 'components/common/CustomBootstrap'
 import './index.scss'
@@ -25,13 +27,13 @@ const AddSlide = () => {
   const [endDate, setEndDate] = useState("")
   const [url, setUrl] = useState("")
   const [preview, setPreview] = useState("")
+  const [isOpen, setIsOpen] = useState(false)
+  const [modalMsg, setModalMsg] = useState("")
   const history = useHistory()
   
   const handleImage = (e) => {
     loadImage(setImage, setPreview, e)
   }
-
-  console.log(image)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -45,9 +47,6 @@ const AddSlide = () => {
     formData.append('end_date', endDate)
     formData.append('url', url)
 
-    console.log(formData)
-
-
     await axios
       .post(`${API_URL}/api/slides/create`, formData, {
         headers: { Authorization : `Bearer ${token}`,
@@ -55,7 +54,8 @@ const AddSlide = () => {
       })
       .then((res) => {
         if (res.status === 200 || res.status === 201) {
-          history.push("/app/slide")
+          setIsOpen(true)
+          setModalMsg("Slider Created Successfully")
         }
       })
       .catch((err) => {
@@ -64,6 +64,7 @@ const AddSlide = () => {
   }
 
   return (
+    <>
     <Row className="rounded">
       <Colxx xs="12" className="mb-4">
         <Card className="mb-4">
@@ -208,6 +209,18 @@ const AddSlide = () => {
         </Card>
       </Colxx>
     </Row>
+    <Modal
+    isOpen={isOpen}
+    toggle={() => setIsOpen(false)}
+  >
+    <ModalBody className="d-flex justify-content-center">
+      <p>{modalMsg}</p>
+      <Button color="primary" onClick={()=> history.push('/app/slide')}>
+        Oke
+      </Button>
+    </ModalBody>
+  </Modal>
+  </>
   )
 }
 
