@@ -19,14 +19,14 @@ import { API_URL } from 'config/api'
 import { useHistory } from 'react-router-dom'
 
 const AddSlide = () => {
-  const [title, setTitle] = useState("")
-  const [image, setImage] = useState("")
-  const [startDate, setStartDate] = useState("")
-  const [endDate, setEndDate] = useState("")
-  const [url, setUrl] = useState("")
-  const [preview, setPreview] = useState("")
+  const [title, setTitle] = useState('')
+  const [image, setImage] = useState('')
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
+  const [url, setUrl] = useState('')
+  const [preview, setPreview] = useState('')
   const history = useHistory()
-  
+
   const handleImage = (e) => {
     loadImage(setImage, setPreview, e)
   }
@@ -47,15 +47,16 @@ const AddSlide = () => {
 
     console.log(formData)
 
-
     await axios
       .post(`${API_URL}/api/slides/create`, formData, {
-        headers: { Authorization : `Bearer ${token}`,
-      'Content-Type': 'multipart/form-data' }
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
       })
       .then((res) => {
         if (res.status === 200 || res.status === 201) {
-          history.push("/app/slide")
+          history.push('/app/slide')
         }
       })
       .catch((err) => {
@@ -192,7 +193,7 @@ const AddSlide = () => {
                     className="input-date"
                     value={endDate}
                     onChange={(e) => {
-                      setEndDate(e.target.value )
+                      setEndDate(e.target.value)
                     }}
                   />
                 </Col>
@@ -200,7 +201,9 @@ const AddSlide = () => {
 
               <FormGroup>
                 <Col className="d-flex justify-content-end mt-5">
-                  <Button type="submit" className="px-4">Buat Slide</Button>
+                  <Button type="submit" className="px-4">
+                    Buat Slide
+                  </Button>
                 </Col>
               </FormGroup>
             </Form>

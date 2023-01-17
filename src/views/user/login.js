@@ -8,7 +8,7 @@ import axios from 'axios'
 import jwt from 'jwt-decode'
 import Cookies from 'js-cookie'
 import { API_URL } from 'config/api'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -44,7 +44,7 @@ const Login = () => {
           Cookies.set('token', token)
           Cookies.set('expireAt', new Date(exp))
           console.log(res)
-          setRedirectToRoute(true);
+          setRedirectToRoute(true)
         }
       })
       .catch((err) => {
