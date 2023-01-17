@@ -2281,8 +2281,8 @@ pre code {
   background-color: rgba(255, 255, 255, 0.05);
 }
 .table-dark.table-hover tbody tr:hover {
-  color: #fff;
-  background-color: rgba(255, 255, 255, 0.075);
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.075) !important;
 }
 @media (max-width: 419.98px) {
   .table-responsive-xs {

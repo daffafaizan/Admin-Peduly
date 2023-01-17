@@ -4,6 +4,8 @@ import { Card, CardBody, CardTitle } from 'reactstrap'
 import { Colxx } from 'components/common/CustomBootstrap'
 import { ThemeColors } from 'helpers/ThemeColors'
 import { DoughnutChart } from 'components/charts'
+import { BarChart } from 'components/charts'
+import { barChartData } from 'data/charts'
 
 const colors = ThemeColors()
 
@@ -43,7 +45,7 @@ const genderChartData = {
         colors.themeColor3_10,
       ],
       borderWidth: 2,
-      data: [85, 45, 20],
+      data: [200, 250, 300],
     },
   ],
 }
@@ -116,6 +118,15 @@ const SurveyCharts = () => {
           <CardTitle>What is your gender?</CardTitle>
           <div className="chart-container">
             <DoughnutChart shadow data={genderChartData} />
+          </div>
+        </CardBody>
+      </Card>
+
+      <Card className="mb-4">
+        <CardBody>
+          <CardTitle>What is your gender?</CardTitle>
+          <div className="chart-container">
+            <BarChart shadow data={barChartData} />
           </div>
         </CardBody>
       </Card>

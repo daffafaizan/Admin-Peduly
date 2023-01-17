@@ -1,0 +1,64 @@
+.user-card {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  .content {
+    grid-column: span 10 / span 10;
+    p {
+      margin-bottom: 0px;
+    }
+    .title {
+      font-size: 14px;
+      line-height: 17px;
+      margin-bottom: 12px;
+    }
+    .jumlah {
+      font-size: 24px;
+      line-height: 29px;
+    }
+  }
+  .icon {
+    grid-column: span 2 / span 2;
+    align-self: center;
+  }
+}
+
+.pay-card {
+  .title {
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 12px;
+  }
+  .jumlah {
+    font-size: 24px;
+    line-height: 29px;
+  }
+}
+
+.list-users-card {
+  height: 401px;
+  .user-container {
+    padding: 20px 0px;
+    border-bottom: 1px solid;
+    border-top: 0px;
+    // height: ;
+    .avatar {
+      object-fit: cover;
+      width: 38px;
+      height: 38px;
+    }
+    .information {
+      margin-left: 12px;
+      p {
+        margin-bottom: 0px;
+        font-size: 14px;
+        line-height: 17px;
+      }
+      .username {
+        margin-bottom: 4px;
+      }
+      .register-date {
+        color: #717171;
+      }
+    }
+  }
+}

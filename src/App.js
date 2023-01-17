@@ -69,11 +69,7 @@ class App extends React.Component {
                     component={ViewApp}
                     
                   /> */}
-                   <Route
-                    path={adminRoot}
-                    component={ViewApp}
-                    
-                  />
+                  <Route path={adminRoot} component={ViewApp} />
                   <Route
                     path="/user"
                     render={(props) => <ViewUser {...props} />}

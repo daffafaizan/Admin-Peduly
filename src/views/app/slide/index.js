@@ -18,6 +18,7 @@ import moment from 'moment'
 import DataTablePagination from 'components/DatatablePagination'
 import TextAlert from 'components/TextAlert'
 import { useHistory } from 'react-router-dom'
+import { getCurrentColor } from 'helpers/Utils'
 import axios from 'axios'
 
 const pageSizes = [4, 8, 12, 20]
@@ -44,6 +45,11 @@ const SlidePage = () => {
     }
   }, [totalPage, currentPage])
 
+  useEffect(() => {
+    getCurrentColor()
+  }, [])
+
+  const color = getCurrentColor()
   const getSlidesData = () => {
     axios
       .get('https://dev.peduly.com/api/slides')
@@ -98,7 +104,13 @@ const SlidePage = () => {
         <Col>
           <Card className="mb-4" style={{ borderRadius: '15px' }}>
             <CardBody style={{ padding: '24px' }}>
-              <Table className="table-slide" hover responsive>
+              <Table
+                className={`table-slide ${
+                  !color.indexOf('dark') && 'table-dark-mode'
+                }`}
+                hover
+                responsive
+              >
                 <thead>
                   <tr className="nowrap">
                     <th style={{ borderTop: '0px' }}>#</th>

@@ -19,6 +19,7 @@ import axios from 'axios'
 import transaksi from 'data/transaksi-donasi'
 import IdrFormat from 'helpers/IdrFormat'
 import DateFormat from 'helpers/DateFormat'
+import { getCurrentColor } from 'helpers/Utils'
 import './index.scss'
 // import axios from 'axios';
 
@@ -39,20 +40,24 @@ const TransaksiDonasi = () => {
   const [search, setSearch] = useState('')
   const [status] = useState(true)
 
+  useEffect(() => {
+    getCurrentColor
+  }, [])
+
+  const color = getCurrentColor()
+
   const handleChange = (e) => {
     e.preventDefault()
     setSearch(e.target.value)
   }
 
   useEffect(() => {
-    // eslint-disable-next-line no-use-before-define
     getData()
   }, [])
 
   const getData = async () => {
     const response = await axios.get('https://api.peduly.com/api/galangdana')
     setData(response.data.data)
-    // console.log(response.data.data[0].item.status_donasi);
   }
 
   const handleOrder = (option) => {
@@ -137,7 +142,11 @@ const TransaksiDonasi = () => {
         <Colxx xs="12" className="mb-4">
           <Card className="mb-4 card-rounded">
             <CardBody className="card-body">
-              <Table hover responsive>
+              <Table
+                hover
+                responsive
+                className={!color.indexOf('dark') && 'table-dark-mode'}
+              >
                 <thead>
                   <tr>
                     <th>#</th>
