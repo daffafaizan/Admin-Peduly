@@ -6,7 +6,7 @@ export default function dayToGo(TargetDay) {
     const secondDate = new Date()
     const diffDays = Math.round((firstDate - secondDate) / oneDay)
     if (diffDays <= 0) {
-      return '-'
+      return 'berakhir'
     }
     return diffDays
   }
