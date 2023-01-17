@@ -113,13 +113,13 @@ const SlidePage = () => {
                 <tbody>
                   {data
                     .filter((tr) => tr.title.toLowerCase().includes(search))
+                    .sort((a, b) => {
+                      return b.id - a.id
+                    })
                     .slice(
                       (currentPage - 1) * currentPageSize,
                       currentPage * currentPageSize
                     )
-                    .sort((a, b) => {
-                      return b.id - a.id
-                    })
                     .map((item) => (
                       <tr
                         key={item.id}
