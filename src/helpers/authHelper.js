@@ -1,41 +1,26 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { isAuthGuardActive } from 'constants/defaultValues'
-import { getCurrentUser } from './Utils'
+import Cookies from 'js-cookie'
+import { CookieKeys } from 'constants/CookieKeys'
 
-const ProtectedRoute = ({
-  component: Component,
-  roles = undefined,
-  ...rest
-}) => {
+const ProtectedRoute = ({ component: Component, ...rest }) => {
   const setComponent = (props) => {
     if (isAuthGuardActive) {
-      const currentUser = getCurrentUser()
-      if (currentUser) {
-        if (roles) {
-          if (roles.includes(currentUser.role)) {
-            return <Component {...props} />
-          }
-          return (
-            <Redirect
-              to={{
-                pathname: '/unauthorized',
-                state: { from: props.location },
-              }}
-            />
-          )
-        }
-        return <Component {...props} />
+      const token = Cookies.get(CookieKeys.authToken)
+
+      if (!token) {
+        return (
+          <Redirect
+            to={{
+              pathname: '/user/login',
+              state: { from: props.location },
+            }}
+          />
+        )
       }
-      return (
-        <Redirect
-          to={{
-            pathname: '/user/login',
-            state: { from: props.location },
-          }}
-        />
-      )
     }
+
     return <Component {...props} />
   }
 

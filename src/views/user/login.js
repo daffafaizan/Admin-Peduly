@@ -4,11 +4,11 @@ import { NavLink } from 'react-router-dom'
 import { Colxx } from 'components/common/CustomBootstrap'
 import IntlMessages from 'helpers/IntlMessages'
 import { getCurrentColor } from 'helpers/Utils'
-import axios from 'axios'
 import jwt from 'jwt-decode'
 import Cookies from 'js-cookie'
-import { API_URL } from 'config/api'
+import { API_ENDPOINT } from 'config/api'
 import { Redirect } from 'react-router-dom'
+import http from 'helpers/http'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -32,18 +32,17 @@ const Login = () => {
       password: password,
     }
 
-    await axios
-      .post(`${API_URL}/api/auth/login`, data)
+    await http
+      .post(API_ENDPOINT.LOGIN, data)
       .then((res) => {
         if (res.status === 200) {
-          sessionStorage.setItem('isLoggedIn', true)
           const token = res.data.token
           const decode = jwt(token)
           const exp = decode.exp * 1000
 
           Cookies.set('token', token)
           Cookies.set('expireAt', new Date(exp))
-          console.log(res)
+
           setRedirectToRoute(true)
         }
       })
