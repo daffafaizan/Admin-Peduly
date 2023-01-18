@@ -25,8 +25,8 @@ const ListUserCard = ({ ListUser }) => {
       >
         <Table>
           <tbody>
-            {ListUser.map((item) => (
-              <tr key={item.id}>
+            {ListUser.map((item, index) => (
+              <tr key={`user-${index}`}>
                 <td className="d-flex user-container">
                   <img
                     src={`images/images_campaign/${item.foto}`}

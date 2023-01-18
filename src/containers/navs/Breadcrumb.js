@@ -17,7 +17,7 @@ const getUrl = (path, sub) => {
 const BreadcrumbContainer = ({ heading, match }) => {
   useEffect(() => {
     console.log(match)
-  }, [])
+  }, [match])
 
   return (
     <>

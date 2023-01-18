@@ -11,6 +11,7 @@ import {
   DropdownMenu,
   Input,
 } from 'reactstrap'
+import DummyProfile from '../../assets/img/profiles/dummy-profile.png'
 
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -32,13 +33,14 @@ import {
   changeLocale,
 } from 'redux/actions'
 
-import { API_URL } from 'config/api'
+import { API_ENDPOINT, API_URL } from 'config/api'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
 // import TopnavEasyAccess from './Topnav.EasyAccess';
 // import TopnavNotifications from './Topnav.Notifications';
 import TopnavDarkSwitch from './Topnav.DarkSwitch'
+import http from 'helpers/http'
 
 const TopNav = ({
   intl,
@@ -56,6 +58,7 @@ const TopNav = ({
 }) => {
   // const [isInFullScreen, setIsInFullScreen] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('')
+  const [userData, setUserData] = useState()
 
   const search = () => {
     history.push(`${searchPath}?key=${searchKeyword}`)
@@ -63,8 +66,27 @@ const TopNav = ({
   }
 
   useEffect(() => {
+    const getDataUser = () => {
+      http.get(API_ENDPOINT.GET_LOGIN_USER_DATA).then((res) => {
+        const data = res.data.user
+        localStorage.setItem('user', JSON.stringify(data))
+        setUserData(data)
+      })
+    }
+
+    if (!userData) {
+      const localUserData = localStorage.getItem('user')
+      console.log(localUserData)
+      if (!localUserData) {
+        getDataUser()
+        return
+      }
+
+      setUserData(JSON.parse(localUserData))
+    }
+
     getCurrentColor()
-  }, [])
+  }, [userData])
 
   const color = getCurrentColor()
 
@@ -360,9 +382,9 @@ const TopNav = ({
         <div className="user d-inline-block">
           <UncontrolledDropdown className="dropdown-menu-right">
             <DropdownToggle className="p-0" color="empty">
-              <span className="name mr-1">Sarah Kortney</span>
+              <span className="name mr-1">{userData?.name}</span>
               <span>
-                <img alt="Profile" src="/assets/img/profiles/l-1.jpg" />
+                <img alt="Profile" src={userData?.photo || DummyProfile} />
               </span>
             </DropdownToggle>
             <DropdownMenu className="mt-3" right>

@@ -14,8 +14,8 @@ const TrendingGalangDana = ({ TrendingGalangDanaData }) => {
       <PerfectScrollBar
         options={{ suppressScrollX: true, wheelPropagation: false }}
       >
-        {TrendingGalangDanaData.map((item) => (
-          <div key={item.id}>
+        {TrendingGalangDanaData.map((item, index) => (
+          <div key={`trending-${index}`}>
             <Link
               to={{
                 pathname: `/donasi-sekali/${item.slug}`,
