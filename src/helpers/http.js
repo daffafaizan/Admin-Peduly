@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { API_URL } from 'config/api'
+import { API_CONTEXT, API_URL } from 'config/api'
 import { CookieKeys } from 'constants/CookieKeys'
 import Cookies from 'js-cookie'
 
 const http = axios.create({
-  baseURL: `${API_URL}`,
+  baseURL: `${API_URL}/${API_CONTEXT}`,
   timeout: 30000,
 })
 

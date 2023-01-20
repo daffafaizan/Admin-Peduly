@@ -4,9 +4,8 @@ import './index.scss'
 const MiniCard = ({ judul, text }) => {
   return (
     <div className="card mini-card">
-      <div className="ghost"></div>
-      <p className="text-danger text-center content">{text}</p>
-      <p className="text-center judul">{judul}</p>
+      <span className="text-danger count">{text}</span>
+      <span className="text-center title">{judul}</span>
     </div>
   )
 }

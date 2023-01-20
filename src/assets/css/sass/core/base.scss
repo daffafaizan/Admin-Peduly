@@ -726,3 +726,11 @@ p {
 .table-dark-mode.table-hover tbody tr:hover {
   color: #c0c0c0 !important;
 }
+
+// React Datepicker
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__month-text--keyboard-selected,
+.react-datepicker__quarter-text--keyboard-selected,
+.react-datepicker__year-text--keyboard-selected {
+  background-color: $theme-color-1;
+}

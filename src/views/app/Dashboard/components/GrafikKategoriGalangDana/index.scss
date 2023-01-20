@@ -1,0 +1,19 @@
+.grafik-kategori-galang-dana {
+  height: 100%;
+
+  .card-title {
+    margin: 0;
+  }
+
+  .header-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .body-section {
+    .chart-container {
+      padding-top: 24px;
+    }
+  }
+}

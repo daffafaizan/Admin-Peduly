@@ -1,0 +1,14 @@
+.dates-between-input {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  .button-date {
+    background: transparent;
+    border: none;
+
+    &:hover {
+      color: $theme-color-1;
+    }
+  }
+}

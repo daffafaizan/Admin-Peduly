@@ -76,7 +76,7 @@ const TopNav = ({
 
     if (!userData) {
       const localUserData = localStorage.getItem('user')
-      console.log(localUserData)
+
       if (!localUserData) {
         getDataUser()
         return
