@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'reactstrap'
 import MiniCard from './components/RingkasanGalangDana/MiniCard'
-import TrendingGalangDana from './components/RingkasanGalangDana/TrendingGalangDana'
-import UserCard from './components/RingkasanPengguna/UserCard'
-import PayCard from './components/RingkasanPengguna/PayCard'
 import ListUserCard from './components/RingkasanPengguna/ListUserCard'
 import GrafikTotalDonasi from './components/RingkasanGalangDana/GrafikTotalDonasi'
 import { barChartData } from 'data/charts'
 
-import './index.scss'
 import http from 'helpers/http'
 import { API_ENDPOINT } from 'config/api'
 import moment from 'moment'
 import GrafikKategoriGalangDana from './components/GrafikKategoriGalangDana'
 import { CategoryGalangDana } from 'data/category-galang-dana'
 import GrafikTotalGalangDana from './components/GrafikTotalGalangDana'
+import MiniCard2 from '../../../components/MiniCard2'
+import UserIcon from 'assets/icons/UserIcon'
+import TrendingGalangDana from './components/TrendingGalangDana'
 // import BarSingle from 'components/charts/BarSingle'
 
 /* eslint-disable no-unused-vars */
@@ -87,39 +86,33 @@ const Dashboard = () => {
     })
 
   return (
-    <div style={{ paddingBottom: '20px' }}>
+    <div className="dashboard" style={{ paddingBottom: '20px' }}>
       <Row>
         <Col>
           <h1>Ringkasan Galang Dana</h1>
         </Col>
       </Row>
-      <Row>
+      <Row className="section-1-container mb-4">
         <Col>
-          <Row className="top-mini-card">
-            <Col>
+          <div className="section-1-left">
+            <div className="top-mini-card">
               <MiniCard judul="Aktif" text={galangDanaActive?.length} />
-            </Col>
-            <Col>
               <MiniCard
                 judul="Tidak Aktif"
                 text={galangDanaNonActive?.length}
               />
-            </Col>
-            <Col>
               <MiniCard judul="Total" text={listGalangDana?.length} />
-            </Col>
-          </Row>
-          <Row className="bottom-mini-card">
-            <Col xxs="12">
+            </div>
+            <div className="bottom-mini-card">
               <GrafikTotalDonasi barChartData={barChartData} />
-            </Col>
-          </Row>
+            </div>
+          </div>
         </Col>
-        <Col className="mb-4">
+        <Col>
           <TrendingGalangDana TrendingGalangDanaData={trendingGalangDana} />
         </Col>
       </Row>
-      <Row>
+      <Row className="section-2-container">
         <Col>
           <GrafikTotalGalangDana galangDanaData={listGalangDana} />
         </Col>
@@ -129,30 +122,38 @@ const Dashboard = () => {
       </Row>
       <hr />
       <Row>
-        <Col xxs="12">
+        <Col>
           <h1>Ringkasan Pengguna</h1>
         </Col>
       </Row>
-      <Row style={{ marginBottom: '30px' }}>
-        <Col xss="3">
-          <UserCard judul="Jumlah Pengguna" jumlah={listUser.length} />
+      <Row className="section-3-container" style={{ marginBottom: '32px', rowGap: '16px' }}>
+        <Col>
+          <MiniCard2
+            title="Jumlah Pengguna"
+            text={listUser.length}
+            icon={<UserIcon />}
+          />
         </Col>
-        <Col xss="3">
-          <UserCard judul="Pengguna Baru" jumlah={filterNewUser.length} />
+        <Col>
+          <MiniCard2
+            title="Pengguna Baru"
+            text={listUser.length}
+            icon={<UserIcon />}
+          />
         </Col>
-        <Col xss="3">
-          <PayCard judul="Biaya Operasional" jumlah="23300000" />
+        <Col>
+          <MiniCard2 title="Biaya Operasional" text={listUser.length} />
         </Col>
-        <Col xss="3">
-          <PayCard judul="Total Payable" jumlah="100300000" />
+        <Col>
+          <MiniCard2 title="Total Payable" text={listUser.length} />
         </Col>
       </Row>
-      <Row>
+      <Row className="section-4-container">
         <Col>
-          <div className="card" style={{ height: '401px' }}></div>
+          <div className="card"></div>
         </Col>
         <Col>
-          <div className="card" style={{ height: '401px' }}></div>
+          <div className="card"></div>
         </Col>
         <Col>
           <ListUserCard ListUser={filterNewUser} />

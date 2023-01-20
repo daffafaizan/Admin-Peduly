@@ -1,0 +1,10 @@
+.trending-card {
+  max-height: 620px;
+  width: 100%;
+
+  .trending-container {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+}

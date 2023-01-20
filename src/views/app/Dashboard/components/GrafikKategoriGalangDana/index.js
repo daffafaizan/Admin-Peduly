@@ -1,4 +1,4 @@
-import BarSingle from 'components/charts/BarSingle'
+import BarSingle, { defaultOption } from 'components/charts/BarSingle'
 import { ThemeColors } from 'helpers/ThemeColors'
 import React, { useEffect, useState } from 'react'
 import './index.scss'
@@ -51,7 +51,10 @@ const GrafikKategoriGalangDana = ({
       </div>
       <div className="body-section">
         <div className="chart-container">
-          <BarSingle data={getCurrentGrafikData()} />
+          <BarSingle
+            data={getCurrentGrafikData()}
+            options={{ ...defaultOption, maintainAspectRatio: false }}
+          />
         </div>
       </div>
     </div>

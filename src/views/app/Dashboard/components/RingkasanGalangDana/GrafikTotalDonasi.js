@@ -4,24 +4,13 @@ import './index.scss'
 import moment from 'moment'
 import { getMonthBetween } from 'helpers/getMonthBetween'
 import { ThemeColors } from 'helpers/ThemeColors'
-import BarSingle from 'components/charts/BarSingle'
+import BarSingle, { defaultOption } from 'components/charts/BarSingle'
 import DatesBetweenInput from 'components/DatesBetweenInput'
 
 /* eslint-disable no-unused-vars */
 const GrafikTotalDonasi = ({ barChartData }) => {
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
-
-  // labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-  // datasets: [
-  //   {
-  //     label: 'Cakes',
-  //     borderColor: colors.themeColor1,
-  //     backgroundColor: colors.themeColor1_10,
-  //     data: [456, 479, 324, 569, 702, 600],
-  //     borderWidth: 2,
-  //   },
-  // ],
 
   const getCurrentDataset = () => {
     const dateList = getMonthBetween(startDate, endDate)
@@ -67,7 +56,10 @@ const GrafikTotalDonasi = ({ barChartData }) => {
         />
       </div>
       <div className="chart-container">
-        <BarSingle data={getCurrentDataset()} />
+        <BarSingle
+          data={getCurrentDataset()}
+          options={{ ...defaultOption, maintainAspectRatio: false }}
+        />
       </div>
     </div>
   )

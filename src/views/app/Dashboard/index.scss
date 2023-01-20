@@ -35,3 +35,34 @@ hr {
   border-top: 1.5px solid #e4e4e4;
   margin: 32px 0;
 }
+
+.dashboard {
+  .section-1-left {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .top-mini-card {
+    display: flex;
+    gap: 32px;
+
+    .mini-card {
+      flex: 1;
+    }
+  }
+
+  .bottom-mini-card {
+    flex: 1;
+
+    .grafik-galang-dana {
+      height: 100%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    
+  }
+}

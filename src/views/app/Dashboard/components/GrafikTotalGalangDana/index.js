@@ -4,7 +4,7 @@ import './index.scss'
 import moment from 'moment'
 import { getMonthBetween } from 'helpers/getMonthBetween'
 import { ThemeColors } from 'helpers/ThemeColors'
-import BarSingle from 'components/charts/BarSingle'
+import BarSingle, { defaultOption } from 'components/charts/BarSingle'
 import DatesBetweenInput from 'components/DatesBetweenInput'
 
 /* eslint-disable no-unused-vars */
@@ -61,7 +61,10 @@ const GrafikTotalGalangDana = ({ galangDanaData }) => {
         />
       </div>
       <div className="chart-container">
-        <BarSingle data={getCurrentDataset()} />
+        <BarSingle
+          data={getCurrentDataset()}
+          options={{ ...defaultOption, maintainAspectRatio: false }}
+        />
       </div>
     </div>
   )
