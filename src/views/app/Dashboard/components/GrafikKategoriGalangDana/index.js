@@ -1,37 +1,23 @@
 import BarSingle, { defaultOption } from 'components/charts/BarSingle'
 import { ThemeColors } from 'helpers/ThemeColors'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './index.scss'
 
 const color = ThemeColors()
 
 /* eslint-disable no-unused-vars */
-const GrafikKategoriGalangDana = ({
-  categoryData = [],
-  galangDanaData = [],
-}) => {
-  const [totalGalangDanaData, setTotalGalangDanaData] = useState([])
-
-  useEffect(() => {
-    setTotalGalangDanaData(
-      categoryData?.map((value) => {
-        // random data test
-        const startData = 0
-        const endData = 100
-        return Math.floor(Math.random() * (endData - startData + 1)) + startData
-      })
-    )
-  }, [categoryData])
-
+const GrafikKategoriGalangDana = ({ datas = [] }) => {
   const getCurrentGrafikData = () => {
     return {
-      labels: categoryData?.map((value) => {
-        return value.title
+      labels: datas?.map((value) => {
+        return value.category
       }),
       datasets: [
         {
           label: 'Total Galang Dana',
-          data: totalGalangDanaData,
+          data: datas?.map((value) => {
+            return value.data.length
+          }),
           backgroundColor: color.themeColor1_10,
           borderColor: color.themeColor1,
           borderWidth: 2,
@@ -43,6 +29,8 @@ const GrafikKategoriGalangDana = ({
       ],
     }
   }
+
+  console.log(getCurrentGrafikData())
 
   return (
     <div className="card grafik-kategori-galang-dana">

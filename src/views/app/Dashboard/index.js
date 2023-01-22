@@ -22,12 +22,45 @@ const Dashboard = () => {
   const [listUser, setListUser] = useState([])
   const [listGalangDana, setListGalangDana] = useState([])
   const [listCategoryGalangData] = useState(CategoryGalangDana)
+  const [listGalangDanaPerCategory, setListGalangDanaPerCategory] = useState([])
   const maxTrendingItem = 5
 
   useEffect(() => {
     getGalangDana()
     getUser()
+    initGalangDanaByCategory()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const initGalangDanaByCategory = async () => {
+    const datas = await Promise.all(
+      listCategoryGalangData?.map(async (item) => {
+        const res = await getGalangDanaByCategory(item.title)
+
+        return {
+          category: item.title,
+          data: res.data.data,
+        }
+      })
+    )
+
+    console.log('Datas: ', datas)
+
+    setListGalangDanaPerCategory(datas)
+  }
+
+  const getGalangDanaByCategory = async (category) => {
+    try {
+      const res = await http.get(API_ENDPOINT.GET_LIST_GALANG_DANA, {
+        params: { kategori: category },
+      })
+
+      return res
+    } catch (error) {
+      console.log('Error get galang dana by category: ', error)
+    }
+  }
 
   const getGalangDana = () => {
     http
@@ -117,7 +150,7 @@ const Dashboard = () => {
           <GrafikTotalGalangDana galangDanaData={listGalangDana} />
         </Col>
         <Col>
-          <GrafikKategoriGalangDana categoryData={listCategoryGalangData} />
+          <GrafikKategoriGalangDana datas={listGalangDanaPerCategory} />
         </Col>
       </Row>
       <hr />
@@ -126,7 +159,10 @@ const Dashboard = () => {
           <h1>Ringkasan Pengguna</h1>
         </Col>
       </Row>
-      <Row className="section-3-container" style={{ marginBottom: '32px', rowGap: '16px' }}>
+      <Row
+        className="section-3-container"
+        style={{ marginBottom: '32px', rowGap: '16px' }}
+      >
         <Col>
           <MiniCard2
             title="Jumlah Pengguna"
@@ -137,15 +173,15 @@ const Dashboard = () => {
         <Col>
           <MiniCard2
             title="Pengguna Baru"
-            text={listUser.length}
+            text={filterNewUser.length}
             icon={<UserIcon />}
           />
         </Col>
         <Col>
-          <MiniCard2 title="Biaya Operasional" text={listUser.length} />
+          <MiniCard2 title="Biaya Operasional" text={`Rp 11.000.000`} />
         </Col>
         <Col>
-          <MiniCard2 title="Total Payable" text={listUser.length} />
+          <MiniCard2 title="Total Payable" text={`Rp 10.000.000`} />
         </Col>
       </Row>
       <Row className="section-4-container">
