@@ -6,4 +6,5 @@ export const API_ENDPOINT = {
   GET_LOGIN_USER_DATA: '/user',
   GET_LIST_GALANG_DANA: '/galangdana',
   GET_ALL_USER: '/admin/users',
+  GET_LIST_GALANG_DANA_ADMIN: '/admin/galangdana'
 }

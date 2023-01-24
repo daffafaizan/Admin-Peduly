@@ -28,6 +28,7 @@ const Pengguna = () => {
   const [currentPageSize, setCurrentPageSize] = useState(pageSizes[0])
   const [selectedOrder, setSelectedOrder] = useState('Terbaru')
   const [dataPengguna, setDataPengguna] = useState([])
+  const [filteredData, setFiltered] = useState([])
   const [search, setSearch] = useState('')
   const [display, setDisplay] = useState(false)
 
@@ -50,7 +51,7 @@ const Pengguna = () => {
         },
       })
       .then((res) => {
-        const result = res.data.data;
+        const result = res.data.data
         // const orderResult = result.sort((a,b) => a.tanggal_dibuat)
         setDataPengguna(result)
         //coba format tanggal
@@ -80,17 +81,23 @@ const Pengguna = () => {
   const [totalPage, setTotalPage] = useState(0)
 
   useEffect(() => {
-    setTotalPage(Math.ceil(dataPengguna.length / currentPageSize))
+    setFiltered(
+      dataPengguna.filter((tr) => {
+        return tr.name?.toLowerCase().includes(search)
+      })
+    )
+  }, [dataPengguna, search])
 
+  useEffect(() => {
+    console.log('Filtered data ', filteredData)
+    setTotalPage(Math.ceil(filteredData.length / currentPageSize))
+  }, [filteredData, currentPageSize])
+
+  useEffect(() => {
     if (currentPage > totalPage) {
       setCurrentPage(1)
     }
-  }, [
-    dataPengguna,
-    totalPage,
-    currentPage,
-    currentPageSize,
-  ])
+  }, [totalPage, currentPage])
 
   return (
     <>
@@ -120,21 +127,21 @@ const Pengguna = () => {
                 })}
               </DropdownMenu>
             </UncontrolledDropdown>
-            {currentPage === 1 && (
-              <div className="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
-                <input
-                  type="text"
-                  name="keyword"
-                  id="search"
-                  placeholder="Search..."
-                  value={search}
-                  onChange={handleChange}
-                />
-              </div>
-            )}
+            <div className="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
+              <input
+                type="text"
+                name="keyword"
+                id="search"
+                placeholder="Search..."
+                value={search}
+                onChange={handleChange}
+              />
+            </div>
           </div>
           <div className="float-md-right pt-1">
-            <span className="text-muted text-small mr-1">{!search && (`${currentPage} of ${totalPage}`)}</span>
+            <span className="text-muted text-small mr-1">
+              {!search && `${currentPage} of ${totalPage}`}
+            </span>
             <UncontrolledDropdown className="d-inline-block">
               <DropdownToggle caret color="outline-dark" size="xs">
                 {currentPageSize}
@@ -162,7 +169,7 @@ const Pengguna = () => {
               <Table
                 hover
                 responsive
-                className={!color.indexOf('dark') && 'table-dark-mode'}
+                className={`${!color.indexOf('dark') ? 'table-dark-mode' : ''}`}
               >
                 <thead>
                   <tr>
@@ -205,16 +212,14 @@ const Pengguna = () => {
                       </td>
                     </tr>
                   ) : (
-                    dataPengguna
-                      .filter((tr) => tr.name?.toLowerCase().includes(search))
-                      // .slice(itemOffset, endOffset)
+                    filteredData
                       .slice(
                         (currentPage - 1) * currentPageSize,
                         currentPage * currentPageSize
                       )
                       .map((item, idx) => (
                         <tr key={idx}>
-                          <td>{idx + 1}</td>
+                          <td>{((currentPage - 1) * currentPageSize) + idx + 1}</td>
                           <td>{item.name}</td>
                           <td>
                             {item.username === null ? '-' : item.username}
@@ -222,7 +227,7 @@ const Pengguna = () => {
                           <td>{item.email}</td>
                           <td>{item.no_telp === null ? '-' : item.no_telp}</td>
                           <td>{item.role}</td>
-                            <td>{item.tanggal_dibuat}</td>
+                          <td>{item.tanggal_dibuat}</td>
                           <td>
                             {/* {item.verifikasi === 'terverifikasi' && (
                             <p className="text-success rounded text-center status status-success bg-status-success">
@@ -252,18 +257,14 @@ const Pengguna = () => {
       <Row>
         <Colxx>
           <div className="float-md-right">
-            {search ? (
-              ''
-            ) : (
-              <DataTablePagination
-                page={currentPage - 1}
-                pages={totalPage}
-                canNext={currentPage < totalPage}
-                canPrevious={currentPage > 1}
-                onPageChange={(page) => setCurrentPage(page + 1)}
-                paginationMaxSize ={10}
-              />
-            )}
+            <DataTablePagination
+              page={currentPage - 1}
+              pages={totalPage}
+              canNext={currentPage < totalPage}
+              canPrevious={currentPage > 1}
+              onPageChange={(page) => setCurrentPage(page + 1)}
+              paginationMaxSize={10}
+            />
           </div>
         </Colxx>
       </Row>
