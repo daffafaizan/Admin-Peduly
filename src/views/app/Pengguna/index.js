@@ -9,31 +9,58 @@ import {
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
+  Spinner,
 } from 'reactstrap'
 import { Colxx, Separator } from 'components/common/CustomBootstrap'
 import IntlMessages from 'helpers/IntlMessages'
 import { getCurrentColor } from 'helpers/Utils'
-import useMousetrap from 'hooks/use-mousetrap'
-import pengguna from 'data/pengguna'
 import { orderData } from 'helpers/Utils'
-import DateFormat from 'helpers/DateFormat'
 import './index.scss'
+import axios from 'axios'
+import Cookies from 'js-cookie'
+import DataTablePagination from 'components/DatatablePagination'
 
 const orderOptions = [{ label: `Terbaru` }, { label: `Terlama` }]
 
-const pageSizes = [4, 8, 12, 20]
-
-const initialData = orderData('Terbaru', pengguna)
+const pageSizes = [20, 50, 100]
 
 const Pengguna = () => {
-  const [selectedItems, setSelectedItems] = useState([])
+  const [currentPageSize, setCurrentPageSize] = useState(pageSizes[0])
   const [selectedOrder, setSelectedOrder] = useState('Terbaru')
-  const [data, setData] = useState(initialData)
+  const [dataPengguna, setDataPengguna] = useState([])
   const [search, setSearch] = useState('')
+  const [display, setDisplay] = useState(false)
 
   useEffect(() => {
     getCurrentColor()
+
+    getUsers()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // get all users
+  const token = Cookies.get('token')
+  const getUsers = async () => {
+    setDisplay(true)
+    await axios
+      .get(`https://dev.peduly.com/api/admin/users`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        const result = res.data.data;
+        // const orderResult = result.sort((a,b) => a.tanggal_dibuat)
+        setDataPengguna(result)
+        //coba format tanggal
+        setDisplay(false)
+      })
+      .catch((err) => {
+        alert(err.data)
+        setDisplay(false)
+      })
+  }
 
   const color = getCurrentColor()
 
@@ -43,49 +70,27 @@ const Pengguna = () => {
   }
 
   const handleOrder = (option) => {
-    const array = orderData(option, initialData)
-    setData(array)
+    const array = orderData(option, dataPengguna)
+    setDataPengguna(array)
     setSelectedOrder(option)
   }
 
-  const handleChangeSelectAll = (isToggle) => {
-    if (selectedItems.length >= initialData.length) {
-      if (isToggle) {
-        setSelectedItems([])
-      }
-    } else {
-      setSelectedItems(initialData.map((x) => x.id))
+  //pagination
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPage, setTotalPage] = useState(0)
+
+  useEffect(() => {
+    setTotalPage(Math.ceil(dataPengguna.length / currentPageSize))
+
+    if (currentPage > totalPage) {
+      setCurrentPage(1)
     }
-    document.activeElement.blur()
-    return false
-  }
-
-  // const statusColor = (status) => {
-  //   if(status === `Approved`) {
-  //     return `success`;
-  //   }
-
-  //   if(status === `Pending`) {
-  //     return `warning`;
-  //   }
-
-  //   return `danger`;
-  // };
-
-  // const onSearchKey = (e) => {
-  //   if (e.key === 'Enter') {
-  //     setSearch(e.target.value.toLowerCase());
-  //   }
-  // };
-
-  useMousetrap(['ctrl+a', 'command+a'], () => {
-    handleChangeSelectAll(false)
-  })
-
-  useMousetrap(['ctrl+d', 'command+d'], () => {
-    setSelectedItems([])
-    return false
-  })
+  }, [
+    dataPengguna,
+    totalPage,
+    currentPage,
+    currentPageSize,
+  ])
 
   return (
     <>
@@ -115,28 +120,32 @@ const Pengguna = () => {
                 })}
               </DropdownMenu>
             </UncontrolledDropdown>
-            <div className="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
-              <input
-                type="text"
-                name="keyword"
-                id="search"
-                placeholder="Search..."
-                // onKeyPress={(e) => onSearchKey(e)}
-                onChange={handleChange}
-              />
-            </div>
+            {currentPage === 1 && (
+              <div className="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
+                <input
+                  type="text"
+                  name="keyword"
+                  id="search"
+                  placeholder="Search..."
+                  value={search}
+                  onChange={handleChange}
+                />
+              </div>
+            )}
           </div>
           <div className="float-md-right pt-1">
-            <span className="text-muted text-small mr-1">{`1 of 1 `}</span>
+            <span className="text-muted text-small mr-1">{!search && (`${currentPage} of ${totalPage}`)}</span>
             <UncontrolledDropdown className="d-inline-block">
               <DropdownToggle caret color="outline-dark" size="xs">
-                {' '}
-                8{/* {selectedPageSize} */}
+                {currentPageSize}
               </DropdownToggle>
               <DropdownMenu right>
                 {pageSizes.map((size, index) => {
                   return (
-                    <DropdownItem key={index} onClick="">
+                    <DropdownItem
+                      key={index}
+                      onClick={() => setCurrentPageSize(size)}
+                    >
                       {size}
                     </DropdownItem>
                   )
@@ -168,19 +177,54 @@ const Pengguna = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data
-                    .filter((tr) => tr.nama.toLowerCase().includes(search))
-                    .map((item) => (
-                      <tr key={item.id}>
-                        <td>{item.id}</td>
-                        <td>{item.nama}</td>
-                        <td>{item.username}</td>
-                        <td>{item.email}</td>
-                        <td>{item.telepon}</td>
-                        <td>{item.role}</td>
-                        <td>{DateFormat(item.created_at)}</td>
-                        <td>
-                          {item.verifikasi === 'terverifikasi' && (
+                  {display ? (
+                    <tr>
+                      <td className="spinner-table">
+                        <Spinner color="primary">Loading...</Spinner>
+                      </td>
+                      <td className="spinner-table">
+                        <Spinner color="primary">Loading...</Spinner>
+                      </td>
+                      <td className="spinner-table">
+                        <Spinner color="primary">Loading...</Spinner>
+                      </td>
+                      <td className="spinner-table">
+                        <Spinner color="primary">Loading...</Spinner>
+                      </td>
+                      <td className="spinner-table">
+                        <Spinner color="primary">Loading...</Spinner>
+                      </td>
+                      <td className="spinner-table">
+                        <Spinner color="primary">Loading...</Spinner>
+                      </td>
+                      <td className="spinner-table">
+                        <Spinner color="primary">Loading...</Spinner>
+                      </td>
+                      <td className="spinner-table">
+                        <Spinner color="primary">Loading...</Spinner>
+                      </td>
+                    </tr>
+                  ) : (
+                    dataPengguna
+                      .filter((tr) => tr.name?.toLowerCase().includes(search))
+                      // .slice(itemOffset, endOffset)
+                      .slice(
+                        (currentPage - 1) * currentPageSize,
+                        currentPage * currentPageSize
+                      )
+                      .map((item, idx) => (
+                        <tr key={idx}>
+                          <td>{idx + 1}</td>
+                          <td>{item.name}</td>
+                          <td>
+                            {item.username === null ? '-' : item.username}
+                          </td>
+                          <td>{item.email}</td>
+                          <td>{item.no_telp === null ? '-' : item.no_telp}</td>
+                          <td>{item.role}</td>
+                            <td>{item.tanggal_dibuat}</td>
+                          <td>
+                            {/* {item.verifikasi === 'terverifikasi' && (
                             <p className="text-success rounded text-center status status-success bg-status-success">
                               Terverifikasi
                             </p>
@@ -190,18 +234,37 @@ const Pengguna = () => {
                               pending
                             </p>
                           )}
-                          {item.verifikasi === 'tidak' && (
+                          {item.verifikasi === null && (
                             <p className="text-danger rounded text-center status status-danger bg-status-danger">
                               Tidak
                             </p>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
+                          )} */}
+                          </td>
+                        </tr>
+                      ))
+                  )}
                 </tbody>
               </Table>
             </CardBody>
           </Card>
+        </Colxx>
+      </Row>
+      <Row>
+        <Colxx>
+          <div className="float-md-right">
+            {search ? (
+              ''
+            ) : (
+              <DataTablePagination
+                page={currentPage - 1}
+                pages={totalPage}
+                canNext={currentPage < totalPage}
+                canPrevious={currentPage > 1}
+                onPageChange={(page) => setCurrentPage(page + 1)}
+                paginationMaxSize ={10}
+              />
+            )}
+          </div>
         </Colxx>
       </Row>
     </>

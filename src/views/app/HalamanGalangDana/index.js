@@ -13,92 +13,98 @@ import {
 import { Colxx, Separator } from 'components/common/CustomBootstrap'
 import IntlMessages from 'helpers/IntlMessages'
 import { getCurrentColor } from 'helpers/Utils'
-import useMousetrap from 'hooks/use-mousetrap'
-import { orderData } from 'helpers/Utils'
 import IdrFormat from 'helpers/IdrFormat'
-import dayToGo from 'helpers/DayToGo'
 import { useHistory } from 'react-router-dom'
+import Cookies from 'js-cookie'
+import axios from 'axios'
+import DataTablePagination from 'components/DatatablePagination'
+import './index.scss'
 
 const orderOptions = [{ label: `Terbaru` }, { label: `Terlama` }]
 
-const pageSizes = [4, 8, 12, 20]
-
-const galangDana = [
-  {
-    id: 1,
-    judul: 'bantu arya sembuh dari penyakit yang dideritanya selama ini',
-    author: 'Human Initiative',
-    target: 100000000,
-    terkumpul: 35000000,
-    batas: '2024-06-28T07:23:22.000000Z',
-    status: 'aktif',
-  },
-  {
-    id: 2,
-    judul: 'Biaya Berobat Anak ',
-    author: 'Involuntir',
-    target: 100000000,
-    terkumpul: 55500000,
-    batas: '2022-11-28T07:23:22.000000Z',
-    status: 'berakhir',
-  },
-  {
-    id: 3,
-    judul: 'Mari Bantu Bangun Hunian Darurat di Cianjur',
-    author: 'Rumah Peduli Umat',
-    target: 200000000,
-    terkumpul: 1000000,
-    batas: '',
-    status: 'suspend',
-  },
-]
-
-const initialData = orderData('Terbaru', galangDana)
+const pageSizes = [20, 50, 100]
 
 const HalamanGalangDana = () => {
-  const [selectedItems, setSelectedItems] = useState([])
   const [selectedOrder, setSelectedOrder] = useState('Terbaru')
-  const [data, setData] = useState(initialData)
+  const [currentPageSize, setCurrentPageSize] = useState(pageSizes[0])
+  const [dataGalangDana, setDataGalangDana] = useState([])
   const [search, setSearch] = useState('')
   const history = useHistory()
 
   useEffect(() => {
     getCurrentColor()
+    getGalangDana()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const color = getCurrentColor()
 
+  // get all users
+  const token = Cookies.get('token')
+  const getGalangDana = async () => {
+    await axios
+      .get(`https://dev.peduly.com/api/admin/galangdana`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        const result = res.data.data
+        const orderResult= result.sort((a, b) => b.id - a.id)
+        setDataGalangDana(orderResult)
+      })
+      .catch((err) => {
+        alert(err.data)
+      })
+  }
+
+  const orderDataById = (option, data) => {
+    let array
+    if (option === 'Terbaru') {
+      array = data.sort(function (a, b) {
+        return b.id - a.id
+      })
+    } else if (option === 'Terlama') {
+      array = data.sort(function (a, b) {
+        return a.id - b.id
+      })
+    }
+    return array
+  }
+
+  const handleOrder = (option) => {
+    const array = orderDataById(option, dataGalangDana)
+    setDataGalangDana(array)
+    setSelectedOrder(option)
+  }
+
+  //pagination
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPage, setTotalPage] = useState(0)
+
+  useEffect(() => {
+      setTotalPage(Math.ceil(dataGalangDana.length / currentPageSize))
+  }, [currentPageSize, dataGalangDana])
+
+  useEffect(() => {
+
+    if (currentPage > totalPage) {
+      setCurrentPage(1)
+    }
+    
+  }, [totalPage, currentPage])
+
+  //search
   const handleChange = (e) => {
     e.preventDefault()
     setSearch(e.target.value)
   }
 
-  const handleOrder = (option) => {
-    const array = orderData(option, initialData)
-    setData(array)
-    setSelectedOrder(option)
+  const searching = (items) => {
+    return items.filter((tr) =>
+      tr.judul_campaign?.toLowerCase().includes(search)
+    )
   }
-
-  const handleChangeSelectAll = (isToggle) => {
-    if (selectedItems.length >= initialData.length) {
-      if (isToggle) {
-        setSelectedItems([])
-      }
-    } else {
-      setSelectedItems(initialData.map((x) => x.id))
-    }
-    document.activeElement.blur()
-    return false
-  }
-
-  useMousetrap(['ctrl+a', 'command+a'], () => {
-    handleChangeSelectAll(false)
-  })
-
-  useMousetrap(['ctrl+d', 'command+d'], () => {
-    setSelectedItems([])
-    return false
-  })
 
   return (
     <>
@@ -128,28 +134,31 @@ const HalamanGalangDana = () => {
                 })}
               </DropdownMenu>
             </UncontrolledDropdown>
-            <div className="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
-              <input
-                type="text"
-                name="keyword"
-                id="search"
-                placeholder="Search..."
-                // onKeyPress={(e) => onSearchKey(e)}
-                onChange={handleChange}
-              />
-            </div>
+            {currentPage === 1 && (
+              <div className="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
+                <input
+                  type="text"
+                  name="keyword"
+                  id="search"
+                  placeholder="Search..."
+                  onChange={handleChange}
+                />
+              </div>
+            )}
           </div>
           <div className="float-md-right pt-1">
-            <span className="text-muted text-small mr-1">{`1 of 1 `}</span>
+            <span className="text-muted text-small mr-1">{!search && (`${currentPage} of ${totalPage}`)}</span>
             <UncontrolledDropdown className="d-inline-block">
               <DropdownToggle caret color="outline-dark" size="xs">
-                {' '}
-                8{/* {selectedPageSize} */}
+                {currentPageSize}
               </DropdownToggle>
               <DropdownMenu right>
                 {pageSizes.map((size, index) => {
                   return (
-                    <DropdownItem key={index} onClick="">
+                    <DropdownItem
+                      key={index}
+                      onClick={() => setCurrentPageSize(size)}
+                    >
                       {size}
                     </DropdownItem>
                   )
@@ -180,13 +189,18 @@ const HalamanGalangDana = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data
-                    .filter((tr) => tr.judul.toLowerCase().includes(search))
+                  {searching(dataGalangDana)
+                    .slice(
+                      (currentPage - 1) * currentPageSize,
+                      currentPage * currentPageSize
+                    )
                     .map((item) => (
                       <tr
                         key={item.id}
                         onClick={() =>
-                          history.push(`/app/halaman-galang-dana/detail`)
+                          history.push(
+                            `/app/halaman-galang-dana/detail/${item.id}`
+                          )
                         }
                         style={{ cursor: 'pointer' }}
                       >
@@ -197,46 +211,51 @@ const HalamanGalangDana = () => {
                           }}
                         >
                           <p className="line-clamp" style={{ margin: '0px' }}>
-                            {item.judul}
+                            {item.judul_campaign}
                           </p>
                         </td>
-                        <td>{item.author}</td>
-                        <td>Rp {IdrFormat(item.target)}</td>
-                        <td>Rp {IdrFormat(item.terkumpul)}</td>
+                        <td>{item.name}</td>
+                        <td>Rp {IdrFormat(item.nominal_campaign)}</td>
+                        <td>Rp {IdrFormat(item.total_donasi)}</td>
+                        <td>{item.sisa_waktu}</td>
                         <td>
-                          {dayToGo(item.batas) >= 0
-                            ? `${dayToGo(item.batas)} Hari`
-                            : '-'}
-                        </td>
-                        <td>
-                          {item.status === 'aktif' && (
+                          {item.status === 'Approved' && (
                             <p
                               className="text-success rounded text-center status bg-status-success"
                               style={{
-                                maxWidth: '55px',
+                                maxWidth: '100px',
                               }}
                             >
-                              Aktif
+                              Approved
                             </p>
                           )}
-                          {item.status === 'suspend' && (
+                          {item.status === 'Pending' && (
                             <p
                               className="text-warning rounded text-center status bg-status-pending"
                               style={{
                                 maxWidth: '80px',
                               }}
                             >
-                              Suspend
+                              Pending
                             </p>
                           )}
-                          {item.status === 'berakhir' && (
+                          {item.status === 'pendding' && (
                             <p
-                              className="text-danger rounded text-center status bg-status-danger"
+                              className="text-warning rounded text-center status bg-status-pending"
+                              style={{
+                                maxWidth: '80px',
+                              }}
+                            >
+                              Pending
+                            </p>
+                          )}
+                          {item.status === null && (
+                            <p
                               style={{
                                 maxWidth: '82px',
                               }}
                             >
-                              Berakhir
+                              -
                             </p>
                           )}
                         </td>
@@ -246,6 +265,19 @@ const HalamanGalangDana = () => {
               </Table>
             </CardBody>
           </Card>
+        </Colxx>
+      </Row>
+      <Row>
+        <Colxx>
+          <div className="float-md-right">
+            {search ? ("") : (<DataTablePagination
+              page={currentPage - 1}
+              pages={totalPage}
+              canNext={currentPage < totalPage}
+              canPrevious={currentPage > 1}
+              onPageChange={(page) => setCurrentPage(page + 1)}
+            />)}
+          </div>
         </Colxx>
       </Row>
     </>
