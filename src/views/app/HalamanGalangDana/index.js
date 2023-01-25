@@ -15,19 +15,17 @@ import IntlMessages from 'helpers/IntlMessages'
 import { getCurrentColor } from 'helpers/Utils'
 import IdrFormat from 'helpers/IdrFormat'
 import { useHistory } from 'react-router-dom'
-import Cookies from 'js-cookie'
-import axios from 'axios'
+import http from 'helpers/http'
 import DataTablePagination from 'components/DatatablePagination'
+import { orderDataById, orderOptions, pageSizes } from 'helpers/OrderData'
+import { API_ENDPOINT } from 'config/api'
 import './index.scss'
-
-const orderOptions = [{ label: `Terbaru` }, { label: `Terlama` }]
-
-const pageSizes = [20, 50, 100]
 
 const HalamanGalangDana = () => {
   const [selectedOrder, setSelectedOrder] = useState('Terbaru')
   const [currentPageSize, setCurrentPageSize] = useState(pageSizes[0])
   const [dataGalangDana, setDataGalangDana] = useState([])
+  const [filteredData, setFiltered] = useState([])
   const [search, setSearch] = useState('')
   const history = useHistory()
 
@@ -40,14 +38,9 @@ const HalamanGalangDana = () => {
   const color = getCurrentColor()
 
   // get all users
-  const token = Cookies.get('token')
   const getGalangDana = async () => {
-    await axios
-      .get(`https://dev.peduly.com/api/admin/galangdana`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    await http
+      .get(API_ENDPOINT.GET_LIST_GALANG_DANA_ADMIN)
       .then((res) => {
         const result = res.data.data
         const orderResult= result.sort((a, b) => b.id - a.id)
@@ -58,23 +51,9 @@ const HalamanGalangDana = () => {
       })
   }
 
-  const orderDataById = (option, data) => {
-    let array
-    if (option === 'Terbaru') {
-      array = data.sort(function (a, b) {
-        return b.id - a.id
-      })
-    } else if (option === 'Terlama') {
-      array = data.sort(function (a, b) {
-        return a.id - b.id
-      })
-    }
-    return array
-  }
-
   const handleOrder = (option) => {
-    const array = orderDataById(option, dataGalangDana)
-    setDataGalangDana(array)
+    const array = orderDataById(option, filteredData)
+    setFiltered(array)
     setSelectedOrder(option)
   }
 
@@ -83,27 +62,28 @@ const HalamanGalangDana = () => {
   const [totalPage, setTotalPage] = useState(0)
 
   useEffect(() => {
-      setTotalPage(Math.ceil(dataGalangDana.length / currentPageSize))
-  }, [currentPageSize, dataGalangDana])
+    setFiltered(
+      dataGalangDana.filter((tr) => {
+        return tr.judul_campaign?.toLowerCase().includes(search)
+      })
+    )
+  }, [dataGalangDana, search])
 
   useEffect(() => {
+    setTotalPage(Math.ceil(filteredData.length / currentPageSize))
+  }, [filteredData, currentPageSize])
 
+  useEffect(() => {
     if (currentPage > totalPage) {
       setCurrentPage(1)
     }
-    
   }, [totalPage, currentPage])
+
 
   //search
   const handleChange = (e) => {
     e.preventDefault()
     setSearch(e.target.value)
-  }
-
-  const searching = (items) => {
-    return items.filter((tr) =>
-      tr.judul_campaign?.toLowerCase().includes(search)
-    )
   }
 
   return (
@@ -134,7 +114,6 @@ const HalamanGalangDana = () => {
                 })}
               </DropdownMenu>
             </UncontrolledDropdown>
-            {currentPage === 1 && (
               <div className="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
                 <input
                   type="text"
@@ -144,10 +123,9 @@ const HalamanGalangDana = () => {
                   onChange={handleChange}
                 />
               </div>
-            )}
           </div>
           <div className="float-md-right pt-1">
-            <span className="text-muted text-small mr-1">{!search && (`${currentPage} of ${totalPage}`)}</span>
+            <span className="text-muted text-small mr-1">{`${currentPage} of ${totalPage}`}</span>
             <UncontrolledDropdown className="d-inline-block">
               <DropdownToggle caret color="outline-dark" size="xs">
                 {currentPageSize}
@@ -189,7 +167,7 @@ const HalamanGalangDana = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {searching(dataGalangDana)
+                  {filteredData
                     .slice(
                       (currentPage - 1) * currentPageSize,
                       currentPage * currentPageSize
@@ -270,13 +248,13 @@ const HalamanGalangDana = () => {
       <Row>
         <Colxx>
           <div className="float-md-right">
-            {search ? ("") : (<DataTablePagination
+          <DataTablePagination
               page={currentPage - 1}
               pages={totalPage}
               canNext={currentPage < totalPage}
               canPrevious={currentPage > 1}
               onPageChange={(page) => setCurrentPage(page + 1)}
-            />)}
+            />
           </div>
         </Colxx>
       </Row>

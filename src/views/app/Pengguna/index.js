@@ -14,15 +14,11 @@ import {
 import { Colxx, Separator } from 'components/common/CustomBootstrap'
 import IntlMessages from 'helpers/IntlMessages'
 import { getCurrentColor } from 'helpers/Utils'
-import { orderData } from 'helpers/Utils'
 import './index.scss'
-import axios from 'axios'
-import Cookies from 'js-cookie'
+import http from 'helpers/http'
 import DataTablePagination from 'components/DatatablePagination'
-
-const orderOptions = [{ label: `Terbaru` }, { label: `Terlama` }]
-
-const pageSizes = [20, 50, 100]
+import { orderDataByDate, orderOptions, pageSizes } from 'helpers/OrderData'
+import { API_ENDPOINT } from 'config/api'
 
 const Pengguna = () => {
   const [currentPageSize, setCurrentPageSize] = useState(pageSizes[0])
@@ -41,20 +37,14 @@ const Pengguna = () => {
   }, [])
 
   // get all users
-  const token = Cookies.get('token')
   const getUsers = async () => {
     setDisplay(true)
-    await axios
-      .get(`https://dev.peduly.com/api/admin/users`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    await http
+      .get(API_ENDPOINT.GET_ALL_USER)
       .then((res) => {
         const result = res.data.data
-        // const orderResult = result.sort((a,b) => a.tanggal_dibuat)
-        setDataPengguna(result)
-        //coba format tanggal
+        const orderResult = orderDataByDate('Terbaru', result)
+        setDataPengguna(orderResult)
         setDisplay(false)
       })
       .catch((err) => {
@@ -71,8 +61,8 @@ const Pengguna = () => {
   }
 
   const handleOrder = (option) => {
-    const array = orderData(option, dataPengguna)
-    setDataPengguna(array)
+    const array = orderDataByDate(option, filteredData)
+    setFiltered(array)
     setSelectedOrder(option)
   }
 
@@ -89,7 +79,6 @@ const Pengguna = () => {
   }, [dataPengguna, search])
 
   useEffect(() => {
-    console.log('Filtered data ', filteredData)
     setTotalPage(Math.ceil(filteredData.length / currentPageSize))
   }, [filteredData, currentPageSize])
 
@@ -140,7 +129,7 @@ const Pengguna = () => {
           </div>
           <div className="float-md-right pt-1">
             <span className="text-muted text-small mr-1">
-              {!search && `${currentPage} of ${totalPage}`}
+              {`${currentPage} of ${totalPage}`}
             </span>
             <UncontrolledDropdown className="d-inline-block">
               <DropdownToggle caret color="outline-dark" size="xs">
@@ -219,7 +208,9 @@ const Pengguna = () => {
                       )
                       .map((item, idx) => (
                         <tr key={idx}>
-                          <td>{((currentPage - 1) * currentPageSize) + idx + 1}</td>
+                          <td>
+                            {(currentPage - 1) * currentPageSize + idx + 1}
+                          </td>
                           <td>{item.name}</td>
                           <td>
                             {item.username === null ? '-' : item.username}
