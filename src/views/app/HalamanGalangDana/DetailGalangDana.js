@@ -1,18 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useState, useEffect } from 'react'
-import {
-  Row,
-  Card,
-  CardBody,
-  Table,
-  // UncontrolledDropdown,
-  // DropdownMenu,
-  // DropdownItem,
-  // DropdownToggle,
-} from 'reactstrap'
+import { Row, Card, CardBody, Table } from 'reactstrap'
 import { Colxx } from 'components/common/CustomBootstrap'
-// import IntlMessages from 'helpers/IntlMessages'
-import useMousetrap from 'hooks/use-mousetrap'
 import { getCurrentColor } from 'helpers/Utils'
 import { orderData } from 'helpers/Utils'
 import IdrFormat from 'helpers/IdrFormat'
@@ -20,10 +9,6 @@ import DateFormat from 'helpers/DateFormat'
 import Breadcrumb from 'containers/navs/Breadcrumb'
 import { Link } from 'react-router-dom'
 import './index.scss'
-
-// const orderOptions = [{ label: `Terbaru` }, { label: `Terlama` }]
-
-// const pageSizes = [4, 8, 12, 20]
 
 const galangDana = [
   {
@@ -49,7 +34,7 @@ const galangDana = [
     created_at: '2023-01-28T07:23:22.000000Z',
   },
   {
-    id: 2,
+    id: 3,
     name: 'Ratu Zulika',
     nominal: 10000,
     bpg: 10000,
@@ -64,20 +49,7 @@ const galangDana = [
 const initialData = orderData('Terbaru', galangDana)
 
 const DetailGalangDana = ({ match }) => {
-  const [selectedItems, setSelectedItems] = useState([])
-  // const [selectedOrder, setSelectedOrder] = useState('Terbaru')
   const [data] = useState(initialData)
-  const [search] = useState('')
-  // const handleChange = (e) => {
-  //   e.preventDefault()
-  //   setSearch(e.target.value)
-  // }
-
-  // const handleOrder = (option) => {
-  //   const array = orderData(option, initialData)
-  //   setData(array)
-  //   setSelectedOrder(option)
-  // }
 
   useEffect(() => {
     getCurrentColor()
@@ -85,45 +57,24 @@ const DetailGalangDana = ({ match }) => {
 
   const color = getCurrentColor()
 
-  const handleChangeSelectAll = (isToggle) => {
-    if (selectedItems.length >= initialData.length) {
-      if (isToggle) {
-        setSelectedItems([])
-      }
-    } else {
-      setSelectedItems(initialData.map((x) => x.id))
-    }
-    document.activeElement.blur()
-    return false
-  }
-
-  useMousetrap(['ctrl+a', 'command+a'], () => {
-    handleChangeSelectAll(false)
-  })
-
-  useMousetrap(['ctrl+d', 'command+d'], () => {
-    setSelectedItems([])
-    return false
-  })
-
   return (
     <>
       <Row>
-        <Colxx xxs="12">
-          <Breadcrumb match={match} />
+        <Colxx xxs="12" className="p-0 m-0">
+          <Breadcrumb match={match}/>
         </Colxx>
       </Row>
       <div className="d-flex" style={{ marginBottom: '38px' }}>
-        <div className="d-flex w-full judul-container">
+        <div className="d-flex w-full judul-container flex-column flex-md-row flex-wrap">
           <a
             href="https://peduly.com/donasi-sekali/bantubututi"
-            className="text-danger judul"
+            className="text-danger judul mb-2 mb-md-0"
           >
-            Alami Katarak,Bu Tuti jadi butuh bangunan demi pengobatan suami
+            Alami Katarak,Bu Tuti jadi buruh bangunan demi pengobatan suami
           </a>
           <Link
             to="/error"
-            className="rounded border-status-danger text-danger edit-btn"
+            className="rounded border-status-danger text-danger edit-btn w-sm-50 w-md-0 text-center"
           >
             Edit Galang Dana
           </Link>
@@ -219,8 +170,11 @@ const DetailGalangDana = ({ match }) => {
       </Row>
       <Row>
         <Colxx xxs="12" className="mb-4">
-          <Card className="mb-4" style={{ borderRadius: '15px' }}>
-            <CardBody style={{ padding: '24px' }}>
+          <Card className="mb-4 p-0" style={{ borderRadius: '15px' }}>
+            <div className="heading-border">
+              <h1 className="ml-4 mt-4 mb-2">Transaksi</h1>
+            </div>
+            <CardBody>
               <Table
                 hover
                 responsive
@@ -240,52 +194,50 @@ const DetailGalangDana = ({ match }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data
-                    .filter((tr) => tr.name.toLowerCase().includes(search))
-                    .map((item) => (
-                      <tr key={item.id}>
-                        <td>{item.id}</td>
-                        <td>{item.name}</td>
-                        <td>{DateFormat(item.created_at)}</td>
-                        <td>Rp {IdrFormat(item.nominal)}</td>
-                        <td>Rp {IdrFormat(item.bpg)}</td>
-                        <td>Rp {IdrFormat(item.referal)}</td>
-                        <td>Rp {IdrFormat(item.ba)}</td>
-                        <td>Rp {IdrFormat(item.payable)}</td>
-                        <td>
-                          {item.status === 'berhasil' && (
-                            <p
-                              className="text-success rounded text-center status bg-status-success"
-                              style={{
-                                maxWidth: '77px',
-                              }}
-                            >
-                              Berhasil
-                            </p>
-                          )}
-                          {item.status === 'pending' && (
-                            <p
-                              className="text-warning rounded text-center status bg-status-pending"
-                              style={{
-                                maxWidth: '78px',
-                              }}
-                            >
-                              Pending
-                            </p>
-                          )}
-                          {item.status === 'dibatalkan' && (
-                            <p
-                              className="text-danger rounded text-center status bg-status-danger"
-                              style={{
-                                maxWidth: '94px',
-                              }}
-                            >
-                              Dibatalkan
-                            </p>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
+                  {data.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.id}</td>
+                      <td>{item.name}</td>
+                      <td>{DateFormat(item.created_at)}</td>
+                      <td>Rp {IdrFormat(item.nominal)}</td>
+                      <td>Rp {IdrFormat(item.bpg)}</td>
+                      <td>Rp {IdrFormat(item.referal)}</td>
+                      <td>Rp {IdrFormat(item.ba)}</td>
+                      <td>Rp {IdrFormat(item.payable)}</td>
+                      <td>
+                        {item.status === 'berhasil' && (
+                          <p
+                            className="text-success rounded text-center status bg-status-success"
+                            style={{
+                              maxWidth: '77px',
+                            }}
+                          >
+                            Berhasil
+                          </p>
+                        )}
+                        {item.status === 'pending' && (
+                          <p
+                            className="text-warning rounded text-center status bg-status-pending"
+                            style={{
+                              maxWidth: '78px',
+                            }}
+                          >
+                            Pending
+                          </p>
+                        )}
+                        {item.status === 'dibatalkan' && (
+                          <p
+                            className="text-danger rounded text-center status bg-status-danger"
+                            style={{
+                              maxWidth: '94px',
+                            }}
+                          >
+                            Dibatalkan
+                          </p>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </Table>
             </CardBody>

@@ -2,7 +2,8 @@
   justify-content: space-between;
   .judul {
     font-size: 24px;
-    max-width: calc(100% - 160px);
+    // max-width: calc(100% - 160px);
+    text-decoration: underline;
   }
   .edit-btn {
     padding: 10px 20px;
@@ -46,4 +47,8 @@
 .card-bottom {
   margin-top: 16px;
   margin-bottom: 32px;
+}
+
+.heading-border {
+  border-bottom: 2px solid #f4f4f4;
 }

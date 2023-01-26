@@ -79,7 +79,6 @@ const HalamanGalangDana = () => {
     }
   }, [totalPage, currentPage])
 
-
   //search
   const handleChange = (e) => {
     e.preventDefault()
@@ -149,7 +148,7 @@ const HalamanGalangDana = () => {
       <Row>
         <Colxx xxs="12" className="mb-4">
           <Card className="mb-4" style={{ borderRadius: '15px' }}>
-            <CardBody style={{ padding: '24px' }}>
+            <CardBody style={{ padding: '12px' }}>
               <Table
                 hover
                 responsive
