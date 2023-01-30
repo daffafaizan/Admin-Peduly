@@ -30,8 +30,6 @@ const GrafikKategoriGalangDana = ({ datas = [] }) => {
     }
   }
 
-  console.log(getCurrentGrafikData())
-
   return (
     <div className="card grafik-kategori-galang-dana">
       <div className="header-section">

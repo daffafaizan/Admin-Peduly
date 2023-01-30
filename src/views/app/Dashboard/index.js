@@ -3,7 +3,6 @@ import { Col, Row } from 'reactstrap'
 import MiniCard from './components/RingkasanGalangDana/MiniCard'
 import ListUserCard from './components/RingkasanPengguna/ListUserCard'
 import GrafikTotalDonasi from './components/RingkasanGalangDana/GrafikTotalDonasi'
-import { barChartData } from 'data/charts'
 
 import http from 'helpers/http'
 import { API_ENDPOINT } from 'config/api'
@@ -23,11 +22,13 @@ const Dashboard = () => {
   const [listGalangDana, setListGalangDana] = useState([])
   const [listCategoryGalangData] = useState(CategoryGalangDana)
   const [listGalangDanaPerCategory, setListGalangDanaPerCategory] = useState([])
+  const [listTransaksi, setListTransaksi] = useState([])
   const maxTrendingItem = 5
 
   useEffect(() => {
     getGalangDana()
     getUser()
+    getTransaksiDonasiData()
     initGalangDanaByCategory()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,8 +45,6 @@ const Dashboard = () => {
         }
       })
     )
-
-    console.log('Datas: ', datas)
 
     setListGalangDanaPerCategory(datas)
   }
@@ -81,6 +80,17 @@ const Dashboard = () => {
       })
       .catch((err) => {
         console.log('Error get user data: ', err)
+      })
+  }
+
+  const getTransaksiDonasiData = () => {
+    http
+      .get(API_ENDPOINT.GET_ALL_TRANSAKSI)
+      .then((res) => {
+        setListTransaksi(res.data)
+      })
+      .catch((err) => {
+        console.log('Error get transaksi data: ', err)
       })
   }
 
@@ -137,7 +147,7 @@ const Dashboard = () => {
               <MiniCard judul="Total" text={listGalangDana?.length} />
             </div>
             <div className="bottom-mini-card">
-              <GrafikTotalDonasi barChartData={barChartData} />
+              <GrafikTotalDonasi donasiData={listTransaksi} />
             </div>
           </div>
         </Col>

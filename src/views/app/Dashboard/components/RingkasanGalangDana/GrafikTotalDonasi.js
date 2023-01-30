@@ -5,10 +5,10 @@ import moment from 'moment'
 import { getMonthBetween } from 'helpers/getMonthBetween'
 import { ThemeColors } from 'helpers/ThemeColors'
 import BarSingle, { defaultOption } from 'components/charts/BarSingle'
-import DatesBetweenInput from 'components/DatesBetweenInput'
+import DatesBetweenInput from 'components/DatesRangePicker'
 
 /* eslint-disable no-unused-vars */
-const GrafikTotalDonasi = ({ barChartData }) => {
+const GrafikTotalDonasi = ({ donasiData = [] }) => {
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
 
@@ -24,12 +24,16 @@ const GrafikTotalDonasi = ({ barChartData }) => {
         {
           label: 'Total Donation',
           data: dateList?.map((date) => {
-            // random data test
-            const startData = 100000
-            const endData = 10000000
-            return (
-              Math.floor(Math.random() * (endData - startData + 1)) + startData
-            )
+            const filteredDataByMonth = donasiData?.filter((x) => {
+              return moment(x.created_at).format('MM-YYYY') === date
+            })
+
+            let totalDonasi = 0
+            filteredDataByMonth?.forEach((item) => {
+              totalDonasi += parseInt(item.donasi)
+            })
+
+            return totalDonasi
           }),
           backgroundColor: color.themeColor1_10,
           borderColor: color.themeColor1,

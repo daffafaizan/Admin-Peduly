@@ -13,7 +13,7 @@ const TrendingItem = ({ item }) => {
   return (
     <Link
       to={{
-        pathname: `/donasi-sekali/${item.slug}`,
+        pathname: `/app/halaman-galang-dana/detail/${item.judul_slug}`,
       }}
       className="trending-item"
     >

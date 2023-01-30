@@ -5,7 +5,7 @@ import moment from 'moment'
 import { getMonthBetween } from 'helpers/getMonthBetween'
 import { ThemeColors } from 'helpers/ThemeColors'
 import BarSingle, { defaultOption } from 'components/charts/BarSingle'
-import DatesBetweenInput from 'components/DatesBetweenInput'
+import DatesBetweenInput from 'components/DatesRangePicker'
 
 /* eslint-disable no-unused-vars */
 const GrafikTotalGalangDana = ({ galangDanaData }) => {
