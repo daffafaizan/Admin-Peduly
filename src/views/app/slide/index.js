@@ -21,7 +21,7 @@ import { useHistory } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
 import axios from 'axios'
 
-const pageSizes = [4, 8, 12, 20]
+const pageSizes = [20, 40, 80]
 
 const SlidePage = () => {
   const [currentPageSize, setCurrentPageSize] = useState(pageSizes[0])
@@ -62,7 +62,7 @@ const SlidePage = () => {
   }
 
   return (
-    <>
+    <div className="slide-page">
       <Row>
         <Colxx xxs="12">
           <h1>Semua Slide</h1>
@@ -132,7 +132,7 @@ const SlidePage = () => {
                       (currentPage - 1) * currentPageSize,
                       currentPage * currentPageSize
                     )
-                    .map((item) => (
+                    .map((item, index) => (
                       <tr
                         key={item.id}
                         style={{ cursor: 'pointer' }}
@@ -140,7 +140,7 @@ const SlidePage = () => {
                           history.push(`/app/slide/edit/${item.id}`)
                         }
                       >
-                        <td>{item.id}</td>
+                        <td>{index + 1}</td>
                         <td>
                           <div className="slide-image-container">
                             <img
@@ -200,7 +200,7 @@ const SlidePage = () => {
           </div>
         </Col>
       </Row>
-    </>
+    </div>
   )
 }
 

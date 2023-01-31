@@ -107,8 +107,6 @@ const TransaksiDonasi = () => {
     setSelectedOrder(value)
   }
 
-  console.log(orderData())
-
   return (
     <>
       <Row>

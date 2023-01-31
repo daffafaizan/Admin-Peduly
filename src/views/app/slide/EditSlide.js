@@ -135,7 +135,7 @@ const EditSlide = () => {
   }
 
   return (
-    <>
+    <div className="slide-page">
       {/* Modal Confirmation Edit Data */}
       <Modal
         isOpen={modalEditConfirmation}
@@ -306,7 +306,7 @@ const EditSlide = () => {
           </Card>
         </Colxx>
       </Row>
-    </>
+    </div>
   )
 }
 

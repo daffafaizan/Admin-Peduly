@@ -609,7 +609,7 @@ class Sidebar extends Component {
                 <NavItem
                   className={`${
                     // eslint-disable-next-line react/destructuring-assignment
-                    this.props.location.pathname === '/app/Slide' && 'active'
+                    this.props.location.pathname === '/app/slide' && 'active'
                   }`}
                   onMouseEnter={this.handleSlideMouseEnter}
                   onMouseLeave={this.handleSlideMouseLeave}
