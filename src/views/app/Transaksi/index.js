@@ -17,8 +17,6 @@ import { Colxx, Separator } from 'components/common/CustomBootstrap'
 import TextAlert from 'components/TextAlert'
 
 import IntlMessages from 'helpers/IntlMessages'
-import { orderData } from 'helpers/Utils'
-import transaksi from 'data/transaksi-donasi'
 import moment from 'moment'
 import IdrFormat from 'helpers/IdrFormat'
 import { getCurrentColor } from 'helpers/Utils'
@@ -27,18 +25,13 @@ import http from 'helpers/http'
 import { API_ENDPOINT } from 'config/api'
 import DataTablePagination from 'components/DatatablePagination'
 
-const orderOptions = [
-  { label: `Terbaru` },
-  { label: `Terlama` },
-  { label: `Paling Tinggi` },
-  { label: `Paling Rendah` },
-]
-
 const pageSizes = [20, 40, 80]
+const orderOptions = ['Terbaru', 'Terlama']
 
 const TransaksiDonasi = () => {
   const [data, setData] = useState([])
   const [campaignList, setCampaignList] = useState([])
+  const [selectedOrder, setSelectedOrder] = useState('Terbaru')
 
   // Pagination
   const [selectedPageSize, setSelectedPageSize] = useState(pageSizes[0])
@@ -94,7 +87,27 @@ const TransaksiDonasi = () => {
     })
   }
 
-  const handleChangePage = () => {}
+  const orderData = () => {
+    if (selectedOrder === 'Terbaru') {
+      return data?.sort((a, b) => {
+        return new Date(b.created_at) - new Date(a.created_at)
+      })
+    }
+
+    if (selectedOrder === 'Terlama') {
+      return data?.sort((a, b) => {
+        return new Date(a.created_at) - new Date(b.created_at)
+      })
+    }
+
+    return data
+  }
+
+  const handleChangeOrder = (value) => {
+    setSelectedOrder(value)
+  }
+
+  console.log(orderData())
 
   return (
     <>
@@ -106,7 +119,7 @@ const TransaksiDonasi = () => {
       </Row>
       <Row>
         <Colxx xxs="12" className="mb-3">
-          {/* <div className="d-block d-md-inline-block pt-1">
+          <div className="d-block d-md-inline-block pt-1">
             <UncontrolledDropdown className="mr-1 float-md-left btn-group mb-1">
               <DropdownToggle caret color="outline-dark" size="xs">
                 <IntlMessages id="pages.orderby" /> {selectedOrder}
@@ -116,9 +129,9 @@ const TransaksiDonasi = () => {
                   return (
                     <DropdownItem
                       key={index}
-                      onClick={() => handleOrder(order.label)}
+                      onClick={() => handleChangeOrder(order)}
                     >
-                      {order.label}
+                      {order}
                     </DropdownItem>
                   )
                 })}
@@ -130,17 +143,14 @@ const TransaksiDonasi = () => {
                 name="keyword"
                 id="search"
                 placeholder="Search transaksi"
-                // onKeyPress={(e) => onSearchKey(e)}
-                onChange={handleChange}
-                // value={search}
               />
             </div>
-          </div> */}
+          </div>
           <div className="float-md-right pt-1">
             <span className="text-muted text-small mr-1">{`${currentPage} of ${totalPage}`}</span>
             <UncontrolledDropdown className="d-inline-block">
               <DropdownToggle caret color="outline-dark" size="xs">
-                {currentPage}
+                {selectedPageSize}
               </DropdownToggle>
               <DropdownMenu right>
                 {pageSizes.map((size, index) => {
@@ -178,14 +188,11 @@ const TransaksiDonasi = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data
+                  {orderData()
                     .slice(
                       (currentPage - 1) * selectedPageSize,
                       currentPage * selectedPageSize
                     )
-                    .sort((a, b) => {
-                      return new Date(b.created_at) - new Date(a.created_at)
-                    })
                     .map((item, index) => (
                       <tr key={`item-${index}`}>
                         <td>
