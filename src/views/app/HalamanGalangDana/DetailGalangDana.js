@@ -3,171 +3,197 @@ import React, { useState, useEffect } from 'react'
 import { Row, Card, CardBody, Table } from 'reactstrap'
 import { Colxx } from 'components/common/CustomBootstrap'
 import { getCurrentColor } from 'helpers/Utils'
-import { orderData } from 'helpers/Utils'
+// import { orderData } from 'helpers/Utils'
 import IdrFormat from 'helpers/IdrFormat'
-import DateFormat from 'helpers/DateFormat'
+// import DateFormat from 'helpers/DateFormat'
 import Breadcrumb from 'containers/navs/Breadcrumb'
 import { Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import Cookies from 'js-cookie'
+import axios from 'axios'
 import './index.scss'
 
-const galangDana = [
-  {
-    id: 1,
-    name: 'Firda Yuningsih',
-    nominal: 100000,
-    bpg: 100000,
-    referal: 0,
-    ba: 100000,
-    payable: 100000,
-    status: 'berhasil',
-    created_at: '2022-01-28T07:23:22.000000Z',
-  },
-  {
-    id: 2,
-    name: 'warga baik',
-    nominal: 12000000,
-    bpg: 12000000,
-    referal: 12000000,
-    ba: 12000000,
-    payable: 12000000,
-    status: 'dibatalkan',
-    created_at: '2023-01-28T07:23:22.000000Z',
-  },
-  {
-    id: 3,
-    name: 'Ratu Zulika',
-    nominal: 10000,
-    bpg: 10000,
-    referal: 10000,
-    ba: 10000,
-    payable: 10000,
-    status: 'pending',
-    created_at: '2023-02-28T07:23:22.000000Z',
-  },
-]
-
-const initialData = orderData('Terbaru', galangDana)
-
 const DetailGalangDana = ({ match }) => {
-  const [data] = useState(initialData)
+  const [detail, setDetail] = useState([])
+  const [transaksi, setTransaksi] = useState([])
+  const { id } = useParams()
+  console.log(id)
+
+  useEffect(() => {
+    // get token
+    const token = Cookies.get('token')
+    const getDetailGalangDanaById = () => {
+      console.log(token)
+      // get detail galang dana data by id
+      axios
+        .get(`https://dev.peduly.com/api/admin/galangdana/${id}/details`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          const responseData = res.data.data
+          setDetail(responseData)
+        })
+        .catch((err) => {
+          console.log('Error: ', err)
+        })
+    }
+
+    //get detail transaksi galang dana by id
+    const getDetailTransaksiGalangDanaById = () => {
+      // get detail galang dana data by id
+      axios
+        .get(`https://dev.peduly.com/api/admin/galangdana/${id}/transactions`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          const responseData = res.data.data
+          setTransaksi(responseData)
+        })
+        .catch((err) => {
+          console.log('Error: ', err)
+        })
+    }
+
+    getDetailGalangDanaById()
+    getDetailTransaksiGalangDanaById()
+  }, [id])
+
+  console.log(detail)
+  console.log(transaksi)
 
   useEffect(() => {
     getCurrentColor()
   }, [])
 
   const color = getCurrentColor()
+  console.log(detail.id)
+  console.log(detail.payable)
 
   return (
     <>
       <Row>
         <Colxx xxs="12" className="p-0 m-0">
-          <Breadcrumb match={match}/>
+          <Breadcrumb match={match} />
         </Colxx>
-      </Row>
-      <div className="d-flex" style={{ marginBottom: '38px' }}>
-        <div className="d-flex w-full judul-container flex-column flex-md-row flex-wrap">
-          <a
-            href="https://peduly.com/donasi-sekali/bantubututi"
-            className="text-danger judul mb-2 mb-md-0"
-          >
-            Alami Katarak,Bu Tuti jadi buruh bangunan demi pengobatan suami
-          </a>
-          <Link
-            to="/error"
-            className="rounded border-status-danger text-danger edit-btn w-sm-50 w-md-0 text-center"
-          >
-            Edit Galang Dana
-          </Link>
-        </div>
-      </div>
-      <Row>
-        <Colxx xs="12" sm="6" lg="3">
-          <div className="card container-card">
-            <svg
-              className="mx-auto w-full icon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="60"
-              height="60"
-              fill="none"
-              viewBox="0 0 60 60"
-            >
-              <path
-                stroke="#E7513B"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeMiterlimit="10"
-                strokeWidth="3"
-                d="M5 21.25h31.25M15 41.25h5M26.25 41.25h10"
-              ></path>
-              <path
-                stroke="#E7513B"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="3"
-                d="M55 35.075v5.2c0 8.775-2.225 10.975-11.1 10.975H16.1C7.225 51.25 5 49.05 5 40.275v-20.55C5 10.95 7.225 8.75 16.1 8.75h20.15M50 8.75v15l5-5M50 23.75l-5-5"
-              ></path>
-            </svg>
-            <p className="mx-auto text-center judul">Dana Terkumpul</p>
-            <p className="text-danger text-center content">
-              Rp {IdrFormat(78050000)}
-            </p>
+       </Row>
+         <div key={detail.id}>
+            <div className="d-flex" style={{ marginBottom: '38px' }}>
+              <div className="d-flex w-full judul-container flex-column flex-md-row flex-wrap">
+                <a href="#" className="text-danger judul mb-2 mb-md-0">
+                  {detail.judul_campaign}
+                </a>
+                <Link
+                  to="/error"
+                  className="rounded border-status-danger text-danger edit-btn w-sm-50 w-md-0 text-center"
+                >
+                  Edit Galang Dana
+                </Link>
+              </div>
+            </div>
+             <Row>
+              <Colxx xs="12" sm="6" lg="3">
+                <div className="card container-card">
+                  <svg
+                    className="mx-auto w-full icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="60"
+                    height="60"
+                    fill="none"
+                    viewBox="0 0 60 60"
+                  >
+                    <path
+                      stroke="#E7513B"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeMiterlimit="10"
+                      strokeWidth="3"
+                      d="M5 21.25h31.25M15 41.25h5M26.25 41.25h10"
+                    ></path>
+                    <path
+                      stroke="#E7513B"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="3"
+                      d="M55 35.075v5.2c0 8.775-2.225 10.975-11.1 10.975H16.1C7.225 51.25 5 49.05 5 40.275v-20.55C5 10.95 7.225 8.75 16.1 8.75h20.15M50 8.75v15l5-5M50 23.75l-5-5"
+                    ></path>
+                  </svg>
+                  <p className="mx-auto text-center judul">Dana Terkumpul</p>
+                  <p className="text-danger text-center content">
+                    Rp {IdrFormat(parseInt(detail.donasi_terkumpul))}
+                  </p>
+                </div>
+              </Colxx>
+             <Colxx xs="12" sm="6" lg="3">
+                <div className="card container-card">
+                  <svg
+                    className="mx-auto w-full icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="60"
+                    height="60"
+                    fill="none"
+                    viewBox="0 0 60 60"
+                  >
+                    <path
+                      stroke="#E7513B"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="3"
+                      d="M30 30c6.904 0 12.5-5.596 12.5-12.5S36.904 5 30 5s-12.5 5.596-12.5 12.5S23.096 30 30 30zM51.475 55c0-9.675-9.625-17.5-21.475-17.5-11.85 0-21.475 7.825-21.475 17.5"
+                    ></path>
+                  </svg>
+                  <p className="mx-auto text-center judul">Jumlah Donatur</p>
+                  <p className="text-danger text-center content">
+                    {detail.jumlah_donatur}
+                  </p>
+                </div>
+              </Colxx>
+              <Colxx xs="12" sm="6" lg="3">
+                <Row className="row-gap-3">
+                  <Colxx xxs="12">
+                    <div className="card container-card-half card-top">
+                      <p className="judul">Biaya Payment Gateway</p>
+                      <p className="text-danger content">
+                        Rp {IdrFormat(detail.biaya_payment_gateway ? (detail.biaya_payment_gateway) : ("0"))}
+                      </p>
+                    </div>
+                  </Colxx>
+                  <Colxx xxs="12">
+                    <div className="card container-card-half card-bottom">
+                      <p className="judul">Biaya Operasional</p>
+                      <p className="text-danger content">
+                        Rp {IdrFormat(parseInt(detail.biaya_operasional))}
+                      </p>
+                    </div>
+                  </Colxx>
+                </Row>
+              </Colxx>
+               <Colxx xs="12" sm="6" lg="3">
+                <Row className="row-gap-3">
+                   <Colxx xxs="12">
+                    <div className="card container-card-half card-top">
+                      <p className="judul">Biaya Referal & Iklan</p>
+                      <p className="text-danger content">
+                        Rp {IdrFormat(parseInt(detail.biaya_referal_iklan))}
+                      </p>
+                    </div>
+                  </Colxx>
+                  <Colxx xxs="12">
+                    <div className="card container-card-half card-bottom">
+                      <p className="judul">Total Payable</p>
+                      <p className="text-danger content">
+                        Rp {IdrFormat(parseInt(detail.payable))}
+                      </p>
+                    </div>
+                  </Colxx>
+                </Row>
+              </Colxx> 
+            </Row> 
           </div>
-        </Colxx>
-        <Colxx xs="12" sm="6" lg="3">
-          <div className="card container-card">
-            <svg
-              className="mx-auto w-full icon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="60"
-              height="60"
-              fill="none"
-              viewBox="0 0 60 60"
-            >
-              <path
-                stroke="#E7513B"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="3"
-                d="M30 30c6.904 0 12.5-5.596 12.5-12.5S36.904 5 30 5s-12.5 5.596-12.5 12.5S23.096 30 30 30zM51.475 55c0-9.675-9.625-17.5-21.475-17.5-11.85 0-21.475 7.825-21.475 17.5"
-              ></path>
-            </svg>
-            <p className="mx-auto text-center judul">Jumlah Donatur</p>
-            <p className="text-danger text-center content">325 Donatur</p>
-          </div>
-        </Colxx>
-        <Colxx xs="12" sm="6" lg="3">
-          <Row className="row-gap-3">
-            <Colxx xxs="12">
-              <div className="card container-card-half card-top">
-                <p className="judul">Biaya Payment Gateway</p>
-                <p className="text-danger content">Rp {IdrFormat(50000)}</p>
-              </div>
-            </Colxx>
-            <Colxx xxs="12">
-              <div className="card container-card-half card-bottom">
-                <p className="judul">Biaya Operasional</p>
-                <p className="text-danger content">Rp {IdrFormat(23300000)}</p>
-              </div>
-            </Colxx>
-          </Row>
-        </Colxx>
-        <Colxx xs="12" sm="6" lg="3">
-          <Row className="row-gap-3">
-            <Colxx xxs="12">
-              <div className="card container-card-half card-top">
-                <p className="judul">Biaya Referal & Iklan</p>
-                <p className="text-danger content">Rp {IdrFormat(9300000)}</p>
-              </div>
-            </Colxx>
-            <Colxx xxs="12">
-              <div className="card container-card-half card-bottom">
-                <p className="judul">Total Payable</p>
-                <p className="text-danger content">Rp {IdrFormat(100300000)}</p>
-              </div>
-            </Colxx>
-          </Row>
-        </Colxx>
-      </Row>
+
       <Row>
         <Colxx xxs="12" className="mb-4">
           <Card className="mb-4 p-0" style={{ borderRadius: '15px' }}>
@@ -194,18 +220,18 @@ const DetailGalangDana = ({ match }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item) => (
-                    <tr key={item.id}>
-                      <td>{item.id}</td>
-                      <td>{item.name}</td>
-                      <td>{DateFormat(item.created_at)}</td>
+                  {transaksi.map((item, idx) => (
+                    <tr key={idx}>
+                      <td>{idx+1}</td>
+                      <td>{item.nama !== null && (item.nama)} {item.nama === null && ('Anonim')}</td>
+                       <td>{item.tanggal_donasi}</td>
                       <td>Rp {IdrFormat(item.nominal)}</td>
-                      <td>Rp {IdrFormat(item.bpg)}</td>
-                      <td>Rp {IdrFormat(item.referal)}</td>
-                      <td>Rp {IdrFormat(item.ba)}</td>
+                      <td>Rp {IdrFormat(item.biaya_operasional)}</td>
+                      <td>Rp {IdrFormat(parseInt(item.biaya_payment_gateway))}</td>
+                      <td>Rp {IdrFormat(item.biaya_referal_iklan)}</td>
                       <td>Rp {IdrFormat(item.payable)}</td>
                       <td>
-                        {item.status === 'berhasil' && (
+                        {item.status_donasi === 'Approved' && (
                           <p
                             className="text-success rounded text-center status bg-status-success"
                             style={{
@@ -215,7 +241,7 @@ const DetailGalangDana = ({ match }) => {
                             Berhasil
                           </p>
                         )}
-                        {item.status === 'pending' && (
+                        {item.status_donasi === 'Pending' && (
                           <p
                             className="text-warning rounded text-center status bg-status-pending"
                             style={{
@@ -225,7 +251,7 @@ const DetailGalangDana = ({ match }) => {
                             Pending
                           </p>
                         )}
-                        {item.status === 'dibatalkan' && (
+                        {item.status_donasi === 'Rejected' && (
                           <p
                             className="text-danger rounded text-center status bg-status-danger"
                             style={{
