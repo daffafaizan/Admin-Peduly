@@ -171,7 +171,7 @@ const HalamanGalangDana = () => {
                       (currentPage - 1) * currentPageSize,
                       currentPage * currentPageSize
                     )
-                    .map((item) => (
+                    .map((item, idx) => (
                       <tr
                         key={item.id}
                         onClick={() =>
@@ -181,7 +181,7 @@ const HalamanGalangDana = () => {
                         }
                         style={{ cursor: 'pointer' }}
                       >
-                        <td>{item.id}</td>
+                        <td>{(currentPage - 1) * currentPageSize + idx + 1}</td>
                         <td
                           style={{
                             maxWidth: '300px',
