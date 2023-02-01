@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import React, { useState } from 'react'
 
 import './index.scss'
@@ -63,7 +65,10 @@ const GrafikTotalGalangDana = ({ galangDanaData }) => {
       <div className="chart-container">
         <BarSingle
           data={getCurrentDataset()}
-          options={{ ...defaultOption, maintainAspectRatio: false }}
+          options={{
+            ...defaultOption,
+            maintainAspectRatio: false,
+          }}
         />
       </div>
     </div>

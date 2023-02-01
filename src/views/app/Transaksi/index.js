@@ -31,6 +31,7 @@ const orderOptions = ['Terbaru', 'Terlama']
 const TransaksiDonasi = () => {
   const [data, setData] = useState([])
   const [campaignList, setCampaignList] = useState([])
+  const [search, setSearch] = useState('')
   const [selectedOrder, setSelectedOrder] = useState('Terbaru')
 
   // Pagination
@@ -50,8 +51,10 @@ const TransaksiDonasi = () => {
   }, [])
 
   useEffect(() => {
-    setTotalPage(Math.ceil(data.length / selectedPageSize))
-  }, [selectedPageSize, data])
+    const filterData = filterSearchData()
+    setTotalPage(Math.ceil(filterData.length / selectedPageSize))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedPageSize, data, search])
 
   useEffect(() => {
     if (currentPage > totalPage) {
@@ -87,20 +90,27 @@ const TransaksiDonasi = () => {
     })
   }
 
+  const filterSearchData = () => {
+    return data?.filter((x) => {
+      return x.id.toString().includes(search)
+    })
+  }
+
   const orderData = () => {
+    const filterData = filterSearchData()
     if (selectedOrder === 'Terbaru') {
-      return data?.sort((a, b) => {
+      return filterData?.sort((a, b) => {
         return new Date(b.created_at) - new Date(a.created_at)
       })
     }
 
     if (selectedOrder === 'Terlama') {
-      return data?.sort((a, b) => {
+      return filterData?.sort((a, b) => {
         return new Date(a.created_at) - new Date(b.created_at)
       })
     }
 
-    return data
+    return filterData
   }
 
   const handleChangeOrder = (value) => {
@@ -141,6 +151,7 @@ const TransaksiDonasi = () => {
                 name="keyword"
                 id="search"
                 placeholder="Search transaksi"
+                onChange={(e) => setSearch(e.target.value)}
               />
             </div>
           </div>

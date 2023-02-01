@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'reactstrap'
-import MiniCard from './components/RingkasanGalangDana/MiniCard'
+import MiniCard from '../../../components/MiniCard'
 import ListUserCard from './components/RingkasanPengguna/ListUserCard'
 import GrafikTotalDonasi from './components/RingkasanGalangDana/GrafikTotalDonasi'
 
@@ -11,11 +12,10 @@ import GrafikKategoriGalangDana from './components/GrafikKategoriGalangDana'
 import { CategoryGalangDana } from 'data/category-galang-dana'
 import GrafikTotalGalangDana from './components/GrafikTotalGalangDana'
 import MiniCard2 from '../../../components/MiniCard2'
-import UserIcon from 'assets/icons/UserIcon'
 import TrendingGalangDana from './components/TrendingGalangDana'
-// import BarSingle from 'components/charts/BarSingle'
+import UserRedIcon from 'assets/icons/UserRedIcon'
+import UserGreenIcon from 'assets/icons/UserGreenIcon'
 
-/* eslint-disable no-unused-vars */
 const Dashboard = () => {
   // { match }
   const [listUser, setListUser] = useState([])
@@ -163,29 +163,12 @@ const Dashboard = () => {
           <GrafikKategoriGalangDana datas={listGalangDanaPerCategory} />
         </Col>
       </Row>
-      <hr />
-      <Row>
+      <Row className="section-3-container">
         <Col>
-          <h1>Ringkasan Pengguna</h1>
-        </Col>
-      </Row>
-      <Row
-        className="section-3-container"
-        style={{ marginBottom: '32px', rowGap: '16px' }}
-      >
-        <Col>
-          <MiniCard2
-            title="Jumlah Pengguna"
-            text={listUser.length}
-            icon={<UserIcon />}
-          />
+          <MiniCard2 title="Dana Terkumpul" text={`Rp 11.000.000`} />
         </Col>
         <Col>
-          <MiniCard2
-            title="Pengguna Baru"
-            text={filterNewUser.length}
-            icon={<UserIcon />}
-          />
+          <MiniCard2 title="Biaya Iklan" text={`Rp 11.000.000`} />
         </Col>
         <Col>
           <MiniCard2 title="Biaya Operasional" text={`Rp 11.000.000`} />
@@ -194,16 +177,31 @@ const Dashboard = () => {
           <MiniCard2 title="Total Payable" text={`Rp 10.000.000`} />
         </Col>
       </Row>
-      <Row className="section-4-container">
+      <hr />
+      <Row>
         <Col>
-          <div className="card"></div>
+          <h1>Ringkasan Pengguna</h1>
         </Col>
-        <Col>
-          <div className="card"></div>
+      </Row>
+      <Row className="section-4-container">
+        <Col className="section-1">
+          <MiniCard2
+            title="Jumlah Pengguna"
+            text={listUser.length}
+            icon={<UserRedIcon />}
+          />
+          <MiniCard2
+            title="Pengguna Baru"
+            subtitle={'7 Hari Terakhir'}
+            text={filterNewUser.length}
+            icon={<UserGreenIcon />}
+          />
         </Col>
         <Col>
           <ListUserCard ListUser={filterNewUser} />
         </Col>
+        <Col></Col>
+        <Col></Col>
       </Row>
     </div>
   )

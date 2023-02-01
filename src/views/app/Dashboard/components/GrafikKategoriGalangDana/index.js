@@ -31,7 +31,7 @@ const GrafikKategoriGalangDana = ({ datas = [] }) => {
   }
 
   return (
-    <div className="card grafik-kategori-galang-dana">
+    <div className="card grafik-galang-dana">
       <div className="header-section">
         <h3 className="card-title">Grafik Kategori Galang Dana</h3>
       </div>
