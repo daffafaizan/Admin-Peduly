@@ -12,6 +12,11 @@ hr {
 }
 
 .dashboard {
+  h1 {
+    font-weight: 500;
+    font-size: 28px;
+  }
+
   .section-1-container {
     @include respond-below(md) {
       flex-direction: column;

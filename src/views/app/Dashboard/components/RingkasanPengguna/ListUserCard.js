@@ -7,9 +7,9 @@ import './index.scss'
 const ListUserCard = ({ ListUser }) => {
   return (
     <div className="card list-users-card">
-      <h2 className="card-title" style={{ marginBottom: '12px' }}>
-        Pengguna Baru
-      </h2>
+      <h3 className="card-title">Pengguna Baru</h3>
+      <span className="card-subtitle">7 Hari Terakhir</span>
+      {ListUser.length === 0 && <span>Belum ada pengguna baru</span>}
       <PerfectScrollBar
         options={{ suppressScrollX: true, wheelPropagation: false }}
       >

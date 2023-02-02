@@ -8,4 +8,5 @@ export const API_ENDPOINT = {
   GET_ALL_USER: '/admin/users',
   GET_LIST_GALANG_DANA_ADMIN: '/admin/galangdana',
   GET_ALL_TRANSAKSI: '/donation/all',
+  GET_DANA_SUMMARY: '/admin/summary',
 }

@@ -91,9 +91,11 @@ const TransaksiDonasi = () => {
   }
 
   const filterSearchData = () => {
-    return data?.filter((x) => {
-      return x.id.toString().includes(search)
-    })
+    // return data?.filter((x) => {
+    //   return x.id.toString().includes(search)
+    // })
+
+    return data
   }
 
   const orderData = () => {

@@ -20,7 +20,7 @@ const GrafikTotalGalangDana = ({ galangDanaData }) => {
     const color = ThemeColors()
     return {
       labels: dateList?.map((date) => {
-        return moment(date, 'MM-YYYY').format('MMMM YYYY')
+        return moment(date, 'MM-YYYY').format('MMM YYYY')
       }),
       datasets: [
         {

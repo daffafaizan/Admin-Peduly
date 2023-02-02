@@ -15,9 +15,11 @@ import MiniCard2 from '../../../components/MiniCard2'
 import TrendingGalangDana from './components/TrendingGalangDana'
 import UserRedIcon from 'assets/icons/UserRedIcon'
 import UserGreenIcon from 'assets/icons/UserGreenIcon'
+import IdrFormat from 'helpers/IdrFormat'
 
 const Dashboard = () => {
   // { match }
+  const [summaryData, setSummaryData] = useState()
   const [listUser, setListUser] = useState([])
   const [listGalangDana, setListGalangDana] = useState([])
   const [listCategoryGalangData] = useState(CategoryGalangDana)
@@ -29,6 +31,7 @@ const Dashboard = () => {
     getGalangDana()
     getUser()
     getTransaksiDonasiData()
+    getSummaryData()
     initGalangDanaByCategory()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,6 +50,17 @@ const Dashboard = () => {
     )
 
     setListGalangDanaPerCategory(datas)
+  }
+
+  const getSummaryData = () => {
+    http
+      .get(API_ENDPOINT.GET_DANA_SUMMARY)
+      .then((res) => {
+        setSummaryData(res.data.data)
+      })
+      .catch((err) => {
+        console.log('Error get summary data: ', err)
+      })
   }
 
   const getGalangDanaByCategory = async (category) => {
@@ -122,7 +136,7 @@ const Dashboard = () => {
       return data.role === 'User'
     })
     .filter((user) => {
-      const dayAgo = moment().subtract(30, 'days')
+      const dayAgo = moment().subtract(7, 'days')
       return moment(user.tanggal_dibuat, 'DD/MM/YYYY HH:mm').isSameOrAfter(
         dayAgo
       )
@@ -165,16 +179,42 @@ const Dashboard = () => {
       </Row>
       <Row className="section-3-container">
         <Col>
-          <MiniCard2 title="Dana Terkumpul" text={`Rp 11.000.000`} />
+          <MiniCard2
+            title="Dana Terkumpul"
+            text={`Rp ${
+              summaryData
+                ? IdrFormat(parseInt(summaryData?.donasi_terkumpul))
+                : '0'
+            }`}
+          />
         </Col>
         <Col>
-          <MiniCard2 title="Biaya Iklan" text={`Rp 11.000.000`} />
+          <MiniCard2
+            title="Biaya Iklan"
+            text={`Rp ${
+              summaryData
+                ? IdrFormat(parseInt(summaryData?.biaya_referal_iklan))
+                : '0'
+            }`}
+          />
         </Col>
         <Col>
-          <MiniCard2 title="Biaya Operasional" text={`Rp 11.000.000`} />
+          <MiniCard2
+            title="Biaya Operasional"
+            text={`Rp ${
+              summaryData
+                ? IdrFormat(parseInt(summaryData?.biaya_operasional))
+                : '0'
+            }`}
+          />
         </Col>
         <Col>
-          <MiniCard2 title="Total Payable" text={`Rp 10.000.000`} />
+          <MiniCard2
+            title="Total Payable"
+            text={`Rp ${
+              summaryData ? IdrFormat(parseInt(summaryData?.payable)) : '0'
+            }`}
+          />
         </Col>
       </Row>
       <hr />
@@ -186,15 +226,15 @@ const Dashboard = () => {
       <Row className="section-4-container">
         <Col className="section-1">
           <MiniCard2
-            title="Jumlah Pengguna"
-            text={listUser.length}
-            icon={<UserRedIcon />}
-          />
-          <MiniCard2
             title="Pengguna Baru"
             subtitle={'7 Hari Terakhir'}
             text={filterNewUser.length}
             icon={<UserGreenIcon />}
+          />
+          <MiniCard2
+            title="Jumlah Pengguna"
+            text={listUser.length}
+            icon={<UserRedIcon />}
           />
         </Col>
         <Col>
