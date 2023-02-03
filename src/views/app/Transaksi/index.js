@@ -204,58 +204,63 @@ const TransaksiDonasi = () => {
                       (currentPage - 1) * selectedPageSize,
                       currentPage * selectedPageSize
                     )
-                    .map((item, index) => (
-                      <tr key={`item-${index}`}>
-                        <td>
-                          {index + (currentPage - 1) * selectedPageSize + 1}
-                        </td>
-                        <td className="judul-campaign">
-                          {getCampaignDataById(item.campaign_id)
-                            ? getCampaignDataById(item.campaign_id)
-                                .judul_campaign
-                            : '-'}
-                        </td>
-                        <td>
-                          {item.user_id ? (
-                            <TextAlert text={'Terdaftar'} />
-                          ) : (
-                            <TextAlert text={'Tidak Terdaftar'} type="danger" />
-                          )}
-                        </td>
-                        <td>
-                          {item.created_at
-                            ? moment(item.created_at).format('DD/MM/YYYY')
-                            : '-'}
-                        </td>
-                        <td>
-                          {/* {item.kode_donasi} */}
-                          {item.id}
-                        </td>
-                        <td>
-                          {/* {item.campaign_id} */}
-                          {item.campaign_id}
-                        </td>
-                        <td>
-                          {/* {item.nominal_campaign} */}
-                          Rp {IdrFormat(item.donasi)}
-                        </td>
-                        <td>{item.metode_pembayaran}</td>
-                        <td>
-                          {/* {item.status_donasi} */}
-                          {/* Berhasil || Pending || Dibatalkan */}
-                          {item.status_donasi === 'Approved' && (
-                            <TextAlert text={'Berhasil'} />
-                          )}
-                          {item.status_donasi === 'Pending' && (
-                            <TextAlert text={'Pending'} type="warning" />
-                          )}
-                          {(item.status_donasi === 'Rejected' ||
-                            item.status_donasi === 'Refund') && (
-                            <TextAlert text={'Dibatalkan'} type="danger" />
-                          )}
-                        </td>
-                      </tr>
-                    ))}
+                    .map((item, index) => {
+                      console.log(index, item.status_donasi)
+                      return (
+                        <tr key={`item-${index}`}>
+                          <td>
+                            {index + (currentPage - 1) * selectedPageSize + 1}
+                          </td>
+                          <td className="judul-campaign">
+                            {item.judul_campaign ? item.judul_campaign : '-'}
+                          </td>
+                          <td>
+                            {item.user_id ? (
+                              <TextAlert text={'Terdaftar'} />
+                            ) : (
+                              <TextAlert
+                                text={'Tidak Terdaftar'}
+                                type="danger"
+                              />
+                            )}
+                          </td>
+                          <td>
+                            {item.created_at
+                              ? moment(item.created_at).format('DD/MM/YYYY')
+                              : '-'}
+                          </td>
+                          <td>
+                            {/* {item.kode_donasi} */}
+                            {item.id}
+                          </td>
+                          <td>
+                            {/* {item.campaign_id} */}
+                            {item.campaign_id}
+                          </td>
+                          <td>
+                            {/* {item.nominal_campaign} */}
+                            Rp {IdrFormat(item.donasi)}
+                          </td>
+                          <td>{item.metode_pembayaran}</td>
+                          <td>
+                            {/* {item.status_donasi} */}
+                            {/* Berhasil || Pending || Dibatalkan */}
+                            {item.status_donasi === 'Approved' && (
+                              <TextAlert text={'Berhasil'} />
+                            )}
+                            {item.status_donasi === 'Pending' && (
+                              <TextAlert text={'Pending'} type="warning" />
+                            )}
+                            {(!item.status_donasi ||
+                              item.status_donasi === 'Denied' ||
+                              item.status_donasi === 'Rejected' ||
+                              item.status_donasi === 'Refund') && (
+                              <TextAlert text={'Dibatalkan'} type="danger" />
+                            )}
+                          </td>
+                        </tr>
+                      )
+                    })}
                 </tbody>
               </Table>
             </CardBody>
