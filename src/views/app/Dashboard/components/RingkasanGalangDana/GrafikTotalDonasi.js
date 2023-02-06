@@ -25,7 +25,10 @@ const GrafikTotalDonasi = ({ donasiData = [] }) => {
           label: 'Total Donation',
           data: dateList?.map((date) => {
             const filteredDataByMonth = donasiData?.filter((x) => {
-              return moment(x.created_at).format('MM-YYYY') === date
+              return (
+                x.status_donasi?.toLowerCase() === 'approved' &&
+                moment(x.created_at).format('MM-YYYY') === date
+              )
             })
 
             let totalDonasi = 0

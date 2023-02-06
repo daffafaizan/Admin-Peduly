@@ -205,7 +205,6 @@ const TransaksiDonasi = () => {
                       currentPage * selectedPageSize
                     )
                     .map((item, index) => {
-                      console.log(index, item.status_donasi)
                       return (
                         <tr key={`item-${index}`}>
                           <td>
@@ -235,7 +234,7 @@ const TransaksiDonasi = () => {
                           </td>
                           <td>
                             {/* {item.campaign_id} */}
-                            {item.campaign_id}
+                            {item.galangdana_id ? item.galangdana_id : '-'}
                           </td>
                           <td>
                             {/* {item.nominal_campaign} */}
