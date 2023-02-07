@@ -6,37 +6,17 @@
   }
 }
 
-.top-mini-card {
-  margin-bottom: 30px;
-  .mini-card {
-    // padding: 24px;
-    // border-radius: 15px;
-    position: relative;
-    height: 183px;
-    .ghost {
-      height: 113px;
-    }
-    .content {
-      font-size: 32px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    .judul {
-      color: #717171;
-      font-size: 18px;
-      margin-bottom: 0;
-    }
-  }
-}
-
 hr {
   border-top: 1.5px solid #e4e4e4;
   margin: 32px 0;
 }
 
 .dashboard {
+  h1 {
+    font-weight: 500;
+    font-size: 28px;
+  }
+
   .section-1-container {
     @include respond-below(md) {
       flex-direction: column;
@@ -50,8 +30,9 @@ hr {
       .top-mini-card {
         display: flex;
         gap: 32px;
+        margin-bottom: 32px;
 
-        .mini-card {
+        .mini-card-1 {
           flex: 1;
         }
 
@@ -71,7 +52,7 @@ hr {
   }
 
   .section-2-container {
-    @include respond-below(sm) {
+    @include respond-below(md) {
       flex-direction: column;
       gap: 32px;
     }
@@ -79,14 +60,34 @@ hr {
 
   .section-3-container {
     display: grid;
+    margin: 32px 0;
     grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+
+    .col {
+      padding: 0;
+    }
 
     @include respond-below(md) {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(1, 1fr);
     }
   }
 
   .section-4-container {
+    > * {
+      flex: 1;
+    }
+
+    .section-1 {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+
+      > * {
+        flex: 1;
+      }
+    }
+
     @include respond-below(md) {
       flex-direction: column;
       gap: 32px;

@@ -1,4 +1,5 @@
 /* eslint-disable react/no-array-index-key */
+/* eslint-disable no-unused-vars */
 
 import React, { useState, useEffect } from 'react'
 import {
@@ -13,32 +14,30 @@ import {
   DropdownToggle,
 } from 'reactstrap'
 import { Colxx, Separator } from 'components/common/CustomBootstrap'
+import TextAlert from 'components/TextAlert'
+
 import IntlMessages from 'helpers/IntlMessages'
-import { orderData } from 'helpers/Utils'
-import axios from 'axios'
-import transaksi from 'data/transaksi-donasi'
+import moment from 'moment'
 import IdrFormat from 'helpers/IdrFormat'
-import DateFormat from 'helpers/DateFormat'
 import { getCurrentColor } from 'helpers/Utils'
 import './index.scss'
-// import axios from 'axios';
+import http from 'helpers/http'
+import { API_ENDPOINT } from 'config/api'
+import DataTablePagination from 'components/DatatablePagination'
 
-const orderOptions = [
-  { label: `Terbaru` },
-  { label: `Terlama` },
-  { label: `Paling Tinggi` },
-  { label: `Paling Rendah` },
-]
-
-const pageSizes = [4, 8, 12, 20]
-
-const initialData = orderData('Terbaru', transaksi)
+const pageSizes = [20, 40, 80]
+const orderOptions = ['Terbaru', 'Terlama']
 
 const TransaksiDonasi = () => {
-  const [selectedOrder, setSelectedOrder] = useState('Terbaru')
   const [data, setData] = useState([])
+  const [campaignList, setCampaignList] = useState([])
   const [search, setSearch] = useState('')
-  const [status] = useState(true)
+  const [selectedOrder, setSelectedOrder] = useState('Terbaru')
+
+  // Pagination
+  const [selectedPageSize, setSelectedPageSize] = useState(pageSizes[0])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPage, setTotalPage] = useState(0)
 
   useEffect(() => {
     getCurrentColor
@@ -46,37 +45,79 @@ const TransaksiDonasi = () => {
 
   const color = getCurrentColor()
 
-  const handleChange = (e) => {
-    e.preventDefault()
-    setSearch(e.target.value)
-  }
-
   useEffect(() => {
-    getData()
+    getTransaksiData()
+    getCampaignData()
   }, [])
 
-  const getData = async () => {
-    const response = await axios.get('https://api.peduly.com/api/galangdana')
-    setData(response.data.data)
+  useEffect(() => {
+    const filterData = filterSearchData()
+    setTotalPage(Math.ceil(filterData.length / selectedPageSize))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedPageSize, data, search])
+
+  useEffect(() => {
+    if (currentPage > totalPage) {
+      setCurrentPage(1)
+    }
+  }, [totalPage, currentPage])
+
+  const getTransaksiData = () => {
+    http
+      .get(API_ENDPOINT.GET_ALL_TRANSAKSI)
+      .then((res) => {
+        setData(res.data)
+      })
+      .catch((err) => {
+        console.log('Error get transaksi data: ', err)
+      })
   }
 
-  const handleOrder = (option) => {
-    const array = orderData(option, initialData)
-    setData(array)
-    setSelectedOrder(option)
+  const getCampaignData = () => {
+    http
+      .get(API_ENDPOINT.GET_LIST_GALANG_DANA)
+      .then((res) => {
+        setCampaignList(res.data.data)
+      })
+      .catch((err) => {
+        console.log('Error get campaign data: ', err)
+      })
   }
 
-  // const statusColor = (status) => {
-  //   if (status === `Approved`) {
-  //     return `success`;
-  //   }
+  const getCampaignDataById = (campaignId) => {
+    return campaignList?.find((x) => {
+      return x.id.toString() === campaignId
+    })
+  }
 
-  //   if (status === `Pending`) {
-  //     return `warning`;
-  //   }
+  const filterSearchData = () => {
+    // return data?.filter((x) => {
+    //   return x.id.toString().includes(search)
+    // })
 
-  //   return `danger`;
-  // };
+    return data
+  }
+
+  const orderData = () => {
+    const filterData = filterSearchData()
+    if (selectedOrder === 'Terbaru') {
+      return filterData?.sort((a, b) => {
+        return new Date(b.created_at) - new Date(a.created_at)
+      })
+    }
+
+    if (selectedOrder === 'Terlama') {
+      return filterData?.sort((a, b) => {
+        return new Date(a.created_at) - new Date(b.created_at)
+      })
+    }
+
+    return filterData
+  }
+
+  const handleChangeOrder = (value) => {
+    setSelectedOrder(value)
+  }
 
   return (
     <>
@@ -98,9 +139,9 @@ const TransaksiDonasi = () => {
                   return (
                     <DropdownItem
                       key={index}
-                      onClick={() => handleOrder(order.label)}
+                      onClick={() => handleChangeOrder(order)}
                     >
-                      {order.label}
+                      {order}
                     </DropdownItem>
                   )
                 })}
@@ -112,23 +153,25 @@ const TransaksiDonasi = () => {
                 name="keyword"
                 id="search"
                 placeholder="Search transaksi"
-                // onKeyPress={(e) => onSearchKey(e)}
-                onChange={handleChange}
-                // value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
             </div>
           </div>
           <div className="float-md-right pt-1">
-            <span className="text-muted text-small mr-1">{`1 of 1 `}</span>
+            <span className="text-muted text-small mr-1">{`${currentPage} of ${totalPage}`}</span>
             <UncontrolledDropdown className="d-inline-block">
               <DropdownToggle caret color="outline-dark" size="xs">
-                {' '}
-                8{/* {selectedPageSize} */}
+                {selectedPageSize}
               </DropdownToggle>
               <DropdownMenu right>
                 {pageSizes.map((size, index) => {
                   return (
-                    <DropdownItem key={index} onClick="">
+                    <DropdownItem
+                      key={index}
+                      onClick={() => {
+                        setSelectedPageSize(size)
+                      }}
+                    >
                       {size}
                     </DropdownItem>
                   )
@@ -145,7 +188,7 @@ const TransaksiDonasi = () => {
               <Table
                 hover
                 responsive
-                className={!color.indexOf('dark') && 'table-dark-mode'}
+                className={`${!color.indexOf('dark') ? 'table-dark-mode' : ''}`}
               >
                 <thead>
                   <tr>
@@ -161,70 +204,87 @@ const TransaksiDonasi = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data
-                    .filter((tr) =>
-                      tr.judul_campaign.toLowerCase().includes(search)
+                  {orderData()
+                    .slice(
+                      (currentPage - 1) * selectedPageSize,
+                      currentPage * selectedPageSize
                     )
-                    .map((item) => (
-                      <tr key={item.id}>
-                        <td>{item.id}</td>
-                        <td className="judul-campaign">
-                          {item.judul_campaign}
-                        </td>
-                        <td>
-                          {status ? (
-                            <p className="text-success text-center rounded status status-success border-status-success">
-                              Terdaftar
-                            </p>
-                          ) : (
-                            <p className="text-danger text-center rounded status status-danger border-status-danger">
-                              Tidak
-                            </p>
-                          )}
-                        </td>
-                        <td>{DateFormat(item.created_at)}</td>
-                        <td>
-                          {/* {item.kode_donasi} */}
-                          INV83452879
-                        </td>
-                        <td>
-                          {/* {item.campaign_id} */}
-                          10553
-                        </td>
-                        <td>
-                          {/* {item.nominal_campaign} */}
-                          Rp {IdrFormat(item.nominal_campaign)}
-                        </td>
-                        <td>
-                          {item.metode_pembayaran}
-                          Gopay
-                        </td>
-                        <td>
-                          {/* {item.status_donasi} */}
-                          {true && (
-                            <p className="text-success rounded text-center status status-verifikasi-success bg-status-success">
-                              Berhasil
-                            </p>
-                          )}
-                          {false && (
-                            <p className="text-warning rounded text-center status status-verifikasi-pending bg-status-pending">
-                              pending
-                            </p>
-                          )}
-                          {false && (
-                            <p className="text-danger rounded text-center status status-verifikasi-danger  bg-status-danger">
-                              Dibatalkan
-                            </p>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
+                    .map((item, index) => {
+                      return (
+                        <tr key={`item-${index}`}>
+                          <td>
+                            {index + (currentPage - 1) * selectedPageSize + 1}
+                          </td>
+                          <td className="judul-campaign">
+                            {item.judul_campaign ? item.judul_campaign : '-'}
+                          </td>
+                          <td>
+                            {item.user_id ? (
+                              <TextAlert text={'Terdaftar'} />
+                            ) : (
+                              <TextAlert
+                                text={'Tidak Terdaftar'}
+                                type="danger"
+                              />
+                            )}
+                          </td>
+                          <td>
+                            {item.created_at
+                              ? moment(item.created_at).format('DD/MM/YYYY')
+                              : '-'}
+                          </td>
+                          <td>
+                            {/* {item.kode_donasi} */}
+                            {item.id}
+                          </td>
+                          <td>
+                            {/* {item.campaign_id} */}
+                            {item.galangdana_id ? item.galangdana_id : '-'}
+                          </td>
+                          <td>
+                            {/* {item.nominal_campaign} */}
+                            Rp {IdrFormat(item.donasi)}
+                          </td>
+                          <td>{item.metode_pembayaran}</td>
+                          <td>
+                            {/* {item.status_donasi} */}
+                            {/* Berhasil || Pending || Dibatalkan */}
+                            {item.status_donasi === 'Approved' && (
+                              <TextAlert text={'Berhasil'} />
+                            )}
+                            {item.status_donasi === 'Pending' && (
+                              <TextAlert text={'Pending'} type="warning" />
+                            )}
+                            {(!item.status_donasi ||
+                              item.status_donasi === 'Denied' ||
+                              item.status_donasi === 'Rejected' ||
+                              item.status_donasi === 'Refund') && (
+                              <TextAlert text={'Dibatalkan'} type="danger" />
+                            )}
+                          </td>
+                        </tr>
+                      )
+                    })}
                 </tbody>
               </Table>
             </CardBody>
           </Card>
         </Colxx>
         {/* <Pagination totalPage={10} currentPage={1} numberLimit={1} /> */}
+      </Row>
+      <Row>
+        <Colxx>
+          <div className="float-md-right">
+            <DataTablePagination
+              page={currentPage - 1}
+              pages={totalPage}
+              canNext={currentPage < totalPage}
+              canPrevious={currentPage > 1}
+              onPageChange={(page) => setCurrentPage(page + 1)}
+              paginationMaxSize={10}
+            />
+          </div>
+        </Colxx>
       </Row>
     </>
   )

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import React, { useState } from 'react'
 
 import './index.scss'
@@ -5,7 +7,7 @@ import moment from 'moment'
 import { getMonthBetween } from 'helpers/getMonthBetween'
 import { ThemeColors } from 'helpers/ThemeColors'
 import BarSingle, { defaultOption } from 'components/charts/BarSingle'
-import DatesBetweenInput from 'components/DatesBetweenInput'
+import DatesBetweenInput from 'components/DatesRangePicker'
 
 /* eslint-disable no-unused-vars */
 const GrafikTotalGalangDana = ({ galangDanaData }) => {
@@ -18,7 +20,7 @@ const GrafikTotalGalangDana = ({ galangDanaData }) => {
     const color = ThemeColors()
     return {
       labels: dateList?.map((date) => {
-        return moment(date, 'MM-YYYY').format('MMMM YYYY')
+        return moment(date, 'MM-YYYY').format('MMM YYYY')
       }),
       datasets: [
         {
@@ -63,7 +65,10 @@ const GrafikTotalGalangDana = ({ galangDanaData }) => {
       <div className="chart-container">
         <BarSingle
           data={getCurrentDataset()}
-          options={{ ...defaultOption, maintainAspectRatio: false }}
+          options={{
+            ...defaultOption,
+            maintainAspectRatio: false,
+          }}
         />
       </div>
     </div>

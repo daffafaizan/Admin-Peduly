@@ -1,18 +1,21 @@
 import React from 'react'
 
 const TextAlert = ({ text, type = 'success', className }) => {
+  const globalStyle = {
+    padding: '3px 12px',
+    margin: '0px',
+    width: 'fit-content',
+  }
+
   const styles = {
     success: {
       background: 'rgba(52, 168, 83, 0.2)',
-      padding: '3px 12px',
-      margin: '0px',
-      width: 'fit-content',
+    },
+    warning: {
+      background: 'rgba(252, 174, 3, 0.2)',
     },
     danger: {
       background: 'rgba(231, 81, 59, 0.2)',
-      padding: '3px 12px',
-      margin: '0px',
-      width: 'fit-content',
     },
   }
 
@@ -25,7 +28,7 @@ const TextAlert = ({ text, type = 'success', className }) => {
   return (
     <p
       className={`${textStyles[type]} rounded text-center ${className}`}
-      style={styles[type]}
+      style={{ ...globalStyle, ...styles[type] }}
     >
       {text}
     </p>

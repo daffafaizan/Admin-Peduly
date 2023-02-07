@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 
 /* eslint-disable no-use-before-define */
 import React, { useState, useEffect } from 'react'
@@ -273,7 +274,7 @@ const TopNav = ({
           <MobileMenuIcon />
         </NavLink>
 
-        <div className="search">
+        {/* <div className="search">
           <Input
             name="searchKeyword"
             id="searchKeyword"
@@ -288,7 +289,7 @@ const TopNav = ({
           >
             <i className="simple-icon-magnifier" />
           </span>
-        </div>
+        </div> */}
 
         {/* <div className="d-inline-block">
           <UncontrolledDropdown className="ml-2">

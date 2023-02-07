@@ -7,7 +7,7 @@ const DateFormat = {
   days: 'DD, MMMM YYYY',
 }
 
-const DatesBetweenInput = ({
+const DatesRangePicker = ({
   initialStart,
   initialEnd,
   dateType = 'months' || 'days',
@@ -96,4 +96,4 @@ const DatesBetweenInput = ({
   )
 }
 
-export default DatesBetweenInput
+export default DatesRangePicker
