@@ -73,7 +73,7 @@ const Pengguna = () => {
   useEffect(() => {
     setFiltered(
       dataPengguna.filter((tr) => {
-        return tr.name?.toLowerCase().includes(search)
+        return tr.is_verified?.toLowerCase().includes(search)
       })
     )
   }, [dataPengguna, search])
@@ -220,21 +220,21 @@ const Pengguna = () => {
                           <td>{item.role}</td>
                           <td>{item.tanggal_dibuat}</td>
                           <td>
-                            {/* {item.verifikasi === 'terverifikasi' && (
+                            {item.is_verified=== 'Verified' && (
                             <p className="text-success rounded text-center status status-success bg-status-success">
                               Terverifikasi
                             </p>
                           )}
-                          {item.verifikasi === 'pending' && (
+                          {item.is_verified === 'Pending' && (
                             <p className="text-warning rounded text-center status status-pending bg-status-pending">
-                              pending
+                              {item.is_verified}
                             </p>
                           )}
-                          {item.verifikasi === null && (
+                          {item.is_verified === null && (
                             <p className="text-danger rounded text-center status status-danger bg-status-danger">
                               Tidak
                             </p>
-                          )} */}
+                          )}
                           </td>
                         </tr>
                       ))

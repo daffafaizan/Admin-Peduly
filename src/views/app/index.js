@@ -57,7 +57,7 @@ const App = ({ match }) => {
               render={(props) => <HalamanGalangDana {...props} />}
             />
             <Route
-              path={`${match.url}/halaman-galang-dana/detail`}
+              path={`${match.url}/halaman-galang-dana/detail/:id`}
               render={(props) => <DetailGalangDana {...props} />}
             />
             <Route

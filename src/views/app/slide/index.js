@@ -103,7 +103,7 @@ const SlidePage = () => {
       <Row>
         <Col>
           <Card className="mb-4" style={{ borderRadius: '15px' }}>
-            <CardBody style={{ padding: '24px' }}>
+            <CardBody style={{ padding: '12px' }}>
               <Table
                 className={`table-slide ${
                   !color.indexOf('dark') && 'table-dark-mode'

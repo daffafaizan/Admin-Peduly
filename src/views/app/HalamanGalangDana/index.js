@@ -79,7 +79,6 @@ const HalamanGalangDana = () => {
     }
   }, [totalPage, currentPage])
 
-
   //search
   const handleChange = (e) => {
     e.preventDefault()
@@ -149,7 +148,7 @@ const HalamanGalangDana = () => {
       <Row>
         <Colxx xxs="12" className="mb-4">
           <Card className="mb-4" style={{ borderRadius: '15px' }}>
-            <CardBody style={{ padding: '24px' }}>
+            <CardBody style={{ padding: '12px' }}>
               <Table
                 hover
                 responsive
@@ -172,7 +171,7 @@ const HalamanGalangDana = () => {
                       (currentPage - 1) * currentPageSize,
                       currentPage * currentPageSize
                     )
-                    .map((item) => (
+                    .map((item, idx) => (
                       <tr
                         key={item.id}
                         onClick={() =>
@@ -182,7 +181,7 @@ const HalamanGalangDana = () => {
                         }
                         style={{ cursor: 'pointer' }}
                       >
-                        <td>{item.id}</td>
+                        <td>{(currentPage - 1) * currentPageSize + idx + 1}</td>
                         <td
                           style={{
                             maxWidth: '300px',
@@ -197,45 +196,37 @@ const HalamanGalangDana = () => {
                         <td>Rp {IdrFormat(item.total_donasi)}</td>
                         <td>{item.sisa_waktu}</td>
                         <td>
-                          {item.status === 'Approved' && (
+                          {item.status === 'Active' && (
                             <p
                               className="text-success rounded text-center status bg-status-success"
                               style={{
                                 maxWidth: '100px',
                               }}
                             >
-                              Approved
+                              {item.status}
                             </p>
                           )}
-                          {item.status === 'Pending' && (
+                          {item.status === 'Done' && (
+                            <p
+                              className="text-danger rounded text-center status bg-status-danger"
+                              style={{
+                                maxWidth: '100px',
+                              }}
+                            >
+                              Berakhir
+                            </p>
+                          )}
+                          {item.status === 'Suspend' && (
                             <p
                               className="text-warning rounded text-center status bg-status-pending"
                               style={{
                                 maxWidth: '80px',
                               }}
                             >
-                              Pending
+                            {item.status}
                             </p>
                           )}
-                          {item.status === 'pendding' && (
-                            <p
-                              className="text-warning rounded text-center status bg-status-pending"
-                              style={{
-                                maxWidth: '80px',
-                              }}
-                            >
-                              Pending
-                            </p>
-                          )}
-                          {item.status === null && (
-                            <p
-                              style={{
-                                maxWidth: '82px',
-                              }}
-                            >
-                              -
-                            </p>
-                          )}
+                          
                         </td>
                       </tr>
                     ))}
