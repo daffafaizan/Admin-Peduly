@@ -9,8 +9,6 @@ import { adminRoot } from 'constants/defaultValues'
 // import classnames from 'classnames';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
-import IntlMessages from 'helpers/IntlMessages'
-
 import {
   setContainerClassnames,
   addContainerClassname,
@@ -443,7 +441,7 @@ class Sidebar extends Component {
                         />
                       </svg>
                     </span>
-                    <IntlMessages id="dashboard" />
+                    <span>Dashboard</span>
                   </NavLink>
                 </NavItem>
                 <NavItem
@@ -500,7 +498,7 @@ class Sidebar extends Component {
                         />
                       </svg>
                     </span>
-                    <IntlMessages id="transaksi" />
+                    <span>Transaksi</span>
                   </NavLink>
                 </NavItem>
                 <NavItem
@@ -565,7 +563,7 @@ class Sidebar extends Component {
                         />
                       </svg>
                     </span>
-                    <IntlMessages id="halaman" />
+                    <span>Halaman</span>
                   </NavLink>
                 </NavItem>
                 <NavItem
@@ -603,7 +601,7 @@ class Sidebar extends Component {
                         />
                       </svg>
                     </span>
-                    <IntlMessages id="pengguna" />
+                    <span>Pengguna</span>
                   </NavLink>
                 </NavItem>
                 <NavItem
@@ -653,7 +651,7 @@ class Sidebar extends Component {
                         />
                       </svg>
                     </span>
-                    <IntlMessages id="slide" />
+                    <span>Slide</span>
                   </NavLink>
                 </NavItem>
               </Nav>

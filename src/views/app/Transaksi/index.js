@@ -166,7 +166,12 @@ const TransaksiDonasi = () => {
               <DropdownMenu right>
                 {pageSizes.map((size, index) => {
                   return (
-                    <DropdownItem key={index} onClick={() => {}}>
+                    <DropdownItem
+                      key={index}
+                      onClick={() => {
+                        setSelectedPageSize(size)
+                      }}
+                    >
                       {size}
                     </DropdownItem>
                   )
