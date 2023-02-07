@@ -118,7 +118,7 @@ const HalamanGalangDana = () => {
                   type="text"
                   name="keyword"
                   id="search"
-                  placeholder="Search..."
+                  placeholder="Search galang dana..."
                   onChange={handleChange}
                 />
               </div>
@@ -203,7 +203,7 @@ const HalamanGalangDana = () => {
                                 maxWidth: '100px',
                               }}
                             >
-                              {item.status}
+                              Aktif
                             </p>
                           )}
                           {item.status === 'Done' && (

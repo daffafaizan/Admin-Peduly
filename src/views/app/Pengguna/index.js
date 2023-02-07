@@ -121,7 +121,7 @@ const Pengguna = () => {
                 type="text"
                 name="keyword"
                 id="search"
-                placeholder="Search..."
+                placeholder="Search pengguna..."
                 value={search}
                 onChange={handleChange}
               />

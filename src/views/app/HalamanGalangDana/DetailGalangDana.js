@@ -230,7 +230,7 @@ const DetailGalangDana = ({ match }) => {
         <Colxx xxs="12" className="mb-4">
           <Card className="mb-4 p-0" style={{ borderRadius: '15px' }}>
             <div className="heading-border">
-              <h1 className="ml-4 mt-4 mb-2">Transaksi</h1>
+              <h2 className="ml-4 mt-4 mb-3 font-weight-bold">Transaksi</h2>
             </div>
             <CardBody className="pt-0">
               <Table
