@@ -196,45 +196,37 @@ const HalamanGalangDana = () => {
                         <td>Rp {IdrFormat(item.total_donasi)}</td>
                         <td>{item.sisa_waktu}</td>
                         <td>
-                          {item.status === 'Approved' && (
+                          {item.status === 'Active' && (
                             <p
                               className="text-success rounded text-center status bg-status-success"
                               style={{
                                 maxWidth: '100px',
                               }}
                             >
-                              Approved
+                              {item.status}
                             </p>
                           )}
-                          {item.status === 'Pending' && (
+                          {item.status === 'Done' && (
+                            <p
+                              className="text-danger rounded text-center status bg-status-danger"
+                              style={{
+                                maxWidth: '100px',
+                              }}
+                            >
+                              Berakhir
+                            </p>
+                          )}
+                          {item.status === 'Suspend' && (
                             <p
                               className="text-warning rounded text-center status bg-status-pending"
                               style={{
                                 maxWidth: '80px',
                               }}
                             >
-                              Pending
+                            {item.status}
                             </p>
                           )}
-                          {item.status === 'pendding' && (
-                            <p
-                              className="text-warning rounded text-center status bg-status-pending"
-                              style={{
-                                maxWidth: '80px',
-                              }}
-                            >
-                              Pending
-                            </p>
-                          )}
-                          {item.status === null && (
-                            <p
-                              style={{
-                                maxWidth: '82px',
-                              }}
-                            >
-                              -
-                            </p>
-                          )}
+                          
                         </td>
                       </tr>
                     ))}

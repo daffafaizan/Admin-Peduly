@@ -3,9 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Row, Card, CardBody, Table } from 'reactstrap'
 import { Colxx } from 'components/common/CustomBootstrap'
 import { getCurrentColor } from 'helpers/Utils'
-// import { orderDatabyDate } from 'helpers/OrderData'
 import IdrFormat from 'helpers/IdrFormat'
-// import DateFormat from 'helpers/DateFormat'
 import Breadcrumb from 'containers/navs/Breadcrumb'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
@@ -14,6 +12,7 @@ import axios from 'axios'
 import './index.scss'
 import DataTablePagination from 'components/DatatablePagination'
 import moment from 'moment'
+import { API_URL } from 'config/api'
 
 const DetailGalangDana = ({ match }) => {
   const [detail, setDetail] = useState([])
@@ -26,7 +25,7 @@ const DetailGalangDana = ({ match }) => {
     const getDetailGalangDanaById = () => {
       // get detail galang dana data by id
       axios
-        .get(`https://dev.peduly.com/api/admin/galangdana/${id}/details`, {
+        .get(`${API_URL}/api/admin/galangdana/${id}/details`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -42,9 +41,8 @@ const DetailGalangDana = ({ match }) => {
 
     //get detail transaksi galang dana by id
     const getDetailTransaksiGalangDanaById = () => {
-  
       axios
-        .get(`https://dev.peduly.com/api/admin/galangdana/${id}/transactions`, {
+        .get(`${API_URL}/api/admin/galangdana/${id}/transactions`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -112,7 +110,12 @@ const DetailGalangDana = ({ match }) => {
       <div key={detail.id}>
         <div className="d-flex" style={{ marginBottom: '38px' }}>
           <div className="d-flex w-full judul-container flex-column flex-md-row flex-wrap">
-            <a href="#" className="text-danger judul mb-2 mb-md-0">
+            <a
+              href={`https://demo.peduly.com/${detail.judul_slug}`}
+              className="text-danger judul mb-2 mb-md-0"
+              target="_blank"
+              rel="noreferrer"
+            >
               {detail.judul_campaign}
             </a>
             <Link
@@ -225,15 +228,15 @@ const DetailGalangDana = ({ match }) => {
 
       <Row>
         <Colxx xxs="12" className="mb-4">
-          <Card className="mb-4 p-4" style={{ borderRadius: '15px' }}>
+          <Card className="mb-4 p-0" style={{ borderRadius: '15px' }}>
             <div className="heading-border">
               <h1 className="ml-4 mt-4 mb-2">Transaksi</h1>
             </div>
-            <CardBody>
+            <CardBody className="pt-0">
               <Table
                 hover
                 responsive
-                className={!color.indexOf('dark') && 'table-dark-mode'}
+                className={`${!color.indexOf('dark') && 'table-dark-mode'}`}
               >
                 <thead>
                   <tr>
@@ -249,66 +252,69 @@ const DetailGalangDana = ({ match }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {transaksi.slice(
-                        (currentPage - 1) * currentPageSize,
-                        currentPage * currentPageSize
-                      ).map((item, idx) => (
-                    <tr key={idx}>
-                      <td>{(currentPage - 1) * currentPageSize + idx + 1}</td>
-                      <td>{item.nama ? item.nama : 'Warga Baik'}</td>
-                      <td>{formatDate(item.tanggal_donasi)}</td>
-                      <td>Rp {konversiToNumber(item.nominal)}</td>
-                      <td>Rp {konversiToNumber(item.biaya_payment_gateway)}</td>
-                      <td>Rp {konversiToNumber(item.biaya_referal_iklan)}</td>
-                      <td>Rp {konversiToNumber(item.biaya_operasional)}</td>
-                      <td>Rp {konversiToNumber(item.payable)}</td>
-                      <td>
-                        {item.status_donasi === 'Approved' && (
-                          <p
-                            className="text-success rounded text-center status bg-status-success"
-                            style={{
-                              maxWidth: '77px',
-                            }}
-                          >
-                            Berhasil
-                          </p>
-                        )}
-                        {item.status_donasi === 'Pending' && (
-                          <p
-                            className="text-warning rounded text-center status bg-status-pending"
-                            style={{
-                              maxWidth: '78px',
-                            }}
-                          >
-                            Pending
-                          </p>
-                        )}
-                        {item.status_donasi === 'Rejected' && (
-                          <p
-                            className="text-danger rounded text-center status bg-status-danger"
-                            style={{
-                              maxWidth: '94px',
-                            }}
-                          >
-                            Dibatalkan
-                          </p>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
+                  {transaksi
+                    .slice(
+                      (currentPage - 1) * currentPageSize,
+                      currentPage * currentPageSize
+                    )
+                    .map((item, idx) => (
+                      <tr key={idx}>
+                        <td>{(currentPage - 1) * currentPageSize + idx + 1}</td>
+                        <td>{item.nama ? item.nama : 'Warga Baik'}</td>
+                        <td>{formatDate(item.tanggal_donasi)}</td>
+                        <td>Rp {konversiToNumber(item.nominal)}</td>
+                        <td>
+                          Rp {konversiToNumber(item.biaya_payment_gateway)}
+                        </td>
+                        <td>Rp {konversiToNumber(item.biaya_referal_iklan)}</td>
+                        <td>Rp {konversiToNumber(item.biaya_operasional)}</td>
+                        <td>Rp {konversiToNumber(item.payable)}</td>
+                        <td>
+                          {item.status_donasi === 'Approved' && (
+                            <p
+                              className="text-success rounded text-center status bg-status-success"
+                              style={{
+                                maxWidth: '77px',
+                              }}
+                            >
+                              Berhasil
+                            </p>
+                          )}
+                          {item.status_donasi === 'Pending' && (
+                            <p
+                              className="text-warning rounded text-center status bg-status-pending"
+                              style={{
+                                maxWidth: '78px',
+                              }}
+                            >
+                              Pending
+                            </p>
+                          )}
+                          {item.status_donasi === 'Rejected' && (
+                            <p
+                              className="text-danger rounded text-center status bg-status-danger"
+                              style={{
+                                maxWidth: '94px',
+                              }}
+                            >
+                              Dibatalkan
+                            </p>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </Table>
             </CardBody>
-           
-              <DataTablePagination
-                page={currentPage - 1}
-                pages={totalPage}
-                canNext={currentPage < totalPage}
-                canPrevious={currentPage > 1}
-                onPageChange={(page) => setCurrentPage(page + 1)}
-                paginationMaxSize={10}
-              />
-            
+
+            <DataTablePagination
+              page={currentPage - 1}
+              pages={totalPage}
+              canNext={currentPage < totalPage}
+              canPrevious={currentPage > 1}
+              onPageChange={(page) => setCurrentPage(page + 1)}
+              paginationMaxSize={10}
+            />
           </Card>
         </Colxx>
       </Row>
