@@ -3,25 +3,32 @@
   .judul {
     font-size: 24px;
     // max-width: calc(100% - 160px);
-    text-decoration: underline;
+    font-weight: 600;
   }
   .edit-btn {
     padding: 10px 20px;
     font-size: 14px;
     max-height: 43px;
+    border: 1px solid #fcae03;
+    color: #fcae03;
   }
 }
 
+.card {
+  margin: 0 !important;
+}
+
 .container-card {
-  padding: 50px 0;
+  border: 1px solid #dedede;
+  padding: 20px 0 24px 0px;
   border-radius: 15px;
-  margin-bottom: 32px;
   .icon {
-    margin-bottom: 22px;
+    margin-bottom: 2px;
   }
   .judul {
+    color: #717171;
+    margin: 10px 0;
     font-size: 14px;
-    margin-bottom: 30px;
   }
   .content {
     font-size: 28px;
@@ -29,9 +36,11 @@
 }
 
 .container-card-half {
+  border: 1px solid #dedede;
   border-radius: 15px;
-  padding: 24px 0 24px 24px;
+  padding: 10px 0 0px 24px;
   .judul {
+    color: #717171;
     margin-bottom: 12px;
     font-size: 14px;
   }
@@ -41,7 +50,7 @@
 }
 
 .card-top {
-  margin-bottom: 16px;
+  margin-bottom: 5px;
 }
 
 .card-bottom {
@@ -50,11 +59,131 @@
 }
 
 .heading-border {
-  border-bottom: 2px solid #f4f4f4;
+  border-top: 2px solid #f4f4f4;
+  margin-top: 10px;
+  width: 105%;
 
-  h1 {
+  h2 {
     font-weight: bold;
+    width: 90.5% !important;
+    border-bottom: 2px solid #f4f4f4;
   }
+}
+
+.text-berakhir {
+  background-color: rgba(113, 113, 113, 0.2);
+  color: #717171;
+}
+
+.sidebar-galang-dana {
+  border-right: solid 1px #e4e4e4;
+}
+
+.sidebar-menu-galang-dana {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  margin: 10px 5px;
+}
+
+.button-menu-galang-dana {
+  border: solid 1px #dedede;
+  padding: 10px 0px;
+  width: 120px;
+  text-align: center;
+  border-radius: 30px;
+  margin: 10px 20px;
+  cursor: pointer;
+  color: #717171;
+}
+
+.button-menu-galang-dana-active {
+  border: solid 1px #e7513b;
+  padding: 10px 0px;
+  width: 120px;
+  text-align: center;
+  border-radius: 30px;
+  margin: 10px 20px;
+  cursor: pointer;
+  color: #e7513b;
+}
+
+.button-menu-galang-dana:hover {
+  border: solid 1px #e7513b;
+  color: #e7513b;
+  cursor: pointer;
+}
+
+.box-tarik-dana {
+  position: relative;
+}
+
+.modal-tarik-dana {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  position: absolute;
+  top: 20px;
+  left: 8%;
+  width: 1280px;
+  overflow: hidden;
+}
+
+.form-line {
+  position: absolute;
+  z-index: 99;
+  top: -52px;
+  border-right: 1px solid #f4f4f4;
+  height: 150%;
+}
+
+.form-tarik-dana {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-box-input {
+  border-bottom: 1px solid #f4f4f4;
+  width: 105%;
+}
+
+.form-text-judul {
+  font-weight: 600;
+}
+
+.form-input,
+.form-input:focus {
+  display: block;
+  outline: none;
+  border: 0;
+}
+
+.form-textarea,
+.form-textarea:focus {
+  outline: none;
+  border: 0;
+  display: block;
+  width: 500px;
+  height: 200px;
+}
+
+.input-select {
+  padding: 10px 40px;
+  width: 170px;
+  height: 40px;
+  background: rgba(252, 174, 3, 0.2);
+  border-radius: 30px;
+  border: 1px solid rgba(252, 174, 3, 0.2);
+  color: #FCAE03;
+}
+
+.input-select-galang-dana {
+  padding: 10px 40px;
+  width: 200px;
+  height: 40px;
+  background: transparent;
+  border-radius: 30px;
+  border: 1px solid #FCAE03;
+  color: #FCAE03;
 }
 
 @media only screen and (max-width: 600px) {
