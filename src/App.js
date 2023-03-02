@@ -11,30 +11,15 @@ import './helpers/Firebase'
 import AppLocale from './lang'
 import ColorSwitcher from './components/common/ColorSwitcher'
 import { NotificationContainer } from './components/common/react-notifications'
-import {
-  isMultiColorActive,
-  adminRoot,
-  // UserRole,
-} from './constants/defaultValues'
+import { isMultiColorActive, adminRoot } from './constants/defaultValues'
 import { getDirection } from './helpers/Utils'
 import { ProtectedRoute } from 'helpers/authHelper'
-// import { ProtectedRoute } from './helpers/authHelper'
 
-const ViewHome = React.lazy(() =>
-  import(/* webpackChunkName: "views" */ './views/home')
-)
-const ViewApp = React.lazy(() =>
-  import(/* webpackChunkName: "views-app" */ './views/app')
-)
-const ViewUser = React.lazy(() =>
-  import(/* webpackChunkName: "views-user" */ './views/user')
-)
-const ViewError = React.lazy(() =>
-  import(/* webpackChunkName: "views-error" */ './views/error')
-)
-const ViewUnauthorized = React.lazy(() =>
-  import(/* webpackChunkName: "views-error" */ './views/unauthorized')
-)
+const ViewHome = React.lazy(() => import('./views/home'))
+const ViewApp = React.lazy(() => import('./views/app'))
+const ViewUser = React.lazy(() => import('./views/user'))
+const ViewError = React.lazy(() => import('./views/error'))
+const ViewUnauthorized = React.lazy(() => import('./views/unauthorized'))
 
 class App extends React.Component {
   constructor(props) {

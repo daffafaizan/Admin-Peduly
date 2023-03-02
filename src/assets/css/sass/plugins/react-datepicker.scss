@@ -163,7 +163,9 @@
   border-radius: $border-radius !important;
 }
 
-.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range) {
+.react-datepicker__day--in-selecting-range:not(
+    .react-datepicker__day--in-range
+  ) {
   background: $separator-color !important;
 }
 

@@ -1,6 +1,4 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable react/no-array-index-key */
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Pagination,
   PaginationItem,
@@ -131,7 +129,7 @@ const DataTablePagination = ({
               }}
               disabled={!canPrevious}
             >
-              <i className="simple-icon-arrow-left" />
+              ☚
             </PaginationLink>
           </PaginationItem>
 
@@ -145,7 +143,7 @@ const DataTablePagination = ({
               }}
               disabled={!canNext}
             >
-              <i className="simple-icon-arrow-right" />
+              ☛
             </PaginationLink>
           </PaginationItem>
         </Pagination>

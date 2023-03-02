@@ -1,5 +1,3 @@
-import React from 'react'
-
 import {
   AvForm,
   AvField,
@@ -29,11 +27,11 @@ const defaultValues = {
 
 const AvailityDefaultValues = () => {
   const onSubmit = (event, errors, values) => {
-    console.log(errors)
-    console.log(values)
-    if (errors.length === 0) {
-      // submit
-    }
+    console.group('AvailityDefaultValues')
+    console.log('event', event)
+    console.log('errors', errors)
+    console.log('values', values)
+    console.groupEnd()
   }
 
   return (

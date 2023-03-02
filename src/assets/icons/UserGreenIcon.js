@@ -1,5 +1,3 @@
-import React from 'react'
-
 const UserGreenIcon = (props) => (
   <svg
     width={53}

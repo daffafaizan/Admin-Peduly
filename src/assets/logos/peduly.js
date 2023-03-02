@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { getCurrentColor } from 'helpers/Utils'
 
-const peduly = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const Peduly = () => {
+  const color = getCurrentColor()
+
   useEffect(() => {
     getCurrentColor()
   }, [])
 
-  const color = getCurrentColor()
   return (
     <svg
       className="d-block"
@@ -49,4 +49,4 @@ const peduly = () => {
   )
 }
 
-export default peduly
+export default Peduly

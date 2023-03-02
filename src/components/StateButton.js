@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Button, Popover, PopoverBody } from 'reactstrap'
 import classnames from 'classnames'
 

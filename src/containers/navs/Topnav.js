@@ -1,8 +1,4 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-
-/* eslint-disable no-use-before-define */
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { injectIntl } from 'react-intl'
 import { getCurrentColor } from 'helpers/Utils'
 import {
@@ -10,23 +6,15 @@ import {
   DropdownItem,
   DropdownToggle,
   DropdownMenu,
-  Input,
 } from 'reactstrap'
-import DummyProfile from '../../assets/img/profiles/dummy-profile.png'
-
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
-
-// import IntlMessages from 'helpers/IntlMessages';
 import {
-  menuHiddenBreakpoint,
   searchPath,
-  // localeOptions,
   isDarkSwitchActive,
   adminRoot,
 } from 'constants/defaultValues'
 import { MobileMenuIcon, MenuIcon } from 'components/svg'
-// import { getDirection, setDirection } from 'helpers/Utils';
 import {
   setContainerClassnames,
   clickOnMobileMenu,
@@ -37,27 +25,17 @@ import {
 import { API_ENDPOINT, API_URL } from 'config/api'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-
-// import TopnavEasyAccess from './Topnav.EasyAccess';
-// import TopnavNotifications from './Topnav.Notifications';
 import TopnavDarkSwitch from './Topnav.DarkSwitch'
 import http from 'helpers/http'
 
 const TopNav = ({
-  intl,
   history,
   containerClassnames,
   menuClickCount,
   selectedMenuHasSubItems,
-  // locale,
   setContainerClassnamesAction,
   clickOnMobileMenuAction,
-  // eslint-disable-next-line no-unused-vars
-  logoutUser,
-  // logoutUserAction,
-  // changeLocaleAction,
 }) => {
-  // const [isInFullScreen, setIsInFullScreen] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('')
   const [userData, setUserData] = useState()
 
@@ -91,56 +69,6 @@ const TopNav = ({
 
   const color = getCurrentColor()
 
-  // const handleChangeLocale = (_locale, direction) => {
-  //   changeLocaleAction(_locale);
-
-  //   const currentDirection = getDirection().direction;
-  //   if (direction !== currentDirection) {
-  //     setDirection(direction);
-  //     setTimeout(() => {
-  //       window.location.reload();
-  //     }, 500);
-  //   }
-  // };
-
-  // const isInFullScreenFn = () => {
-  //   return (
-  //     (document.fullscreenElement && document.fullscreenElement !== null) ||
-  //     (document.webkitFullscreenElement &&
-  //       document.webkitFullscreenElement !== null) ||
-  //     (document.mozFullScreenElement &&
-  //       document.mozFullScreenElement !== null) ||
-  //     (document.msFullscreenElement && document.msFullscreenElement !== null)
-  //   );
-  // };
-
-  const handleSearchIconClick = (e) => {
-    if (window.innerWidth < menuHiddenBreakpoint) {
-      let elem = e.target
-      if (!e.target.classList.contains('search')) {
-        if (e.target.parentElement.classList.contains('search')) {
-          elem = e.target.parentElement
-        } else if (
-          e.target.parentElement.parentElement.classList.contains('search')
-        ) {
-          elem = e.target.parentElement.parentElement
-        }
-      }
-
-      if (elem.classList.contains('mobile-view')) {
-        search()
-        elem.classList.remove('mobile-view')
-        removeEventsSearch()
-      } else {
-        elem.classList.add('mobile-view')
-        addEventsSearch()
-      }
-    } else {
-      search()
-    }
-    e.stopPropagation()
-  }
-
   const handleDocumentClickSearch = (e) => {
     let isSearchClick = false
     if (
@@ -172,42 +100,6 @@ const TopNav = ({
   const removeEventsSearch = () => {
     document.removeEventListener('click', handleDocumentClickSearch, true)
   }
-
-  const addEventsSearch = () => {
-    document.addEventListener('click', handleDocumentClickSearch, true)
-  }
-
-  const handleSearchInputKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      search()
-    }
-  }
-
-  // const toggleFullScreen = () => {
-  //   const isFS = isInFullScreenFn();
-
-  //   const docElm = document.documentElement;
-  //   if (!isFS) {
-  //     if (docElm.requestFullscreen) {
-  //       docElm.requestFullscreen();
-  //     } else if (docElm.mozRequestFullScreen) {
-  //       docElm.mozRequestFullScreen();
-  //     } else if (docElm.webkitRequestFullScreen) {
-  //       docElm.webkitRequestFullScreen();
-  //     } else if (docElm.msRequestFullscreen) {
-  //       docElm.msRequestFullscreen();
-  //     }
-  //   } else if (document.exitFullscreen) {
-  //     document.exitFullscreen();
-  //   } else if (document.webkitExitFullscreen) {
-  //     document.webkitExitFullscreen();
-  //   } else if (document.mozCancelFullScreen) {
-  //     document.mozCancelFullScreen();
-  //   } else if (document.msExitFullscreen) {
-  //     document.msExitFullscreen();
-  //   }
-  //   setIsInFullScreen(!isFS);
-  // };
 
   const handleLogout = () => {
     const inputToken = Cookies.get('token')
@@ -251,7 +143,6 @@ const TopNav = ({
     clickOnMobileMenuAction(_containerClassnames)
   }
 
-  const { messages } = intl
   return (
     <nav className="navbar fixed-top">
       <div className="d-flex align-items-center navbar-left">
@@ -273,50 +164,8 @@ const TopNav = ({
         >
           <MobileMenuIcon />
         </NavLink>
-
-        {/* <div className="search">
-          <Input
-            name="searchKeyword"
-            id="searchKeyword"
-            placeholder={messages['menu.search']}
-            value={searchKeyword}
-            onChange={(e) => setSearchKeyword(e.target.value)}
-            onKeyPress={(e) => handleSearchInputKeyPress(e)}
-          />
-          <span
-            className="search-icon"
-            onClick={(e) => handleSearchIconClick(e)}
-          >
-            <i className="simple-icon-magnifier" />
-          </span>
-        </div> */}
-
-        {/* <div className="d-inline-block">
-          <UncontrolledDropdown className="ml-2">
-            <DropdownToggle
-              caret
-              color="light"
-              size="sm"
-              className="language-button"
-            >
-              <span className="name">{locale.toUpperCase()}</span>
-            </DropdownToggle>
-            <DropdownMenu className="mt-3" right>
-              {localeOptions.map((l) => {
-                return (
-                  <DropdownItem
-                    onClick={() => handleChangeLocale(l.id, l.direction)}
-                    key={l.id}
-                  >
-                    {l.name}
-                  </DropdownItem>
-                );
-              })}
-            </DropdownMenu>
-          </UncontrolledDropdown>
-        </div> */}
       </div>
-      {/* logo */}
+      {/* LOGO */}
       <NavLink
         className="navbar-logo"
         to={adminRoot}
@@ -359,33 +208,16 @@ const TopNav = ({
             d="M71.708 17.62c1.727-.006 2.919-1.366 2.631-3.036-1.117-6.49-8.03-9.818-13.787-6.258-3.264 2.02-4.6 5.167-4.112 8.926.465 3.583 2.598 6.04 5.964 7.277 3.45 1.268 7.106.334 9.36-2.088.75-.806.913-1.851.357-2.635-.628-.886-1.49-.922-2.475-.612-.706.223-1.321.61-1.994.885-2.384.975-5.066.166-5.947-2.455 3.405 0 6.704.008 10.003-.004zm-5.914-5.822c1.384.136 2.516.732 3.314 2.135h-7.393c1.024-1.547 2.325-2.308 4.08-2.135z"
           />
         </svg>
-        {/* <span className="logo-mobile d-block d-xs-none" /> */}
       </NavLink>
 
       <div className="navbar-right">
         {isDarkSwitchActive && <TopnavDarkSwitch />}
-        {/* <div className="header-icons d-inline-block align-middle">
-          <TopnavEasyAccess />
-          <TopnavNotifications />
-          <button
-            className="header-icon btn btn-empty d-none d-sm-inline-block"
-            type="button"
-            id="fullScreenButton"
-            onClick={toggleFullScreen}
-          >
-            {isInFullScreen ? (
-              <i className="simple-icon-size-actual d-block" />
-            ) : (
-              <i className="simple-icon-size-fullscreen d-block" />
-            )}
-          </button>
-        </div> */}
         <div className="user d-inline-block">
           <UncontrolledDropdown className="dropdown-menu-right">
             <DropdownToggle className="p-0" color="empty">
               <span className="name mr-1">{userData?.name}</span>
               <span>
-                <img alt="Profile" src={userData?.photo || DummyProfile} />
+                <img alt="Profile" src={userData?.photo || '/peduly.png'} />
               </span>
             </DropdownToggle>
             <DropdownMenu className="mt-3" right>

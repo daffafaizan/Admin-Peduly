@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Row } from 'reactstrap'
 import Select from 'react-select'
 import IntlMessages from 'helpers/IntlMessages'

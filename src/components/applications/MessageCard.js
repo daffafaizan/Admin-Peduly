@@ -1,4 +1,4 @@
-import React from 'react'
+import { memo } from 'react'
 import { Card, CardBody } from 'reactstrap'
 
 const MessageCard = ({ sender, item, currentUserid }) => {
@@ -40,4 +40,4 @@ const MessageCard = ({ sender, item, currentUserid }) => {
   )
 }
 
-export default React.memo(MessageCard)
+export default memo(MessageCard)

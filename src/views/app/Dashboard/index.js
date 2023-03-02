@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Col, Row } from 'reactstrap'
 import MiniCard from '../../../components/MiniCard'
 import ListUserCard from './components/RingkasanPengguna/ListUserCard'
@@ -18,7 +18,6 @@ import UserGreenIcon from 'assets/icons/UserGreenIcon'
 import IdrFormat from 'helpers/IdrFormat'
 
 const Dashboard = () => {
-  // { match }
   const [summaryData, setSummaryData] = useState()
   const [listUser, setListUser] = useState([])
   const [listGalangDana, setListGalangDana] = useState([])
@@ -33,9 +32,7 @@ const Dashboard = () => {
     getTransaksiDonasiData()
     getSummaryData()
     initGalangDanaByCategory()
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const initGalangDanaByCategory = async () => {
     const datas = await Promise.all(

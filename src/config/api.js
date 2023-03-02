@@ -1,4 +1,4 @@
-export const API_URL = 'https://dev.peduly.com'
+export const API_URL = 'https://api.peduly.com'
 export const API_CONTEXT = 'api'
 export const IMAGE_CONTEXT = 'images/images_campaign'
 export const API_ENDPOINT = {
@@ -9,4 +9,6 @@ export const API_ENDPOINT = {
   GET_LIST_GALANG_DANA_ADMIN: '/admin/galangdana',
   GET_ALL_TRANSAKSI: '/donation/all',
   GET_DANA_SUMMARY: '/admin/summary',
+  GET_DATA_SLIDES: '/slides',
+  CREATE_SLIDE: '/slides/create',
 }

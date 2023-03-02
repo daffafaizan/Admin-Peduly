@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { injectIntl } from 'react-intl'
 import { Row, Card, CardBody, CardTitle } from 'reactstrap'
 import DatePicker from 'react-datepicker'

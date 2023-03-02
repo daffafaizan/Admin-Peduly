@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { ReactSortable } from 'react-sortablejs'
 
 import { Colxx } from 'components/common/CustomBootstrap'

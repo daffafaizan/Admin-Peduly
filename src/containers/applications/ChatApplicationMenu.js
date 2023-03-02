@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { connect } from 'react-redux'
 import { injectIntl } from 'react-intl'
 import { Nav, TabContent, TabPane, CardHeader, NavItem } from 'reactstrap'

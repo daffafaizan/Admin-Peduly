@@ -1,4 +1,4 @@
-import React from 'react'
+import { memo } from 'react'
 import { Input, Button } from 'reactstrap'
 
 const SaySomething = ({
@@ -28,10 +28,10 @@ const SaySomething = ({
           className="icon-button large ml-1"
           onClick={() => handleSendButtonClick()}
         >
-          <i className="simple-icon-arrow-right" />
+          ☛
         </Button>
       </div>
     </div>
   )
 }
-export default React.memo(SaySomething)
+export default memo(SaySomething)
