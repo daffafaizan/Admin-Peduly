@@ -1,5 +1,3 @@
-import React from 'react'
-
 const TextAlert = ({ text, type = 'success', className }) => {
   const globalStyle = {
     padding: '3px 12px',

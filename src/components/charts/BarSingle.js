@@ -1,5 +1,3 @@
-/* eslint-disable prefer-rest-params */
-import React from 'react'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -29,6 +27,13 @@ export const defaultOption = {
       position: 'bottom',
     },
   },
+  animation: {
+    duration: 0,
+  },
+  hover: {
+    animationDuration: 0,
+  },
+  responsiveAnimationDuration: 0,
   layout: {
     padding: {
       top: 24,

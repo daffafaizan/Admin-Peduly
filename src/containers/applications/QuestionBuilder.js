@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {
   Card,
   Button,

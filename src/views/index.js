@@ -3,14 +3,9 @@ import { Route, withRouter, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import AppLayout from 'layout/AppLayout'
-// import { ProtectedRoute, UserRole } from 'helpers/authHelper';
 
-const Dashboard = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-gogo" */ '/Dashboard')
-)
-const BlankPage = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-blank-page" */ '/blank-page')
-)
+const Dashboard = React.lazy(() => import('/Dashboard'))
+const BlankPage = React.lazy(() => import('/blank-page'))
 const TransaksiDonasi = React.lazy(() => import('/Transaksi'))
 const Pengguna = React.lazy(() => import('/Pengguna'))
 const SemuaDonasi = React.lazy(() => import('/Halaman'))

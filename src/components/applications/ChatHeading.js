@@ -1,4 +1,4 @@
-import React from 'react'
+import { memo } from 'react'
 
 const ChatHeading = ({ name, thumb, lastSeenDate }) => {
   return (
@@ -29,4 +29,4 @@ const ChatHeading = ({ name, thumb, lastSeenDate }) => {
   )
 }
 
-export default React.memo(ChatHeading)
+export default memo(ChatHeading)

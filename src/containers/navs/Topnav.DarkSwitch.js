@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Switch from 'rc-switch'
 import 'rc-switch/assets/index.css'
 import { Tooltip } from 'reactstrap'

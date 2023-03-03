@@ -1,16 +1,10 @@
 import React, { Suspense } from 'react'
 import { Route, withRouter, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-
 import AppLayout from 'layout/AppLayout'
-// import { ProtectedRoute, UserRole } from 'helpers/authHelper';
 
-const Dashboard = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-gogo" */ './Dashboard')
-)
-const BlankPage = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
-)
+const Dashboard = React.lazy(() => import('./Dashboard'))
+const BlankPage = React.lazy(() => import('./blank-page'))
 const TransaksiDonasi = React.lazy(() => import('./Transaksi'))
 const Pengguna = React.lazy(() => import('./Pengguna'))
 const HalamanGalangDana = React.lazy(() => import('./HalamanGalangDana'))
@@ -57,6 +51,7 @@ const App = ({ match }) => {
               render={(props) => <HalamanGalangDana {...props} />}
             />
             <Route
+              exact
               path={`${match.url}/halaman-galang-dana/detail/:id`}
               render={(props) => <DetailGalangDana {...props} />}
             />

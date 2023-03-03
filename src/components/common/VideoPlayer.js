@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import React, { useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import videojs from 'video.js'
 
 const VideoPlayer = (props) => {

@@ -1,5 +1,4 @@
-/* eslint-disable react/no-array-index-key */
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Row,
   Card,
@@ -9,7 +8,6 @@ import {
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
-  Spinner,
 } from 'reactstrap'
 import { Colxx, Separator } from 'components/common/CustomBootstrap'
 import IntlMessages from 'helpers/IntlMessages'
@@ -17,76 +15,70 @@ import { getCurrentColor } from 'helpers/Utils'
 import './index.scss'
 import http from 'helpers/http'
 import DataTablePagination from 'components/DatatablePagination'
-import { orderDataByDate, orderOptions, pageSizes } from 'helpers/OrderData'
 import { API_ENDPOINT } from 'config/api'
 
+const pageSizes = [20, 40, 80]
+const orderOptions = ['Terbaru', 'Terlama']
+
 const Pengguna = () => {
+  const [data, setData] = useState([])
+  const [filter, setFilter] = useState({
+    search: '',
+    order: 'Terbaru',
+  })
   const [currentPageSize, setCurrentPageSize] = useState(pageSizes[0])
-  const [selectedOrder, setSelectedOrder] = useState('Terbaru')
-  const [dataPengguna, setDataPengguna] = useState([])
-  const [filteredData, setFiltered] = useState([])
-  const [search, setSearch] = useState('')
-  const [display, setDisplay] = useState(false)
-
-  useEffect(() => {
-    getCurrentColor()
-
-    getUsers()
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  // get all users
-  const getUsers = async () => {
-    setDisplay(true)
-    await http
-      .get(API_ENDPOINT.GET_ALL_USER)
-      .then((res) => {
-        const result = res.data.data
-        const orderResult = orderDataByDate('Terbaru', result)
-        setDataPengguna(orderResult)
-        setDisplay(false)
-      })
-      .catch((err) => {
-        alert(err.data)
-        setDisplay(false)
-      })
-  }
-
-  const color = getCurrentColor()
-
-  const handleChange = (e) => {
-    e.preventDefault()
-    setSearch(e.target.value)
-  }
-
-  const handleOrder = (option) => {
-    const array = orderDataByDate(option, filteredData)
-    setFiltered(array)
-    setSelectedOrder(option)
-  }
-
-  //pagination
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPage, setTotalPage] = useState(0)
 
-  useEffect(() => {
-    setFiltered(
-      dataPengguna.filter((tr) => {
-        return tr.is_verified?.toLowerCase().includes(search)
-      })
-    )
-  }, [dataPengguna, search])
+  const color = getCurrentColor()
 
   useEffect(() => {
-    setTotalPage(Math.ceil(filteredData.length / currentPageSize))
-  }, [filteredData, currentPageSize])
+    getCurrentColor()
+    getUsers()
+  }, [])
 
   useEffect(() => {
-    if (currentPage > totalPage) {
-      setCurrentPage(1)
-    }
+    setTotalPage((filteredData().length / currentPageSize).toFixed())
+  }, [filteredData(), currentPageSize]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (currentPage > totalPage) setCurrentPage(1)
   }, [totalPage, currentPage])
+
+  const getUsers = () => {
+    http
+      .get(API_ENDPOINT.GET_ALL_USER)
+      .then((res) => {
+        setData(res.data.data)
+      })
+      .catch((err) => {
+        console.error('Error get users data: ', err)
+      })
+  }
+
+  function filteredData() {
+    let u
+
+    // ORDER
+    if (filter.order === 'Terbaru') {
+      u = data.sort((a, b) => {
+        return new Date(b.tanggal_dibuat) - new Date(a.tanggal_dibuat)
+      })
+    }
+
+    if (filter.order === 'Terlama') {
+      u = data.sort((a, b) => {
+        return new Date(a.tanggal_dibuat) - new Date(b.tanggal_dibuat)
+      })
+    }
+
+    // SEARCH
+    u = data.filter((x) =>
+      x.name?.toLowerCase().includes(filter.search.toLowerCase())
+    )
+
+    return u
+  }
 
   return (
     <>
@@ -101,19 +93,17 @@ const Pengguna = () => {
           <div className="d-block d-md-inline-block pt-1">
             <UncontrolledDropdown className="mr-1 float-md-left btn-group mb-1">
               <DropdownToggle caret color="outline-dark" size="xs">
-                <IntlMessages id="pages.orderby" /> {selectedOrder}
+                <IntlMessages id="pages.orderby" /> {filter.order}
               </DropdownToggle>
               <DropdownMenu>
-                {orderOptions.map((order, index) => {
-                  return (
-                    <DropdownItem
-                      key={index}
-                      onClick={() => handleOrder(order.label)}
-                    >
-                      {order.label}
-                    </DropdownItem>
-                  )
-                })}
+                {orderOptions.map((order, index) => (
+                  <DropdownItem
+                    key={index}
+                    onClick={() => setFilter({ ...filter, order })}
+                  >
+                    {order}
+                  </DropdownItem>
+                ))}
               </DropdownMenu>
             </UncontrolledDropdown>
             <div className="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
@@ -121,9 +111,10 @@ const Pengguna = () => {
                 type="text"
                 name="keyword"
                 id="search"
-                placeholder="Search..."
-                value={search}
-                onChange={handleChange}
+                placeholder="Search pengguna..."
+                onChange={(e) =>
+                  setFilter({ ...filter, search: e.target.value })
+                }
               />
             </div>
           </div>
@@ -136,16 +127,14 @@ const Pengguna = () => {
                 {currentPageSize}
               </DropdownToggle>
               <DropdownMenu right>
-                {pageSizes.map((size, index) => {
-                  return (
-                    <DropdownItem
-                      key={index}
-                      onClick={() => setCurrentPageSize(size)}
-                    >
-                      {size}
-                    </DropdownItem>
-                  )
-                })}
+                {pageSizes.map((size, index) => (
+                  <DropdownItem
+                    key={index}
+                    onClick={() => setCurrentPageSize(size)}
+                  >
+                    {size}
+                  </DropdownItem>
+                ))}
               </DropdownMenu>
             </UncontrolledDropdown>
           </div>
@@ -173,43 +162,16 @@ const Pengguna = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {display ? (
-                    <tr>
-                      <td className="spinner-table">
-                        <Spinner color="primary">Loading...</Spinner>
-                      </td>
-                      <td className="spinner-table">
-                        <Spinner color="primary">Loading...</Spinner>
-                      </td>
-                      <td className="spinner-table">
-                        <Spinner color="primary">Loading...</Spinner>
-                      </td>
-                      <td className="spinner-table">
-                        <Spinner color="primary">Loading...</Spinner>
-                      </td>
-                      <td className="spinner-table">
-                        <Spinner color="primary">Loading...</Spinner>
-                      </td>
-                      <td className="spinner-table">
-                        <Spinner color="primary">Loading...</Spinner>
-                      </td>
-                      <td className="spinner-table">
-                        <Spinner color="primary">Loading...</Spinner>
-                      </td>
-                      <td className="spinner-table">
-                        <Spinner color="primary">Loading...</Spinner>
-                      </td>
-                    </tr>
-                  ) : (
-                    filteredData
+                  {filteredData().length !== 0 ? (
+                    filteredData()
                       .slice(
                         (currentPage - 1) * currentPageSize,
                         currentPage * currentPageSize
                       )
-                      .map((item, idx) => (
-                        <tr key={idx}>
+                      .map((item, index) => (
+                        <tr key={index}>
                           <td>
-                            {(currentPage - 1) * currentPageSize + idx + 1}
+                            {(currentPage - 1) * currentPageSize + index + 1}
                           </td>
                           <td>{item.name}</td>
                           <td>
@@ -218,26 +180,37 @@ const Pengguna = () => {
                           <td>{item.email}</td>
                           <td>{item.no_telp === null ? '-' : item.no_telp}</td>
                           <td>{item.role}</td>
-                          <td>{item.tanggal_dibuat}</td>
+                          <td>{item.tanggal_dibuat.substring(0, 10)}</td>
                           <td>
-                            {item.is_verified=== 'Verified' && (
-                            <p className="text-success rounded text-center status status-success bg-status-success">
-                              Terverifikasi
-                            </p>
-                          )}
-                          {item.is_verified === 'Pending' && (
-                            <p className="text-warning rounded text-center status status-pending bg-status-pending">
-                              {item.is_verified}
-                            </p>
-                          )}
-                          {item.is_verified === null && (
-                            <p className="text-danger rounded text-center status status-danger bg-status-danger">
-                              Tidak
-                            </p>
-                          )}
+                            {item.is_verified === 'Verified' && (
+                              <p className="text-success rounded text-center status status-success bg-status-success">
+                                {item.is_verified}
+                              </p>
+                            )}
+                            {item.is_verified === 'Pending' && (
+                              <p className="text-warning rounded text-center status status-pending bg-status-pending">
+                                {item.is_verified}
+                              </p>
+                            )}
+                            {item.is_verified === null && (
+                              <p className="text-danger rounded text-center status status-danger bg-status-danger">
+                                {item.is_verified}
+                              </p>
+                            )}
                           </td>
                         </tr>
                       ))
+                  ) : (
+                    <tr>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
                   )}
                 </tbody>
               </Table>
@@ -247,16 +220,18 @@ const Pengguna = () => {
       </Row>
       <Row>
         <Colxx>
-          <div className="float-md-right">
-            <DataTablePagination
-              page={currentPage - 1}
-              pages={totalPage}
-              canNext={currentPage < totalPage}
-              canPrevious={currentPage > 1}
-              onPageChange={(page) => setCurrentPage(page + 1)}
-              paginationMaxSize={10}
-            />
-          </div>
+          {totalPage !== '0' && (
+            <div className="float-md-right">
+              <DataTablePagination
+                page={currentPage - 1}
+                pages={totalPage}
+                canNext={currentPage < Number(totalPage)}
+                canPrevious={currentPage > 1}
+                onPageChange={(page) => setCurrentPage(page + 1)}
+                paginationMaxSize={totalPage > 10 ? 10 : Number(totalPage)}
+              />
+            </div>
+          )}
         </Colxx>
       </Row>
     </>

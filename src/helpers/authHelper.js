@@ -1,4 +1,3 @@
-import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { isAuthGuardActive } from 'constants/defaultValues'
 import Cookies from 'js-cookie'

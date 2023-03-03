@@ -1,5 +1,5 @@
 import moment from 'moment'
-import React, { forwardRef, useEffect, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 
 const DateFormat = {
@@ -42,9 +42,7 @@ const DatesRangePicker = ({
     }
 
     initializeData()
-
-    // eslint-disable-next-line
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (onChange) onChange(startDate, endDate)
@@ -55,6 +53,7 @@ const DatesRangePicker = ({
       {moment(value).format(DateFormat[dateType])}
     </button>
   ))
+
   CustomDateButton.displayName = 'Custom Date Button'
 
   const handleChangeStart = (value) => {

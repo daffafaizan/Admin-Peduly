@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { injectIntl } from 'react-intl'
 import ReactAutoSuggest from 'components/common/ReactAutoSuggest'
 import cakes from 'data/cakes'

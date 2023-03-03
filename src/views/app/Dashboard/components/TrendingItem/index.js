@@ -1,19 +1,15 @@
-/* eslint-disable no-unused-vars */
-
 import { API_URL, IMAGE_CONTEXT } from 'config/api'
 import IdrFormat from 'helpers/IdrFormat'
 import moment from 'moment'
-import React from 'react'
 import { Link } from 'react-router-dom'
 import { Progress } from 'reactstrap'
-
 import './index.scss'
 
 const TrendingItem = ({ item }) => {
   return (
     <Link
       to={{
-        pathname: `/app/halaman-galang-dana/detail/${item.judul_slug}`,
+        pathname: `/app/halaman-galang-dana/detail/${item.id}`,
       }}
       className="trending-item"
     >
@@ -30,7 +26,12 @@ const TrendingItem = ({ item }) => {
           />
         </div>
         <div className="container-detail">
-          <p className="line-clamp-2 text-left judul">{item.judul_campaign}</p>
+          <p
+            className="line-clamp-2 text-left judul"
+            style={{ fontSize: '1rem', fontWeight: 'normal' }}
+          >
+            {item.judul_campaign}
+          </p>
           <Progress
             value={Math.min(
               Math.max((item.total_donasi / item.nominal_campaign) * 100, 0),

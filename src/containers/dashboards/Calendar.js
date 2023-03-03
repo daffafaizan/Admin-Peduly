@@ -1,4 +1,3 @@
-import React from 'react'
 import { Card, CardBody, CardTitle } from 'reactstrap'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'

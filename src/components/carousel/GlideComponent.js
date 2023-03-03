@@ -1,4 +1,3 @@
-// eslint-disable react/forbid-prop-types
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Glide from '@glidejs/glide'
@@ -83,7 +82,7 @@ function GlideComponent(props) {
               className="glide__arrow glide__arrow--left left-arrow btn btn-link"
               data-glide-dir="<"
             >
-              <i className="simple-icon-arrow-left" />
+              ☚
             </button>
 
             <div
@@ -98,7 +97,7 @@ function GlideComponent(props) {
               className="glide__arrow glide__arrow--right right-arrow btn btn-link"
               data-glide-dir=">"
             >
-              <i className="simple-icon-arrow-right" />
+              ☛
             </button>
           </div>
         )}

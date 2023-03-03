@@ -1,6 +1,4 @@
-import React from 'react'
 import { Formik, Form, Field } from 'formik'
-
 import { Row, Card, CardBody, FormGroup, Label, Button } from 'reactstrap'
 import { Colxx } from 'components/common/CustomBootstrap'
 

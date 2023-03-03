@@ -1,4 +1,3 @@
-import React from 'react'
 import moment from 'moment'
 
 const CalendarToolbar = (toolbar) => {
@@ -13,11 +12,10 @@ const CalendarToolbar = (toolbar) => {
   }
 
   const label = () => {
-    const date = moment(toolbar.date)
     return (
       <span>
-        <span>{date.format('MMMM')} </span>
-        <span> {date.format('YYYY')}</span>
+        <span>{moment(toolbar.date).format('MMMM')} </span>
+        <span> {moment(toolbar.date).format('YYYY')}</span>
       </span>
     )
   }
