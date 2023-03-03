@@ -40,13 +40,13 @@ const TrendingItem = ({ item }) => {
           />
           <div className="info-container">
             <div className="info-item">
-              <p className="title line-clamp">Target</p>
+              <p className="title line-clamp">Terkumpul</p>
               <p className="nominal line-clamp">
                 Rp{item.total_donasi ? IdrFormat(item.total_donasi) : ''}
               </p>
             </div>
             <div className="info-item">
-              <p className="title line-clamp">Terkumpul</p>
+              <p className="title line-clamp">Target</p>
               <p className="nominal line-clamp">
                 Rp
                 {item.nominal_campaign ? IdrFormat(item.nominal_campaign) : ''}
