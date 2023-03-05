@@ -19,6 +19,7 @@ import './index.scss'
 import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import { API_URL } from 'config/api'
 
 const EditSlide = () => {
   const [data, setData] = useState({
@@ -41,7 +42,7 @@ const EditSlide = () => {
       const token = Cookies.get('token')
       const config = {
         method: 'get',
-        url: `https://dev.peduly.com/api/slides/${id}`,
+        url: `${API_URL}/api/slides/${id}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -74,7 +75,7 @@ const EditSlide = () => {
     const token = Cookies.get('token')
     const config = {
       method: 'put',
-      url: `https://dev.peduly.com/api/slides/${id}/update`,
+      url: `${API_URL}/api/slides/${id}/update`,
       headers: {
         Authorization: `Bearer ${token}`,
       },

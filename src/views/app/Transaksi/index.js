@@ -42,7 +42,7 @@ const TransaksiDonasi = () => {
   useEffect(() => {
     getCurrentColor
   }, [])
-
+  
   const color = getCurrentColor()
 
   useEffect(() => {

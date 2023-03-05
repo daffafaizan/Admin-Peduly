@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useState, useEffect } from 'react'
-import { Row, Card, CardBody, Table, Button, Modal, ModalBody, Input } from 'reactstrap'
+import { Row, Card, CardBody, Table, Button, Modal, ModalBody } from 'reactstrap'
 import { Colxx } from 'components/common/CustomBootstrap'
 import { getCurrentColor } from 'helpers/Utils'
 import IdrFormat from 'helpers/IdrFormat'
@@ -12,6 +12,37 @@ import './index.scss'
 import DataTablePagination from 'components/DatatablePagination'
 import moment from 'moment'
 import { API_URL } from 'config/api'
+import Select from 'react-select'
+
+const optionsStatusTarikDana = [
+  {
+    value: "pending",
+    label: "pending"
+  },
+  {
+    value: "approved",
+    label: "approved"
+  },
+  {
+    value: "rejected",
+    label: "Dibatalkan"
+  }
+]
+
+// const optionsStatusGalangDana = [
+//   {
+//     value: "drafted",
+//     label: "Pending"
+//   },
+//   {
+//     value: "published",
+//     label: "Aktif"
+//   },
+//   {
+//     value: "suspend",
+//     label: "Suspend"
+//   }
+// ]
 
 const DetailGalangDana = ({ match }) => {
   const [detail, setDetail] = useState([])
@@ -21,104 +52,178 @@ const DetailGalangDana = ({ match }) => {
   const [modal, setModal] = useState(false)
   const [nestedModal, setNestedModal] = useState(false)
   const [closeAll, setCloseAll] = useState(false)
+  // const [modalStatusGalangDana, setModalStatusGalangDana] = useState(false)
   const [dataTarikDana, setDataTarikDana] = useState([])
-  const [dataListTarikDana, setDataListTarikDana] = useState({})
-  const [data, setData] = useState({
+  const [detailTarikDana, setDetailTarikDana] = useState({
     tanggal: "",
     nominal: 0,
-    keterangan: "",
-    status: ""
+    status: "",
+    keterangan: ""
   })
+  const [fetchStatus, setFetchStatus] = useState(false)
+  const [idTarikDana, setIdTarikDana] = useState(null)
 
-  const toggle = () => setModal(!modal)
+  const toggle = (idPenarikan) => {
+    setModal(!modal)
+    setIdTarikDana(idPenarikan)
+  }
+
   const toggleNested = () => {
     setNestedModal(!nestedModal)
     setCloseAll(false)
   }
+
   const toggleAll = () => {
+    handleSubmit()
     setNestedModal(!nestedModal)
     setCloseAll(true)
   }
 
+  // const tutupModalGalangDana = () => {
+  //   setModalStatusGalangDana(false)
+  // }
 
   useEffect(() => {
-    // get token
-    const token = Cookies.get('token')
-    const getDetailGalangDanaById = () => {
-      // get detail galang dana data by id
-      axios
-        .get(`${API_URL}/api/admin/galangdana/${id}/details`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          const responseData = res.data.data
-          setDetail(responseData)
-        })
-        .catch((err) => {
-          console.log('Error: ', err)
-        })
-    }
-
-    //get detail transaksi galang dana by id
-    const getDetailTransaksiGalangDanaById = () => {
-      axios
-        .get(`${API_URL}/api/admin/galangdana/${id}/transactions`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          const responseData = res.data.data
-          const orderResponseData = responseData.sort(function (a, b) {
-            return (
-              moment(b.tanggal_donasi, 'YYYY/MM/DD HH:mm:ss') -
-              moment(a.tanggal_donasi, 'YYYY/MM/DD HH:mm:ss')
-            )
-          })
-          setTransaksi(orderResponseData)
-        })
-        .catch((err) => {
-          console.log('Error: ', err)
-        })
-    }
-
-    //get All data tarik dana 
-    const getAllDataTarikDana = () => {
-      axios
-        .get(`${API_URL}/api/admin/galangdana/${id}/funds`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          const responseData = res.data
-          const orderResponseData = responseData.data.sort(function (a, b) {
-            return (
-              moment(b.updated_at, 'YYYY/MM/DD HH:mm:ss') -
-              moment(a.updated_at, 'YYYY/MM/DD HH:mm:ss')
-            )
-          })
-          setDataListTarikDana(orderResponseData)
-          setDataTarikDana(responseData)
-        })
-        .catch((err) => {
-          console.log('Error: ', err)
-        })
-        console.log(dataListTarikDana, dataTarikDana)
-    }
-
     getDetailGalangDanaById()
-    getDetailTransaksiGalangDanaById()
     getAllDataTarikDana()
-  }, [dataListTarikDana, dataTarikDana, id])
+    getDetailTransaksiGalangDanaById()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id])
+
+  // const toggleStatusGalangDana = () => {
+  //   setModalStatusGalangDana(!modalStatusGalangDana)
+  // }
+
 
   useEffect(() => {
     getCurrentColor()
   }, [])
 
+
   const color = getCurrentColor()
+
+  //get token
+  const token = Cookies.get('token')
+  const getDetailGalangDanaById = async () => {
+    // get detail galang dana data by id
+    await axios
+      .get(`${API_URL}/api/admin/galangdana/${id}/details`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        const responseData = res.data.data
+        setDetail(responseData)
+      })
+      .catch((err) => {
+        console.log('Error: ', err)
+      })
+  }
+
+  //get detail transaksi galang dana by id
+  const getDetailTransaksiGalangDanaById = async () => {
+    await axios
+      .get(`${API_URL}/api/admin/galangdana/${id}/transactions`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        const responseData = res.data.data
+        const orderResponseData = responseData.sort(function (a, b) {
+          return (
+            moment(b.tanggal_donasi, 'YYYY/MM/DD HH:mm:ss') -
+            moment(a.tanggal_donasi, 'YYYY/MM/DD HH:mm:ss')
+          )
+        })
+        setTransaksi(orderResponseData)
+      })
+      .catch((err) => {
+        console.log('Error: ', err)
+      })
+  }
+
+  //get All data tarik dana 
+  const getAllDataTarikDana = async () => {
+    await axios
+      .get(`${API_URL}/api/admin/galangdana/${id}/funds`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        const responseData = res.data
+        setDataTarikDana(responseData)
+      })
+      .catch((err) => {
+        console.log('Error: ', err)
+      })
+  }
+
+  // get one detail data tarik dana 
+  useEffect(() => {
+    if (idTarikDana) {
+      getDetailTarikDana()
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idTarikDana])
+
+  useEffect(() => {
+    if (fetchStatus) {
+      getAllDataTarikDana()
+      getDetailTarikDana()
+      setFetchStatus(false)
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchStatus])
+
+  console.log(detailTarikDana.status)
+  const getDetailTarikDana = async () => {
+    await axios
+      .get(`${API_URL}/api/admin/penarikandana/${idTarikDana}/fund`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        const responseData = res.data.data
+        setDetailTarikDana({
+          tanggal: responseData.updated_at,
+          nominal: responseData.nominal,
+          keterangan: responseData.details,
+          status: responseData.status
+        })
+      })
+      .catch((err) => {
+        console.log('Error: ', err)
+      })
+  }
+
+
+  const handleSubmit = () => {
+    //post one detail data tarik dana 
+    const postDetailTarikDana = () => {
+      axios
+        .post(`${API_URL}/api/admin/penarikandana/${idTarikDana}/approve`, {
+          nominal: detailTarikDana.nominal,
+          keterangan: detailTarikDana.keterangan
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(() => {
+          setFetchStatus(true)
+        })
+        .catch((err) => {
+          console.log('Error: ', err)
+        })
+    }
+    postDetailTarikDana()
+  }
 
   //pagination
   const [currentPage, setCurrentPage] = useState(1)
@@ -148,6 +253,84 @@ const DetailGalangDana = ({ match }) => {
     return moment(tanggal).format('DD/MM/YYYY HH:mm')
   }
 
+  // const customStylesStatusTarikDana = {
+  //   option: (provided, state) => ({
+  //     ...provided,
+  //     border: '1px solid #F4F4F4',
+  //     color: state.isSelected ? 'white' : 'black',
+  //     padding: 10,
+  //     zIndex: 99999,
+  //     backgroundColor: state.isSelected ? '#E7513B' : 'white',
+  //   }),
+  //   control: (provided) => ({
+  //     ...provided,
+  //     height: '50px',
+  //     width: '152px',
+  //     paddingLeft: 5,
+  //     paddingRight: 0,
+  //     borderRadius: '30px',
+  //     border: '2px solid  rgba(252, 174, 3, 0.2)',
+  //     backgroundColor: detailTarikDana.status === 'pending' && 'rgba(252, 174, 3, 0.2)',
+  //     color: '#FCAE03',
+  //     font: 'root.font.regular',
+  //     marginTop: 1,
+  //     boxShadow: '0 !important',
+  //     '&:hover': {
+  //       outline: 'none !important',
+  //       borderColor: 'rgba(0, 0, 0, 0.3)',
+  //     },
+  //     '&:focus': {
+  //       outline: 'auto 2px Highlight !important',
+  //     },
+  //   }),
+  //   singleValue: (provided, state) => {
+  //     const opacity = state.isDisabled ? 0.5 : 1
+  //     const transition = 'opacity 300ms'
+
+
+  //     return { ...provided, opacity, transition }
+  //   },
+  // }
+
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      border: '1px solid #F4F4F4',
+      color: state.isSelected ? 'white' : 'black',
+      padding: 10,
+      zIndex: 99999,
+      backgroundColor: state.isSelected ? '#E7513B' : 'white',
+    }),
+    control: (provided) => ({
+      ...provided,
+      height: '50px',
+      width: '152px',
+      paddingLeft: 5,
+      paddingRight: 0,
+      borderRadius: '30px',
+      border: '2px solid  rgba(252, 174, 3, 0.2)',
+      backgroundColor: detailTarikDana.status === 'pending' && 'rgba(252, 174, 3, 0.2)',
+      color: '#FCAE03',
+      font: 'root.font.regular',
+      marginTop: 1,
+      boxShadow: '0 !important',
+      '&:hover': {
+        outline: 'none !important',
+        borderColor: 'rgba(0, 0, 0, 0.3)',
+      },
+      '&:focus': {
+        outline: 'auto 2px Highlight !important',
+      },
+    }),
+    singleValue: (provided, state) => {
+      const opacity = state.isDisabled ? 0.5 : 1
+      const transition = 'opacity 300ms'
+
+
+      return { ...provided, opacity, transition }
+    },
+  }
+
   return (
     <>
       <Row>
@@ -166,31 +349,45 @@ const DetailGalangDana = ({ match }) => {
             >
               {detail.judul_campaign}
             </a>
-            <Input
-              id="selectStatusGalangDana"
-              name="select"
-              type="select"
-              onChange={toggleNested}
-              className="input-select-galang-dana"
-            >
-              <option className="my-2">
-                Status Pending
-              </option>
-              <option className="my-2">
-                Status Aktif
-              </option>
-              <option className="my-2">
-                Status Suspend
-              </option>
-            </Input>
+            <form>
+              {/* <Select
+                className="selectStatusGalangDAna"
+                classNamePrefix="select"
+                styles={customStylesStatusTarikDana}
+                placeholder="Pilih Status"
+                defaultValue={
+                  { value: 'Pending', label: 'Pending' }
+                }
+                name="color"
+                options={optionsStatusGalangDana}
+                onChange={
+                  toggleStatusGalangDana}
+              /> */}
+            </form>
           </div>
         </div>
       </div>
 
+      {/* <Modal
+        isOpen={modalStatusGalangDana} toggle={toggleStatusGalangDana}
+        onClosed={tutupModalGalangDana}
+        className="card modal-tarik-dana-nested"
+      >
+        <ModalBody>Apakah kamu yakin ingin merubah status?</ModalBody>
+        <div className="modal-nested-button">
+          <Button className="btn-secondary mr-4" onClick={tutupModalGalangDana}>
+            Tidak
+          </Button>
+          <Button type="submit" color="primary" onClick={tutupModalGalangDana}>
+            Iya
+          </Button>
+        </div>
+      </Modal> */}
+
       <Row>
         <Colxx xxs="12" className="mb-4">
-          <Card className="mb-4 p-0 flex-row mr-0" style={{ borderRadius: '15px', margin: 0 }}>
-            <Row className="sidebar-galang-dana col-2">
+          <Card className="mb-4 p-0 flex-lg-row flex-md-column mr-0" style={{ borderRadius: '15px', margin: 0 }}>
+            <Row className="sidebar-galang-dana col-lg-2 col-md-12">
               <div className="sidebar-menu-galang-dana">
                 <span className={`${mode === 'detail' ? 'button-menu-galang-dana-active' : 'button-menu-galang-dana'}`}
                   onClick={() => { setMode('detail') }}>Detail</span>
@@ -303,7 +500,7 @@ const DetailGalangDana = ({ match }) => {
                 <Table
                   hover
                   responsive
-                  className={`${!color.indexOf('dark') && 'table-dark-mode'}`}
+                  className={`${!color.indexOf('dark') ? 'table-dark-mode' : ''}`}
                 >
                   <thead>
                     <tr>
@@ -347,6 +544,16 @@ const DetailGalangDana = ({ match }) => {
                                 Berhasil
                               </p>
                             )}
+                            {item.status_donasi === 'Pendding' && (
+                              <p
+                                className="text-warning rounded text-center status bg-status-pending"
+                                style={{
+                                  maxWidth: '78px',
+                                }}
+                              >
+                                Pending
+                              </p>
+                            )}
                             {item.status_donasi === 'Pending' && (
                               <p
                                 className="text-warning rounded text-center status bg-status-pending"
@@ -355,6 +562,16 @@ const DetailGalangDana = ({ match }) => {
                                 }}
                               >
                                 Pending
+                              </p>
+                            )}
+                            {item.status_donasi === 'Refund' && (
+                              <p
+                                className="text-warning rounded text-center status bg-status-pending"
+                                style={{
+                                  maxWidth: '78px',
+                                }}
+                              >
+                                Refund
                               </p>
                             )}
                             {item.status_donasi === 'Rejected' && (
@@ -395,7 +612,7 @@ const DetailGalangDana = ({ match }) => {
                       <div className="container-card-half card-top">
                         <p className="judul">Total yang bisa ditarik</p>
                         <p className="content">
-                        Rp {konversiToNumber(dataTarikDana.sisa_payable)}
+                          Rp {konversiToNumber(dataTarikDana.sisa_payable)}
                         </p>
                       </div>
                     </Colxx>
@@ -409,7 +626,7 @@ const DetailGalangDana = ({ match }) => {
                 <Table
                   hover
                   responsive
-                  className={`${!color.indexOf('dark') && 'table-dark-mode'}`}
+                  className={`${!color.indexOf('dark') ? 'table-dark-mode' : ''}`}
                 >
                   <thead>
                     <tr>
@@ -420,12 +637,14 @@ const DetailGalangDana = ({ match }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr onClick={toggle} style={{ cursor: 'pointer' }}>
-                      <td>10/02/2023 14:50</td>
-                      <td>Rp 2.000.000</td>
-                      <td>Dana akan kami gunakan untuk keperluan bahan-bahan untuk pembangaunan masjid yaitu semen 2kg, batu bata 100 pcs.</td>
-                      <td>
-                        {/* {item.status_donasi === 'Approved' && (
+                    {//buat dapetin idTarikDana dari sini
+                      dataTarikDana.data.map((item) => (
+                        <tr onClick={() => { toggle(item.id) }} style={{ cursor: 'pointer' }} key={item.id}>
+                          <td>{formatDate(item.updated_at)}</td>
+                          <td>Rp {IdrFormat(item.nominal)}</td>
+                          <td>{item.details}</td>
+                          <td>
+                            {item.status === 'approved' && (
                               <p
                                 className="text-success rounded text-center status bg-status-success"
                                 style={{
@@ -435,7 +654,7 @@ const DetailGalangDana = ({ match }) => {
                                 Berhasil
                               </p>
                             )}
-                            {item.status_donasi === 'Pending' && (
+                            {item.status === 'pending' && (
                               <p
                                 className="text-warning rounded text-center status bg-status-pending"
                                 style={{
@@ -445,7 +664,7 @@ const DetailGalangDana = ({ match }) => {
                                 Pending
                               </p>
                             )}
-                            {item.status_donasi === 'Rejected' && (
+                            {item.status === 'rejected' && (
                               <p
                                 className="text-danger rounded text-center status bg-status-danger"
                                 style={{
@@ -454,9 +673,10 @@ const DetailGalangDana = ({ match }) => {
                               >
                                 Dibatalkan
                               </p>
-                            )} */}
-                      </td>
-                    </tr>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </Table>
               </CardBody>
@@ -483,6 +703,7 @@ const DetailGalangDana = ({ match }) => {
               <div className="form-tarik-dana">
                 <Colxx lg={8} className="d-flex flex-column">
                   <h3 className="mb-4">Permintaan Tarik Dana</h3>
+
                   <div className="form-box-input">
                     <label
                       htmlFor="tanggal"
@@ -493,7 +714,7 @@ const DetailGalangDana = ({ match }) => {
                     <p
                       id="tanggal"
                       className="form-text"
-                    > {data.tanggal} </p>
+                    > {formatDate(detailTarikDana.tanggal)} </p>
                   </div>
                   <div className="form-box-input mb-3 mt-4">
                     <label
@@ -505,12 +726,12 @@ const DetailGalangDana = ({ match }) => {
                     <input
                       id="nominal"
                       className="form-input mb-3"
-                      type="text"
+                      type="number"
                       placeholder="masukan nominal"
                       maxLength="50"
-                      value={data.nominal}
+                      value={detailTarikDana.nominal}
                       onChange={(e) =>
-                        setData({ ...data, nominal: e.target.value })
+                        setDetailTarikDana({ ...detailTarikDana, nominal: e.target.value })
                       }
                     />
                   </div>
@@ -526,10 +747,10 @@ const DetailGalangDana = ({ match }) => {
                       className="form-textarea"
                       type="text"
                       placeholder="keterangan"
-                      maxLength="50"
-                      value={data.keterangan}
-                      onChange={(e) =>
-                        setData({ ...data, keterangan: e.target.value })
+                      value={detailTarikDana.keterangan}
+                      onChange={(e) => {
+                        setDetailTarikDana({ ...detailTarikDana, keterangan: e.target.value })
+                      }
                       }
                     />
                   </div>
@@ -544,37 +765,43 @@ const DetailGalangDana = ({ match }) => {
                   >
                     Status
                   </label>
-                  <Input
-                    id="exampleSelect"
-                    name="select"
-                    type="select"
-                    onChange={toggleNested}
-                    className="input-select"
-                  >
-                    <option className="my-2">
-                      Pending
-                    </option>
-                    <option className="my-2">
-                      Berhasil
-                    </option>
-                    <option className="my-2">
-                      Dibatalkan
-                    </option>
-                  </Input>
+                  {/* statusnya belum mau ke display waktu 1X render */}
+                  <Select
+                    className="basic-single"
+                    classNamePrefix="select"
+                    styles={customStyles}
+                    placeholder="Pilih Status"
+                    defaultValue={
+                      detailTarikDana ? { value: detailTarikDana.status, label: detailTarikDana.status } : "Pilih Status"
+                    }
+                    name="color"
+                    value={
+                      optionsStatusTarikDana.value === null ? '' : optionsStatusTarikDana.value
+                    }
+                    components={{
+                      IndicatorSeparator: () => null,
+                    }}
+                    isSearchable={false}
+                    options={optionsStatusTarikDana}
+                    onChange={(e) => {
+                      setDetailTarikDana({ ...detailTarikDana, status: e.value })
+                      toggleNested()
+                    }}
+                  />
                 </Colxx>
               </div>
               <Modal
                 isOpen={nestedModal}
                 toggle={toggleNested}
                 onClosed={closeAll ? toggle : undefined}
-                className="card modal-tarik-dana"
+                className="card modal-tarik-dana-nested"
               >
-                <ModalBody>Stuff and things</ModalBody>
-                <div className="d-flex">
-                  <Button color="primary" onClick={toggleNested}>
+                <ModalBody>Apakah kamu yakin ingin merubah status?</ModalBody>
+                <div className="modal-nested-button">
+                  <Button className="btn-secondary mr-4" onClick={toggleNested}>
                     Tidak
                   </Button>
-                  <Button color="secondary" onClick={toggleAll}>
+                  <Button type="submit" color="primary" onClick={toggleAll}>
                     Iya
                   </Button>
                 </div>
