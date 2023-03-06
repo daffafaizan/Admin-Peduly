@@ -29,20 +29,20 @@ const optionsStatusTarikDana = [
   }
 ]
 
-// const optionsStatusGalangDana = [
-//   {
-//     value: "drafted",
-//     label: "Pending"
-//   },
-//   {
-//     value: "published",
-//     label: "Aktif"
-//   },
-//   {
-//     value: "suspend",
-//     label: "Suspend"
-//   }
-// ]
+const optionsStatusGalangDana = [
+  {
+    value: "drafted",
+    label: "Pending"
+  },
+  {
+    value: "published",
+    label: "Aktif"
+  },
+  {
+    value: "suspend",
+    label: "Suspend"
+  }
+]
 
 const DetailGalangDana = ({ match }) => {
   const [detail, setDetail] = useState([])
@@ -52,7 +52,8 @@ const DetailGalangDana = ({ match }) => {
   const [modal, setModal] = useState(false)
   const [nestedModal, setNestedModal] = useState(false)
   const [closeAll, setCloseAll] = useState(false)
-  // const [modalStatusGalangDana, setModalStatusGalangDana] = useState(false)
+  const [modalStatusGalangDana, setModalStatusGalangDana] = useState(false)
+  const [statusGalangDana, setStatusGalangDana] = useState("")
   const [dataTarikDana, setDataTarikDana] = useState([])
   const [detailTarikDana, setDetailTarikDana] = useState({
     tanggal: "",
@@ -79,9 +80,10 @@ const DetailGalangDana = ({ match }) => {
     setCloseAll(true)
   }
 
-  // const tutupModalGalangDana = () => {
-  //   setModalStatusGalangDana(false)
-  // }
+  const tutupModalGalangDana = () => {
+    handleStatusGalangDana()
+    setModalStatusGalangDana(false)
+  }
 
   useEffect(() => {
     getDetailGalangDanaById()
@@ -90,9 +92,9 @@ const DetailGalangDana = ({ match }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
-  // const toggleStatusGalangDana = () => {
-  //   setModalStatusGalangDana(!modalStatusGalangDana)
-  // }
+  const toggleStatusGalangDana = () => {
+    setModalStatusGalangDana(!modalStatusGalangDana)
+  }
 
 
   useEffect(() => {
@@ -144,6 +146,28 @@ const DetailGalangDana = ({ match }) => {
       })
   }
 
+  //post Status galang dana
+  const handleStatusGalangDana = () => {
+    //post one detail data tarik dana 
+    const postStatusGalangDana = () => {
+      axios
+        .put(`${API_URL}/api/admin/galangdana/${id}/status`, {
+          status: statusGalangDana
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(() => {
+          setFetchStatus(true)
+        })
+        .catch((err) => {
+          console.log('Error: ', err)
+        })
+    }
+    postStatusGalangDana()
+  }
+
   //get All data tarik dana 
   const getAllDataTarikDana = async () => {
     await axios
@@ -172,6 +196,7 @@ const DetailGalangDana = ({ match }) => {
 
   useEffect(() => {
     if (fetchStatus) {
+      getDetailGalangDanaById()
       getAllDataTarikDana()
       getDetailTarikDana()
       setFetchStatus(false)
@@ -253,44 +278,44 @@ const DetailGalangDana = ({ match }) => {
     return moment(tanggal).format('DD/MM/YYYY HH:mm')
   }
 
-  // const customStylesStatusTarikDana = {
-  //   option: (provided, state) => ({
-  //     ...provided,
-  //     border: '1px solid #F4F4F4',
-  //     color: state.isSelected ? 'white' : 'black',
-  //     padding: 10,
-  //     zIndex: 99999,
-  //     backgroundColor: state.isSelected ? '#E7513B' : 'white',
-  //   }),
-  //   control: (provided) => ({
-  //     ...provided,
-  //     height: '50px',
-  //     width: '152px',
-  //     paddingLeft: 5,
-  //     paddingRight: 0,
-  //     borderRadius: '30px',
-  //     border: '2px solid  rgba(252, 174, 3, 0.2)',
-  //     backgroundColor: detailTarikDana.status === 'pending' && 'rgba(252, 174, 3, 0.2)',
-  //     color: '#FCAE03',
-  //     font: 'root.font.regular',
-  //     marginTop: 1,
-  //     boxShadow: '0 !important',
-  //     '&:hover': {
-  //       outline: 'none !important',
-  //       borderColor: 'rgba(0, 0, 0, 0.3)',
-  //     },
-  //     '&:focus': {
-  //       outline: 'auto 2px Highlight !important',
-  //     },
-  //   }),
-  //   singleValue: (provided, state) => {
-  //     const opacity = state.isDisabled ? 0.5 : 1
-  //     const transition = 'opacity 300ms'
+  const customStylesStatusGalangDana = {
+    option: (provided, state) => ({
+      ...provided,
+      border: '1px solid #F4F4F4',
+      color: state.isSelected ? 'white' : 'black',
+      padding: 10,
+      zIndex: 99999,
+      backgroundColor: state.isSelected ? '#E7513B' : 'white',
+    }),
+    control: (provided) => ({
+      ...provided,
+      height: '50px',
+      width: '152px',
+      paddingLeft: 5,
+      paddingRight: 0,
+      borderRadius: '30px',
+      border: '2px solid  rgba(252, 174, 3, 0.2)',
+      backgroundColor: 'transparent',
+      color: '#FCAE03',
+      font: 'root.font.regular',
+      marginTop: 1,
+      boxShadow: '0 !important',
+      '&:hover': {
+        outline: 'none !important',
+        borderColor: 'rgba(0, 0, 0, 0.3)',
+      },
+      '&:focus': {
+        outline: 'auto 2px Highlight !important',
+      },
+    }),
+    singleValue: (provided, state) => {
+      const opacity = state.isDisabled ? 0.5 : 1
+      const transition = 'opacity 300ms'
 
 
-  //     return { ...provided, opacity, transition }
-  //   },
-  // }
+      return { ...provided, opacity, transition }
+    },
+  }
 
   const customStyles = {
     option: (provided, state) => ({
@@ -350,25 +375,28 @@ const DetailGalangDana = ({ match }) => {
               {detail.judul_campaign}
             </a>
             <form>
-              {/* <Select
+              <Select
                 className="selectStatusGalangDAna"
                 classNamePrefix="select"
-                styles={customStylesStatusTarikDana}
+                styles={customStylesStatusGalangDana}
                 placeholder="Pilih Status"
                 defaultValue={
                   { value: 'Pending', label: 'Pending' }
                 }
                 name="color"
                 options={optionsStatusGalangDana}
-                onChange={
-                  toggleStatusGalangDana}
-              /> */}
+                onChange={(e)=> {
+                  setStatusGalangDana(e.value)
+                  toggleStatusGalangDana()
+                }
+                  }
+              />
             </form>
           </div>
         </div>
       </div>
 
-      {/* <Modal
+      <Modal
         isOpen={modalStatusGalangDana} toggle={toggleStatusGalangDana}
         onClosed={tutupModalGalangDana}
         className="card modal-tarik-dana-nested"
@@ -382,7 +410,7 @@ const DetailGalangDana = ({ match }) => {
             Iya
           </Button>
         </div>
-      </Modal> */}
+      </Modal>
 
       <Row>
         <Colxx xxs="12" className="mb-4">
@@ -772,7 +800,7 @@ const DetailGalangDana = ({ match }) => {
                     styles={customStyles}
                     placeholder="Pilih Status"
                     defaultValue={
-                      detailTarikDana ? { value: detailTarikDana.status, label: detailTarikDana.status } : "Pilih Status"
+                      detailTarikDana.status ? { value: detailTarikDana.status, label: detailTarikDana.status } : "Pilih Status"
                     }
                     name="color"
                     value={
