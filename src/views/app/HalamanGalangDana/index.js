@@ -216,11 +216,21 @@ const HalamanGalangDana = () => {
                               Berakhir
                             </p>
                           )}
+                          {item.status === 'Pending' && (
+                            <p
+                              className="text-warning rounded text-center status bg-status-pending"
+                              style={{
+                                maxWidth: '100px',
+                              }}
+                            >
+                            {item.status}
+                            </p>
+                          )}
                           {item.status === 'Suspend' && (
                             <p
                               className="text-warning rounded text-center status bg-status-pending"
                               style={{
-                                maxWidth: '80px',
+                                maxWidth: '100px',
                               }}
                             >
                             {item.status}

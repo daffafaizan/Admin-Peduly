@@ -201,11 +201,9 @@ const DetailGalangDana = ({ match }) => {
       getDetailTarikDana()
       setFetchStatus(false)
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchStatus])
 
-  console.log(detailTarikDana.status)
   const getDetailTarikDana = async () => {
     await axios
       .get(`${API_URL}/api/admin/penarikandana/${idTarikDana}/fund`, {
@@ -687,7 +685,7 @@ const DetailGalangDana = ({ match }) => {
                               <p
                                 className="text-success rounded text-center status bg-status-success"
                                 style={{
-                                  maxWidth: '90px',
+                                  maxWidth: '94px',
                                 }}
                               >
                                 Berhasil
@@ -697,7 +695,7 @@ const DetailGalangDana = ({ match }) => {
                               <p
                                 className="text-warning rounded text-center status bg-status-pending"
                                 style={{
-                                  maxWidth: '78px',
+                                  maxWidth: '94px',
                                 }}
                               >
                                 Pending
@@ -815,7 +813,7 @@ const DetailGalangDana = ({ match }) => {
                     }
                     name="color"
                     value={
-                      optionsStatusTarikDana.value === null ? '' : optionsStatusTarikDana.value
+                      defaultValueStatusTarikDana()
                     }
                     components={{
                       IndicatorSeparator: () => null,
