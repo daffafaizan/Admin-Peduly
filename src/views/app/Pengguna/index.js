@@ -73,7 +73,7 @@ const Pengguna = () => {
   useEffect(() => {
     setFiltered(
       dataPengguna.filter((tr) => {
-        return tr.is_verified?.toLowerCase().includes(search)
+        return tr.name?.toLowerCase().includes(search)
       })
     )
   }, [dataPengguna, search])

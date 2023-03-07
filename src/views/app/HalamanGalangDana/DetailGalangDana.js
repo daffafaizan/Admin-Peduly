@@ -4,15 +4,15 @@ import { Row, Card, CardBody, Table, Button, Modal, ModalBody } from 'reactstrap
 import { Colxx } from 'components/common/CustomBootstrap'
 import { getCurrentColor } from 'helpers/Utils'
 import IdrFormat from 'helpers/IdrFormat'
-import Breadcrumb from 'containers/navs/Breadcrumb'
+import BreadcrumbContainer from 'containers/navs/Breadcrumb'
 import { useParams } from 'react-router-dom'
-import Cookies from 'js-cookie'
-import axios from 'axios'
 import './index.scss'
 import DataTablePagination from 'components/DatatablePagination'
 import moment from 'moment'
 import { API_URL } from 'config/api'
 import Select from 'react-select'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 
 const optionsStatusTarikDana = [
   {
@@ -21,7 +21,7 @@ const optionsStatusTarikDana = [
   },
   {
     value: "approved",
-    label: "approved"
+    label: "Berhasil"
   },
   {
     value: "rejected",
@@ -356,14 +356,25 @@ const DetailGalangDana = ({ match }) => {
     },
   }
 
+  const defaultValueStatusTarikDana = () => {
+    if (detailTarikDana.status === "approved") {
+      return { value: detailTarikDana.status, label: "Berhasil" }
+    } else if (detailTarikDana.status === "pending") {
+      return { value: detailTarikDana.status, label: "Pending" }
+    } else {
+      return "pilih status"
+    }
+
+  }
+
   return (
     <>
       <Row>
         <Colxx xxs="12" className="p-0 m-0">
-          <Breadcrumb match={match} />
+          <BreadcrumbContainer match={match} />
         </Colxx>
       </Row>
-      <div key={detail.id}>
+      <div>
         <div className="d-flex" style={{ marginBottom: '38px' }}>
           <div className="d-flex w-full judul-container flex-column flex-md-row flex-wrap">
             <a
@@ -385,11 +396,11 @@ const DetailGalangDana = ({ match }) => {
                 }
                 name="color"
                 options={optionsStatusGalangDana}
-                onChange={(e)=> {
+                onChange={(e) => {
                   setStatusGalangDana(e.value)
                   toggleStatusGalangDana()
                 }
-                  }
+                }
               />
             </form>
           </div>
@@ -676,7 +687,7 @@ const DetailGalangDana = ({ match }) => {
                               <p
                                 className="text-success rounded text-center status bg-status-success"
                                 style={{
-                                  maxWidth: '77px',
+                                  maxWidth: '90px',
                                 }}
                               >
                                 Berhasil
@@ -800,7 +811,7 @@ const DetailGalangDana = ({ match }) => {
                     styles={customStyles}
                     placeholder="Pilih Status"
                     defaultValue={
-                      detailTarikDana.status ? { value: detailTarikDana.status, label: detailTarikDana.status } : "Pilih Status"
+                      defaultValueStatusTarikDana()
                     }
                     name="color"
                     value={
