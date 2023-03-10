@@ -365,6 +365,17 @@ const DetailGalangDana = ({ match }) => {
 
   }
 
+  const defaultValueStatusGalangDana = () => {
+    if (detail.status === "Active") {
+      return { value: detail.status, label: "Aktif" }
+    } else if (detail.status === "Pending") {
+      return { value: detail.status, label: "Pending" }
+    } else {
+      return detail.status
+    }
+
+  }
+
   return (
     <>
       <Row>
@@ -385,14 +396,16 @@ const DetailGalangDana = ({ match }) => {
             </a>
             <form>
               <Select
-                className="selectStatusGalangDAna"
+                className="selectStatusGalangDana"
                 classNamePrefix="select"
                 styles={customStylesStatusGalangDana}
                 placeholder="Pilih Status"
-                defaultValue={
-                  { value: 'Pending', label: 'Pending' }
-                }
+                defaultValue={defaultValueStatusGalangDana()}
                 name="color"
+                value={
+                  defaultValueStatusGalangDana()
+                }
+                isSearchable={false}
                 options={optionsStatusGalangDana}
                 onChange={(e) => {
                   setStatusGalangDana(e.value)
