@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import React, { createRef, useState } from 'react'
+import { createRef, useState } from 'react'
 import { Card, CardBody, FormGroup, Label, Spinner } from 'reactstrap'
 import { Wizard, Steps, Step } from 'react-albus'
 import { injectIntl } from 'react-intl'

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import DropzoneComponent from 'react-dropzone-component'
 import 'dropzone/dist/min/dropzone.min.css'
 

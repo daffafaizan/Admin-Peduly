@@ -1,5 +1,4 @@
-/* eslint-disable react/no-array-index-key */
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Row,
   Card,
@@ -19,19 +18,22 @@ import DataTablePagination from 'components/DatatablePagination'
 import TextAlert from 'components/TextAlert'
 import { useHistory } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
-import axios from 'axios'
+import http from 'helpers/http'
+import { API_ENDPOINT } from 'config/api'
 
 const pageSizes = [20, 40, 80]
 
 const SlidePage = () => {
+  const [data, setData] = useState([])
   const [currentPageSize, setCurrentPageSize] = useState(pageSizes[0])
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPage, setTotalPage] = useState(0)
-  const [data, setData] = useState([])
-  const [search] = useState('')
+
   const history = useHistory()
+  const color = getCurrentColor()
 
   useEffect(() => {
+    getCurrentColor()
     getSlidesData()
   }, [])
 
@@ -40,25 +42,28 @@ const SlidePage = () => {
   }, [currentPageSize, data])
 
   useEffect(() => {
-    if (currentPage > totalPage) {
-      setCurrentPage(1)
-    }
+    if (currentPage > totalPage) setCurrentPage(1)
   }, [totalPage, currentPage])
 
-  useEffect(() => {
-    getCurrentColor()
-  }, [])
-
-  const color = getCurrentColor()
   const getSlidesData = () => {
-    axios
-      .get('https://dev.peduly.com/api/slides')
+    http
+      .get(API_ENDPOINT.GET_DATA_SLIDES)
       .then((res) => {
         setData(res.data.data)
       })
       .catch((err) => {
-        console.log('Error: ', err)
+        console.error('Error: ', err)
       })
+  }
+
+  function filteredData() {
+    let s
+
+    s = data.sort((a, b) => {
+      return new Date(b.created_at) - new Date(a.created_at)
+    })
+
+    return s
   }
 
   return (
@@ -81,7 +86,6 @@ const SlidePage = () => {
             <span className="text-muted text-small mr-1">{`${currentPage} of ${totalPage} `}</span>
             <UncontrolledDropdown className="d-inline-block">
               <DropdownToggle caret color="outline-dark" size="xs">
-                {' '}
                 {currentPageSize}
               </DropdownToggle>
               <DropdownMenu right>
@@ -101,104 +105,118 @@ const SlidePage = () => {
         </Col>
       </Row>
       <Row>
-        <Col>
-          <Card className="mb-4" style={{ borderRadius: '15px' }}>
-            <CardBody style={{ padding: '12px' }}>
+        <Colxx xs="12" className="mb-4">
+          <Card className="mb-4 card-rounded">
+            <CardBody className="card-body">
               <Table
-                className={`table-slide ${
-                  !color.indexOf('dark') && 'table-dark-mode'
-                }`}
                 hover
                 responsive
+                className={`${!color.indexOf('dark') ? 'table-dark-mode' : ''}`}
               >
                 <thead>
                   <tr className="nowrap">
-                    <th style={{ borderTop: '0px' }}>#</th>
-                    <th style={{ borderTop: '0px' }}>Gambar Slide</th>
-                    <th style={{ borderTop: '0px' }}>Judul</th>
-                    <th style={{ borderTop: '0px' }}>Direct Link</th>
-                    <th style={{ borderTop: '0px' }}>Tanggal Mulai</th>
-                    <th style={{ borderTop: '0px' }}>Tanggal Berakhir</th>
-                    <th style={{ borderTop: '0px' }}>Status</th>
+                    <th>#</th>
+                    <th>Gambar Slide</th>
+                    <th>Judul</th>
+                    <th>Direct Link</th>
+                    <th>Tanggal Mulai</th>
+                    <th>Tanggal Berakhir</th>
+                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {data
-                    .filter((tr) => tr.title.toLowerCase().includes(search))
-                    .sort((a, b) => {
-                      return b.id - a.id
-                    })
-                    .slice(
-                      (currentPage - 1) * currentPageSize,
-                      currentPage * currentPageSize
-                    )
-                    .map((item, index) => (
-                      <tr
-                        key={item.id}
-                        style={{ cursor: 'pointer' }}
-                        onClick={() =>
-                          history.push(`/app/slide/edit/${item.id}`)
-                        }
-                      >
-                        <td>{index + 1}</td>
-                        <td>
-                          <div className="slide-image-container">
-                            <img
-                              src={item.image}
-                              alt={item.title}
-                              className="slide-image"
-                            />
-                          </div>
-                        </td>
-                        <td>
-                          <p className="line-clamp">{item.title}</p>
-                        </td>
-                        <td>
-                          <a
-                            href="#"
-                            className="line-clamp"
-                            style={{ textDecorationLine: 'underline' }}
-                          >
-                            {item.url}
-                          </a>
-                        </td>
-                        <td>{moment(item.start_date).format('DD/MM/YYYY')}</td>
-                        <td>{moment(item.end_date).format('DD/MM/YYYY')}</td>
-                        <td>
-                          {item.active ? (
-                            <TextAlert
-                              text="Aktif"
-                              type="success"
-                              className="nowrap"
-                            />
-                          ) : (
-                            <TextAlert
-                              text="Tidak Aktif"
-                              type="danger"
-                              className="nowrap"
-                            />
-                          )}
-                        </td>
-                      </tr>
-                    ))}
+                  {filteredData().length !== 0 ? (
+                    filteredData()
+                      .slice(
+                        (currentPage - 1) * currentPageSize,
+                        currentPage * currentPageSize
+                      )
+                      .map((item, index) => (
+                        <tr
+                          key={item.id}
+                          style={{ cursor: 'pointer' }}
+                          onClick={() =>
+                            history.push(`/app/slide/edit/${item.id}`)
+                          }
+                        >
+                          <td>{index + 1}</td>
+                          <td>
+                            <div className="slide-image-container">
+                              <img
+                                src={item.image}
+                                alt={item.title}
+                                className="slide-image"
+                                style={{
+                                  objectFit: 'cover',
+                                }}
+                              />
+                            </div>
+                          </td>
+                          <td>
+                            <p>{item.title}</p>
+                          </td>
+                          <td>
+                            <a
+                              href="#"
+                              className="line-clamp"
+                              style={{ textDecorationLine: 'underline' }}
+                            >
+                              {item.url}
+                            </a>
+                          </td>
+                          <td>
+                            {moment(item.start_date).format('DD/MM/YYYY')}
+                          </td>
+                          <td>{moment(item.end_date).format('DD/MM/YYYY')}</td>
+                          <td>
+                            {item.active ? (
+                              <TextAlert
+                                text="Aktif"
+                                type="success"
+                                className="nowrap"
+                              />
+                            ) : (
+                              <TextAlert
+                                text="Tidak Aktif"
+                                type="danger"
+                                className="nowrap"
+                              />
+                            )}
+                          </td>
+                        </tr>
+                      ))
+                  ) : (
+                    <tr>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                  )}
                 </tbody>
               </Table>
             </CardBody>
           </Card>
-        </Col>
+        </Colxx>
       </Row>
       <Row>
-        <Col>
-          <div className="float-md-right">
-            <DataTablePagination
-              page={currentPage - 1}
-              pages={totalPage}
-              canNext={currentPage < totalPage}
-              canPrevious={currentPage > 1}
-              onPageChange={(page) => setCurrentPage(page + 1)}
-            />
-          </div>
-        </Col>
+        <Colxx>
+          {totalPage !== '0' && (
+            <div className="float-md-right">
+              <DataTablePagination
+                page={currentPage - 1}
+                pages={totalPage}
+                canNext={currentPage < Number(totalPage)}
+                canPrevious={currentPage > 1}
+                onPageChange={(page) => setCurrentPage(page + 1)}
+                paginationMaxSize={totalPage > 10 ? 10 : Number(totalPage)}
+              />
+            </div>
+          )}
+        </Colxx>
       </Row>
     </div>
   )

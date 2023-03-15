@@ -1,15 +1,13 @@
-import React from 'react'
-
 import { AvForm, AvField, AvGroup } from 'availity-reactstrap-validation'
 import { Button, Label, Card, CardBody } from 'reactstrap'
 
 const AvailityCustom = () => {
   const onSubmit = (event, errors, values) => {
-    console.log(errors)
-    console.log(values)
-    if (errors.length === 0) {
-      // submit
-    }
+    console.group('AvailityCustom')
+    console.log('event', event)
+    console.log('errors', errors)
+    console.log('values', values)
+    console.groupEnd()
   }
 
   return (

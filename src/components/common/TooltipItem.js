@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Button, Tooltip } from 'reactstrap'
 
 const TooltipItem = ({ id, item }) => {

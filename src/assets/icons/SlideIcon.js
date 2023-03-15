@@ -1,9 +1,6 @@
-import React, { useState } from 'react'
-// import { useLocation } from 'react-router-dom';
+import { useState } from 'react'
 
 const SlideIcon = () => {
-  // const location = useLocation();
-  // const pathName = location.pathname;
   const [isHovered, setIsHovered] = useState(false)
   const handleMouseEnter = () => {
     setIsHovered(true)

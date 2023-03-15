@@ -1,21 +1,15 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/no-array-index-key */
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { connect } from 'react-redux'
-import ReactDOM from 'react-dom'
 import { Nav, NavItem } from 'reactstrap'
 import { NavLink, withRouter } from 'react-router-dom'
 import { adminRoot } from 'constants/defaultValues'
-// import classnames from 'classnames';
 import PerfectScrollbar from 'react-perfect-scrollbar'
-
 import {
   setContainerClassnames,
   addContainerClassname,
   changeDefaultClassnames,
   changeSelectedMenuHasSubItems,
 } from 'redux/actions'
-
 import menuItems from 'constants/menu'
 
 class Sidebar extends Component {
@@ -23,109 +17,79 @@ class Sidebar extends Component {
     super(props)
     this.state = {
       selectedParentMenu: '',
-      // viewingParentMenu: '',
-      // collapsedMenus: [],
       isDashboardHovered: false,
       isTransaksiHovered: false,
       isHalamanHovered: false,
       isPenggunaHovered: false,
       isSlideHovered: false,
     }
+    // this bind required cause default this is undefined
+    this.handleDashboardMouseEnter = this.handleDashboardMouseEnter.bind(this)
+    this.handleDashboardMouseLeave = this.handleDashboardMouseLeave.bind(this)
+    this.handleTransaksiMouseEnter = this.handleTransaksiMouseEnter.bind(this)
+    this.handleTransaksiMouseLeave = this.handleTransaksiMouseLeave.bind(this)
+    this.handleHalamanMouseEnter = this.handleHalamanMouseEnter.bind(this)
+    this.handleHalamanMouseLeave = this.handleHalamanMouseLeave.bind(this)
+    this.handlePenggunaMouseEnter = this.handlePenggunaMouseEnter.bind(this)
+    this.handlePenggunaMouseLeave = this.handlePenggunaMouseLeave.bind(this)
+    this.handleSlideMouseEnter = this.handleSlideMouseEnter.bind(this)
+    this.handleSlideMouseLeave = this.handleSlideMouseLeave.bind(this)
   }
 
-  handleDashboardMouseEnter = () => {
+  handleDashboardMouseEnter() {
     this.setState({ isDashboardHovered: true })
   }
 
-  handleDashboardMouseLeave = () => {
+  handleDashboardMouseLeave() {
     this.setState({ isDashboardHovered: false })
   }
 
-  handleTransaksiMouseEnter = () => {
+  handleTransaksiMouseEnter() {
     this.setState({ isTransaksiHovered: true })
   }
 
-  handleTransaksiMouseLeave = () => {
+  handleTransaksiMouseLeave() {
     this.setState({ isTransaksiHovered: false })
   }
 
-  handleHalamanMouseEnter = () => {
+  handleHalamanMouseEnter() {
     this.setState({ isHalamanHovered: true })
   }
 
-  handleHalamanMouseLeave = () => {
+  handleHalamanMouseLeave() {
     this.setState({ isHalamanHovered: false })
   }
 
-  handlePenggunaMouseEnter = () => {
+  handlePenggunaMouseEnter() {
     this.setState({ isPenggunaHovered: true })
   }
 
-  handlePenggunaMouseLeave = () => {
+  handlePenggunaMouseLeave() {
     this.setState({ isPenggunaHovered: false })
   }
 
-  handleSlideMouseEnter = () => {
+  handleSlideMouseEnter() {
     this.setState({ isSlideHovered: true })
   }
 
-  handleSlideMouseLeave = () => {
+  handleSlideMouseLeave() {
     this.setState({ isSlideHovered: false })
   }
 
-  handleWindowResize = (event) => {
-    if (event && !event.isTrusted) {
+  handleWindowResize(e) {
+    if (e && !e.isTrusted) {
       return
     }
     const { containerClassnames } = this.props
     const nextClasses = this.getMenuClassesForResize(containerClassnames)
-    // eslint-disable-next-line react/destructuring-assignment
     this.props.setContainerClassnames(
       0,
       nextClasses.join(' '),
-      // eslint-disable-next-line react/destructuring-assignment
       this.props.selectedMenuHasSubItems
     )
   }
 
-  handleDocumentClick = (e) => {
-    const container = this.getContainer()
-    let isMenuClick = false
-    if (
-      e.target &&
-      e.target.classList &&
-      (e.target.classList.contains('menu-button') ||
-        e.target.classList.contains('menu-button-mobile'))
-    ) {
-      isMenuClick = true
-    } else if (
-      e.target.parentElement &&
-      e.target.parentElement.classList &&
-      (e.target.parentElement.classList.contains('menu-button') ||
-        e.target.parentElement.classList.contains('menu-button-mobile'))
-    ) {
-      isMenuClick = true
-    } else if (
-      e.target.parentElement &&
-      e.target.parentElement.parentElement &&
-      e.target.parentElement.parentElement.classList &&
-      (e.target.parentElement.parentElement.classList.contains('menu-button') ||
-        e.target.parentElement.parentElement.classList.contains(
-          'menu-button-mobile'
-        ))
-    ) {
-      isMenuClick = true
-    }
-    if (container.contains(e.target) || container === e.target || isMenuClick) {
-      return
-    }
-    // this.setState({
-    //   viewingParentMenu: '',
-    // });
-    this.toggle()
-  }
-
-  getMenuClassesForResize = (classes) => {
+  getMenuClassesForResize(classes) {
     const { menuHiddenBreakpoint, subHiddenBreakpoint } = this.props
     let nextClasses = classes.split(' ').filter((x) => x !== '')
     const windowWidth = window.innerWidth
@@ -151,14 +115,8 @@ class Sidebar extends Component {
     return nextClasses
   }
 
-  getContainer = () => {
-    // eslint-disable-next-line react/no-find-dom-node
-    return ReactDOM.findDOMNode(this)
-  }
-
-  toggle = () => {
+  toggle() {
     const hasSubItems = this.getIsHasSubItem()
-    // eslint-disable-next-line react/destructuring-assignment
     this.props.changeSelectedMenuHasSubItems(hasSubItems)
     const { containerClassnames, menuClickCount } = this.props
     const currentClasses = containerClassnames
@@ -195,7 +153,6 @@ class Sidebar extends Component {
       clickIndex = 0
     }
     if (clickIndex >= 0) {
-      // eslint-disable-next-line react/destructuring-assignment
       this.props.setContainerClassnames(
         clickIndex,
         containerClassnames,
@@ -204,23 +161,7 @@ class Sidebar extends Component {
     }
   }
 
-  handleProps = () => {
-    this.addEvents()
-  }
-
-  addEvents = () => {
-    ;['click', 'touchstart', 'touchend'].forEach((event) =>
-      document.addEventListener(event, this.handleDocumentClick, true)
-    )
-  }
-
-  removeEvents = () => {
-    ;['click', 'touchstart', 'touchend'].forEach((event) =>
-      document.removeEventListener(event, this.handleDocumentClick, true)
-    )
-  }
-
-  setSelectedLiActive = (callback) => {
+  setSelectedLiActive(callback) {
     const oldli = document.querySelector('.sub-menu  li.active')
     if (oldli != null) {
       oldli.classList.remove('active')
@@ -231,7 +172,6 @@ class Sidebar extends Component {
       oldliSub.classList.remove('active')
     }
 
-    /* set selected parent menu */
     const selectedSublink = document.querySelector(
       '.third-level-menu  a.active'
     )
@@ -263,7 +203,6 @@ class Sidebar extends Component {
           },
           callback
         )
-        // eslint-disable-next-line react/destructuring-assignment
       } else if (this.state.selectedParentMenu === '') {
         this.setState(
           {
@@ -275,14 +214,13 @@ class Sidebar extends Component {
     }
   }
 
-  setHasSubItemStatus = () => {
+  setHasSubItemStatus() {
     const hasSubmenu = this.getIsHasSubItem()
-    // eslint-disable-next-line react/destructuring-assignment
     this.props.changeSelectedMenuHasSubItems(hasSubmenu)
     this.toggle()
   }
 
-  getIsHasSubItem = () => {
+  getIsHasSubItem() {
     const { selectedParentMenu } = this.state
     const menuItem = menuItems.find((x) => x.id === selectedParentMenu)
     if (menuItem)
@@ -290,20 +228,9 @@ class Sidebar extends Component {
     return false
   }
 
-  // componentDidUpdate(prevProps) {
-  //   // eslint-disable-next-line react/destructuring-assignment
-  //   if (this.props.location.pathname !== prevProps.location.pathname) {
-  //     this.setSelectedLiActive(this.setHasSubItemStatus);
-
-  //     window.scrollTo(0, 0);
-  //   }
-  //   this.handleProps();
-  // }
-
   componentDidMount() {
     window.addEventListener('resize', this.handleWindowResize)
     this.handleWindowResize()
-    this.handleProps()
     this.setSelectedLiActive(this.setHasSubItemStatus)
   }
 
@@ -312,89 +239,7 @@ class Sidebar extends Component {
     window.removeEventListener('resize', this.handleWindowResize)
   }
 
-  // openSubMenu = (e, menuItem) => {
-  //   const selectedParent = menuItem.id;
-  //   const hasSubMenu = menuItem.subs && menuItem.subs.length > 0;
-  //   // eslint-disable-next-line react/destructuring-assignment
-  //   this.props.changeSelectedMenuHasSubItems(hasSubMenu);
-  //   if (!hasSubMenu) {
-  //     this.setState({
-  //       // viewingParentMenu: selectedParent,
-  //       selectedParentMenu: selectedParent,
-  //     });
-  //     this.toggle();
-  //   } else {
-  //     e.preventDefault();
-
-  //     const { containerClassnames, menuClickCount } = this.props;
-  //     const currentClasses = containerClassnames
-  //       ? containerClassnames.split(' ').filter((x) => x !== '')
-  //       : '';
-
-  //     if (!currentClasses.includes('menu-mobile')) {
-  //       if (
-  //         currentClasses.includes('menu-sub-hidden') &&
-  //         (menuClickCount === 2 || menuClickCount === 0)
-  //       ) {
-  //         // eslint-disable-next-line react/destructuring-assignment
-  //         this.props.setContainerClassnames(3, containerClassnames, hasSubMenu);
-  //       } else if (
-  //         currentClasses.includes('menu-hidden') &&
-  //         (menuClickCount === 1 || menuClickCount === 3)
-  //       ) {
-  //         // eslint-disable-next-line react/destructuring-assignment
-  //         this.props.setContainerClassnames(2, containerClassnames, hasSubMenu);
-  //       } else if (
-  //         currentClasses.includes('menu-default') &&
-  //         !currentClasses.includes('menu-sub-hidden') &&
-  //         (menuClickCount === 1 || menuClickCount === 3)
-  //       ) {
-  //         // eslint-disable-next-line react/destructuring-assignment
-  //         this.props.setContainerClassnames(0, containerClassnames, hasSubMenu);
-  //       }
-  //     } else {
-  //       // eslint-disable-next-line react/destructuring-assignment
-  //       this.props.addContainerClassname(
-  //         'sub-show-temporary',
-  //         containerClassnames
-  //       );
-  //     }
-  //     // this.setState({
-  //     //   viewingParentMenu: selectedParent,
-  //     // });
-  //   }
-  // };
-
-  // toggleMenuCollapse = (e, menuKey) => {
-  //   e.preventDefault();
-
-  //   const { collapsedMenus } = this.state;
-  //   if (collapsedMenus.indexOf(menuKey) > -1) {
-  //     this.setState({
-  //       collapsedMenus: collapsedMenus.filter((x) => x !== menuKey),
-  //     });
-  //   } else {
-  //     collapsedMenus.push(menuKey);
-  //     this.setState({
-  //       collapsedMenus,
-  //     });
-  //   }
-  //   return false;
-  // };
-
-  // eslint-disable-next-line no-shadow
-  // filteredList = (menuItems) => {
-  //   const { currentUser } = this.props;
-  //   if (currentUser) {
-  //     return menuItems.filter(
-  //       (x) => (x.roles && x.roles.includes(currentUser.role)) || !x.roles
-  //     );
-  //   }
-  //   return menuItems;
-  // };
-
   render() {
-    // const { selectedParentMenu, viewingParentMenu } = this.state;
     return (
       <div className="sidebar">
         <div className="main-menu">
@@ -403,20 +248,16 @@ class Sidebar extends Component {
               options={{ suppressScrollX: true, wheelPropagation: false }}
             >
               <Nav vertical className="list-unstyled">
+                {/* DASHBOARD */}
                 <NavItem
                   className={`${
-                    // eslint-disable-next-line react/destructuring-assignment
                     this.props.location.pathname === '/app/dashboard' &&
                     'active'
                   }`}
                   onMouseEnter={this.handleDashboardMouseEnter}
                   onMouseLeave={this.handleDashboardMouseLeave}
                 >
-                  <NavLink
-                    to={`${adminRoot}/dashboard`}
-                    // onClick={(e) => this.openSubMenu(e, item)}
-                    data-flag="dashboard"
-                  >
+                  <NavLink to={`${adminRoot}/dashboard`} data-flag="dashboard">
                     <span style={{ marginBottom: '4px' }}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -427,9 +268,7 @@ class Sidebar extends Component {
                       >
                         <path
                           stroke={
-                            // eslint-disable-next-line react/destructuring-assignment
                             this.props.location.pathname === '/app/dashboard' ||
-                            // eslint-disable-next-line react/destructuring-assignment
                             this.state.isDashboardHovered
                               ? '#E7513B'
                               : '#717171'
@@ -444,9 +283,9 @@ class Sidebar extends Component {
                     <span>Dashboard</span>
                   </NavLink>
                 </NavItem>
+                {/* TRANSAKSI */}
                 <NavItem
                   className={`${
-                    // eslint-disable-next-line react/destructuring-assignment
                     this.props.location.pathname === '/app/transaksi-donasi' &&
                     'active'
                   }`}
@@ -455,7 +294,6 @@ class Sidebar extends Component {
                 >
                   <NavLink
                     to={`${adminRoot}/transaksi-donasi`}
-                    // onClick={(e) => this.openSubMenu(e, item)}
                     data-flag="transaksi"
                   >
                     <span style={{ marginBottom: '4px' }}>
@@ -468,10 +306,8 @@ class Sidebar extends Component {
                       >
                         <path
                           stroke={
-                            // eslint-disable-next-line react/destructuring-assignment
                             this.props.location.pathname ===
                               '/app/transaksi-donasi' ||
-                            // eslint-disable-next-line react/destructuring-assignment
                             this.state.isTransaksiHovered
                               ? '#E7513B'
                               : '#717171'
@@ -483,10 +319,8 @@ class Sidebar extends Component {
                         />
                         <path
                           stroke={
-                            // eslint-disable-next-line react/destructuring-assignment
                             this.props.location.pathname ===
                               '/app/transaksi-donasi' ||
-                            // eslint-disable-next-line react/destructuring-assignment
                             this.state.isTransaksiHovered
                               ? '#E7513B'
                               : '#717171'
@@ -501,13 +335,11 @@ class Sidebar extends Component {
                     <span>Transaksi</span>
                   </NavLink>
                 </NavItem>
+                {/* HALAMAN */}
                 <NavItem
                   className={`${
-                    // eslint-disable-next-line react/destructuring-assignment
-                    this.props.location.pathname ===
-                      '/app/halaman-galang-dana' ||
-                    this.props.location.pathname ===
-                      '/app/halaman-galang-dana/detail'
+                    this.props.location.pathname.substring(0, 24) ===
+                    '/app/halaman-galang-dana'
                       ? 'active'
                       : ''
                   }`}
@@ -516,7 +348,6 @@ class Sidebar extends Component {
                 >
                   <NavLink
                     to={`${adminRoot}/halaman-galang-dana`}
-                    // onClick={(e) => this.openSubMenu(e, item)}
                     data-flag="halaman"
                   >
                     <span style={{ marginBottom: '4px' }}>
@@ -529,12 +360,8 @@ class Sidebar extends Component {
                       >
                         <path
                           stroke={
-                            // eslint-disable-next-line react/destructuring-assignment
-                            this.props.location.pathname ===
+                            this.props.location.pathname.substring(0, 24) ===
                               '/app/halaman-galang-dana' ||
-                            this.props.location.pathname ===
-                              '/app/halaman-galang-dana/detail' ||
-                            // eslint-disable-next-line react/destructuring-assignment
                             this.state.isHalamanHovered
                               ? '#E7513B'
                               : '#717171'
@@ -546,12 +373,8 @@ class Sidebar extends Component {
                         />
                         <path
                           stroke={
-                            // eslint-disable-next-line react/destructuring-assignment
-                            this.props.location.pathname ===
+                            this.props.location.pathname.substring(0, 24) ===
                               '/app/halaman-galang-dana' ||
-                            this.props.location.pathname ===
-                              '/app/halaman-galang-dana/detail' ||
-                            // eslint-disable-next-line react/destructuring-assignment
                             this.state.isHalamanHovered
                               ? '#E7513B'
                               : '#717171'
@@ -566,19 +389,15 @@ class Sidebar extends Component {
                     <span>Halaman</span>
                   </NavLink>
                 </NavItem>
+                {/* PENGGUNA */}
                 <NavItem
                   className={`${
-                    // eslint-disable-next-line react/destructuring-assignment
                     this.props.location.pathname === '/app/pengguna' && 'active'
                   }`}
                   onMouseEnter={this.handlePenggunaMouseEnter}
                   onMouseLeave={this.handlePenggunaMouseLeave}
                 >
-                  <NavLink
-                    to={`${adminRoot}/pengguna`}
-                    // onClick={(e) => this.openSubMenu(e, item)}
-                    data-flag="pengguna"
-                  >
+                  <NavLink to={`${adminRoot}/pengguna`} data-flag="pengguna">
                     <span style={{ marginBottom: '4px' }}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -606,17 +425,15 @@ class Sidebar extends Component {
                 </NavItem>
                 <NavItem
                   className={`${
-                    // eslint-disable-next-line react/destructuring-assignment
-                    this.props.location.pathname === '/app/slide' && 'active'
+                    this.props.location.pathname.substring(0, 10) ===
+                    '/app/slide'
+                      ? 'active'
+                      : ''
                   }`}
                   onMouseEnter={this.handleSlideMouseEnter}
                   onMouseLeave={this.handleSlideMouseLeave}
                 >
-                  <NavLink
-                    to={`${adminRoot}/slide`}
-                    // onClick={(e) => this.openSubMenu(e, item)}
-                    data-flag="slide"
-                  >
+                  <NavLink to={`${adminRoot}/slide`} data-flag="slide">
                     <span style={{ marginBottom: '4px' }}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -627,8 +444,8 @@ class Sidebar extends Component {
                       >
                         <path
                           stroke={
-                            this.props.location.pathname === '/app/slide' ||
-                            this.state.isSlideHovered
+                            this.props.location.pathname.substring(0, 10) ===
+                              '/app/slide' || this.state.isSlideHovered
                               ? '#E7513B'
                               : '#717171'
                           }
@@ -639,8 +456,8 @@ class Sidebar extends Component {
                         />
                         <path
                           stroke={
-                            this.props.location.pathname === '/app/slide' ||
-                            this.state.isSlideHovered
+                            this.props.location.pathname.substring(0, 10) ===
+                              '/app/slide' || this.state.isSlideHovered
                               ? '#E7513B'
                               : '#717171'
                           }

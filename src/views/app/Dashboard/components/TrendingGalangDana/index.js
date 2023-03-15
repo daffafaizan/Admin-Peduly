@@ -1,8 +1,4 @@
-/* eslint-disable no-unused-vars */
-
-import React from 'react'
 import PerfectScrollBar from 'react-perfect-scrollbar'
-
 import './index.scss'
 import TrendingItem from '../TrendingItem'
 

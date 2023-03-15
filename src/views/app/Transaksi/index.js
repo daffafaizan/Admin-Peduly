@@ -1,13 +1,9 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable no-unused-vars */
-
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Row,
   Card,
   CardBody,
   Table,
-  // Badge,
   UncontrolledDropdown,
   DropdownMenu,
   DropdownItem,
@@ -15,7 +11,6 @@ import {
 } from 'reactstrap'
 import { Colxx, Separator } from 'components/common/CustomBootstrap'
 import TextAlert from 'components/TextAlert'
-
 import IntlMessages from 'helpers/IntlMessages'
 import moment from 'moment'
 import IdrFormat from 'helpers/IdrFormat'
@@ -30,36 +25,27 @@ const orderOptions = ['Terbaru', 'Terlama']
 
 const TransaksiDonasi = () => {
   const [data, setData] = useState([])
-  const [campaignList, setCampaignList] = useState([])
-  const [search, setSearch] = useState('')
-  const [selectedOrder, setSelectedOrder] = useState('Terbaru')
-
-  // Pagination
+  const [filter, setFilter] = useState({
+    search: '',
+    order: 'Terbaru',
+  })
   const [selectedPageSize, setSelectedPageSize] = useState(pageSizes[0])
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPage, setTotalPage] = useState(0)
 
-  useEffect(() => {
-    getCurrentColor
-  }, [])
-  
   const color = getCurrentColor()
 
   useEffect(() => {
+    getCurrentColor()
     getTransaksiData()
-    getCampaignData()
   }, [])
 
   useEffect(() => {
-    const filterData = filterSearchData()
-    setTotalPage(Math.ceil(filterData.length / selectedPageSize))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedPageSize, data, search])
+    setTotalPage((filteredData().length / selectedPageSize).toFixed())
+  }, [selectedPageSize, filteredData()]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (currentPage > totalPage) {
-      setCurrentPage(1)
-    }
+    if (currentPage > totalPage) setCurrentPage(1)
   }, [totalPage, currentPage])
 
   const getTransaksiData = () => {
@@ -69,54 +55,30 @@ const TransaksiDonasi = () => {
         setData(res.data)
       })
       .catch((err) => {
-        console.log('Error get transaksi data: ', err)
+        console.error('Error get transaksi data: ', err)
       })
   }
 
-  const getCampaignData = () => {
-    http
-      .get(API_ENDPOINT.GET_LIST_GALANG_DANA)
-      .then((res) => {
-        setCampaignList(res.data.data)
-      })
-      .catch((err) => {
-        console.log('Error get campaign data: ', err)
-      })
-  }
+  function filteredData() {
+    let x
 
-  const getCampaignDataById = (campaignId) => {
-    return campaignList?.find((x) => {
-      return x.id.toString() === campaignId
-    })
-  }
-
-  const filterSearchData = () => {
-    // return data?.filter((x) => {
-    //   return x.id.toString().includes(search)
-    // })
-
-    return data
-  }
-
-  const orderData = () => {
-    const filterData = filterSearchData()
-    if (selectedOrder === 'Terbaru') {
-      return filterData?.sort((a, b) => {
+    // ORDER
+    if (filter.order === 'Terbaru') {
+      x = data.sort((a, b) => {
         return new Date(b.created_at) - new Date(a.created_at)
       })
     }
 
-    if (selectedOrder === 'Terlama') {
-      return filterData?.sort((a, b) => {
+    if (filter.order === 'Terlama') {
+      x = data.sort((a, b) => {
         return new Date(a.created_at) - new Date(b.created_at)
       })
     }
 
-    return filterData
-  }
+    // SEARCH
+    x = data.filter((x) => x.id.toString().includes(filter.search))
 
-  const handleChangeOrder = (value) => {
-    setSelectedOrder(value)
+    return x
   }
 
   return (
@@ -132,19 +94,17 @@ const TransaksiDonasi = () => {
           <div className="d-block d-md-inline-block pt-1">
             <UncontrolledDropdown className="mr-1 float-md-left btn-group mb-1">
               <DropdownToggle caret color="outline-dark" size="xs">
-                <IntlMessages id="pages.orderby" /> {selectedOrder}
+                <IntlMessages id="pages.orderby" /> {filter.order}
               </DropdownToggle>
               <DropdownMenu>
-                {orderOptions.map((order, index) => {
-                  return (
-                    <DropdownItem
-                      key={index}
-                      onClick={() => handleChangeOrder(order)}
-                    >
-                      {order}
-                    </DropdownItem>
-                  )
-                })}
+                {orderOptions.map((order, index) => (
+                  <DropdownItem
+                    key={index}
+                    onClick={() => setFilter({ ...filter, order })}
+                  >
+                    {order}
+                  </DropdownItem>
+                ))}
               </DropdownMenu>
             </UncontrolledDropdown>
             <div className="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
@@ -153,7 +113,9 @@ const TransaksiDonasi = () => {
                 name="keyword"
                 id="search"
                 placeholder="Search transaksi"
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) =>
+                  setFilter({ ...filter, search: e.target.value })
+                }
               />
             </div>
           </div>
@@ -164,18 +126,16 @@ const TransaksiDonasi = () => {
                 {selectedPageSize}
               </DropdownToggle>
               <DropdownMenu right>
-                {pageSizes.map((size, index) => {
-                  return (
-                    <DropdownItem
-                      key={index}
-                      onClick={() => {
-                        setSelectedPageSize(size)
-                      }}
-                    >
-                      {size}
-                    </DropdownItem>
-                  )
-                })}
+                {pageSizes.map((size, index) => (
+                  <DropdownItem
+                    key={index}
+                    onClick={() => {
+                      setSelectedPageSize(size)
+                    }}
+                  >
+                    {size}
+                  </DropdownItem>
+                ))}
               </DropdownMenu>
             </UncontrolledDropdown>
           </div>
@@ -193,31 +153,29 @@ const TransaksiDonasi = () => {
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Nama</th>
+                    <th>Id Transaksi</th>
                     <th>User</th>
                     <th>Tanggal</th>
-                    <th>ID Transaksi</th>
-                    <th>ID GD</th>
+                    <th>User Id</th>
+                    <th>Id GD</th>
                     <th>Nominal</th>
                     <th>Metode</th>
                     <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {orderData()
-                    .slice(
-                      (currentPage - 1) * selectedPageSize,
-                      currentPage * selectedPageSize
-                    )
-                    .map((item, index) => {
-                      return (
+                  {filteredData().length !== 0 ? (
+                    filteredData()
+                      .slice(
+                        (currentPage - 1) * selectedPageSize,
+                        currentPage * selectedPageSize
+                      )
+                      .map((item, index) => (
                         <tr key={`item-${index}`}>
                           <td>
                             {index + (currentPage - 1) * selectedPageSize + 1}
                           </td>
-                          <td className="judul-campaign">
-                            {item.judul_campaign ? item.judul_campaign : '-'}
-                          </td>
+                          <td>{item.id}</td>
                           <td>
                             {item.user_id ? (
                               <TextAlert text={'Terdaftar'} />
@@ -234,21 +192,14 @@ const TransaksiDonasi = () => {
                               : '-'}
                           </td>
                           <td>
-                            {/* {item.kode_donasi} */}
-                            {item.id}
+                            {item.user_id === '1' ? 'Anonim' : item.user_id}
                           </td>
                           <td>
-                            {/* {item.campaign_id} */}
                             {item.galangdana_id ? item.galangdana_id : '-'}
                           </td>
-                          <td>
-                            {/* {item.nominal_campaign} */}
-                            Rp {IdrFormat(item.donasi)}
-                          </td>
+                          <td>Rp {IdrFormat(item.donasi)}</td>
                           <td>{item.metode_pembayaran}</td>
                           <td>
-                            {/* {item.status_donasi} */}
-                            {/* Berhasil || Pending || Dibatalkan */}
                             {item.status_donasi === 'Approved' && (
                               <TextAlert text={'Berhasil'} />
                             )}
@@ -263,27 +214,40 @@ const TransaksiDonasi = () => {
                             )}
                           </td>
                         </tr>
-                      )
-                    })}
+                      ))
+                  ) : (
+                    <tr>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    </tr>
+                  )}
                 </tbody>
               </Table>
             </CardBody>
           </Card>
         </Colxx>
-        {/* <Pagination totalPage={10} currentPage={1} numberLimit={1} /> */}
       </Row>
       <Row>
         <Colxx>
-          <div className="float-md-right">
-            <DataTablePagination
-              page={currentPage - 1}
-              pages={totalPage}
-              canNext={currentPage < totalPage}
-              canPrevious={currentPage > 1}
-              onPageChange={(page) => setCurrentPage(page + 1)}
-              paginationMaxSize={10}
-            />
-          </div>
+          {totalPage !== '0' && (
+            <div className="float-md-right">
+              <DataTablePagination
+                page={currentPage - 1}
+                pages={totalPage}
+                canNext={currentPage < Number(totalPage)}
+                canPrevious={currentPage > 1}
+                onPageChange={(page) => setCurrentPage(page + 1)}
+                paginationMaxSize={totalPage > 10 ? 10 : Number(totalPage)}
+              />
+            </div>
+          )}
         </Colxx>
       </Row>
     </>

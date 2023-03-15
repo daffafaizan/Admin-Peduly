@@ -28,8 +28,7 @@ const PriceCard = ({ data }) => {
           </ul>
           <div className="text-center">
             <NavLink to={data.link} className="btn btn-link btn-empty btn-lg">
-              <IntlMessages id="pages.purchase" />{' '}
-              <i className="simple-icon-arrow-right" />
+              <IntlMessages id="pages.purchase" /> ☛
             </NavLink>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Card, CardBody, CardTitle, Row } from 'reactstrap'
 import Switch from 'rc-switch'
 import 'rc-switch/assets/index.css'

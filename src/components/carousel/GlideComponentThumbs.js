@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import Glide from '@glidejs/glide'
 import { getDirection } from 'helpers/Utils'
@@ -172,14 +172,14 @@ function GlideComponentThumbs(props = defaultProps) {
               className="glide__arrow glide__arrow--left"
               data-glide-dir="<"
             >
-              <i className="simple-icon-arrow-left" />
+              ☚
             </button>
             <button
               type="button"
               className="glide__arrow glide__arrow--right"
               data-glide-dir=">"
             >
-              <i className="simple-icon-arrow-right" />
+              ☛
             </button>
           </div>
         )}

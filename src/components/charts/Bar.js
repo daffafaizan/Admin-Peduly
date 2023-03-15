@@ -1,5 +1,5 @@
 /* eslint-disable prefer-rest-params */
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Chart } from 'chart.js'
 
 import { barChartOptions } from './config'

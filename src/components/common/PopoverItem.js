@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Button, Popover, PopoverBody } from 'reactstrap'
 
 const PopoverItem = ({ id, item }) => {

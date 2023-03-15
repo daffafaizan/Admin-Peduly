@@ -150,8 +150,8 @@
 
 .btn-secondary {
   outline: none;
-  border: 1px solid #E4E4E4;
-  background-color: #E4E4E4;
+  border: 1px solid #e4e4e4;
+  background-color: #e4e4e4;
   color: #717171;
 }
 
@@ -199,8 +199,38 @@
   height: 40px;
   background: transparent;
   border-radius: 30px;
-  border: 1px solid #FCAE03;
-  color: #FCAE03;
+  border: 1px solid #fcae03;
+  color: #fcae03;
+}
+
+@media only screen and (max-width: 1200px) {
+  .button-menu-galang-dana {
+    border: solid 1px #dedede;
+    padding: 10px 0px;
+    width: 80px;
+    text-align: center;
+    border-radius: 30px;
+    margin: 10px 20px;
+    cursor: pointer;
+    color: #717171;
+  }
+
+  .button-menu-galang-dana-active {
+    border: solid 1px #e7513b;
+    padding: 10px 0px;
+    width: 80px;
+    text-align: center;
+    border-radius: 30px;
+    margin: 10px 20px;
+    cursor: pointer;
+    color: #e7513b;
+  }
+
+  .container-card {
+    padding: 20px 0;
+    border-radius: 15px;
+    margin-bottom: 32px;
+  }
 }
 
 @media only screen and (max-width: 992px) {
@@ -212,7 +242,7 @@
     border-right: none;
     margin-left: 2px;
   }
-  
+
   .sidebar-menu-galang-dana {
     display: flex;
     flex-direction: column;
@@ -221,11 +251,30 @@
     margin: 10px 5px;
   }
 
-  .container-card {
-    padding: 20px 0;
-    border-radius: 15px;
-    margin-bottom: 32px;
+  .button-menu-galang-dana {
+    border: solid 1px #dedede;
+    padding: 10px 0px;
+    width: 150px;
+    text-align: center;
+    border-radius: 30px;
+    margin: 10px 20px;
+    cursor: pointer;
+    color: #717171;
   }
+
+  .button-menu-galang-dana-active {
+    border: solid 1px #e7513b;
+    padding: 10px 0px;
+    width: 150px;
+    text-align: center;
+    border-radius: 30px;
+    margin: 10px 20px;
+    cursor: pointer;
+    color: #e7513b;
+  }
+
+
+  
 }
 
 @media only screen and (max-width: 600px) {
@@ -247,3 +296,7 @@
     }
   }
 }
+
+
+
+

@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-
+import { useState } from 'react'
 import './index.scss'
 import moment from 'moment'
 import { getMonthBetween } from 'helpers/getMonthBetween'
@@ -7,7 +6,6 @@ import { ThemeColors } from 'helpers/ThemeColors'
 import BarSingle, { defaultOption } from 'components/charts/BarSingle'
 import DatesBetweenInput from 'components/DatesRangePicker'
 
-/* eslint-disable no-unused-vars */
 const GrafikTotalDonasi = ({ donasiData = [] }) => {
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()

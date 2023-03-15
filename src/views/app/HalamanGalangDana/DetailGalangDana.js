@@ -9,10 +9,11 @@ import { useParams } from 'react-router-dom'
 import './index.scss'
 import DataTablePagination from 'components/DatatablePagination'
 import moment from 'moment'
-import { API_URL } from 'config/api'
+import { API_ENDPOINT } from 'config/api'
 import Select from 'react-select'
 import axios from 'axios'
-import Cookies from 'js-cookie'
+import http from 'helpers/http'
+import TextAlert from 'components/TextAlert'
 
 const optionsStatusTarikDana = [
   {
@@ -43,6 +44,19 @@ const optionsStatusGalangDana = [
     label: "Suspend"
   }
 ]
+
+const konversiToNumber = (angka) => {
+  const idrFormat = IdrFormat(parseInt(angka))
+  if (!isNaN(idrFormat)) {
+    return idrFormat
+  } else {
+    return 0
+  }
+}
+
+const formatDate = (tanggal) => {
+  return moment(tanggal).format('DD/MM/YYYY HH:mm')
+}
 
 const DetailGalangDana = ({ match }) => {
   const [detail, setDetail] = useState([])
@@ -81,68 +95,49 @@ const DetailGalangDana = ({ match }) => {
   }
 
   const tutupModalGalangDana = () => {
+    setModalStatusGalangDana(false)
+  }
+
+  const submitStatusGalangDana = () => {
     handleStatusGalangDana()
     setModalStatusGalangDana(false)
   }
 
-  useEffect(() => {
-    getDetailGalangDanaById()
-    getAllDataTarikDana()
-    getDetailTransaksiGalangDanaById()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
 
   const toggleStatusGalangDana = () => {
     setModalStatusGalangDana(!modalStatusGalangDana)
   }
 
-
   useEffect(() => {
+    getDetailGalangDana()
+    getAllDataTarikDana()
+    getDetailTransaksi()
     getCurrentColor()
-  }, [])
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id])
 
   const color = getCurrentColor()
 
-  //get token
-  const token = Cookies.get('token')
-  const getDetailGalangDanaById = async () => {
-    // get detail galang dana data by id
-    await axios
-      .get(`${API_URL}/api/admin/galangdana/${id}/details`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+  const getDetailGalangDana = () => {
+    http
+      .get(`${API_ENDPOINT.GET_LIST_GALANG_DANA_ADMIN}/${id}/details`)
       .then((res) => {
-        const responseData = res.data.data
-        setDetail(responseData)
+        setDetail(res.data.data)
       })
       .catch((err) => {
-        console.log('Error: ', err)
+        console.error('Error: ', err)
       })
   }
 
   //get detail transaksi galang dana by id
-  const getDetailTransaksiGalangDanaById = async () => {
-    await axios
-      .get(`${API_URL}/api/admin/galangdana/${id}/transactions`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+  const getDetailTransaksi = () => {
+    http
+      .get(`${API_ENDPOINT.GET_LIST_GALANG_DANA_ADMIN}/${id}/transactions`)
       .then((res) => {
-        const responseData = res.data.data
-        const orderResponseData = responseData.sort(function (a, b) {
-          return (
-            moment(b.tanggal_donasi, 'YYYY/MM/DD HH:mm:ss') -
-            moment(a.tanggal_donasi, 'YYYY/MM/DD HH:mm:ss')
-          )
-        })
-        setTransaksi(orderResponseData)
+        setTransaksi(res.data.data)
       })
       .catch((err) => {
-        console.log('Error: ', err)
+        console.error('Error: ', err)
       })
   }
 
@@ -150,13 +145,9 @@ const DetailGalangDana = ({ match }) => {
   const handleStatusGalangDana = () => {
     //post one detail data tarik dana 
     const postStatusGalangDana = () => {
-      axios
-        .put(`${API_URL}/api/admin/galangdana/${id}/status`, {
+      http
+        .put(`${API_ENDPOINT.GET_LIST_GALANG_DANA_ADMIN}/${id}/status`, {
           status: statusGalangDana
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         })
         .then(() => {
           setFetchStatus(true)
@@ -168,14 +159,35 @@ const DetailGalangDana = ({ match }) => {
     postStatusGalangDana()
   }
 
+  //pagination
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPage, setTotalPage] = useState(0)
+  const currentPageSize = 10
+
+  function filteredData() {
+    let d
+
+    d = transaksi.sort((a, b) => {
+      return new Date(b.tanggal_donasi) - new Date(a.tanggal_donasi)
+    })
+
+    return d
+  }
+
+  useEffect(() => {
+    setTotalPage((filteredData().length / currentPageSize).toFixed())
+  }, [filteredData(), currentPageSize]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (currentPage > totalPage) {
+      setCurrentPage(1)
+    }
+  }, [totalPage, currentPage])
+
   //get All data tarik dana 
-  const getAllDataTarikDana = async () => {
-    await axios
-      .get(`${API_URL}/api/admin/galangdana/${id}/funds`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+  const getAllDataTarikDana = () => {
+    http
+      .get(`${API_ENDPOINT.GET_LIST_GALANG_DANA_ADMIN}/${id}/funds`)
       .then((res) => {
         const responseData = res.data
         setDataTarikDana(responseData)
@@ -196,7 +208,7 @@ const DetailGalangDana = ({ match }) => {
 
   useEffect(() => {
     if (fetchStatus) {
-      getDetailGalangDanaById()
+      getDetailGalangDana()
       getAllDataTarikDana()
       getDetailTarikDana()
       setFetchStatus(false)
@@ -204,13 +216,9 @@ const DetailGalangDana = ({ match }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchStatus])
 
-  const getDetailTarikDana = async () => {
-    await axios
-      .get(`${API_URL}/api/admin/penarikandana/${idTarikDana}/fund`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+  const getDetailTarikDana = () => {
+    http
+      .get(`${API_ENDPOINT.GET_PENARIKAN_DANA}/${idTarikDana}/fund`)
       .then((res) => {
         const responseData = res.data.data
         setDetailTarikDana({
@@ -230,13 +238,9 @@ const DetailGalangDana = ({ match }) => {
     //post one detail data tarik dana 
     const postDetailTarikDana = () => {
       axios
-        .post(`${API_URL}/api/admin/penarikandana/${idTarikDana}/approve`, {
+        .post(`${API_ENDPOINT.GET_PENARIKAN_DANA}/${idTarikDana}/approve`, {
           nominal: detailTarikDana.nominal,
           keterangan: detailTarikDana.keterangan
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         })
         .then(() => {
           setFetchStatus(true)
@@ -246,34 +250,6 @@ const DetailGalangDana = ({ match }) => {
         })
     }
     postDetailTarikDana()
-  }
-
-  //pagination
-  const [currentPage, setCurrentPage] = useState(1)
-  const [totalPage, setTotalPage] = useState(0)
-  const currentPageSize = 10
-
-  useEffect(() => {
-    setTotalPage(Math.ceil(transaksi.length / currentPageSize))
-  }, [transaksi, currentPageSize])
-
-  useEffect(() => {
-    if (currentPage > totalPage) {
-      setCurrentPage(1)
-    }
-  }, [totalPage, currentPage])
-
-  const konversiToNumber = (angka) => {
-    const idrFormat = IdrFormat(parseInt(angka))
-    if (!isNaN(idrFormat)) {
-      return idrFormat
-    } else {
-      return 0
-    }
-  }
-
-  const formatDate = (tanggal) => {
-    return moment(tanggal).format('DD/MM/YYYY HH:mm')
   }
 
   const customStylesStatusGalangDana = {
@@ -292,7 +268,7 @@ const DetailGalangDana = ({ match }) => {
       paddingLeft: 5,
       paddingRight: 0,
       borderRadius: '30px',
-      border: '2px solid  rgba(252, 174, 3, 0.2)',
+      border: statusGalangDana === 'Pending' && '2px solid rgba(252, 174, 3, 0.2)',
       backgroundColor: 'transparent',
       color: '#FCAE03',
       font: 'root.font.regular',
@@ -309,8 +285,6 @@ const DetailGalangDana = ({ match }) => {
     singleValue: (provided, state) => {
       const opacity = state.isDisabled ? 0.5 : 1
       const transition = 'opacity 300ms'
-
-
       return { ...provided, opacity, transition }
     },
   }
@@ -331,7 +305,7 @@ const DetailGalangDana = ({ match }) => {
       paddingLeft: 5,
       paddingRight: 0,
       borderRadius: '30px',
-      border: '2px solid  rgba(252, 174, 3, 0.2)',
+      border: detailTarikDana.status === 'pending' && '2px solid rgba(252, 174, 3, 0.2)',
       backgroundColor: detailTarikDana.status === 'pending' && 'rgba(252, 174, 3, 0.2)',
       color: '#FCAE03',
       font: 'root.font.regular',
@@ -348,8 +322,6 @@ const DetailGalangDana = ({ match }) => {
     singleValue: (provided, state) => {
       const opacity = state.isDisabled ? 0.5 : 1
       const transition = 'opacity 300ms'
-
-
       return { ...provided, opacity, transition }
     },
   }
@@ -362,7 +334,6 @@ const DetailGalangDana = ({ match }) => {
     } else {
       return "pilih status"
     }
-
   }
 
   const defaultValueStatusGalangDana = () => {
@@ -371,9 +342,8 @@ const DetailGalangDana = ({ match }) => {
     } else if (detail.status === "Pending") {
       return { value: detail.status, label: "Pending" }
     } else {
-      return detail.status
+      return "pilih status"
     }
-
   }
 
   return (
@@ -428,7 +398,7 @@ const DetailGalangDana = ({ match }) => {
           <Button className="btn-secondary mr-4" onClick={tutupModalGalangDana}>
             Tidak
           </Button>
-          <Button type="submit" color="primary" onClick={tutupModalGalangDana}>
+          <Button type="submit" color="primary" onClick={submitStatusGalangDana}>
             Iya
           </Button>
         </div>
@@ -566,77 +536,57 @@ const DetailGalangDana = ({ match }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {transaksi
-                      .slice(
-                        (currentPage - 1) * currentPageSize,
-                        currentPage * currentPageSize
-                      )
-                      .map((item, idx) => (
-                        <tr key={idx}>
-                          <td>{(currentPage - 1) * currentPageSize + idx + 1}</td>
-                          <td>{item.nama ? item.nama : 'Warga Baik'}</td>
-                          <td>{formatDate(item.tanggal_donasi)}</td>
-                          <td>Rp {konversiToNumber(item.nominal)}</td>
-                          <td>
-                            Rp {konversiToNumber(item.biaya_payment_gateway)}
-                          </td>
-                          <td>Rp {konversiToNumber(item.biaya_referal_iklan)}</td>
-                          <td>Rp {konversiToNumber(item.biaya_operasional)}</td>
-                          <td>Rp {konversiToNumber(item.payable)}</td>
-                          <td>
-                            {item.status_donasi === 'Approved' && (
-                              <p
-                                className="text-success rounded text-center status bg-status-success"
-                                style={{
-                                  maxWidth: '77px',
-                                }}
-                              >
-                                Berhasil
-                              </p>
-                            )}
-                            {item.status_donasi === 'Pendding' && (
-                              <p
-                                className="text-warning rounded text-center status bg-status-pending"
-                                style={{
-                                  maxWidth: '78px',
-                                }}
-                              >
-                                Pending
-                              </p>
-                            )}
-                            {item.status_donasi === 'Pending' && (
-                              <p
-                                className="text-warning rounded text-center status bg-status-pending"
-                                style={{
-                                  maxWidth: '78px',
-                                }}
-                              >
-                                Pending
-                              </p>
-                            )}
-                            {item.status_donasi === 'Refund' && (
-                              <p
-                                className="text-warning rounded text-center status bg-status-pending"
-                                style={{
-                                  maxWidth: '78px',
-                                }}
-                              >
-                                Refund
-                              </p>
-                            )}
-                            {item.status_donasi === 'Rejected' && (
-                              <p
-                                className="text-danger rounded text-center status bg-status-danger"
-                                style={{
-                                  maxWidth: '94px',
-                                }}
-                              >
-                                Dibatalkan
-                              </p>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
+                    {filteredData().length !== 0 ? (
+                      filteredData()
+                        .slice(
+                          (currentPage - 1) * currentPageSize,
+                          currentPage * currentPageSize
+                        )
+                        .map((item, index) => (
+                          <tr key={index}>
+                            <td>
+                              {(currentPage - 1) * currentPageSize + index + 1}
+                            </td>
+                            <td>{item.nama ? item.nama : 'Warga Baik'}</td>
+                            <td>{formatDate(item.tanggal_donasi)}</td>
+                            <td>Rp {konversiToNumber(item.nominal)}</td>
+                            <td>
+                              Rp {konversiToNumber(item.biaya_payment_gateway)}
+                            </td>
+                            <td>
+                              Rp {konversiToNumber(item.biaya_referal_iklan)}
+                            </td>
+                            <td>Rp {konversiToNumber(item.biaya_operasional)}</td>
+                            <td>Rp {konversiToNumber(item.payable)}</td>
+                            <td>
+                              {item.status_donasi === 'Approved' && (
+                                <TextAlert text={'Berhasil'} />
+                              )}
+                              {item.status_donasi === 'Pending' && (
+                                <TextAlert text={'Pending'} type="warning" />
+                              )}
+                              {(!item.status_donasi ||
+                                item.status_donasi === 'Denied' ||
+                                item.status_donasi === 'Rejected' ||
+                                item.status_donasi === 'Refund') && (
+                                  <TextAlert text={'Dibatalkan'} type="danger" />
+                                )}
+                            </td>
+                          </tr>
+                        ))
+                    ) : (
+                      <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                      </tr>
+                    )}
                   </tbody>
                 </Table>
               </CardBody>
@@ -687,7 +637,7 @@ const DetailGalangDana = ({ match }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {//buat dapetin idTarikDana dari sini
+                    {
                       dataTarikDana.data.map((item) => (
                         <tr onClick={() => { toggle(item.id) }} style={{ cursor: 'pointer' }} key={item.id}>
                           <td>{formatDate(item.updated_at)}</td>
@@ -735,15 +685,17 @@ const DetailGalangDana = ({ match }) => {
           </Card>
         </Colxx>
       </Row>
-      {mode === 'detail' && (
-        <DataTablePagination
-          page={currentPage - 1}
-          pages={totalPage}
-          canNext={currentPage < totalPage}
-          canPrevious={currentPage > 1}
-          onPageChange={(page) => setCurrentPage(page + 1)}
-          paginationMaxSize={10}
-        />
+      {totalPage !== '0' && mode === 'detail' && (
+        <div className="float-md-right">
+          <DataTablePagination
+            page={currentPage - 1}
+            pages={totalPage}
+            canNext={currentPage < Number(totalPage)}
+            canPrevious={currentPage > 1}
+            onPageChange={(page) => setCurrentPage(page + 1)}
+            paginationMaxSize={totalPage > 10 ? 10 : Number(totalPage)}
+          />
+        </div>
       )}
 
       <div className="box-tarik-dana">
@@ -815,7 +767,7 @@ const DetailGalangDana = ({ match }) => {
                   >
                     Status
                   </label>
-                  {/* statusnya belum mau ke display waktu 1X render */}
+
                   <Select
                     className="basic-single"
                     classNamePrefix="select"
