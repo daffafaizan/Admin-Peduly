@@ -82,7 +82,7 @@
 .sidebar-menu-galang-dana {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   margin: 10px 5px;
 }
@@ -203,7 +203,15 @@
   color: #fcae03;
 }
 
+.jea {
+  padding-left: 0;
+}
+
 @media only screen and (max-width: 1200px) {
+  .jea {
+    padding-left: 20px;
+  }
+
   .button-menu-galang-dana {
     border: solid 1px #dedede;
     padding: 10px 0px;
@@ -234,6 +242,10 @@
 }
 
 @media only screen and (max-width: 992px) {
+  .jea {
+    padding-left: 20px;
+  }
+
   .sidebar-galang-dana {
     display: flex;
     justify-content: center;
@@ -272,12 +284,13 @@
     cursor: pointer;
     color: #e7513b;
   }
-
-
-  
 }
 
 @media only screen and (max-width: 600px) {
+  .jea {
+    padding-left: 20px;
+  }
+
   .container-card {
     padding: 20px 0;
     border-radius: 15px;
@@ -296,7 +309,3 @@
     }
   }
 }
-
-
-
-

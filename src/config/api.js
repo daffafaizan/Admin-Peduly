@@ -1,4 +1,4 @@
-export const API_URL = 'https://dev.peduly.com'
+export const API_URL = 'https://api.peduly.com'
 export const API_CONTEXT = 'api'
 export const IMAGE_CONTEXT = 'images/images_campaign'
 export const API_ENDPOINT = {

@@ -16,7 +16,6 @@ import './index.scss'
 import http from 'helpers/http'
 import DataTablePagination from 'components/DatatablePagination'
 import { API_ENDPOINT } from 'config/api'
-import { useHistory } from 'react-router-dom'
 
 const pageSizes = [20, 40, 80]
 const orderOptions = ['Terbaru', 'Terlama']
@@ -31,7 +30,6 @@ const Pengguna = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPage, setTotalPage] = useState(0)
 
-  const history = useHistory()
   const color = getCurrentColor()
 
   useEffect(() => {
@@ -171,9 +169,7 @@ const Pengguna = () => {
                         currentPage * currentPageSize
                       )
                       .map((item, index) => (
-                        <tr key={index} onClick={() => {
-                          history.push(`/app/pengguna/detail`)
-                        }} style={{ cursor: 'pointer' }}>
+                        <tr key={index}>
                           <td>
                             {(currentPage - 1) * currentPageSize + index + 1}
                           </td>

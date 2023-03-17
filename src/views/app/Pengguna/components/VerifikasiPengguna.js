@@ -1,10 +1,4 @@
-import React from 'react'
-// import { useState, useEffect } from 'react'
-import {
-  Col,
-  Label,
-  FormGroup,
-} from 'reactstrap'
+import { Col, Label, FormGroup } from 'reactstrap'
 
 const VerifikasiPengguna = () => {
   return (
@@ -12,7 +6,11 @@ const VerifikasiPengguna = () => {
       {/* col 1 */}
       <div className="col-4">
         <FormGroup>
-          <Label for="namalengkap" lg={12} className="detail-pengguna-label mb-1">
+          <Label
+            for="namalengkap"
+            lg={12}
+            className="detail-pengguna-label mb-1"
+          >
             Nama Bank
           </Label>
           <Col lg={12}>
@@ -21,7 +19,11 @@ const VerifikasiPengguna = () => {
         </FormGroup>
 
         <FormGroup>
-          <Label for="noRekening" lg={12} className="detail-pengguna-label mb-1">
+          <Label
+            for="noRekening"
+            lg={12}
+            className="detail-pengguna-label mb-1"
+          >
             no. rekening
           </Label>
           <Col lg={12}>
@@ -30,7 +32,11 @@ const VerifikasiPengguna = () => {
         </FormGroup>
 
         <FormGroup>
-          <Label for="tanggalLahir" lg={12} className="detail-pengguna-label mb-1">
+          <Label
+            for="tanggalLahir"
+            lg={12}
+            className="detail-pengguna-label mb-1"
+          >
             Nominal Donasi
           </Label>
           <Col lg={12}>
