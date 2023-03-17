@@ -18,6 +18,7 @@ import { getCurrentColor } from 'helpers/Utils'
 import './index.scss'
 import http from 'helpers/http'
 import { API_ENDPOINT } from 'config/api'
+import { useHistory } from 'react-router-dom'
 import DataTablePagination from 'components/DatatablePagination'
 
 const pageSizes = [20, 40, 80]
@@ -34,6 +35,7 @@ const TransaksiDonasi = () => {
   const [totalPage, setTotalPage] = useState(0)
 
   const color = getCurrentColor()
+  const history = useHistory()
 
   useEffect(() => {
     getCurrentColor()
@@ -171,7 +173,12 @@ const TransaksiDonasi = () => {
                         currentPage * selectedPageSize
                       )
                       .map((item, index) => (
-                        <tr key={`item-${index}`}>
+                        <tr key={`item-${index}`}
+                        style={{ cursor: 'pointer' }}
+                          onClick={() =>
+                            history.push(`/app/transaksi-donasi/detail/${item.kode_donasi}`)
+                          }
+                        >
                           <td>
                             {index + (currentPage - 1) * selectedPageSize + 1}
                           </td>

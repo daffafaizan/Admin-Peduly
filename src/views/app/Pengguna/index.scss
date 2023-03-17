@@ -16,3 +16,60 @@
     }
   }
 }
+
+.sidebar-pengguna {
+  border-right: solid 1px #e4e4e4;
+}
+
+.sidebar-menu-pengguna {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  margin: 10px 5px;
+}
+
+.button-menu-pengguna {
+  border: solid 1px #dedede;
+  padding: 10px 0px;
+  width: 120px;
+  text-align: center;
+  border-radius: 30px;
+  margin: 10px 20px;
+  cursor: pointer;
+  color: #717171;
+}
+
+.button-menu-pengguna-active {
+  border: solid 1px #e7513b;
+  padding: 10px 0px;
+  width: 120px;
+  text-align: center;
+  border-radius: 30px;
+  margin: 10px 20px;
+  cursor: pointer;
+  color: #e7513b;
+}
+
+.button-menu-pengguna:hover {
+  border: solid 1px #e7513b;
+  color: #e7513b;
+  cursor: pointer;
+}
+
+.detail-pengguna-label {
+  font-size: 14px;
+  color: #717171;
+}
+
+.form-group {
+  width: 100%;
+}
+
+.detail-pengguna-text {
+  font-size: 16px;
+  color: #3a3a3a;
+  margin-left: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #F4F4F4;
+}

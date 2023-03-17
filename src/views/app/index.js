@@ -6,7 +6,9 @@ import AppLayout from 'layout/AppLayout'
 const Dashboard = React.lazy(() => import('./Dashboard'))
 const BlankPage = React.lazy(() => import('./blank-page'))
 const TransaksiDonasi = React.lazy(() => import('./Transaksi'))
+const DetailTransaksi = React.lazy(() => import('./Transaksi/DetailTransaksi'))
 const Pengguna = React.lazy(() => import('./Pengguna'))
+const DetailPengguna = React.lazy(() => import('./Pengguna/DetailPengguna'))
 const HalamanGalangDana = React.lazy(() => import('./HalamanGalangDana'))
 const DetailGalangDana = React.lazy(() =>
   import('./HalamanGalangDana/DetailGalangDana')
@@ -38,12 +40,24 @@ const App = ({ match }) => {
               render={(props) => <BlankPage {...props} />}
             />
             <Route
+              exact
               path={`${match.url}/transaksi-donasi`}
               render={(props) => <TransaksiDonasi {...props} />}
             />
             <Route
+              exact
+              path={`${match.url}/transaksi-donasi/detail/:id`}
+              render={(props) => <DetailTransaksi {...props} />}
+            />
+            <Route
+              exact
               path={`${match.url}/pengguna`}
               render={(props) => <Pengguna {...props} />}
+            />
+            <Route
+              exact
+              path={`${match.url}/pengguna/detail`}
+              render={(props) => <DetailPengguna {...props} />}
             />
             <Route
               exact
