@@ -172,7 +172,7 @@ const Pengguna = () => {
                       )
                       .map((item, index) => (
                         <tr key={index} onClick={() => {
-                          history.push(`/app/pengguna/detail`)
+                          history.push(`/app/pengguna/detail/${item.id}`)
                         }} style={{ cursor: 'pointer' }}>
                           <td>
                             {(currentPage - 1) * currentPageSize + index + 1}
