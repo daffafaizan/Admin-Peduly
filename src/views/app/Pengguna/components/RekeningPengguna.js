@@ -7,6 +7,59 @@ import {
 } from 'reactstrap'
 import http from 'helpers/http'
 import { API_ENDPOINT } from 'config/api'
+import customStyles from './SelectStyle'
+import Select from 'react-select'
+
+const bankList = [
+  {
+    value: 1,
+    label: 'Bank Mandiri',
+  },
+  {
+    value: 2,
+    label: 'Bank Syariah Indonesia (BSI)',
+  },
+  {
+    value: 3,
+    label: 'Bank Negara Indonesia (BNI)',
+  },
+  {
+    value: 4,
+    label: 'Bank Rakyat Indonesia (BRI)',
+  },
+  {
+    value: 5,
+    label: 'Bank Central Asia (BCA)',
+  },
+  {
+    value: 6,
+    label: 'Bank Tabungan Negara (BTN)',
+  },
+  {
+    value: 7,
+    label: 'CIMB Niaga',
+  },
+  {
+    value: 8,
+    label: 'CIMB Niaga Syariah',
+  },
+  {
+    value: 9,
+    label: 'Bank Danamon',
+  },
+  {
+    value: 10,
+    label: 'Bank Danamon Syariah',
+  },
+  {
+    value: 11,
+    label: 'Bank Muamalat',
+  },
+  {
+    value: 12,
+    label: 'Bank Bukopin',
+  },
+]
 
 const RekeningPengguna = ({ id }) => {
   const [ubahData, setUbahData] = useState(false)
@@ -64,7 +117,6 @@ const RekeningPengguna = ({ id }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchStatus])
 
-  console.log(data)
   return (
     <div className="d-flex m-4">
       {/* col 1 */}
@@ -76,9 +128,20 @@ const RekeningPengguna = ({ id }) => {
                 Nama Bank
               </Label>
               <Col lg={12}>
-                {ubahData ? (<input name="bankName" type="text" className="detail-pengguna-input form-input" onChange={(e) =>
-                  setData({ ...data, namaBank: e.target.value })
-                } placeholder="Nama bank pengguna..." value={data.namaBank} />) : (<p className="detail-pengguna-text"> {data.namaBank !== null ? data.namaBank : '-'}</p>)}
+                {ubahData ? (<Select
+                  classNamePrefix="select"
+                  className="col-12 p-0 m-0"
+                  styles={customStyles}
+                  placeholder="Pilih Bank"
+                  defaultValue={data.namaBank ? { value: data.namaBank, label: data.namaBank } : "Pilih Bank"}
+                  name="color"
+                  value={bankList.value === null ? '' : bankList.value}
+                  isSearchable={false}
+                  options={bankList}
+                  onChange={(e) => {
+                    setData({ ...data, namaBank: e.label })
+                  }
+                  } />) : (<p className="detail-pengguna-text text-rekening"> {data.namaBank !== null ? data.namaBank : '-'}</p>)}
               </Col>
             </FormGroup>
 
@@ -87,9 +150,9 @@ const RekeningPengguna = ({ id }) => {
                 No. Rekening
               </Label>
               <Col lg={12}>
-                {ubahData ? (<input name="noRekening" type="number" className="detail-pengguna-input form-input" onChange={(e) =>
+                {ubahData ? (<input name="noRekening" type="number" className="detail-pengguna-input form-input text-rekening" onChange={(e) =>
                   setData({ ...data, noRekening: e.target.value })
-                } placeholder="No. rekening pengguna..." value={data.noRekening} />) : (<p className="detail-pengguna-text"> {data.noRekening !== null ? data.noRekening : '-'}</p>)}
+                } placeholder="No. rekening pengguna..." value={data.noRekening} />) : (<p className="detail-pengguna-text text-rekening"> {data.noRekening !== null ? data.noRekening : '-'}</p>)}
               </Col>
             </FormGroup>
 
@@ -98,9 +161,9 @@ const RekeningPengguna = ({ id }) => {
                 Pemilik Rekening
               </Label>
               <Col lg={12}>
-                {ubahData ? (<input name="noRekening" type="text" className="detail-pengguna-input form-input" onChange={(e) =>
+                {ubahData ? (<input name="noRekening" type="text" className="detail-pengguna-input form-input text-rekening" onChange={(e) =>
                   setData({ ...data, pemilikRekening: e.target.value })
-                } placeholder="Pemilik rekening..." value={data.pemilikRekening} />) : (<p className="detail-pengguna-text">{data.pemilikRekening !== null ? data.pemilikRekening : '-'}</p>)}
+                } placeholder="Pemilik rekening..." value={data.pemilikRekening} />) : (<p className="detail-pengguna-text text-rekening">{data.pemilikRekening !== null ? data.pemilikRekening : '-'}</p>)}
               </Col>
             </FormGroup>
           </div>

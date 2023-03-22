@@ -9,7 +9,7 @@ import {
 } from 'reactstrap'
 import { Colxx } from 'components/common/CustomBootstrap'
 import './index.scss'
-import { API_ENDPOINT } from 'config/api'
+import { API_ENDPOINT, API_URL } from 'config/api'
 import { useParams } from 'react-router-dom'
 import http from 'helpers/http'
 import IdrFormat from 'helpers/IdrFormat'
@@ -24,7 +24,7 @@ const konversiToNumber = (angka) => {
   }
 }
 
-function cekPanjangObject (obj) {
+function cekPanjangObject(obj) {
   return Object.keys(obj).length
 }
 
@@ -43,7 +43,9 @@ const DetailTransaksi = () => {
       .then((res) => {
         const dataDonasiCOD = res.data.data.donasi
         const dataDonasiAll = res.data.data
-        if (cekPanjangObject(dataDonasiCOD) >= 1 && cekPanjangObject(dataDonasiAll)>= 1) {
+        console.log(dataDonasiCOD, dataDonasiAll)
+        console.log(cekPanjangObject(dataDonasiCOD))
+        if (cekPanjangObject(dataDonasiCOD) >= 8 && cekPanjangObject(dataDonasiAll) >= 1) {
           setDetail(dataDonasiCOD)
         } else {
           setDetail(dataDonasiAll)
@@ -100,7 +102,7 @@ const DetailTransaksi = () => {
                       </Label>
                       <Col lg={12}>
                         <p className="detail-transaksi-text"> {detail.nama}
-                          </p>
+                        </p>
                       </Col>
                     </FormGroup>
 
@@ -136,7 +138,7 @@ const DetailTransaksi = () => {
                         Tujuan Donasi
                       </Label>
                       <Col lg={12}>
-                        <a href={`https://demo.peduly.com/${detail.judul_slug}`} className="detail-transaksi-link pb-4" target="_blank" rel="noreferrer">{detail.judul_campaign}</a>
+                        <a href={`${API_URL}/${detail.judul_slug}`} className="detail-transaksi-link pb-4" target="_blank" rel="noreferrer">{detail.judul_campaign}</a>
                         <div className="detail-transaksi-box-link mt-3"></div>
                       </Col>
                     </FormGroup>
@@ -149,7 +151,7 @@ const DetailTransaksi = () => {
                         ID Transaksi
                       </Label>
                       <Col lg={12}>
-                        <p className="detail-transaksi-text">{detail.id}</p>
+                        <p className="detail-transaksi-text">{detail.kode_donasi}</p>
                       </Col>
                     </FormGroup>
 
