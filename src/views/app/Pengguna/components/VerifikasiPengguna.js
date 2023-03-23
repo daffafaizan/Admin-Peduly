@@ -9,7 +9,7 @@ import Select from 'react-select'
 import { API_ENDPOINT } from 'config/api'
 import http from 'helpers/http'
 import { API_URL } from 'config/api'
-import customStyles from './SelectStyle'
+import { customStyles } from '../../../../assets/css/SelectStyle'
 
 const optionsStatus = [
   {
@@ -63,12 +63,10 @@ const VerifikasiPengguna = ({ id }) => {
     setUbahData(false)
   }
 
-
-
   return (
     <div className="d-flex m-4">
       {/* col 1 */}
-      <form className="col-12" onSubmit={ubahVerifikasiPengguna}>
+      <form onSubmit={ubahVerifikasiPengguna}>
         <FormGroup className="mb-4">
           <Label for="namalengkap" lg={12} className="detail-pengguna-label mb-1 ml-3">
             Status Verifikasi Akun
@@ -76,7 +74,7 @@ const VerifikasiPengguna = ({ id }) => {
           <Col lg={12}>
             {ubahData ? (<Select
               classNamePrefix="select"
-              className="col-4"
+              className="col-7"
               styles={customStyles}
               placeholder="Pilih Status"
               defaultValue={data.status ? { value: data.status, label: data.status } : "pilih status"}
@@ -90,7 +88,7 @@ const VerifikasiPengguna = ({ id }) => {
                 setData({ ...data, status: e.value })
               }
               }
-            />) : (<p className="detail-pengguna-text col-5 mt-2 text-status"> {data.status !== null ? data.status : '-'}</p>)}
+            />) : (<p className="detail-pengguna-text col-8 mt-2 pb-2 text-status"> {data.status !== null ? data.status : '-'}</p>)}
 
           </Col>
         </FormGroup>
@@ -109,7 +107,7 @@ const VerifikasiPengguna = ({ id }) => {
                 ) :
                   (<img src={require('../../../../assets/img/nopic.png').default}
                     style={{
-                      width: '100%',
+                      width: '200px',
                       objectFit: 'cover',
                     }} />)
               }
@@ -128,7 +126,7 @@ const VerifikasiPengguna = ({ id }) => {
                     objectFit: 'cover',
                   }} />
                 ) : (<img src={require('../../../../assets/img/nopic.png').default} style={{
-                  width: '100%',
+                  width: '200px',
                   objectFit: 'cover',
                 }} />)
               }
@@ -136,7 +134,7 @@ const VerifikasiPengguna = ({ id }) => {
           </FormGroup>
 
         </div>
-        <div className="button-box mt-4">
+        <div className="button-box mt-4 button-md-verifikasi">
           {ubahData ?
             (<button className='button-simpan'
               type='submit'>

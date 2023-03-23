@@ -71,6 +71,16 @@
 }
 
 .detail-pengguna-text {
+  width: 250px;
+  font-size: 16px;
+  color: #3a3a3a;
+  margin-left: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.detail-pengguna-rekening {
+  width: 100%;
   font-size: 16px;
   color: #3a3a3a;
   margin-left: 0;
@@ -87,31 +97,46 @@
 .text-rekening {
   width: 300px;
 }
+
 .button-ubah-data {
+  margin-left: 700px;
   font-size: 14px;
   border: 1.5px solid #e7513b;
   color: #e7513b;
   padding: 12px 40px;
   font-weight: bold;
-  margin-left: 700px;
   background-color: transparent;
   border-radius: 30px;
   margin-bottom: 30px;
 }
 
 .button-simpan {
+  margin-left: 700px;
+  font-size: 14px;
+  border: 1.5px solid #e7513b;
+  color: #fff;
+  padding: 12px 40px;
+  font-weight: bold;
+  background-color: #e7513b;
+  border-radius: 30px;
+  margin-bottom: 30px;
+}
+
+.button-simpan-disabled {
+  margin-left: 700px;
   font-size: 14px;
   border: 1.5px solid #e7513b;
   color: #fff;
   padding: 12px 40px;
   font-weight: bold;
   margin-left: 700px;
-  background-color: #e7513b;
+  background-color: rgba(231, 81, 59, 0.8);
   border-radius: 30px;
   margin-bottom: 30px;
 }
 
 .detail-pengguna-input {
+  width: 250px;
   font-size: 16px;
   color: #3a3a3a;
   margin-left: 0;
@@ -165,6 +190,13 @@
   justify-content: flex-end;
 }
 
+.foto-profil {
+  border-radius: 100%;
+  width: 86px;
+  height: 86px;
+  object-fit: cover;
+}
+
 @media only screen and (max-width: 1200px) {
   .button-menu-pengguna {
     border: solid 1px #dedede;
@@ -192,6 +224,65 @@
     padding: 20px 0;
     border-radius: 15px;
     margin-bottom: 32px;
+  }
+
+  .detail-pengguna-text {
+    width: 200px;
+    font-size: 16px;
+    color: #3a3a3a;
+    margin-left: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f4f4f4;
+  }
+
+  .button-ubah-data {
+    margin-left: 300px;
+    font-size: 14px;
+    border: 1.5px solid #e7513b;
+    color: #e7513b;
+    padding: 12px 40px;
+    font-weight: bold;
+    background-color: transparent;
+    border-radius: 30px;
+    margin-bottom: 30px;
+  }
+
+  .button-simpan {
+    margin-left: 300px;
+    font-size: 14px;
+    border: 1.5px solid #e7513b;
+    color: #fff;
+    padding: 12px 40px;
+    font-weight: bold;
+    background-color: #e7513b;
+    border-radius: 30px;
+    margin-bottom: 30px;
+  }
+
+  .button-simpan-disabled {
+    margin-left: 300px;
+    font-size: 14px;
+    border: 1.5px solid #e7513b;
+    color: #fff;
+    padding: 12px 40px;
+    font-weight: bold;
+    margin-left: 700px;
+    background-color: rgba(231, 81, 59, 0.8);
+    border-radius: 30px;
+    margin-bottom: 30px;
+  }
+
+  .form-img-box {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .button-md-box {
+    margin-left: 100px;
+  }
+
+  .button-md-verifikasi {
+    margin-left: 200px;
   }
 }
 

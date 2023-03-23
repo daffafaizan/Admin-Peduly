@@ -7,7 +7,7 @@ import {
 } from 'reactstrap'
 import http from 'helpers/http'
 import { API_ENDPOINT } from 'config/api'
-import customStyles from './SelectStyle'
+import { customStyles } from '../../../../assets/css/SelectStyle'
 import Select from 'react-select'
 
 const bankList = [
@@ -117,12 +117,17 @@ const RekeningPengguna = ({ id }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchStatus])
 
+  function validator() {
+    if (data.noRekening && data.namaBank && data.pemilikRekening) return true
+    return false
+  }
+
   return (
     <div className="d-flex m-4">
       {/* col 1 */}
       <div className="col-12">
         <form onSubmit={ubahRekeningPengguna} className="position-relative">
-          <div>
+          <div className="col-12">
             <FormGroup className='rekening-form-group'>
               <Label for="bankName" lg={12} className="detail-pengguna-label mb-1">
                 Nama Bank
@@ -141,7 +146,7 @@ const RekeningPengguna = ({ id }) => {
                   onChange={(e) => {
                     setData({ ...data, namaBank: e.label })
                   }
-                  } />) : (<p className="detail-pengguna-text text-rekening"> {data.namaBank !== null ? data.namaBank : '-'}</p>)}
+                  } />) : (<p className="detail-pengguna-rekening text-rekening"> {data.namaBank !== null ? data.namaBank : '-'}</p>)}
               </Col>
             </FormGroup>
 
@@ -152,7 +157,7 @@ const RekeningPengguna = ({ id }) => {
               <Col lg={12}>
                 {ubahData ? (<input name="noRekening" type="number" className="detail-pengguna-input form-input text-rekening" onChange={(e) =>
                   setData({ ...data, noRekening: e.target.value })
-                } placeholder="No. rekening pengguna..." value={data.noRekening} />) : (<p className="detail-pengguna-text text-rekening"> {data.noRekening !== null ? data.noRekening : '-'}</p>)}
+                } placeholder="No. rekening pengguna..." value={data.noRekening} />) : (<p className="detail-pengguna-rekening text-rekening"> {data.noRekening !== null ? data.noRekening : '-'}</p>)}
               </Col>
             </FormGroup>
 
@@ -163,17 +168,18 @@ const RekeningPengguna = ({ id }) => {
               <Col lg={12}>
                 {ubahData ? (<input name="noRekening" type="text" className="detail-pengguna-input form-input text-rekening" onChange={(e) =>
                   setData({ ...data, pemilikRekening: e.target.value })
-                } placeholder="Pemilik rekening..." value={data.pemilikRekening} />) : (<p className="detail-pengguna-text text-rekening">{data.pemilikRekening !== null ? data.pemilikRekening : '-'}</p>)}
+                } placeholder="Pemilik rekening..." value={data.pemilikRekening} />) : (<p className="detail-pengguna-rekening text-rekening">{data.pemilikRekening !== null ? data.pemilikRekening : '-'}</p>)}
               </Col>
             </FormGroup>
           </div>
 
-          <div className="button-box">
-            {ubahData ? (<button className='button-simpan'
-              type='submit'>simpan</button>) : (<button className='button-ubah-data' onClick={(e) => {
-                e.preventDefault()
-                setUbahData(true)
-              }}>Ubah Data</button>)}
+          <div className="button-box col-12 mt-4 button-md-box">
+            {ubahData ? (validator() ? (<button className='button-simpan'
+              type='submit'>simpan</button>) : (<button className='button-simpan-disabled'
+                disabled>simpan</button>)) : (<button className='button-ubah-data' onClick={(e) => {
+                  e.preventDefault()
+                  setUbahData(true)
+                }}>Ubah Data</button>)}
           </div>
 
         </form>
