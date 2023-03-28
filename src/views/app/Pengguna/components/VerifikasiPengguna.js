@@ -42,7 +42,9 @@ const VerifikasiPengguna = ({ id }) => {
       .then((res) => {
         const data = res.data.data
         setData({
-          status: data.status_verifikasi
+          status: data.status_verifikasi,
+          fotoKTP: data.verifikasi.foto_ktp,
+          fotoDiriKTP: data.verifikasi.foto_diri_ktp
         })
       })
       .catch((err) => {
@@ -74,7 +76,7 @@ const VerifikasiPengguna = ({ id }) => {
           <Col lg={12}>
             {ubahData ? (<Select
               classNamePrefix="select"
-              className="col-7"
+              className="col-5"
               styles={customStyles}
               placeholder="Pilih Status"
               defaultValue={data.status ? { value: data.status, label: data.status } : "pilih status"}
@@ -103,6 +105,7 @@ const VerifikasiPengguna = ({ id }) => {
                   <img src={`${API_URL}/${data.fotoKTP}`} style={{
                     width: '100%',
                     objectFit: 'cover',
+                    borderRadius: '15px'
                   }} />
                 ) :
                   (<img src={require('../../../../assets/img/nopic.png').default}
@@ -121,9 +124,10 @@ const VerifikasiPengguna = ({ id }) => {
             <Col lg={12} className="mt-2">
               {
                 data.fotoDiriKTP ? (
-                  <img src={data.fotoDiriKTP} style={{
+                  <img src={`${API_URL}/${data.fotoDiriKTP}`} style={{
                     width: '100%',
                     objectFit: 'cover',
+                    borderRadius: '15px'
                   }} />
                 ) : (<img src={require('../../../../assets/img/nopic.png').default} style={{
                   width: '200px',

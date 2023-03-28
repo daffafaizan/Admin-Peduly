@@ -209,7 +209,7 @@ const DataPengguna = ({ id }) => {
                 Email
               </Label>
               <Col lg={12}>
-                <p className="detail-pengguna-text text-primary">{dataUser.email}</p>
+                <p className="detail-pengguna-text text-primary">{dataUser.email ? dataUser.email : '-'}</p>
               </Col>
             </FormGroup>
 
@@ -223,7 +223,7 @@ const DataPengguna = ({ id }) => {
                     {ubahData ? (<input name="tanggalBerdiri" type="date" className="detail-pengguna-input form-input" onChange={(e) =>
                       setDataUser({ ...dataUser, tanggal_berdiri: e.target.value })
                     } value={dataUser.tanggal_berdiri} />) :
-                      <p className="detail-pengguna-text">{dataUser.berdiri}</p>
+                      <p className="detail-pengguna-text">{dataUser.tanggal_berdiri ? dataUser.tanggal_berdiri : "-"}</p>
                     }
                   </Col>
                 </>) : (<>
@@ -234,7 +234,7 @@ const DataPengguna = ({ id }) => {
                     {ubahData ? (<input name="tanggalLahir" type="date" className="detail-pengguna-input form-input" onChange={(e) =>
                       setDataUser({ ...dataUser, tanggal_lahir: e.target.value })
                     } value={dataUser.tanggal_lahir} />) :
-                      <p className="detail-pengguna-text">{dataUser.tanggal_lahir}</p>
+                      <p className="detail-pengguna-text">{dataUser.tanggal_lahir ? dataUser.tanggal_lahir : "-"}</p>
                     }
                   </Col>
                 </>)}
@@ -268,7 +268,7 @@ const DataPengguna = ({ id }) => {
                     setDataUser({ ...dataUser, provinsi: e.label })
                     setIdKabupaidKabupaten(e.value)
                   }} />) :
-                  <p className="detail-pengguna-text">{dataUser.provinsi}</p>
+                  <p className="detail-pengguna-text">{dataUser.provinsi ? dataUser.provinsi : "-"}</p>
                 }
               </Col>
             </FormGroup>
@@ -281,7 +281,7 @@ const DataPengguna = ({ id }) => {
                 {ubahData ? (<input name="alamatLengkap" type="text" className="detail-pengguna-input form-input" onChange={(e) =>
                   setDataUser({ ...dataUser, alamatLengkap: e.target.value })
                 } value={dataUser.alamatLengkap} />) :
-                  <p className="detail-pengguna-text">{dataUser.alamatLengkap}</p>}
+                  <p className="detail-pengguna-text">{dataUser.alamatLengkap ? dataUser.alamatLengkap : "-"}</p>}
               </Col>
             </FormGroup>
 
@@ -290,7 +290,14 @@ const DataPengguna = ({ id }) => {
                 Foto Profil
               </Label>
               <Col lg={12}>
-                {dataUser.photo ? (<img src={`${API_URL}/${dataUser.photo}`} className="foto-profil" alt="" />) : (<UserPhotoIcon />)}
+                {dataUser.photo ? (<img src={dataUser.photo.slice(0, 4) ===
+                  'http'
+                  ? dataUser.photo
+                  : dataUser.photo.slice(0, 7) ===
+                  '/images'
+                  && `${API_URL}/${dataUser.photo}`
+                } className="foto-profil" alt="" />) : (<UserPhotoIcon />)}
+
               </Col>
             </FormGroup>
           </div>
@@ -315,7 +322,7 @@ const DataPengguna = ({ id }) => {
                     }
                   />
                 ) :
-                  (<p className="detail-pengguna-text">{dataUser.username}</p>)}
+                  (<p className="detail-pengguna-text">{dataUser.username ? dataUser.username : "-"}</p>)}
               </Col>
             </FormGroup>
 
@@ -365,7 +372,7 @@ const DataPengguna = ({ id }) => {
                         setDataUser({ ...dataUser, jenis_organisasi: e.label })
                       }
                     />) :
-                      <p className="detail-pengguna-text">{dataUser.jenis_organisasi}</p>}
+                      <p className="detail-pengguna-text">{dataUser.jenis_organisasi ? dataUser.jenis_organisasi : "-"}</p>}
                   </Col>
                 </>
               ) : (<><Label for="nominalDonasi" lg={12} className="detail-pengguna-label mb-1">
@@ -399,7 +406,7 @@ const DataPengguna = ({ id }) => {
                       setDataUser({ ...dataUser, jenis_kelamin: e.label })
                     }
                   />) :
-                    <p className="detail-pengguna-text">{dataUser.jenis_kelamin}</p>}
+                    <p className="detail-pengguna-text">{dataUser.jenis_kelamin ? dataUser.jenis_kelamin : "-"}</p>}
                 </Col>
               </>)}
 
@@ -435,7 +442,7 @@ const DataPengguna = ({ id }) => {
                     }}
                   />
                 ) :
-                  <p className="detail-pengguna-text">{dataUser.kabupaten}</p>}
+                  <p className="detail-pengguna-text">{dataUser.kabupaten ? dataUser.kabupaten : "-"}</p>}
               </Col>
             </FormGroup>
 
@@ -508,7 +515,7 @@ const DataPengguna = ({ id }) => {
                         }
                       />
                     ) :
-                      <p className="detail-pengguna-text">{dataUser.pekerjaan}</p>}
+                      <p className="detail-pengguna-text">{dataUser.pekerjaan ? dataUser.pekerjaan : "-"}</p>}
                   </Col>
                 </>
               )}
@@ -543,7 +550,7 @@ const DataPengguna = ({ id }) => {
                     }
                   />
                 ) :
-                  <p className="detail-pengguna-text">{dataUser.kecamatan}</p>}
+                  <p className="detail-pengguna-text">{dataUser.kecamatan ? dataUser.kecamatan : "-"}</p>}
               </Col>
             </FormGroup>
           </div>
