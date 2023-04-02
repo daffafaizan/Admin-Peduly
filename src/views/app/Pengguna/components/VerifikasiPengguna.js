@@ -103,7 +103,7 @@ const VerifikasiPengguna = ({ id }) => {
               {
                 data.fotoKTP ? (
                   <img src={`${API_URL}/${data.fotoKTP}`} style={{
-                    width: '100%',
+                    width: '200px',
                     objectFit: 'cover',
                     borderRadius: '15px'
                   }} />
@@ -125,7 +125,7 @@ const VerifikasiPengguna = ({ id }) => {
               {
                 data.fotoDiriKTP ? (
                   <img src={`${API_URL}/${data.fotoDiriKTP}`} style={{
-                    width: '100%',
+                    width: '200px',
                     objectFit: 'cover',
                     borderRadius: '15px'
                   }} />

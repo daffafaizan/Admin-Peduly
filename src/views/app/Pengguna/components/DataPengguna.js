@@ -4,6 +4,7 @@ import {
   Col,
   Label,
   FormGroup,
+  Input
 } from 'reactstrap'
 import http from 'helpers/http'
 import { API_ENDPOINT, API_URL } from 'config/api'
@@ -29,6 +30,7 @@ const optionsJenisKelamin = [
 ]
 
 const DataPengguna = ({ id }) => {
+  const [username, setUsername] = useState("")
   const [ubahData, setUbahData] = useState(false)
   const optionsPekerjaan = useOptionPekerjaan(ubahData)
   const optionsProvinsi = useOptionProvinsi(ubahData)
@@ -38,6 +40,7 @@ const DataPengguna = ({ id }) => {
   const [idKecamatan, setIdKecamatan] = useState('')
   const optionsKecamatan = useOptionKecamatan(idKecamatan)
   const [fetchStatus, setFetchStatus] = useState(false)
+  const [usernameUnique, setUsernameUnique] = useState(false)
   const [dataUser, setDataUser] = useState({
     name: '',
     username: '',
@@ -55,6 +58,8 @@ const DataPengguna = ({ id }) => {
     kecamatan: '',
     alamatLengkap: '',
   })
+  const [fotoProfileUrl, setFotoProfileUrl] = useState(dataUser?.photo)
+
 
   useEffect(() => {
     if (id) getDataPengguna()
@@ -70,25 +75,30 @@ const DataPengguna = ({ id }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchStatus])
 
+  const handleImgProfil = (image) => {
+    if (!image) {
+      return
+    } else if (image.slice(0, 4) ===
+      'http') {
+      return image
+    } else if (dataUser.photo.slice(0, 7) ===
+      '/images') {
+      return `${API_URL}/${image}`
+    }
+  }
+
+  console.log(fotoProfileUrl)
+
+  function loadImage(e) {
+    const previewImage = e.target.files[0]
+    setDataUser({ ...dataUser, photo: previewImage })
+    if (e.target.files.length !== 0) {
+      setFotoProfileUrl(URL.createObjectURL(previewImage))
+    }
+  }
+
   const handleOnEdit = (e) => {
     e.preventDefault()
-    // setDataUser({
-    //   name: dataUser.name || '',
-    //   username: dataUser.username || '',
-    //   photo: dataUser.photo || '',
-    //   tipe: dataUser.tipe || '',
-    //   pekerjaan: dataUser.pekerjaan || '',
-    //   jenis_organisasi: dataUser.jenis_organisasi || '',
-    //   tanggal_lahir: dataUser.tanggal_lahir || '',
-    //   tanggal_berdiri: dataUser.tanggal_berdiri || '',
-    //   jenis_kelamin: dataUser.jenis_kelamin || '',
-    //   email: dataUser.email || '',
-    //   no_telp: dataUser.no_telp || '',
-    //   provinsi: dataUser.provinsi || '',
-    //   kabupaten: dataUser.kabupaten || '',
-    //   kecamatan: dataUser.kecamatan || '',
-    //   alamatLengkap: dataUser.alamatLengkap || '',
-    // })
     setUbahData(true)
   }
 
@@ -115,61 +125,52 @@ const DataPengguna = ({ id }) => {
           kecamatan: data.kecamatan,
           alamatLengkap: data.alamat,
         })
+        setUsername(data.username)
       })
       .catch((err) => {
         console.error('Error get users data: ', err)
       })
   }
 
+  const handleCheckUsername = () => {
+    if (dataUser.username === username) setUsernameUnique(false)
+    http.post(`${API_URL}/api/admin/users/${id}/check-username`, {
+      username: dataUser.username
+    })
+      .then(() => {
+        setUsernameUnique(false)
+      })
+      .catch(() => {
+        setUsernameUnique(true)
+      })
+  }
+
+  console.log(usernameUnique, username)
+
   const onSubmit = (e) => {
     e.preventDefault()
 
-    // const data = new FormData()
-    // data.append('photo', dataUser.photo)
-    // data.append('name', dataUser.name)
-    // data.append('username', dataUser.username)
-    // data.append('tipe', dataUser.tipe)
-    // if (dataUser.tipe === 'pribadi' || dataUser.tipe === 'Pribadi') {
-    //   data.append('pekerjaan', dataUser.pekerjaan)
-    //   data.append('tanggal_lahir', dataUser.tanggal_lahir)
-    //   data.append('jenis_kelamin', dataUser.jenis_kelamin)
-    //   data.append('no_telp', dataUser.no_telp)
-    // } else if (dataUser.tipe === 'organisasi') {
-    //   data.append('jenis_organisasi', dataUser.jenis_organisasi)
-    //   data.append('tanggal_berdiri', dataUser.tanggal_berdiri)
-    //   data.append('no_telp', dataUser.no_telp)
-    // }
-    // data.append('provinsi', dataUser.provinsi)
-    // data.append('kabupaten', dataUser.kabupaten)
-    // data.append('kecamatan', dataUser.kecamatan)
-    // data.append('alamat', dataUser.alamatLengkap)
+    const data = new FormData()
+    data.append('photo', dataUser?.photo)
+    data.append('name', dataUser.name)
+    data.append('username', dataUser.username)
+    data.append('tipe', dataUser.tipe.toLowerCase())
+    if (dataUser.tipe === 'pribadi' || dataUser.tipe === 'Pribadi') {
+      data.append('pekerjaan', dataUser.pekerjaan)
+      data.append('tanggal_lahir', dataUser.tanggal_lahir)
+      data.append('jenis_kelamin', dataUser.jenis_kelamin)
+      data.append('no_telp', dataUser.no_telp)
+    } else if (dataUser.tipe === 'organisasi') {
+      data.append('jenis_organisasi', dataUser.jenis_organisasi)
+      data.append('tanggal_berdiri', dataUser.tanggal_berdiri)
+      data.append('no_telp', dataUser.no_telp)
+    }
+    data.append('provinsi', dataUser.provinsi)
+    data.append('kabupaten', dataUser.kabupaten)
+    data.append('kecamatan', dataUser.kecamatan)
+    data.append('alamat', dataUser.alamatLengkap)
 
-    // http.put(`${API_ENDPOINT.GET_ALL_USER}/${id}`, data)
-    //   .then(() => {
-    //     setFetchStatus(true)
-    //     setUbahData(false)
-    //   })
-    //   .catch((e) => {
-    //     console.log('Ubah Profil Bermasalah ', e)
-    //   })
-
-    http.put(`${API_ENDPOINT.GET_ALL_USER}/${id}`, {
-      name: dataUser.name,
-      username: dataUser.username,
-      photo: dataUser.photo,
-      tipe: dataUser.tipe.toLowerCase(),
-      pekerjaan: dataUser.pekerjaan,
-      jenis_organisasi: dataUser.jenis_organisasi,
-      tanggal_lahir: dataUser.tanggal_lahir,
-      tanggal_berdiri: dataUser.tanggal_berdiri,
-      jenis_kelamin: dataUser.jenis_kelamin,
-      email: dataUser.email,
-      no_telp: dataUser.no_telp,
-      provinsi: dataUser.provinsi,
-      kabupaten: dataUser.kabupaten,
-      kecamatan: dataUser.kecamatan,
-      alamatLengkap: dataUser.alamat,
-    })
+    http.post(`${API_ENDPOINT.GET_ALL_USER}/${id}?_method=PUT`, data)
       .then(() => {
         setFetchStatus(true)
         setUbahData(false)
@@ -290,14 +291,55 @@ const DataPengguna = ({ id }) => {
                 Foto Profil
               </Label>
               <Col lg={12}>
-                {dataUser.photo ? (<img src={dataUser.photo.slice(0, 4) ===
-                  'http'
-                  ? dataUser.photo
-                  : dataUser.photo.slice(0, 7) ===
-                  '/images'
-                  && `${API_URL}/${dataUser.photo}`
-                } className="foto-profil" alt="" />) : (<UserPhotoIcon />)}
-
+                {/* {dataUser?.photo ? (<img src={handleImgProfil(fotoProfileUrl)} className="foto-profil" alt="" />) : (<UserPhotoIcon />)}
+                {ubahData && (
+                  <span style={{
+                    cursor: 'pointer'
+                  }}>
+                    <input
+                      style={{ display: 'none' }}
+                      multiple={false}
+                      ref={profile}
+                      type="file"
+                      accept="image/png, image/gif, image/jpeg"
+                      onChange={loadImage}
+                      value={dataUser?.photo}
+                    />
+                    <p className="text-sm text-peduly-primary mt-2 ml-2">
+                      Ganti Foto
+                    </p>
+                  </span>
+                )} */}
+                <div className={`${ubahData && 'd-none'}`}>
+                  {!ubahData && dataUser.photo ?
+                    (<img src={handleImgProfil(dataUser?.photo)} className="foto-profil" alt="" />) : <UserPhotoIcon />
+                  }
+                </div>
+                {ubahData && (
+                  <span style={{ cursor: 'pointer' }}>
+                    <Input
+                      id="photoProfil"
+                      name="photoProfil"
+                      type="file"
+                      accept=".jpg,.jpeg,.png"
+                      hidden
+                      onChange={loadImage}
+                    />
+                    <label
+                      htmlFor="photoProfil"
+                      className="foto-profil"
+                    > {dataUser.photo ? <img
+                      src={fotoProfileUrl ? fotoProfileUrl : handleImgProfil(dataUser?.photo)}
+                      alt="Preview Image"
+                      className="foto-profil"
+                    /> : (<UserPhotoIcon />)}
+                      <p className="text-sm text-peduly-primary mt-2 ml-2">
+                        Ganti Foto
+                      </p>
+                    </label>
+                  </span>
+                )
+                }
               </Col>
             </FormGroup>
           </div>
@@ -317,12 +359,18 @@ const DataPengguna = ({ id }) => {
                     placeholder="username"
                     maxLength="50"
                     value={dataUser.username}
+                    onBlur={handleCheckUsername}
                     onChange={(e) =>
                       setDataUser({ ...dataUser, username: e.target.value })
                     }
                   />
                 ) :
                   (<p className="detail-pengguna-text">{dataUser.username ? dataUser.username : "-"}</p>)}
+                {usernameUnique === true && (
+                  <p className="text-xs text-peduly-primary">
+                    Username sudah digunakan
+                  </p>
+                )}
               </Col>
             </FormGroup>
 
