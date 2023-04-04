@@ -3,9 +3,6 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import UserLayout from 'layout/UserLayout'
 
 const Login = React.lazy(() => import('./login'))
-const Register = React.lazy(() => import('./register'))
-const ForgotPassword = React.lazy(() => import('./forgot-password'))
-const ResetPassword = React.lazy(() => import('./reset-password'))
 
 const User = ({ match }) => {
   return (
@@ -16,18 +13,6 @@ const User = ({ match }) => {
           <Route
             path={`${match.url}/login`}
             render={(props) => <Login {...props} />}
-          />
-          <Route
-            path={`${match.url}/register`}
-            render={(props) => <Register {...props} />}
-          />
-          <Route
-            path={`${match.url}/forgot-password`}
-            render={(props) => <ForgotPassword {...props} />}
-          />
-          <Route
-            path={`${match.url}/reset-password`}
-            render={(props) => <ResetPassword {...props} />}
           />
           <Redirect to="/error" />
         </Switch>

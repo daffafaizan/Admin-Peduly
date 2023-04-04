@@ -120,7 +120,7 @@ const TopNav = ({
     Cookies.remove('expireAt')
     Cookies.remove('_id')
     window.localStorage.clear()
-    history.push('/')
+    window.location.href = '/'
   }
 
   const menuButtonClick = (e, _clickCount, _conClassnames) => {
@@ -221,11 +221,11 @@ const TopNav = ({
               </span>
             </DropdownToggle>
             <DropdownMenu className="mt-3" right>
-              <DropdownItem>Account</DropdownItem>
+              {/* <DropdownItem>Account</DropdownItem>
               <DropdownItem>Features</DropdownItem>
               <DropdownItem>History</DropdownItem>
               <DropdownItem>Support</DropdownItem>
-              <DropdownItem divider />
+              <DropdownItem divider /> */}
               <DropdownItem onClick={handleLogout}>Sign out</DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>

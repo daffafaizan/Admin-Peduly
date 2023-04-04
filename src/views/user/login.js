@@ -18,6 +18,7 @@ const Login = () => {
   useEffect(() => {
     getCurrentColor()
   }, [])
+
   const color = getCurrentColor()
 
   if (redirectToRoute) {
@@ -61,7 +62,6 @@ const Login = () => {
           ></div>
           <div className="form-side">
             <NavLink to="/" className="white">
-              {/* <span className="logo-single" /> */}
               <svg
                 className="logo-peduly"
                 xmlns="http://www.w3.org/2000/svg"
@@ -135,10 +135,7 @@ const Login = () => {
                   }}
                 />
               </FormGroup>
-              <div className="d-flex justify-content-between align-items-center">
-                <NavLink to="/user/forgot-password">
-                  <IntlMessages id="user.forgot-password-question" />
-                </NavLink>
+              <div className="d-flex justify-content-end align-items-center">
                 <Button
                   color="primary"
                   className={`btn-shadow btn-multiple-state`}

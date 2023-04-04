@@ -1,49 +1,180 @@
+import { useState, useEffect } from 'react'
 import { Col, Label, FormGroup } from 'reactstrap'
+import Select from 'react-select'
+import { API_ENDPOINT } from 'config/api'
+import http from 'helpers/http'
+import { API_URL } from 'config/api'
+import { customStyles } from '../../../../assets/css/SelectStyle'
 
-const VerifikasiPengguna = () => {
+const optionsStatus = [
+  {
+    value: 'verified',
+    label: 'Verified',
+  },
+  {
+    value: 'rejected',
+    label: 'Not Verified',
+  },
+]
+
+const VerifikasiPengguna = ({ id }) => {
+  const [ubahData, setUbahData] = useState(false)
+  const [data, setData] = useState({
+    status: '',
+    fotoKTP: '',
+    fotoDiriKTP: '',
+  })
+
+  useEffect(() => {
+    if (id) getVerifikasiPengguna()
+  }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const getVerifikasiPengguna = () => {
+    http
+      .get(`${API_ENDPOINT.GET_ALL_USER}/${id}/verifikasi`)
+      .then((res) => {
+        const data = res.data.data
+        setData({
+          status: data.status_verifikasi,
+          fotoKTP: data.verifikasi.foto_ktp,
+          fotoDiriKTP: data.verifikasi.foto_diri_ktp,
+        })
+      })
+      .catch((err) => {
+        console.error('Error get users data: ', err)
+      })
+  }
+
+  const ubahVerifikasiPengguna = (e) => {
+    e.preventDefault()
+    http
+      .put(`${API_ENDPOINT.GET_ALL_USER}/${id}/verifikasi`, {
+        status_akun: data.status,
+      })
+      .catch((err) => {
+        console.error('Error get users data: ', err)
+      })
+    setUbahData(false)
+  }
+
   return (
     <div className="d-flex m-4">
       {/* col 1 */}
-      <div className="col-4">
-        <FormGroup>
+      <form onSubmit={ubahVerifikasiPengguna}>
+        <FormGroup className="mb-4">
           <Label
             for="namalengkap"
             lg={12}
-            className="detail-pengguna-label mb-1"
+            className="detail-pengguna-label mb-1 ml-3"
           >
-            Nama Bank
+            Status Verifikasi Akun
           </Label>
           <Col lg={12}>
-            <p className="detail-pengguna-text">Bank Central Asia</p>
+            {ubahData ? (
+              <Select
+                classNamePrefix="select"
+                className="col-5"
+                styles={customStyles}
+                placeholder="Pilih Status"
+                defaultValue={
+                  data.status
+                    ? { value: data.status, label: data.status }
+                    : 'pilih status'
+                }
+                name="color"
+                value={optionsStatus.value === null ? '' : optionsStatus.value}
+                isSearchable={false}
+                options={optionsStatus}
+                onChange={(e) => {
+                  setData({ ...data, status: e.value })
+                }}
+              />
+            ) : (
+              <p className="detail-pengguna-text col-8 mt-2 pb-2 text-status">
+                {' '}
+                {data.status !== null ? data.status : '-'}
+              </p>
+            )}
           </Col>
         </FormGroup>
-
-        <FormGroup>
-          <Label
-            for="noRekening"
-            lg={12}
-            className="detail-pengguna-label mb-1"
-          >
-            no. rekening
-          </Label>
-          <Col lg={12}>
-            <p className="detail-pengguna-text"> </p>
-          </Col>
-        </FormGroup>
-
-        <FormGroup>
-          <Label
-            for="tanggalLahir"
-            lg={12}
-            className="detail-pengguna-label mb-1"
-          >
-            Nominal Donasi
-          </Label>
-          <Col lg={12}>
-            <p className="detail-pengguna-text">Rp </p>
-          </Col>
-        </FormGroup>
-      </div>
+        <div className="form-img-box">
+          <FormGroup className="col-4 -ml-3">
+            <Label
+              for="exampleFile"
+              lg={12}
+              className="detail-pengguna-label mb-2"
+            >
+              Foto KTP
+            </Label>
+            <Col lg={12} className="mt-2">
+              {data.fotoKTP ? (
+                <img
+                  src={`${API_URL}/${data.fotoKTP}`}
+                  style={{
+                    width: '200px',
+                    objectFit: 'cover',
+                    borderRadius: '15px',
+                  }}
+                />
+              ) : (
+                <img
+                  src={require('../../../../assets/img/nopic.png').default}
+                  style={{
+                    width: '200px',
+                    objectFit: 'cover',
+                  }}
+                />
+              )}
+            </Col>
+          </FormGroup>
+          <FormGroup className="col-4">
+            <Label
+              for="exampleFile"
+              lg={12}
+              className="detail-pengguna-label mb-2"
+            >
+              Foto Diri & KTP
+            </Label>
+            <Col lg={12} className="mt-2">
+              {data.fotoDiriKTP ? (
+                <img
+                  src={`${API_URL}/${data.fotoDiriKTP}`}
+                  style={{
+                    width: '200px',
+                    objectFit: 'cover',
+                    borderRadius: '15px',
+                  }}
+                />
+              ) : (
+                <img
+                  src={require('../../../../assets/img/nopic.png').default}
+                  style={{
+                    width: '200px',
+                    objectFit: 'cover',
+                  }}
+                />
+              )}
+            </Col>
+          </FormGroup>
+        </div>
+        <div className="button-box mt-4 button-md-verifikasi">
+          {ubahData ? (
+            <button className="button-simpan" type="submit">
+              simpan
+            </button>
+          ) : (
+            <button
+              className="button-ubah-data"
+              onClick={(e) => {
+                e.preventDefault()
+                setUbahData(true)
+              }}
+            >
+              Ubah Data
+            </button>
+          )}
+        </div>
+      </form>
     </div>
   )
 }

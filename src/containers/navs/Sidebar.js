@@ -22,6 +22,8 @@ class Sidebar extends Component {
       isHalamanHovered: false,
       isPenggunaHovered: false,
       isSlideHovered: false,
+      containerClassnames: '',
+      menuClickCount: 0,
     }
     // this bind required cause default this is undefined
     this.handleDashboardMouseEnter = this.handleDashboardMouseEnter.bind(this)
@@ -392,7 +394,8 @@ class Sidebar extends Component {
                 {/* PENGGUNA */}
                 <NavItem
                   className={`${
-                    this.props.location.pathname === '/app/pengguna' && 'active'
+                    this.props.location.pathname.substring(0, 13) ===
+                      '/app/pengguna' && 'active'
                   }`}
                   onMouseEnter={this.handlePenggunaMouseEnter}
                   onMouseLeave={this.handlePenggunaMouseLeave}
@@ -408,8 +411,8 @@ class Sidebar extends Component {
                       >
                         <path
                           stroke={
-                            this.props.location.pathname === '/app/pengguna' ||
-                            this.state.isPenggunaHovered
+                            this.props.location.pathname.substring(0, 13) ===
+                              '/app/pengguna' || this.state.isPenggunaHovered
                               ? '#E7513B'
                               : '#717171'
                           }

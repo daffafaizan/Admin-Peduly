@@ -1,9 +1,7 @@
 import React, { Suspense } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 
-const UserLogin = React.lazy(() =>
-  import(/* webpackChunkName: "start" */ './user/login')
-)
+const UserLogin = React.lazy(() => import('./user/login'))
 
 const Home = () => (
   <Suspense fallback={<div className="loading" />}>

@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Row, Card } from 'reactstrap'
 import { Colxx } from 'components/common/CustomBootstrap'
+import { useParams } from 'react-router-dom'
 import './index.scss'
 import DataPengguna from './components/DataPengguna'
 import VerifikasiPengguna from './components/VerifikasiPengguna'
 import RekeningPengguna from './components/RekeningPengguna'
 
 const DetailPengguna = () => {
-  // const { id } = useParams()
   const [mode, setMode] = useState('detail')
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const { id } = useParams()
 
   return (
     <>
@@ -67,9 +64,9 @@ const DetailPengguna = () => {
                 </span>
               </div>
             </Row>
-            {mode === 'detail' && <DataPengguna />}
-            {mode === 'verifikasi' && <VerifikasiPengguna />}
-            {mode === 'rekening' && <RekeningPengguna />}
+            {mode === 'detail' && <DataPengguna id={id} />}
+            {mode === 'verifikasi' && <VerifikasiPengguna id={id} />}
+            {mode === 'rekening' && <RekeningPengguna id={id} />}
           </Card>
         </Colxx>
       </Row>

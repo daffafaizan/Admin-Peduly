@@ -56,7 +56,7 @@ const App = ({ match }) => {
             />
             <Route
               exact
-              path={`${match.url}/pengguna/detail`}
+              path={`${match.url}/pengguna/detail/:id`}
               render={(props) => <DetailPengguna {...props} />}
             />
             <Route
