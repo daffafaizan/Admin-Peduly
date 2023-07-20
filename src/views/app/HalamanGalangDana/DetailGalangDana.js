@@ -679,6 +679,95 @@ const DetailGalangDana = ({ match }) => {
                 </CardBody>
               </div>
             )}
+            {mode === 'supporter' && (
+              <div className="w-full px-4">
+                <div className="">
+                  <h2 className="ml-4 mt-4 mb-3 font-weight-bold pb-3">
+                    Daftar Supporter
+                  </h2>
+                </div>
+                <CardBody className="pt-0">
+                  <Table
+                    hover
+                    responsive
+                    className={`${
+                      !color.indexOf('dark') ? 'table-dark-mode' : ''
+                    }`}
+                  >
+                    <thead>
+                      <tr>
+                        <th style={{ borderTop: '0px', width: 310 }}>
+                          Judul Supporter
+                        </th>
+                        <th style={{ borderTop: '0px' }}>Nama Supporter</th>
+                        <th style={{ borderTop: '0px' }}>Target</th>
+                        <th style={{ borderTop: '0px' }}>Terkumpul</th>
+                        <th style={{ borderTop: '0px' }}>Tanggal Dibuat</th>
+                        <th style={{ borderTop: '0px' }}>Tanggal Berakhir</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredDataTarikDana().length !== 0 ? (
+                        filteredDataTarikDana().map((item) => (
+                          <tr
+                            onClick={() => {
+                              toggle(item.id)
+                            }}
+                            style={{ cursor: 'pointer' }}
+                            key={item.id}
+                          >
+                            <td>{formatDate(item.updated_at)}</td>
+                            <td>Rp {IdrFormat(item.nominal)}</td>
+                            <td>{item.details}</td>
+                            <td>
+                              {item.status === 'approved' && (
+                                <p
+                                  className="text-success rounded text-center status bg-status-success"
+                                  style={{
+                                    maxWidth: '94px',
+                                  }}
+                                >
+                                  Berhasil
+                                </p>
+                              )}
+                              {item.status === 'pending' && (
+                                <p
+                                  className="text-warning rounded text-center status bg-status-pending"
+                                  style={{
+                                    maxWidth: '94px',
+                                  }}
+                                >
+                                  Pending
+                                </p>
+                              )}
+                              {item.status === 'rejected' && (
+                                <p
+                                  className="text-danger rounded text-center status bg-status-danger"
+                                  style={{
+                                    maxWidth: '94px',
+                                  }}
+                                >
+                                  Dibatalkan
+                                </p>
+                              )}
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </Table>
+                </CardBody>
+              </div>
+            )}
           </Card>
         </Colxx>
       </Row>
