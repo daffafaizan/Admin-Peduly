@@ -359,6 +359,18 @@ const DetailGalangDana = ({ match }) => {
                 >
                   Tarik Dana
                 </span>
+                <span
+                  className={`${
+                    mode === 'supporter'
+                      ? 'button-menu-galang-dana-active'
+                      : 'button-menu-galang-dana'
+                  }`}
+                  onClick={() => {
+                    setMode('supporter')
+                  }}
+                >
+                  Supporter
+                </span>
               </div>
             </Row>
             {mode === 'detail' && (
