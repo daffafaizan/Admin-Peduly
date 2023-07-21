@@ -47,7 +47,8 @@ const DetailFundraiser = () => {
 
   useEffect(() => {
     getCurrentColor()
-    getFundraiserData()
+    getDataTransaksi()
+    getDataKomisi()
   }, [])
 
   useEffect(() => {
@@ -58,7 +59,7 @@ const DetailFundraiser = () => {
     if (currentPage > totalPage) setCurrentPage(1)
   }, [totalPage, currentPage])
 
-  const getFundraiserData = () => {
+  const getDataTransaksi = () => {
     const dummyData = [
       {
         nominal: 130000000,
@@ -83,6 +84,40 @@ const DetailFundraiser = () => {
         metodePembayaran: 'BRI Virtual Account',
         waktu: '14:56 WIB',
         status: 'Pending',
+      },
+    ]
+
+    setData(dummyData)
+  }
+
+  const getDataKomisi = () => {
+    const dummyData = [
+      {
+        riwayatPenarikanKomisi: 100000,
+        noTransaksi: '#989804342',
+        rekeningTujuan: '983489384987',
+        namaRekening: 'Firda Yuningsih',
+        namaBank: 'Mandiri',
+        tanggal: '19/02/2023',
+        status: 'Pending',
+      },
+      {
+        riwayatPenarikanKomisi: 12000000,
+        noTransaksi: '#890989342',
+        rekeningTujuan: '983489384987',
+        namaRekening: 'Firda Yuningsih',
+        namaBank: 'BCA',
+        tanggal: '15/02/2023',
+        status: 'Terkirim',
+      },
+      {
+        riwayatPenarikanKomisi: 10000,
+        noTransaksi: '#999094297',
+        rekeningTujuan: '983489384987',
+        namaRekening: 'Firda Yuningsih',
+        namaBank: 'BRI',
+        tanggal: '10/02/2023',
+        status: 'Ditolak',
       },
     ]
 
