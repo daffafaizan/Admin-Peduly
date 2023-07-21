@@ -9,8 +9,9 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
+  Button,
 } from 'reactstrap'
-import { Colxx, Separator } from 'components/common/CustomBootstrap'
+import { Colxx } from 'components/common/CustomBootstrap'
 import './index.scss'
 import IdrFormat from 'helpers/IdrFormat'
 // import moment from 'moment'
@@ -100,7 +101,7 @@ const DetailFundraiser = () => {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <NavLink to={"/app/fundraiser"}>
+              <NavLink to={'/app/fundraiser'}>
                 <svg
                   width="48"
                   height="48"
@@ -129,10 +130,25 @@ const DetailFundraiser = () => {
             </div>
             <h1>Firda Yuningsih {id}</h1>
           </Row>
-          <Separator />
+          <Row>
+            <div className="mt-4 ml-3">
+              <Button
+                className="custom-button-transaksi"
+                onClick={() => history.push('/app/slide/add')}
+              >
+                Transaksi
+              </Button>
+              <Button
+                className="custom-button-komisi"
+                onClick={() => history.push('/app/slide/add')}
+              >
+                Komisi
+              </Button>
+            </div>
+          </Row>
         </Colxx>
       </Row>
-      <Row style={{ margin: '12px 0' }}>
+      <Row>
         <Col style={{ padding: 0 }}>
           <div className="float-right">
             <span className="text-muted text-small mr-1">{`${currentPage} of ${totalPage} `}</span>
@@ -187,9 +203,7 @@ const DetailFundraiser = () => {
                         <tr
                           key={item.id}
                           style={{ cursor: 'pointer' }}
-                          onClick={() =>
-                            history.push(``)
-                          }
+                          onClick={() => history.push(``)}
                         >
                           <td>
                             {(currentPage - 1) * currentPageSize + index + 1}
