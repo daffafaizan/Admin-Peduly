@@ -24,7 +24,7 @@ import { getCurrentColor } from 'helpers/Utils'
 const pageSizes = [20, 40, 80]
 
 const Fundraiser = () => {
-  const [data, setData] = useState([])
+  const [dataSemuaFundraiser, setDataSemuaFundraiser] = useState([])
   const [currentPageSize, setCurrentPageSize] = useState(pageSizes[0])
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPage, setTotalPage] = useState(0)
@@ -34,18 +34,18 @@ const Fundraiser = () => {
 
   useEffect(() => {
     getCurrentColor()
-    getFundraiserData()
+    getSemuaFundraiserData()
   }, [])
 
   useEffect(() => {
-    setTotalPage(Math.ceil(data.length / currentPageSize))
-  }, [currentPageSize, data])
+    setTotalPage(Math.ceil(dataSemuaFundraiser.length / currentPageSize))
+  }, [currentPageSize, dataSemuaFundraiser])
 
   useEffect(() => {
     if (currentPage > totalPage) setCurrentPage(1)
   }, [totalPage, currentPage])
 
-  const getFundraiserData = () => {
+  const getSemuaFundraiserData = () => {
     const dummyData = [
       {
         id: 12,
@@ -76,7 +76,7 @@ const Fundraiser = () => {
       },
     ]
 
-    setData(dummyData)
+    setDataSemuaFundraiser(dummyData)
   }
 
   const konversiToNumber = (angka) => {
@@ -91,7 +91,7 @@ const Fundraiser = () => {
   function filteredData() {
     let s
 
-    s = data.sort((a, b) => {
+    s = dataSemuaFundraiser.sort((a, b) => {
       return new Date(b.created_at) - new Date(a.created_at)
     })
 
