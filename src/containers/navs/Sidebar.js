@@ -22,6 +22,7 @@ class Sidebar extends Component {
       isHalamanHovered: false,
       isPenggunaHovered: false,
       isSlideHovered: false,
+      isFundraiserHovered: false,
       containerClassnames: '',
       menuClickCount: 0,
     }
@@ -36,6 +37,8 @@ class Sidebar extends Component {
     this.handlePenggunaMouseLeave = this.handlePenggunaMouseLeave.bind(this)
     this.handleSlideMouseEnter = this.handleSlideMouseEnter.bind(this)
     this.handleSlideMouseLeave = this.handleSlideMouseLeave.bind(this)
+    this.handleFundraiserMouseEnter = this.handleFundraiserMouseEnter.bind(this)
+    this.handleFundraiserMouseLeave = this.handleFundraiserMouseLeave.bind(this)
   }
 
   handleDashboardMouseEnter() {
@@ -76,6 +79,14 @@ class Sidebar extends Component {
 
   handleSlideMouseLeave() {
     this.setState({ isSlideHovered: false })
+  }
+
+  handleFundraiserMouseEnter() {
+    this.setState({ isFundraiserHovered: true })
+  }
+
+  handleFundraiserMouseLeave() {
+    this.setState({ isFundraiserHovered: false })
   }
 
   handleWindowResize(e) {
@@ -426,6 +437,7 @@ class Sidebar extends Component {
                     <span>Pengguna</span>
                   </NavLink>
                 </NavItem>
+                {/* SLIDE */}
                 <NavItem
                   className={`${
                     this.props.location.pathname.substring(0, 10) ===
@@ -472,6 +484,110 @@ class Sidebar extends Component {
                       </svg>
                     </span>
                     <span>Slide</span>
+                  </NavLink>
+                </NavItem>
+                {/* FUNDRAISER */}
+                <NavItem
+                  className={`${
+                    this.props.location.pathname.substring(0, 15) ===
+                      '/app/fundraiser' && 'active'
+                  }`}
+                  onMouseEnter={this.handleFundraiserMouseEnter}
+                  onMouseLeave={this.handleFundraiserMouseLeave}
+                >
+                  <NavLink
+                    to={`${adminRoot}/fundraiser`}
+                    data-flag="fundraiser"
+                  >
+                    <span style={{ marginBottom: '4px' }}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        fill="none"
+                        viewBox="0 0 32 32"
+                      >
+                        <path
+                          stroke={
+                            this.props.location.pathname.substring(0, 15) ===
+                              '/app/fundraiser' ||
+                            this.state.isFundraiserHovered
+                              ? '#E7513B'
+                              : '#717171'
+                          }
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M24.0004 9.54663C23.9204 9.5333 23.8271 9.5333 23.7471 9.54663C21.9071 9.47996 20.4404 7.9733 20.4404 6.10663C20.4404 4.19996 21.9738 2.66663 23.8804 2.66663C25.7871 2.66663 27.3204 4.2133 27.3204 6.10663C27.3071 7.9733 25.8404 9.47996 24.0004 9.54663Z"
+                        />
+                        <path
+                          stroke={
+                            this.props.location.pathname.substring(0, 15) ===
+                              '/app/fundraiser' ||
+                            this.state.isFundraiserHovered
+                              ? '#E7513B'
+                              : '#717171'
+                          }
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M22.6269 19.2536C24.4536 19.5603 26.4669 19.2403 27.8803 18.2936C29.7603 17.0403 29.7603 14.987 27.8803 13.7336C26.4536 12.787 24.4136 12.467 22.5869 12.787"
+                        />
+                        <path
+                          stroke={
+                            this.props.location.pathname.substring(0, 15) ===
+                              '/app/fundraiser' ||
+                            this.state.isFundraiserHovered
+                              ? '#E7513B'
+                              : '#717171'
+                          }
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M7.95965 9.54675C8.03965 9.53342 8.13298 9.53342 8.21298 9.54675C10.053 9.48009 11.5196 7.97342 11.5196 6.10675C11.5196 4.20008 9.98632 2.66675 8.07965 2.66675C6.17298 2.66675 4.63965 4.21342 4.63965 6.10675C4.65298 7.97342 6.11965 9.48009 7.95965 9.54675Z"
+                        />
+                        <path
+                          stroke={
+                            this.props.location.pathname.substring(0, 15) ===
+                              '/app/fundraiser' ||
+                            this.state.isFundraiserHovered
+                              ? '#E7513B'
+                              : '#717171'
+                          }
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M9.33325 19.2536C7.50659 19.5603 5.49325 19.2403 4.07992 18.2936C2.19992 17.0403 2.19992 14.987 4.07992 13.7336C5.50659 12.787 7.54658 12.467 9.37325 12.787"
+                        />
+                        <path
+                          stroke={
+                            this.props.location.pathname.substring(0, 15) ===
+                              '/app/fundraiser' ||
+                            this.state.isFundraiserHovered
+                              ? '#E7513B'
+                              : '#717171'
+                          }
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M15.9995 19.507C15.9195 19.4936 15.8261 19.4936 15.7461 19.507C13.9061 19.4403 12.4395 17.9336 12.4395 16.067C12.4395 14.1603 13.9728 12.627 15.8795 12.627C17.7861 12.627 19.3195 14.1736 19.3195 16.067C19.3061 17.9336 17.8395 19.4536 15.9995 19.507Z"
+                        />
+                        <path
+                          stroke={
+                            this.props.location.pathname.substring(0, 15) ===
+                              '/app/fundraiser' ||
+                            this.state.isFundraiserHovered
+                              ? '#E7513B'
+                              : '#717171'
+                          }
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.5"
+                          d="M12.12 23.7071C10.24 24.9604 10.24 27.0138 12.12 28.2671C14.2533 29.6938 17.7466 29.6938 19.88 28.2671C21.76 27.0138 21.76 24.9604 19.88 23.7071C17.76 22.2938 14.2533 22.2938 12.12 23.7071Z"
+                        />
+                      </svg>
+                    </span>
+                    <span>Fundraiser</span>
                   </NavLink>
                 </NavItem>
               </Nav>
