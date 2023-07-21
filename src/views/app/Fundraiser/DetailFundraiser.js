@@ -30,6 +30,7 @@ const DetailFundraiser = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPage, setTotalPage] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
+  const [mode, setMode] = useState('transaksi')
   const { id } = useParams()
 
   const history = useHistory()
@@ -130,19 +131,31 @@ const DetailFundraiser = () => {
             </div>
             <h1>Firda Yuningsih {id}</h1>
           </Row>
-          <Row style={{ marginTop: "20px", marginBottom: "20px" }}>
+          <Row style={{ marginTop: '20px', marginBottom: '20px' }}>
             <Col xs="6">
               <div className="float-left d-flex flex-col justify-content-center align-items-center">
-                <div>
+                <div className="button-container">
                   <Button
-                    className="custom-button-transaksi"
-                    onClick={() => history.push('/app/slide/add')}
+                    className={`${
+                      mode === 'transaksi'
+                        ? 'button-transaksi-active'
+                        : 'button-transaksi'
+                    }`}
+                    onClick={() => {
+                      setMode('transaksi')
+                    }}
                   >
                     Transaksi
                   </Button>
                   <Button
-                    className="custom-button-komisi"
-                    onClick={() => history.push('/app/slide/add')}
+                    className={`${
+                      mode === 'komisi'
+                        ? 'button-komisi-active'
+                        : 'button-komisi'
+                    }`}
+                    onClick={() => {
+                      setMode('komisi')
+                    }}
                   >
                     Komisi
                   </Button>

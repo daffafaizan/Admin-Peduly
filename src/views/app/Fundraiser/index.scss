@@ -8,32 +8,93 @@
   .rounded {
     border-radius: 20px;
   }
-  .custom-button-transaksi {
+  .button-container {
+    display: flex;
+  }
+  .button-transaksi {
     border-radius: 15px 0 0 15px;
     background-color: #ffffff;
     border-color: #ffffff;
-    color: black;
+    font-size: 14px;
+    color: #717171;
     width: 140px;
+    min-width: 140px;
+    white-space: none;
   }
-  .custom-button-transaksi:hover {
+  .button-transaksi:hover {
     border-radius: 15px 0 0 15px;
     background-color: #c41230;
     border-color: #c41230;
-    color:#ffffff;
+    font-size: 14px;
+    color: #ffffff;
     width: 140px;
+    min-width: 140px;
+    white-space: none;
   }
-  .custom-button-komisi {
+  .button-transaksi-active {
+    border-radius: 15px 0 0 15px;
+    background-color: #c41230;
+    border-color: #c41230;
+    font-size: 14px;
+    color: #ffffff;
+    width: 140px;
+    min-width: 140px;
+    white-space: none;
+  }
+  .button-transaksi-active:hover {
+    border-radius: 15px 0 0 15px;
+    background-color: #850c21;
+    border-color: #850c21;
+    font-size: 14px;
+    color: #ffffff;
+    width: 140px;
+    min-width: 140px;
+    white-space: none;
+  }
+  .button-komisi {
     border-radius: 0 15px 15px 0;
     background-color: #ffffff;
-    border-color: black;
-    color: black;
+    border-color: #ffffff;
+    font-size: 14px;
+    color: #717171;
     width: 140px;
+    min-width: 140px;
+    white-space: none;
   }
-  .custom-button-komisi:hover {
+  .button-komisi:hover {
     border-radius: 0 15px 15px 0;
     background-color: #c41230;
     border-color: #c41230;
-    color:#ffffff;
+    font-size: 14px;
+    color: #ffffff;
     width: 140px;
+    min-width: 140px;
+    white-space: none;
+  }
+  .button-komisi-active {
+    border-radius: 0 15px 15px 0;
+    background-color: #c41230;
+    border-color: #c41230;
+    font-size: 14px;
+    color: #ffffff;
+    width: 140px;
+    min-width: 140px;
+    white-space: none;
+  }
+  .button-komisi-active:hover {
+    border-radius: 0 15px 15px 0;
+    background-color: #850c21;
+    border-color: #850c21;
+    font-size: 14px;
+    color: #ffffff;
+    width: 140px;
+    min-width: 140px;
+    white-space: none;
+  }
+  .card-rounded {
+    border-radius: 15px;
+    .card-body {
+      padding: 12px;
+    }
   }
 }
