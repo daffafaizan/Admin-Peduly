@@ -17,7 +17,8 @@ import IdrFormat from 'helpers/IdrFormat'
 // import moment from 'moment'
 import DataTablePagination from 'components/DatatablePagination'
 // import TextAlert from 'components/TextAlert'
-import { useHistory, useParams, NavLink } from 'react-router-dom'
+import { useParams, NavLink } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
 // import http from 'helpers/http'
 // import { API_ENDPOINT } from 'config/api'
@@ -33,7 +34,7 @@ const DetailFundraiser = () => {
   const [mode, setMode] = useState('transaksi')
   const { id } = useParams()
 
-  const history = useHistory()
+  // const history = useHistory()
   const color = getCurrentColor()
 
   const handleMouseEnter = () => {
@@ -204,6 +205,7 @@ const DetailFundraiser = () => {
           </Row>
         </Colxx>
       </Row>
+      {/* {mode === 'detail' && <DataPengguna id={id} />} */}
       <Row>
         <Colxx xs="12" className="mb-4">
           <Card className="mb-4 card-rounded">
@@ -233,8 +235,8 @@ const DetailFundraiser = () => {
                       .map((item) => (
                         <tr
                           key={item.id}
-                          style={{ cursor: 'pointer' }}
-                          onClick={() => history.push(``)}
+                          // style={{ cursor: 'pointer' }}
+                          // onClick={() => history.push(``)}
                         >
                           <td>Rp {konversiToNumber(item.nominal)}</td>
                           <td>
