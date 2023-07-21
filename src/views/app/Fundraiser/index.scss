@@ -10,26 +10,30 @@
   }
   .custom-button-transaksi {
     border-radius: 15px 0 0 15px;
-    background-color: #C41230;
-    border-color: #C41230;
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: black;
     width: 140px;
   }
   .custom-button-transaksi:hover {
     border-radius: 15px 0 0 15px;
-    background-color: #850c21;
-    border-color: #850c21;
+    background-color: #c41230;
+    border-color: #c41230;
+    color:#ffffff;
     width: 140px;
   }
   .custom-button-komisi {
     border-radius: 0 15px 15px 0;
-    background-color: #C41230;
+    background-color: #ffffff;
     border-color: black;
+    color: black;
     width: 140px;
   }
   .custom-button-komisi:hover {
     border-radius: 0 15px 15px 0;
-    background-color: #850c21;
-    border-color: #850c21;
+    background-color: #c41230;
+    border-color: #c41230;
+    color:#ffffff;
     width: 140px;
   }
 }

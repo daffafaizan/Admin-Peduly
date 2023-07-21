@@ -130,47 +130,51 @@ const DetailFundraiser = () => {
             </div>
             <h1>Firda Yuningsih {id}</h1>
           </Row>
-          <Row>
-            <div className="mt-4 ml-3">
-              <Button
-                className="custom-button-transaksi"
-                onClick={() => history.push('/app/slide/add')}
-              >
-                Transaksi
-              </Button>
-              <Button
-                className="custom-button-komisi"
-                onClick={() => history.push('/app/slide/add')}
-              >
-                Komisi
-              </Button>
-            </div>
+          <Row style={{ marginTop: "20px", marginBottom: "20px" }}>
+            <Col xs="6">
+              <div className="float-left d-flex flex-col justify-content-center align-items-center">
+                <div>
+                  <Button
+                    className="custom-button-transaksi"
+                    onClick={() => history.push('/app/slide/add')}
+                  >
+                    Transaksi
+                  </Button>
+                  <Button
+                    className="custom-button-komisi"
+                    onClick={() => history.push('/app/slide/add')}
+                  >
+                    Komisi
+                  </Button>
+                </div>
+              </div>
+            </Col>
+            <Col xs="6">
+              <div className="float-right mt-1 d-flex flex-column justify-content-center align-items-center">
+                <div>
+                  <span className="text-muted text-small mr-1">{`${currentPage} of ${totalPage} `}</span>
+                  <UncontrolledDropdown className="d-inline-block">
+                    <DropdownToggle caret color="outline-dark" size="xs">
+                      {currentPageSize}
+                    </DropdownToggle>
+                    <DropdownMenu right>
+                      {pageSizes.map((size, index) => {
+                        return (
+                          <DropdownItem
+                            key={index}
+                            onClick={() => setCurrentPageSize(size)}
+                          >
+                            {size}
+                          </DropdownItem>
+                        )
+                      })}
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                </div>
+              </div>
+            </Col>
           </Row>
         </Colxx>
-      </Row>
-      <Row>
-        <Col style={{ padding: 0 }}>
-          <div className="float-right">
-            <span className="text-muted text-small mr-1">{`${currentPage} of ${totalPage} `}</span>
-            <UncontrolledDropdown className="d-inline-block">
-              <DropdownToggle caret color="outline-dark" size="xs">
-                {currentPageSize}
-              </DropdownToggle>
-              <DropdownMenu right>
-                {pageSizes.map((size, index) => {
-                  return (
-                    <DropdownItem
-                      key={index}
-                      onClick={() => setCurrentPageSize(size)}
-                    >
-                      {size}
-                    </DropdownItem>
-                  )
-                })}
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </div>
-        </Col>
       </Row>
       <Row>
         <Colxx xs="12" className="mb-4">
