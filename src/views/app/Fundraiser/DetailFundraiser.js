@@ -16,7 +16,7 @@ import IdrFormat from 'helpers/IdrFormat'
 // import moment from 'moment'
 import DataTablePagination from 'components/DatatablePagination'
 // import TextAlert from 'components/TextAlert'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory, useParams, NavLink } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
 // import http from 'helpers/http'
 // import { API_ENDPOINT } from 'config/api'
@@ -28,10 +28,19 @@ const DetailFundraiser = () => {
   const [currentPageSize, setCurrentPageSize] = useState(pageSizes[0])
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPage, setTotalPage] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
   const { id } = useParams()
 
   const history = useHistory()
   const color = getCurrentColor()
+
+  const handleMouseEnter = () => {
+    setIsHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+  }
 
   useEffect(() => {
     getCurrentColor()
@@ -86,6 +95,38 @@ const DetailFundraiser = () => {
       <Row>
         <Colxx xxs="12">
           <Row>
+            <div
+              className="svg-container ml-3"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <NavLink to={"/app/fundraiser"}>
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 36 36"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.57 5.93018L3.5 12.0002L9.57 18.0702"
+                    stroke={isHovered ? '#FF0000' : '#3A3A3A'}
+                    strokeWidth="1.5"
+                    strokeMiterlimit="10"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M20.4999 12H3.66992"
+                    stroke={isHovered ? '#FF0000' : '#3A3A3A'}
+                    strokeWidth="1.5"
+                    strokeMiterlimit="10"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </NavLink>
+            </div>
             <h1>Firda Yuningsih {id}</h1>
           </Row>
           <Separator />
