@@ -10,6 +10,7 @@ const TransaksiDonasi = React.lazy(() => import('/Transaksi'))
 const Pengguna = React.lazy(() => import('/Pengguna'))
 const SemuaDonasi = React.lazy(() => import('/Halaman'))
 const HalamanGalangDana = React.lazy(() => import('/Halaman'))
+const Fundraiser = React.lazy(() => import('/Fundraiser'))
 
 const App = ({ match }) => {
   return (
@@ -45,6 +46,10 @@ const App = ({ match }) => {
             <Route
               path={`${match.url}/halaman-galang-dana`}
               render={(props) => <HalamanGalangDana {...props} />}
+            />
+            <Route
+              path={`${match.url}/fundraiser`}
+              render={(props) => <Fundraiser {...props} />}
             />
             <Redirect to="/error" />
           </Switch>

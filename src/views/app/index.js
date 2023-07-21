@@ -19,6 +19,10 @@ const EditSlide = React.lazy(() => import('./slide/EditSlide'))
 const SurveyCharts = React.lazy(() =>
   import('../../containers/applications/SurveyCharts')
 )
+const Fundraiser = React.lazy(() => import('./Fundraiser'))
+const DetailFundraiser = React.lazy(() =>
+  import('./Fundraiser/DetailFundraiser')
+)
 
 const App = ({ match }) => {
   return (
@@ -85,6 +89,16 @@ const App = ({ match }) => {
             <Route
               path={`${match.url}/chart`}
               render={(props) => <SurveyCharts {...props} />}
+            />
+            <Route
+              exact
+              path={`${match.url}/fundraiser`}
+              render={(props) => <Fundraiser {...props} />}
+            />
+            <Route
+              exact
+              path={`${match.url}/fundraiser/detail/:id`}
+              render={(props) => <DetailFundraiser {...props} />}
             />
             <Redirect to="/error" />
           </Switch>
