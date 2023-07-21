@@ -206,147 +206,169 @@ const DetailFundraiser = () => {
         </Colxx>
       </Row>
       {mode === 'transaksi' && (
-        <Row>
-          <Colxx xs="12" className="mb-4">
-            <Card className="mb-4 card-rounded">
-              <CardBody className="card-body">
-                <Table
-                  hover
-                  responsive
-                  className={`${
-                    !color.indexOf('dark') ? 'table-dark-mode' : ''
-                  }`}
-                >
-                  <thead>
-                    <tr className="nowrap">
-                      <th style={{ borderTop: '0px' }}>Nominal</th>
-                      <th style={{ borderTop: '0px' }}>Donatur</th>
-                      <th style={{ borderTop: '0px' }}>No. Transaksi</th>
-                      <th style={{ borderTop: '0px' }}>Metode Pembayaran</th>
-                      <th style={{ borderTop: '0px' }}>Waktu</th>
-                      <th style={{ borderTop: '0px' }}>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredData().length !== 0 ? (
-                      filteredData()
-                        .slice(
-                          (currentPage - 1) * currentPageSize,
-                          currentPage * currentPageSize
-                        )
-                        .map((item) => (
-                          <tr
-                            key={item.id}
-                            // style={{ cursor: 'pointer' }}
-                            // onClick={() => history.push(``)}
-                          >
-                            <td>Rp {konversiToNumber(item.nominal)}</td>
-                            <td>
-                              <p>{item.donatur}</p>
-                            </td>
-                            <td>{item.noTransaksi}</td>
-                            <td>{item.metodePembayaran}</td>
-                            <td>{item.waktu}</td>
-                            <td>{item.status}</td>
-                          </tr>
-                        ))
-                    ) : (
-                      <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+        <>
+          <Row>
+            <Colxx xs="12" className="mb-4">
+              <Card className="mb-4 card-rounded">
+                <CardBody className="card-body">
+                  <Table
+                    hover
+                    responsive
+                    className={`${
+                      !color.indexOf('dark') ? 'table-dark-mode' : ''
+                    }`}
+                  >
+                    <thead>
+                      <tr className="nowrap">
+                        <th style={{ borderTop: '0px' }}>Nominal</th>
+                        <th style={{ borderTop: '0px' }}>Donatur</th>
+                        <th style={{ borderTop: '0px' }}>No. Transaksi</th>
+                        <th style={{ borderTop: '0px' }}>Metode Pembayaran</th>
+                        <th style={{ borderTop: '0px' }}>Waktu</th>
+                        <th style={{ borderTop: '0px' }}>Status</th>
                       </tr>
-                    )}
-                  </tbody>
-                </Table>
-              </CardBody>
-            </Card>
-          </Colxx>
-        </Row>
+                    </thead>
+                    <tbody>
+                      {filteredData().length !== 0 ? (
+                        filteredData()
+                          .slice(
+                            (currentPage - 1) * currentPageSize,
+                            currentPage * currentPageSize
+                          )
+                          .map((item) => (
+                            <tr
+                              key={item.id}
+                              // style={{ cursor: 'pointer' }}
+                              // onClick={() => history.push(``)}
+                            >
+                              <td>Rp {konversiToNumber(item.nominal)}</td>
+                              <td>
+                                <p>{item.donatur}</p>
+                              </td>
+                              <td>{item.noTransaksi}</td>
+                              <td>{item.metodePembayaran}</td>
+                              <td>{item.waktu}</td>
+                              <td>{item.status}</td>
+                            </tr>
+                          ))
+                      ) : (
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </Table>
+                </CardBody>
+              </Card>
+            </Colxx>
+          </Row>
+          <Row>
+            <Colxx>
+              {totalPage !== '0' && (
+                <div className="float-md-right">
+                  <DataTablePagination
+                    page={currentPage - 1}
+                    pages={totalPage}
+                    canNext={currentPage < Number(totalPage)}
+                    canPrevious={currentPage > 1}
+                    onPageChange={(page) => setCurrentPage(page + 1)}
+                    paginationMaxSize={totalPage > 10 ? 10 : Number(totalPage)}
+                  />
+                </div>
+              )}
+            </Colxx>
+          </Row>
+        </>
       )}
       {mode === 'komisi' && (
-        <Row>
-          <Colxx xs="12" className="mb-4">
-            <Card className="mb-4 card-rounded">
-              <CardBody className="card-body">
-                <Table
-                  hover
-                  responsive
-                  className={`${
-                    !color.indexOf('dark') ? 'table-dark-mode' : ''
-                  }`}
-                >
-                  <thead>
-                    <tr className="nowrap">
-                      <th style={{ borderTop: '0px' }}>Riwayat Penarikan Komisi</th>
-                      <th style={{ borderTop: '0px' }}>No. Transaksi</th>
-                      <th style={{ borderTop: '0px' }}>Rekening Tujuan</th>
-                      <th style={{ borderTop: '0px' }}>A/N Rekening</th>
-                      <th style={{ borderTop: '0px' }}>Nama Bank</th>
-                      <th style={{ borderTop: '0px' }}>Tanggal</th>
-                      <th style={{ borderTop: '0px' }}>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredData().length !== 0 ? (
-                      filteredData()
-                        .slice(
-                          (currentPage - 1) * currentPageSize,
-                          currentPage * currentPageSize
-                        )
-                        .map((item) => (
-                          <tr
-                            key={item.id}
-                            // style={{ cursor: 'pointer' }}
-                            // onClick={() => history.push(``)}
-                          >
-                            <td>Rp {konversiToNumber(item.nominal)}</td>
-                            <td>
-                              <p>{item.donatur}</p>
-                            </td>
-                            <td>{item.noTransaksi}</td>
-                            <td>{item.metodePembayaran}</td>
-                            <td>{item.waktu}</td>
-                            <td>{item.status}</td>
-                          </tr>
-                        ))
-                    ) : (
-                      <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
+        <>
+          <Row>
+            <Colxx xs="12" className="mb-4">
+              <Card className="mb-4 card-rounded">
+                <CardBody className="card-body">
+                  <Table
+                    hover
+                    responsive
+                    className={`${
+                      !color.indexOf('dark') ? 'table-dark-mode' : ''
+                    }`}
+                  >
+                    <thead>
+                      <tr className="nowrap">
+                        <th style={{ borderTop: '0px' }}>
+                          Riwayat Penarikan Komisi
+                        </th>
+                        <th style={{ borderTop: '0px' }}>No. Transaksi</th>
+                        <th style={{ borderTop: '0px' }}>Rekening Tujuan</th>
+                        <th style={{ borderTop: '0px' }}>A/N Rekening</th>
+                        <th style={{ borderTop: '0px' }}>Nama Bank</th>
+                        <th style={{ borderTop: '0px' }}>Tanggal</th>
+                        <th style={{ borderTop: '0px' }}>Status</th>
                       </tr>
-                    )}
-                  </tbody>
-                </Table>
-              </CardBody>
-            </Card>
-          </Colxx>
-        </Row>
+                    </thead>
+                    <tbody>
+                      {filteredData().length !== 0 ? (
+                        filteredData()
+                          .slice(
+                            (currentPage - 1) * currentPageSize,
+                            currentPage * currentPageSize
+                          )
+                          .map((item) => (
+                            <tr
+                              key={item.id}
+                              // style={{ cursor: 'pointer' }}
+                              // onClick={() => history.push(``)}
+                            >
+                              <td>Rp {konversiToNumber(item.nominal)}</td>
+                              <td>
+                                <p>{item.donatur}</p>
+                              </td>
+                              <td>{item.noTransaksi}</td>
+                              <td>{item.metodePembayaran}</td>
+                              <td>{item.waktu}</td>
+                              <td>{item.status}</td>
+                            </tr>
+                          ))
+                      ) : (
+                        <tr>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                          <td>-</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </Table>
+                </CardBody>
+              </Card>
+            </Colxx>
+          </Row>
+          <Row>
+            <Colxx>
+              {totalPage !== '0' && (
+                <div className="float-md-right">
+                  <DataTablePagination
+                    page={currentPage - 1}
+                    pages={totalPage}
+                    canNext={currentPage < Number(totalPage)}
+                    canPrevious={currentPage > 1}
+                    onPageChange={(page) => setCurrentPage(page + 1)}
+                    paginationMaxSize={totalPage > 10 ? 10 : Number(totalPage)}
+                  />
+                </div>
+              )}
+            </Colxx>
+          </Row>
+        </>
       )}
-      <Row>
-        <Colxx>
-          {totalPage !== '0' && (
-            <div className="float-md-right">
-              <DataTablePagination
-                page={currentPage - 1}
-                pages={totalPage}
-                canNext={currentPage < Number(totalPage)}
-                canPrevious={currentPage > 1}
-                onPageChange={(page) => setCurrentPage(page + 1)}
-                paginationMaxSize={totalPage > 10 ? 10 : Number(totalPage)}
-              />
-            </div>
-          )}
-        </Colxx>
-      </Row>
     </div>
   )
 }
