@@ -62,27 +62,27 @@ const DetailFundraiser = () => {
     const dummyData = [
       {
         nominal: 130000000,
-        donatur: "Febiola Andini",
-        noTransaksi: "#989804342",
-        metodePembayaran: "Tunai",
-        waktu: "14:59 WIB",
-        status: "Pending"
+        donatur: 'Febiola Andini',
+        noTransaksi: '#989804342',
+        metodePembayaran: 'Tunai',
+        waktu: '14:59 WIB',
+        status: 'Pending',
       },
       {
         nominal: 12000000,
-        donatur: "Warga Baik",
-        noTransaksi: "#890989342",
-        metodePembayaran: "Shopeepay",
-        waktu: "14:56 WIB",
-        status: "Pending"
+        donatur: 'Warga Baik',
+        noTransaksi: '#890989342',
+        metodePembayaran: 'Shopeepay',
+        waktu: '14:56 WIB',
+        status: 'Pending',
       },
       {
         nominal: 10000,
-        donatur: "Ratu Zulika",
-        noTransaksi: "#999094297",
-        metodePembayaran: "BRI Virtual Account",
-        waktu: "14:56 WIB",
-        status: "Pending"
+        donatur: 'Ratu Zulika',
+        noTransaksi: '#999094297',
+        metodePembayaran: 'BRI Virtual Account',
+        waktu: '14:56 WIB',
+        status: 'Pending',
       },
     ]
 
@@ -205,65 +205,132 @@ const DetailFundraiser = () => {
           </Row>
         </Colxx>
       </Row>
-      {/* {mode === 'detail' && <DataPengguna id={id} />} */}
-      <Row>
-        <Colxx xs="12" className="mb-4">
-          <Card className="mb-4 card-rounded">
-            <CardBody className="card-body">
-              <Table
-                hover
-                responsive
-                className={`${!color.indexOf('dark') ? 'table-dark-mode' : ''}`}
-              >
-                <thead>
-                  <tr className="nowrap">
-                    <th style={{ borderTop: '0px' }}>Nominal</th>
-                    <th style={{ borderTop: '0px' }}>Donatur</th>
-                    <th style={{ borderTop: '0px' }}>No. Transaksi</th>
-                    <th style={{ borderTop: '0px' }}>GMetode Pembayaran</th>
-                    <th style={{ borderTop: '0px' }}>Waktu</th>
-                    <th style={{ borderTop: '0px' }}>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredData().length !== 0 ? (
-                    filteredData()
-                      .slice(
-                        (currentPage - 1) * currentPageSize,
-                        currentPage * currentPageSize
-                      )
-                      .map((item) => (
-                        <tr
-                          key={item.id}
-                          // style={{ cursor: 'pointer' }}
-                          // onClick={() => history.push(``)}
-                        >
-                          <td>Rp {konversiToNumber(item.nominal)}</td>
-                          <td>
-                            <p>{item.donatur}</p>
-                          </td>
-                          <td>{item.noTransaksi}</td>
-                          <td>{item.metodePembayaran}</td>
-                          <td>{item.waktu}</td>
-                          <td>{item.status}</td>
-                        </tr>
-                      ))
-                  ) : (
-                    <tr>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
+      {mode === 'transaksi' && (
+        <Row>
+          <Colxx xs="12" className="mb-4">
+            <Card className="mb-4 card-rounded">
+              <CardBody className="card-body">
+                <Table
+                  hover
+                  responsive
+                  className={`${
+                    !color.indexOf('dark') ? 'table-dark-mode' : ''
+                  }`}
+                >
+                  <thead>
+                    <tr className="nowrap">
+                      <th style={{ borderTop: '0px' }}>Nominal</th>
+                      <th style={{ borderTop: '0px' }}>Donatur</th>
+                      <th style={{ borderTop: '0px' }}>No. Transaksi</th>
+                      <th style={{ borderTop: '0px' }}>Metode Pembayaran</th>
+                      <th style={{ borderTop: '0px' }}>Waktu</th>
+                      <th style={{ borderTop: '0px' }}>Status</th>
                     </tr>
-                  )}
-                </tbody>
-              </Table>
-            </CardBody>
-          </Card>
-        </Colxx>
-      </Row>
+                  </thead>
+                  <tbody>
+                    {filteredData().length !== 0 ? (
+                      filteredData()
+                        .slice(
+                          (currentPage - 1) * currentPageSize,
+                          currentPage * currentPageSize
+                        )
+                        .map((item) => (
+                          <tr
+                            key={item.id}
+                            // style={{ cursor: 'pointer' }}
+                            // onClick={() => history.push(``)}
+                          >
+                            <td>Rp {konversiToNumber(item.nominal)}</td>
+                            <td>
+                              <p>{item.donatur}</p>
+                            </td>
+                            <td>{item.noTransaksi}</td>
+                            <td>{item.metodePembayaran}</td>
+                            <td>{item.waktu}</td>
+                            <td>{item.status}</td>
+                          </tr>
+                        ))
+                    ) : (
+                      <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </Table>
+              </CardBody>
+            </Card>
+          </Colxx>
+        </Row>
+      )}
+      {mode === 'komisi' && (
+        <Row>
+          <Colxx xs="12" className="mb-4">
+            <Card className="mb-4 card-rounded">
+              <CardBody className="card-body">
+                <Table
+                  hover
+                  responsive
+                  className={`${
+                    !color.indexOf('dark') ? 'table-dark-mode' : ''
+                  }`}
+                >
+                  <thead>
+                    <tr className="nowrap">
+                      <th style={{ borderTop: '0px' }}>Riwayat Penarikan Komisi</th>
+                      <th style={{ borderTop: '0px' }}>No. Transaksi</th>
+                      <th style={{ borderTop: '0px' }}>Rekening Tujuan</th>
+                      <th style={{ borderTop: '0px' }}>A/N Rekening</th>
+                      <th style={{ borderTop: '0px' }}>Nama Bank</th>
+                      <th style={{ borderTop: '0px' }}>Tanggal</th>
+                      <th style={{ borderTop: '0px' }}>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredData().length !== 0 ? (
+                      filteredData()
+                        .slice(
+                          (currentPage - 1) * currentPageSize,
+                          currentPage * currentPageSize
+                        )
+                        .map((item) => (
+                          <tr
+                            key={item.id}
+                            // style={{ cursor: 'pointer' }}
+                            // onClick={() => history.push(``)}
+                          >
+                            <td>Rp {konversiToNumber(item.nominal)}</td>
+                            <td>
+                              <p>{item.donatur}</p>
+                            </td>
+                            <td>{item.noTransaksi}</td>
+                            <td>{item.metodePembayaran}</td>
+                            <td>{item.waktu}</td>
+                            <td>{item.status}</td>
+                          </tr>
+                        ))
+                    ) : (
+                      <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </Table>
+              </CardBody>
+            </Card>
+          </Colxx>
+        </Row>
+      )}
       <Row>
         <Colxx>
           {totalPage !== '0' && (
