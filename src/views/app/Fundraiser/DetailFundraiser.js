@@ -60,13 +60,28 @@ const DetailFundraiser = () => {
   const getFundraiserData = () => {
     const dummyData = [
       {
-        number: 1,
-        nama: 'Firda Yuningsih',
-        kode: 'PDLY9832',
-        galangDana: 15000000,
-        komisi: 2250000,
-        lokasi: 'Kota Surabaya',
-        bergabung: '13/05/2023',
+        nominal: 130000000,
+        donatur: "Febiola Andini",
+        noTransaksi: "#989804342",
+        metodePembayaran: "Tunai",
+        waktu: "14:59 WIB",
+        status: "Pending"
+      },
+      {
+        nominal: 12000000,
+        donatur: "Warga Baik",
+        noTransaksi: "#890989342",
+        metodePembayaran: "Shopeepay",
+        waktu: "14:56 WIB",
+        status: "Pending"
+      },
+      {
+        nominal: 10000,
+        donatur: "Ratu Zulika",
+        noTransaksi: "#999094297",
+        metodePembayaran: "BRI Virtual Account",
+        waktu: "14:56 WIB",
+        status: "Pending"
       },
     ]
 
@@ -200,13 +215,12 @@ const DetailFundraiser = () => {
               >
                 <thead>
                   <tr className="nowrap">
-                    <th style={{ borderTop: '0px' }}>#</th>
-                    <th style={{ borderTop: '0px' }}>Nama</th>
-                    <th style={{ borderTop: '0px' }}>Kode Referal</th>
-                    <th style={{ borderTop: '0px' }}>Galang Dana</th>
-                    <th style={{ borderTop: '0px' }}>Komisi</th>
-                    <th style={{ borderTop: '0px' }}>Lokasi</th>
-                    <th style={{ borderTop: '0px' }}>Bergabung</th>
+                    <th style={{ borderTop: '0px' }}>Nominal</th>
+                    <th style={{ borderTop: '0px' }}>Donatur</th>
+                    <th style={{ borderTop: '0px' }}>No. Transaksi</th>
+                    <th style={{ borderTop: '0px' }}>GMetode Pembayaran</th>
+                    <th style={{ borderTop: '0px' }}>Waktu</th>
+                    <th style={{ borderTop: '0px' }}>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -216,28 +230,24 @@ const DetailFundraiser = () => {
                         (currentPage - 1) * currentPageSize,
                         currentPage * currentPageSize
                       )
-                      .map((item, index) => (
+                      .map((item) => (
                         <tr
                           key={item.id}
                           style={{ cursor: 'pointer' }}
                           onClick={() => history.push(``)}
                         >
+                          <td>Rp {konversiToNumber(item.nominal)}</td>
                           <td>
-                            {(currentPage - 1) * currentPageSize + index + 1}
+                            <p>{item.donatur}</p>
                           </td>
-                          <td>{item.nama}</td>
-                          <td>
-                            <p>{item.kode}</p>
-                          </td>
-                          <td>Rp {konversiToNumber(item.galangDana)}</td>
-                          <td>Rp {konversiToNumber(item.komisi)}</td>
-                          <td>{item.lokasi}</td>
-                          <td>{item.bergabung}</td>
+                          <td>{item.noTransaksi}</td>
+                          <td>{item.metodePembayaran}</td>
+                          <td>{item.waktu}</td>
+                          <td>{item.status}</td>
                         </tr>
                       ))
                   ) : (
                     <tr>
-                      <td>-</td>
                       <td>-</td>
                       <td>-</td>
                       <td>-</td>
