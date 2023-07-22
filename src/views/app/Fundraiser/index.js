@@ -143,8 +143,8 @@ const Fundraiser = () => {
                           <td>
                             <p>{item.kode}</p>
                           </td>
-                          <td>Rp {konversiToNumber(item.galangDana)}</td>
-                          <td>Rp {konversiToNumber(item.komisi)}</td>
+                          <td>Rp{konversiToNumber(item.galangDana)}</td>
+                          <td>Rp{konversiToNumber(item.komisi)}</td>
                           <td>{item.lokasi}</td>
                           <td>{item.bergabung}</td>
                         </tr>

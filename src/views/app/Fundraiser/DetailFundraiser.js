@@ -12,6 +12,7 @@ import {
   Button,
 } from 'reactstrap'
 import { Colxx } from 'components/common/CustomBootstrap'
+import MiniCard2 from '../../../components/MiniCard2'
 import './index.scss'
 import IdrFormat from 'helpers/IdrFormat'
 // import moment from 'moment'
@@ -310,7 +311,7 @@ const DetailFundraiser = () => {
                           )
                           .map((item) => (
                             <tr key={item.id}>
-                              <td>Rp {konversiToNumber(item.nominal)}</td>
+                              <td>Rp{konversiToNumber(item.nominal)}</td>
                               <td>
                                 <p>{item.donatur}</p>
                               </td>
@@ -358,9 +359,46 @@ const DetailFundraiser = () => {
       )}
       {mode === 'komisi' && (
         <>
+          <Row className="section-3-container" style={{ marginBottom: '20px' }}>
+            <Col>
+              <MiniCard2
+                title="Dana Terkumpul"
+                // text={`Rp ${
+                //   summaryData
+                //     ? IdrFormat(parseInt(summaryData?.donasi_terkumpul))
+                //     : '0'
+                // }`}
+                text={`Rp9.300.000`}
+              />
+            </Col>
+            <Col>
+              <MiniCard2
+                title="Total Donatur"
+                text={"403"}
+              />
+            </Col>
+            <Col>
+              <MiniCard2
+                title="Total Pendapatan Komisi"
+                text={`Rp1.902.000`}
+              />
+            </Col>
+            <Col>
+              <MiniCard2
+                title="Komisi Tersedia"
+                text={`Rp902.000`}
+              />
+            </Col>
+            <Col>
+              <MiniCard2
+                title="Komisi Ditarik"
+                text={`Rp1.000.000`}
+              />
+            </Col>
+          </Row>
           <Row>
             <Colxx xs="12" className="mb-4">
-              <Card className="mb-4 card-rounded">
+              <Card className="mb-4 mt-1 card-rounded">
                 <CardBody className="card-body">
                   <Table
                     hover
@@ -392,8 +430,7 @@ const DetailFundraiser = () => {
                           .map((item) => (
                             <tr key={item.id}>
                               <td>
-                                Rp{' '}
-                                {konversiToNumber(item.riwayatPenarikanKomisi)}
+                                Rp{konversiToNumber(item.riwayatPenarikanKomisi)}
                               </td>
                               <td>
                                 <p>{item.noTransaksi}</p>
