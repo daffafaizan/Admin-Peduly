@@ -20,7 +20,7 @@ import { useHistory } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
 // import http from 'helpers/http'
 // import { API_ENDPOINT } from 'config/api'
-import { DUMMY_SEMUA_FUNDRAISER } from './data/DummyDataTransaksi'
+import { DUMMY_SEMUA_FUNDRAISER } from './data/DummyDataSemua'
 
 const pageSizes = [20, 40, 80]
 

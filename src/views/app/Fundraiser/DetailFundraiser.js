@@ -13,6 +13,7 @@ import {
 } from 'reactstrap'
 import { Colxx } from 'components/common/CustomBootstrap'
 import MiniCard2 from '../../../components/MiniCard2'
+import TextAlert from 'components/TextAlert'
 import './index.scss'
 import IdrFormat from 'helpers/IdrFormat'
 // import moment from 'moment'
@@ -23,7 +24,7 @@ import { useParams, NavLink } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
 // import http from 'helpers/http'
 // import { API_ENDPOINT } from 'config/api'
-import { DUMMY_DATA_TRANSAKSI } from './data/DummyDataSemua'
+import { DUMMY_DATA_TRANSAKSI } from './data/DummyDataTransaksi'
 import { DUMMY_DATA_KOMISI } from './data/DummyDataKomisi'
 
 const pageSizes = [20, 40, 80]
@@ -318,7 +319,20 @@ const DetailFundraiser = () => {
                               <td>{item.noTransaksi}</td>
                               <td>{item.metodePembayaran}</td>
                               <td>{item.waktu}</td>
-                              <td>{item.status}</td>
+                              <td>
+                                {item.status === 'Berhasil' && (
+                                  <TextAlert text={'Berhasil'} />
+                                )}
+                                {item.status === 'Pending' && (
+                                  <TextAlert text={'Pending'} type="warning" />
+                                )}
+                                {item.status === 'Dibatalkan' && (
+                                  <TextAlert
+                                    text={'Dibatalkan'}
+                                    type="danger"
+                                  />
+                                )}
+                              </td>
                             </tr>
                           ))
                       ) : (
@@ -372,28 +386,16 @@ const DetailFundraiser = () => {
               />
             </Col>
             <Col>
-              <MiniCard2
-                title="Total Donatur"
-                text={"403"}
-              />
+              <MiniCard2 title="Total Donatur" text={'403'} />
             </Col>
             <Col>
-              <MiniCard2
-                title="Total Pendapatan Komisi"
-                text={`Rp1.902.000`}
-              />
+              <MiniCard2 title="Total Pendapatan Komisi" text={`Rp1.902.000`} />
             </Col>
             <Col>
-              <MiniCard2
-                title="Komisi Tersedia"
-                text={`Rp902.000`}
-              />
+              <MiniCard2 title="Komisi Tersedia" text={`Rp902.000`} />
             </Col>
             <Col>
-              <MiniCard2
-                title="Komisi Ditarik"
-                text={`Rp1.000.000`}
-              />
+              <MiniCard2 title="Komisi Ditarik" text={`Rp1.000.000`} />
             </Col>
           </Row>
           <Row>
@@ -430,7 +432,8 @@ const DetailFundraiser = () => {
                           .map((item) => (
                             <tr key={item.id}>
                               <td>
-                                Rp{konversiToNumber(item.riwayatPenarikanKomisi)}
+                                Rp
+                                {konversiToNumber(item.riwayatPenarikanKomisi)}
                               </td>
                               <td>
                                 <p>{item.noTransaksi}</p>
@@ -439,7 +442,17 @@ const DetailFundraiser = () => {
                               <td>{item.namaRekening}</td>
                               <td>{item.namaBank}</td>
                               <td>{item.tanggal}</td>
-                              <td>{item.status}</td>
+                              <td>
+                                {item.status === 'Terkirim' && (
+                                  <TextAlert text={'Terkirim'} />
+                                )}
+                                {item.status === 'Pending' && (
+                                  <TextAlert text={'Pending'} type="warning" />
+                                )}
+                                {item.status === 'Ditolak' && (
+                                  <TextAlert text={'Ditolak'} type="danger" />
+                                )}
+                              </td>
                             </tr>
                           ))
                       ) : (

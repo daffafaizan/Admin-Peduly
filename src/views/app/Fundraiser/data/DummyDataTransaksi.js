@@ -1,29 +1,50 @@
-export const DUMMY_SEMUA_FUNDRAISER = [
+export const DUMMY_DATA_TRANSAKSI = [
   {
-    "id": 12,
-    "nama": "Firda Yuningsih",
-    "kode": "PDLY9832",
-    "galangDana": 15000000,
-    "komisi": 2250000,
-    "lokasi": "Kota Surabaya",
-    "bergabung": "13/05/2023"
+    nominal: 130000000,
+    donatur: 'Febiola Andini',
+    noTransaksi: '#989804342',
+    metodePembayaran: 'Tunai',
+    waktu: '14:59 WIB',
+    status: 'Pending',
   },
   {
-    "id": 13,
-    "nama": "Warga Baik",
-    "kode": "PDLY7450",
-    "galangDana": 300400,
-    "komisi": 45060,
-    "lokasi": "Medan",
-    "bergabung": "02/05/2023"
+    nominal: 12000000,
+    donatur: 'Warga Baik',
+    noTransaksi: '#890989342',
+    metodePembayaran: 'Shopeepay',
+    waktu: '14:56 WIB',
+    status: 'Pending',
   },
   {
-    "id": 14,
-    "nama": "Ratu Zulika",
-    "kode": "PDLY1234",
-    "galangDana": 10345200,
-    "komisi": 1551780,
-    "lokasi": "Kabupaten Bogor",
-    "bergabung": "23/08/2023"
-  }
+    nominal: 10000,
+    donatur: 'Ratu Zulika',
+    noTransaksi: '#999094297',
+    metodePembayaran: 'BRI Virtual Account',
+    waktu: '14:56 WIB',
+    status: 'Pending',
+  },
+  {
+    nominal: 130000000,
+    donatur: 'Febiola Andini',
+    noTransaksi: '#989804342',
+    metodePembayaran: 'Tunai',
+    waktu: '14:59 WIB',
+    status: 'Berhasil',
+  },
+  {
+    nominal: 12000000,
+    donatur: 'Warga Baik',
+    noTransaksi: '#890989342',
+    metodePembayaran: 'Shopeepay',
+    waktu: '14:56 WIB',
+    status: 'Dibatalkan',
+  },
+  {
+    nominal: 10000,
+    donatur: 'Ratu Zulika',
+    noTransaksi: '#999094297',
+    metodePembayaran: 'BRI Virtual Account',
+    waktu: '14:56 WIB',
+    status: 'Dibatalkan',
+  },
 ]
