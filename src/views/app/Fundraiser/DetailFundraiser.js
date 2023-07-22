@@ -41,7 +41,7 @@ const DetailFundraiser = () => {
   )
   const [currentPageKomisi, setCurrentPageKomisi] = useState(1)
   const [totalPageKomisi, setTotalPageKomisi] = useState(0)
-  
+
   const [isHovered, setIsHovered] = useState(false)
   const [mode, setMode] = useState('transaksi')
   const { id } = useParams()
@@ -76,9 +76,7 @@ const DetailFundraiser = () => {
 
   //Page Komisi
   useEffect(() => {
-    setTotalPageKomisi(
-      Math.ceil(dataKomisi.length / currentPageKomisiSize)
-    )
+    setTotalPageKomisi(Math.ceil(dataKomisi.length / currentPageKomisiSize))
   }, [currentPageKomisiSize, dataKomisi])
 
   useEffect(() => {
@@ -274,15 +272,12 @@ const DetailFundraiser = () => {
                       {filteredDataTransaksi().length !== 0 ? (
                         filteredDataTransaksi()
                           .slice(
-                            (currentPageTransaksi - 1) * currentPageTransaksiSize,
+                            (currentPageTransaksi - 1) *
+                              currentPageTransaksiSize,
                             currentPageTransaksi * currentPageTransaksiSize
                           )
                           .map((item) => (
-                            <tr
-                              key={item.id}
-                              // style={{ cursor: 'pointer' }}
-                              // onClick={() => history.push(``)}
-                            >
+                            <tr key={item.id}>
                               <td>Rp {konversiToNumber(item.nominal)}</td>
                               <td>
                                 <p>{item.donatur}</p>
@@ -319,7 +314,9 @@ const DetailFundraiser = () => {
                     canNext={currentPageTransaksi < Number(totalPageKomisi)}
                     canPrevious={currentPageTransaksi > 1}
                     onPageChange={(page) => setCurrentPageKomisi(page + 1)}
-                    paginationMaxSize={totalPageTransaksi > 10 ? 10 : Number(totalPageTransaksi)}
+                    paginationMaxSize={
+                      totalPageTransaksi > 10 ? 10 : Number(totalPageTransaksi)
+                    }
                   />
                 </div>
               )}
@@ -361,18 +358,18 @@ const DetailFundraiser = () => {
                             currentPageKomisi * currentPageKomisiSize
                           )
                           .map((item) => (
-                            <tr
-                              key={item.id}
-                              // style={{ cursor: 'pointer' }}
-                              // onClick={() => history.push(``)}
-                            >
-                              <td>Rp {konversiToNumber(item.nominal)}</td>
+                            <tr key={item.id}>
                               <td>
-                                <p>{item.donatur}</p>
+                                Rp{' '}
+                                {konversiToNumber(item.riwayatPenarikanKomisi)}
                               </td>
-                              <td>{item.noTransaksi}</td>
-                              <td>{item.metodePembayaran}</td>
-                              <td>{item.waktu}</td>
+                              <td>
+                                <p>{item.noTransaksi}</p>
+                              </td>
+                              <td>{item.rekeningTujuan}</td>
+                              <td>{item.namaRekening}</td>
+                              <td>{item.namaBank}</td>
+                              <td>{item.tanggal}</td>
                               <td>{item.status}</td>
                             </tr>
                           ))
@@ -403,7 +400,9 @@ const DetailFundraiser = () => {
                     canNext={currentPageKomisi < Number(totalPageKomisi)}
                     canPrevious={currentPageKomisi > 1}
                     onPageChange={(page) => setCurrentPageKomisi(page + 1)}
-                    paginationMaxSize={totalPageKomisi > 10 ? 10 : Number(totalPageKomisi)}
+                    paginationMaxSize={
+                      totalPageKomisi > 10 ? 10 : Number(totalPageKomisi)
+                    }
                   />
                 </div>
               )}
