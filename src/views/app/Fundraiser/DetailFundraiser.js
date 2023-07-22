@@ -22,14 +22,26 @@ import { useParams, NavLink } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
 // import http from 'helpers/http'
 // import { API_ENDPOINT } from 'config/api'
+import { DUMMY_DATA_TRANSAKSI } from './data/DummyDataSemua'
+import { DUMMY_DATA_KOMISI } from './data/DummyDataKomisi'
 
 const pageSizes = [20, 40, 80]
 
 const DetailFundraiser = () => {
-  const [data, setData] = useState([])
-  const [currentPageSize, setCurrentPageSize] = useState(pageSizes[0])
-  const [currentPage, setCurrentPage] = useState(1)
-  const [totalPage, setTotalPage] = useState(0)
+  const [dataTransaksi, setDataTransaksi] = useState([])
+  const [currentPageTransaksiSize, setCurrentPageTransaksiSize] = useState(
+    pageSizes[0]
+  )
+  const [currentPageTransaksi, setCurrentPageTransaksi] = useState(1)
+  const [totalPageTransaksi, setTotalPageTransaksi] = useState(0)
+
+  const [dataKomisi, setDataKomisi] = useState([])
+  const [currentPageKomisiSize, setCurrentPageKomisiSize] = useState(
+    pageSizes[0]
+  )
+  const [currentPageKomisi, setCurrentPageKomisi] = useState(1)
+  const [totalPageKomisi, setTotalPageKomisi] = useState(0)
+  
   const [isHovered, setIsHovered] = useState(false)
   const [mode, setMode] = useState('transaksi')
   const { id } = useParams()
@@ -51,77 +63,34 @@ const DetailFundraiser = () => {
     getDataKomisi()
   }, [])
 
+  // Page Transaksi
   useEffect(() => {
-    setTotalPage(Math.ceil(data.length / currentPageSize))
-  }, [currentPageSize, data])
+    setTotalPageTransaksi(
+      Math.ceil(dataTransaksi.length / currentPageTransaksiSize)
+    )
+  }, [currentPageTransaksiSize, dataTransaksi])
 
   useEffect(() => {
-    if (currentPage > totalPage) setCurrentPage(1)
-  }, [totalPage, currentPage])
+    if (currentPageTransaksi > totalPageTransaksi) setCurrentPageTransaksi(1)
+  }, [totalPageTransaksi, currentPageTransaksi])
+
+  //Page Komisi
+  useEffect(() => {
+    setTotalPageKomisi(
+      Math.ceil(dataKomisi.length / currentPageKomisiSize)
+    )
+  }, [currentPageKomisiSize, dataKomisi])
+
+  useEffect(() => {
+    if (currentPageKomisi > totalPageKomisi) setCurrentPageKomisi(1)
+  }, [totalPageKomisi, currentPageKomisi])
 
   const getDataTransaksi = () => {
-    const dummyData = [
-      {
-        nominal: 130000000,
-        donatur: 'Febiola Andini',
-        noTransaksi: '#989804342',
-        metodePembayaran: 'Tunai',
-        waktu: '14:59 WIB',
-        status: 'Pending',
-      },
-      {
-        nominal: 12000000,
-        donatur: 'Warga Baik',
-        noTransaksi: '#890989342',
-        metodePembayaran: 'Shopeepay',
-        waktu: '14:56 WIB',
-        status: 'Pending',
-      },
-      {
-        nominal: 10000,
-        donatur: 'Ratu Zulika',
-        noTransaksi: '#999094297',
-        metodePembayaran: 'BRI Virtual Account',
-        waktu: '14:56 WIB',
-        status: 'Pending',
-      },
-    ]
-
-    setData(dummyData)
+    setDataTransaksi(DUMMY_DATA_TRANSAKSI)
   }
 
   const getDataKomisi = () => {
-    const dummyData = [
-      {
-        riwayatPenarikanKomisi: 100000,
-        noTransaksi: '#989804342',
-        rekeningTujuan: '983489384987',
-        namaRekening: 'Firda Yuningsih',
-        namaBank: 'Mandiri',
-        tanggal: '19/02/2023',
-        status: 'Pending',
-      },
-      {
-        riwayatPenarikanKomisi: 12000000,
-        noTransaksi: '#890989342',
-        rekeningTujuan: '983489384987',
-        namaRekening: 'Firda Yuningsih',
-        namaBank: 'BCA',
-        tanggal: '15/02/2023',
-        status: 'Terkirim',
-      },
-      {
-        riwayatPenarikanKomisi: 10000,
-        noTransaksi: '#999094297',
-        rekeningTujuan: '983489384987',
-        namaRekening: 'Firda Yuningsih',
-        namaBank: 'BRI',
-        tanggal: '10/02/2023',
-        status: 'Ditolak',
-      },
-    ]
-
-    setData(dummyData)
+    setDataKomisi(DUMMY_DATA_KOMISI)
   }
 
   const konversiToNumber = (angka) => {
@@ -133,10 +102,20 @@ const DetailFundraiser = () => {
     }
   }
 
-  function filteredData() {
+  function filteredDataTransaksi() {
     let s
 
-    s = data.sort((a, b) => {
+    s = dataTransaksi.sort((a, b) => {
+      return new Date(b.created_at) - new Date(a.created_at)
+    })
+
+    return s
+  }
+
+  function filteredDataKomisi() {
+    let s
+
+    s = dataKomisi.sort((a, b) => {
       return new Date(b.created_at) - new Date(a.created_at)
     })
 
@@ -213,30 +192,58 @@ const DetailFundraiser = () => {
                 </div>
               </div>
             </Col>
-            <Col xs="6">
-              <div className="float-right mt-1 d-flex flex-column justify-content-center align-items-center">
-                <div>
-                  <span className="text-muted text-small mr-1">{`${currentPage} of ${totalPage} `}</span>
-                  <UncontrolledDropdown className="d-inline-block">
-                    <DropdownToggle caret color="outline-dark" size="xs">
-                      {currentPageSize}
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      {pageSizes.map((size, index) => {
-                        return (
-                          <DropdownItem
-                            key={index}
-                            onClick={() => setCurrentPageSize(size)}
-                          >
-                            {size}
-                          </DropdownItem>
-                        )
-                      })}
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
+            {mode === 'transaksi' && (
+              <Col xs="6">
+                <div className="float-right mt-1 d-flex flex-column justify-content-center align-items-center">
+                  <div>
+                    <span className="text-muted text-small mr-1">{`${currentPageTransaksi} of ${totalPageTransaksi} `}</span>
+                    <UncontrolledDropdown className="d-inline-block">
+                      <DropdownToggle caret color="outline-dark" size="xs">
+                        {currentPageTransaksiSize}
+                      </DropdownToggle>
+                      <DropdownMenu right>
+                        {pageSizes.map((size, index) => {
+                          return (
+                            <DropdownItem
+                              key={index}
+                              onClick={() => setCurrentPageTransaksiSize(size)}
+                            >
+                              {size}
+                            </DropdownItem>
+                          )
+                        })}
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
+                  </div>
                 </div>
-              </div>
-            </Col>
+              </Col>
+            )}
+            {mode === 'komisi' && (
+              <Col xs="6">
+                <div className="float-right mt-1 d-flex flex-column justify-content-center align-items-center">
+                  <div>
+                    <span className="text-muted text-small mr-1">{`${currentPageKomisi} of ${totalPageKomisi} `}</span>
+                    <UncontrolledDropdown className="d-inline-block">
+                      <DropdownToggle caret color="outline-dark" size="xs">
+                        {currentPageKomisiSize}
+                      </DropdownToggle>
+                      <DropdownMenu right>
+                        {pageSizes.map((size, index) => {
+                          return (
+                            <DropdownItem
+                              key={index}
+                              onClick={() => setCurrentPageKomisiSize(size)}
+                            >
+                              {size}
+                            </DropdownItem>
+                          )
+                        })}
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
+                  </div>
+                </div>
+              </Col>
+            )}
           </Row>
         </Colxx>
       </Row>
@@ -264,11 +271,11 @@ const DetailFundraiser = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {filteredData().length !== 0 ? (
-                        filteredData()
+                      {filteredDataTransaksi().length !== 0 ? (
+                        filteredDataTransaksi()
                           .slice(
-                            (currentPage - 1) * currentPageSize,
-                            currentPage * currentPageSize
+                            (currentPageTransaksi - 1) * currentPageTransaksiSize,
+                            currentPageTransaksi * currentPageTransaksiSize
                           )
                           .map((item) => (
                             <tr
@@ -304,15 +311,15 @@ const DetailFundraiser = () => {
           </Row>
           <Row>
             <Colxx>
-              {totalPage !== '0' && (
+              {totalPageTransaksi !== '0' && (
                 <div className="float-md-right">
                   <DataTablePagination
-                    page={currentPage - 1}
-                    pages={totalPage}
-                    canNext={currentPage < Number(totalPage)}
-                    canPrevious={currentPage > 1}
-                    onPageChange={(page) => setCurrentPage(page + 1)}
-                    paginationMaxSize={totalPage > 10 ? 10 : Number(totalPage)}
+                    page={currentPageTransaksi - 1}
+                    pages={totalPageTransaksi}
+                    canNext={currentPageTransaksi < Number(totalPageKomisi)}
+                    canPrevious={currentPageTransaksi > 1}
+                    onPageChange={(page) => setCurrentPageKomisi(page + 1)}
+                    paginationMaxSize={totalPageTransaksi > 10 ? 10 : Number(totalPageTransaksi)}
                   />
                 </div>
               )}
@@ -347,11 +354,11 @@ const DetailFundraiser = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {filteredData().length !== 0 ? (
-                        filteredData()
+                      {filteredDataKomisi().length !== 0 ? (
+                        filteredDataKomisi()
                           .slice(
-                            (currentPage - 1) * currentPageSize,
-                            currentPage * currentPageSize
+                            (currentPageKomisi - 1) * currentPageKomisiSize,
+                            currentPageKomisi * currentPageKomisiSize
                           )
                           .map((item) => (
                             <tr
@@ -388,15 +395,15 @@ const DetailFundraiser = () => {
           </Row>
           <Row>
             <Colxx>
-              {totalPage !== '0' && (
+              {totalPageKomisi !== '0' && (
                 <div className="float-md-right">
                   <DataTablePagination
-                    page={currentPage - 1}
-                    pages={totalPage}
-                    canNext={currentPage < Number(totalPage)}
-                    canPrevious={currentPage > 1}
-                    onPageChange={(page) => setCurrentPage(page + 1)}
-                    paginationMaxSize={totalPage > 10 ? 10 : Number(totalPage)}
+                    page={currentPageKomisi - 1}
+                    pages={totalPageKomisi}
+                    canNext={currentPageKomisi < Number(totalPageKomisi)}
+                    canPrevious={currentPageKomisi > 1}
+                    onPageChange={(page) => setCurrentPageKomisi(page + 1)}
+                    paginationMaxSize={totalPageKomisi > 10 ? 10 : Number(totalPageKomisi)}
                   />
                 </div>
               )}

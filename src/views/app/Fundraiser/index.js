@@ -20,6 +20,7 @@ import { useHistory } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
 // import http from 'helpers/http'
 // import { API_ENDPOINT } from 'config/api'
+import { DUMMY_SEMUA_FUNDRAISER } from './data/DummyDataTransaksi'
 
 const pageSizes = [20, 40, 80]
 
@@ -46,37 +47,7 @@ const Fundraiser = () => {
   }, [totalPage, currentPage])
 
   const getSemuaFundraiserData = () => {
-    const dummyData = [
-      {
-        id: 12,
-        nama: 'Firda Yuningsih',
-        kode: 'PDLY9832',
-        galangDana: 15000000,
-        komisi: 2250000,
-        lokasi: 'Kota Surabaya',
-        bergabung: '13/05/2023',
-      },
-      {
-        id: 13,
-        nama: 'Warga Baik',
-        kode: 'PDLY7450',
-        galangDana: 300400,
-        komisi: 45060,
-        lokasi: 'Medan',
-        bergabung: '02/05/2023',
-      },
-      {
-        id: 14,
-        nama: 'Ratu Zulika',
-        kode: 'PDLY1234',
-        galangDana: 10345200,
-        komisi: 1551780,
-        lokasi: 'Kabupaten Bogor',
-        bergabung: '23/08/2023',
-      },
-    ]
-
-    setDataSemuaFundraiser(dummyData)
+    setDataSemuaFundraiser(DUMMY_SEMUA_FUNDRAISER)
   }
 
   const konversiToNumber = (angka) => {
