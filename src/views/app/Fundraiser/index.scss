@@ -16,6 +16,7 @@
     background-color: #ffffff;
     border-color: #ffffff;
     font-size: 14px;
+    font-weight: bold;
     color: #717171;
     width: 140px;
     min-width: 140px;
@@ -27,6 +28,7 @@
     background-color: #c41230;
     border-color: #c41230;
     font-size: 14px;
+    font-weight: bold;
     color: #ffffff;
     width: 140px;
     min-width: 140px;
@@ -38,6 +40,7 @@
     background-color: #c41230;
     border-color: #c41230;
     font-size: 14px;
+    font-weight: bold;
     color: #ffffff;
     width: 140px;
     min-width: 140px;
@@ -49,6 +52,7 @@
     background-color: #850c21;
     border-color: #850c21;
     font-size: 14px;
+    font-weight: bold;
     color: #ffffff;
     width: 140px;
     min-width: 140px;
@@ -60,6 +64,7 @@
     background-color: #ffffff;
     border-color: #ffffff;
     font-size: 14px;
+    font-weight: bold;
     color: #717171;
     width: 140px;
     min-width: 140px;
@@ -71,6 +76,7 @@
     background-color: #c41230;
     border-color: #c41230;
     font-size: 14px;
+    font-weight: bold;
     color: #ffffff;
     width: 140px;
     min-width: 140px;
@@ -82,6 +88,7 @@
     background-color: #c41230;
     border-color: #c41230;
     font-size: 14px;
+    font-weight: bold;
     color: #ffffff;
     width: 140px;
     min-width: 140px;
@@ -93,6 +100,103 @@
     background-color: #850c21;
     border-color: #850c21;
     font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    width: 140px;
+    min-width: 140px;
+    white-space: none;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+  .dark-button-transaksi {
+    border-radius: 15px 0 0 15px;
+    background-color: #242224;
+    border-color: #242224;
+    font-size: 14px;
+    font-weight: bold;
+    color: #8f8f8f;
+    width: 140px;
+    min-width: 140px;
+    white-space: none;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+  .dark-button-transaksi:hover {
+    border-radius: 15px 0 0 15px;
+    background-color: #c41230;
+    border-color: #c41230;
+    font-size: 14px;
+    font-weight: bold;
+    color: #8f8f8f;
+    width: 140px;
+    min-width: 140px;
+    white-space: none;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+  .dark-button-transaksi-active {
+    border-radius: 15px 0 0 15px;
+    background-color: #c41230;
+    border-color: #c41230;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    width: 140px;
+    min-width: 140px;
+    white-space: none;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+  .dark-button-transaksi-active:hover {
+    border-radius: 15px 0 0 15px;
+    background-color: #850c21;
+    border-color: #850c21;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    width: 140px;
+    min-width: 140px;
+    white-space: none;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+  .dark-button-komisi {
+    border-radius: 0 15px 15px 0;
+    background-color: #242224;
+    border-color: #242224;
+    font-size: 14px;
+    font-weight: bold;
+    color: #8f8f8f;
+    width: 140px;
+    min-width: 140px;
+    white-space: none;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+  .dark-button-komisi:hover {
+    border-radius: 0 15px 15px 0;
+    background-color: #c41230;
+    border-color: #c41230;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    width: 140px;
+    min-width: 140px;
+    white-space: none;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+  .dark-button-komisi-active {
+    border-radius: 0 15px 15px 0;
+    background-color: #c41230;
+    border-color: #c41230;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    width: 140px;
+    min-width: 140px;
+    white-space: none;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+  .dark-button-komisi-active:hover {
+    border-radius: 0 15px 15px 0;
+    background-color: #850c21;
+    border-color: #850c21;
+    font-size: 14px;
+    font-weight: bold;
     color: #ffffff;
     width: 140px;
     min-width: 140px;

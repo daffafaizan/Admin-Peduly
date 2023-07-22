@@ -163,30 +163,62 @@ const DetailFundraiser = () => {
             <Col xs="6">
               <div className="float-left d-flex flex-col justify-content-center align-items-center">
                 <div className="button-container">
-                  <Button
-                    className={`${
-                      mode === 'transaksi'
-                        ? 'button-transaksi-active'
-                        : 'button-transaksi'
-                    }`}
-                    onClick={() => {
-                      setMode('transaksi')
-                    }}
-                  >
-                    Transaksi
-                  </Button>
-                  <Button
-                    className={`${
-                      mode === 'komisi'
-                        ? 'button-komisi-active'
-                        : 'button-komisi'
-                    }`}
-                    onClick={() => {
-                      setMode('komisi')
-                    }}
-                  >
-                    Komisi
-                  </Button>
+                  {color === 'dark.purplemonster' && (
+                    <>
+                      <Button
+                        className={`${
+                          mode === 'transaksi'
+                            ? 'dark-button-transaksi-active'
+                            : 'dark-button-transaksi'
+                        }`}
+                        onClick={() => {
+                          setMode('transaksi')
+                        }}
+                      >
+                        Transaksi
+                      </Button>
+                      <Button
+                        className={`${
+                          mode === 'komisi'
+                            ? 'dark-button-komisi-active'
+                            : 'dark-button-komisi'
+                        }`}
+                        onClick={() => {
+                          setMode('komisi')
+                        }}
+                      >
+                        Komisi
+                      </Button>
+                    </>
+                  )}
+                  {color === 'light.purplemonster' && (
+                    <>
+                      <Button
+                        className={`${
+                          mode === 'transaksi'
+                            ? 'button-transaksi-active'
+                            : 'button-transaksi'
+                        }`}
+                        onClick={() => {
+                          setMode('transaksi')
+                        }}
+                      >
+                        Transaksi
+                      </Button>
+                      <Button
+                        className={`${
+                          mode === 'komisi'
+                            ? 'button-komisi-active'
+                            : 'button-komisi'
+                        }`}
+                        onClick={() => {
+                          setMode('komisi')
+                        }}
+                      >
+                        Komisi
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             </Col>
