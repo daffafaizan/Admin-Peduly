@@ -290,7 +290,7 @@ const DetailFundraiser = () => {
                     responsive
                     className={`${
                       !color.indexOf('dark') ? 'table-dark-mode' : ''
-                    }`}
+                    } center-text-table`}
                   >
                     <thead>
                       <tr className="nowrap">
@@ -311,29 +311,52 @@ const DetailFundraiser = () => {
                             currentPageTransaksi * currentPageTransaksiSize
                           )
                           .map((item) => (
-                            <tr key={item.id}>
-                              <td>Rp{konversiToNumber(item.nominal)}</td>
-                              <td>
-                                <p>{item.donatur}</p>
-                              </td>
-                              <td>{item.noTransaksi}</td>
-                              <td>{item.metodePembayaran}</td>
-                              <td>{item.waktu}</td>
-                              <td>
-                                {item.status === 'Berhasil' && (
-                                  <TextAlert text={'Berhasil'} />
-                                )}
-                                {item.status === 'Pending' && (
-                                  <TextAlert text={'Pending'} type="warning" />
-                                )}
-                                {item.status === 'Dibatalkan' && (
-                                  <TextAlert
-                                    text={'Dibatalkan'}
-                                    type="danger"
-                                  />
-                                )}
-                              </td>
-                            </tr>
+                            <>
+                              <tr
+                                key={item.id}
+                                style={{
+                                  height: '60px',
+                                  backgroundColor: '#E4E4E44D',
+                                  fontWeight: 'bold',
+                                }}
+                              >
+                                <td>Rp{konversiToNumber(item.total_donasi)}</td>
+                                <td colSpan={3}></td>
+                                <td>{item.tanggal}</td>
+                                <td>{item.jumlah_donasi} Donasi Berhasil</td>
+                              </tr>
+                              {item.donasi.map((itemDonasi) => (
+                                <tr
+                                  key={itemDonasi.id}
+                                  style={{ height: '60px' }}
+                                >
+                                  <td>
+                                    Rp{konversiToNumber(itemDonasi.nominal)}
+                                  </td>
+                                  <td>{itemDonasi.donatur}</td>
+                                  <td>{itemDonasi.invoice}</td>
+                                  <td>{itemDonasi.metode_pembayaran}</td>
+                                  <td>{itemDonasi.waktu}</td>
+                                  <td>
+                                    {itemDonasi.status === 'Berhasil' && (
+                                      <TextAlert text={'Berhasil'} />
+                                    )}
+                                    {itemDonasi.status === 'Pending' && (
+                                      <TextAlert
+                                        text={'Pending'}
+                                        type="warning"
+                                      />
+                                    )}
+                                    {itemDonasi.status === 'Dibatalkan' && (
+                                      <TextAlert
+                                        text={'Dibatalkan'}
+                                        type="danger"
+                                      />
+                                    )}
+                                  </td>
+                                </tr>
+                              ))}
+                            </>
                           ))
                       ) : (
                         <tr>
@@ -407,7 +430,7 @@ const DetailFundraiser = () => {
                     responsive
                     className={`${
                       !color.indexOf('dark') ? 'table-dark-mode' : ''
-                    }`}
+                    } center-text-table`}
                   >
                     <thead>
                       <tr className="nowrap">
@@ -430,14 +453,12 @@ const DetailFundraiser = () => {
                             currentPageKomisi * currentPageKomisiSize
                           )
                           .map((item) => (
-                            <tr key={item.id}>
+                            <tr key={item.id} style={{height: "60px"}}>
                               <td>
                                 Rp
                                 {konversiToNumber(item.riwayatPenarikanKomisi)}
                               </td>
-                              <td>
-                                <p>{item.noTransaksi}</p>
-                              </td>
+                              <td>{item.noTransaksi}</td>
                               <td>{item.rekeningTujuan}</td>
                               <td>{item.namaRekening}</td>
                               <td>{item.namaBank}</td>
