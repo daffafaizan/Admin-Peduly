@@ -17,6 +17,7 @@ import './index.scss'
 import IdrFormat from 'helpers/IdrFormat'
 import DataTablePagination from 'components/DatatablePagination'
 import TextAlert from 'components/TextAlert'
+import TextAlertDropdown from 'components/TextAlertDropdown'
 import { useParams, NavLink } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
 import http from 'helpers/http'
@@ -345,16 +346,16 @@ const DetailFundraiser = () => {
                                   <td>{itemDonasi.waktu.slice(11, 16)} WIB</td>
                                   <td>
                                     {itemDonasi.status === 'Approved' && (
-                                      <TextAlert text={'Approved'} />
+                                      <TextAlertDropdown text={'Approved'} />
                                     )}
                                     {itemDonasi.status === 'Pending' && (
-                                      <TextAlert
+                                      <TextAlertDropdown
                                         text={'Pending'}
                                         type="warning"
                                       />
                                     )}
                                     {itemDonasi.status === 'Rejected' && (
-                                      <TextAlert
+                                      <TextAlertDropdown
                                         text={'Rejected'}
                                         type="danger"
                                       />
