@@ -24,6 +24,7 @@ import http from 'helpers/http'
 // import { API_ENDPOINT } from 'config/api'
 
 const pageSizes = [20, 40, 80]
+const status = ['Approved', 'Pending', 'Rejected']
 
 const DetailFundraiser = () => {
   const [dataTransaksi, setDataTransaksi] = useState([])
@@ -289,10 +290,9 @@ const DetailFundraiser = () => {
           <Row>
             <Colxx xs="12" className="mb-4">
               <Card className="mb-4 card-rounded">
-                <CardBody className="card-body">
+                <div className="card-body">
                   <Table
                     hover
-                    responsive
                     className={`${
                       !color.indexOf('dark') ? 'table-dark-mode' : ''
                     } center-text-table`}
@@ -344,20 +344,25 @@ const DetailFundraiser = () => {
                                   <td>{itemDonasi.donatur}</td>
                                   <td>{itemDonasi.invoice}</td>
                                   <td>{itemDonasi.metode_pembayaran}</td>
-                                  <td>{itemDonasi.waktu.slice(11, 16)} WIB</td>
+                                  <td>{itemDonasi.waktu} WIB</td>
                                   <td>
                                     {itemDonasi.status === 'Approved' && (
-                                      <TextAlertDropdown text={'Approved'} />
+                                      <TextAlertDropdown
+                                        text={'Approved'}
+                                        status={status}
+                                      />
                                     )}
                                     {itemDonasi.status === 'Pending' && (
                                       <TextAlertDropdown
                                         text={'Pending'}
+                                        status={status}
                                         type="warning"
                                       />
                                     )}
                                     {itemDonasi.status === 'Rejected' && (
                                       <TextAlertDropdown
                                         text={'Rejected'}
+                                        status={status}
                                         type="danger"
                                       />
                                     )}
@@ -378,7 +383,7 @@ const DetailFundraiser = () => {
                       )}
                     </tbody>
                   </Table>
-                </CardBody>
+                </div>
               </Card>
             </Colxx>
           </Row>

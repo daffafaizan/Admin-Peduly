@@ -1,5 +1,22 @@
 .dropdown-content {
-    background-color: rgb(226, 226, 226);
-    color: black;
-    padding: 8px;
-  }
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  min-width: 160px;
+  z-index: 999;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.dropdown-content li {
+  list-style: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.dropdown-content li:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}

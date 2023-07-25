@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './index.scss'
 
-const TextAlertDropdown = ({ text, type = 'success', className }) => {
+const TextAlertDropdown = ({ text, type = 'success', className, status }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
   const globalStyle = {
@@ -47,7 +47,7 @@ const TextAlertDropdown = ({ text, type = 'success', className }) => {
   }
 
   return (
-    <div style={{ position: 'relative'}}>
+    <div style={{ position: 'relative' }}>
       <button
         className={`${textStyles[type]} rounded text-center ${className} p-2 border-0`}
         style={{ ...globalStyle, ...styles[type] }}
@@ -75,7 +75,9 @@ const TextAlertDropdown = ({ text, type = 'success', className }) => {
       </button>
       {dropdownOpen && (
         <div className="dropdown-content" style={dropdownStyle}>
-          <p>Dropdown Content</p>
+          {status.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
         </div>
       )}
     </div>
