@@ -1,4 +1,9 @@
+import { useState } from 'react'
+import './index.scss'
+
 const TextAlertDropdown = ({ text, type = 'success', className }) => {
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+
   const globalStyle = {
     padding: '3px 12px',
     margin: '0px',
@@ -29,11 +34,24 @@ const TextAlertDropdown = ({ text, type = 'success', className }) => {
     danger: 'rgba(231, 81, 59, 1)',
   }
 
+  const dropdownStyle = {
+    position: 'absolute',
+    top: 'calc(100% + 10px)',
+    left: 0,
+    zIndex: 999,
+    display: dropdownOpen ? 'block' : 'none',
+  }
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen)
+  }
+
   return (
-    <>
-      <span
-        className={`${textStyles[type]} rounded text-center ${className} p-2`}
+    <div style={{ position: 'relative' }}>
+      <button
+        className={`${textStyles[type]} rounded text-center ${className} p-2 border-0`}
         style={{ ...globalStyle, ...styles[type] }}
+        onClick={toggleDropdown}
       >
         {text}
         <span className="ml-1">
@@ -54,8 +72,13 @@ const TextAlertDropdown = ({ text, type = 'success', className }) => {
             />
           </svg>
         </span>
-      </span>
-    </>
+      </button>
+      {dropdownOpen && (
+        <div className="dropdown-content" style={dropdownStyle}>
+          <p>Dropdown Content</p>
+        </div>
+      )}
+    </div>
   )
 }
 
