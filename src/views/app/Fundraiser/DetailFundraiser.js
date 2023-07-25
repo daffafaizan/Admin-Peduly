@@ -15,11 +15,9 @@ import { Colxx } from 'components/common/CustomBootstrap'
 import MiniCard2 from '../../../components/MiniCard2'
 import './index.scss'
 import IdrFormat from 'helpers/IdrFormat'
-// import moment from 'moment'
 import DataTablePagination from 'components/DatatablePagination'
 import TextAlert from 'components/TextAlert'
 import { useParams, NavLink } from 'react-router-dom'
-// import { useHistory } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
 import http from 'helpers/http'
 // import { API_ENDPOINT } from 'config/api'
@@ -28,6 +26,7 @@ const pageSizes = [20, 40, 80]
 
 const DetailFundraiser = () => {
   const [dataTransaksi, setDataTransaksi] = useState([])
+  const [dataUmumTransaksi, setDataUmumTransaksi] = useState([])
   const [currentPageTransaksiSize, setCurrentPageTransaksiSize] = useState(
     pageSizes[0]
   )
@@ -35,6 +34,7 @@ const DetailFundraiser = () => {
   const [totalPageTransaksi, setTotalPageTransaksi] = useState(0)
 
   const [dataKomisi, setDataKomisi] = useState([])
+  const [dataUmumKomisi, setDataUmumKomisi] = useState([])
   const [currentPageKomisiSize, setCurrentPageKomisiSize] = useState(
     pageSizes[0]
   )
@@ -84,24 +84,26 @@ const DetailFundraiser = () => {
 
   const getDataTransaksi = () => {
     http
-    .get(`https://dev.peduly.com/api/admin/fundraisers/${id}/transaksi`)
-    .then((res) => {
-      setDataTransaksi(res.data.data)
-    })
-    .catch((err) => {
-      console.error('Error: ', err)
-    })
+      .get(`https://dev.peduly.com/api/admin/fundraisers/${id}/transaksi`)
+      .then((res) => {
+        setDataUmumTransaksi(res.data)
+        setDataTransaksi(res.data.data)
+      })
+      .catch((err) => {
+        console.error('Error: ', err)
+      })
   }
 
   const getDataKomisi = () => {
     http
-    .get(`https://dev.peduly.com/api/admin/fundraisers/${id}/komisi`)
-    .then((res) => {
-      setDataKomisi(res.data.data)
-    })
-    .catch((err) => {
-      console.error('Error: ', err)
-    })
+      .get(`https://dev.peduly.com/api/admin/fundraisers/${id}/komisi`)
+      .then((res) => {
+        setDataUmumKomisi(res.data.data)
+        setDataKomisi(res.data.data.riwayat_penarikan)
+      })
+      .catch((err) => {
+        console.error('Error: ', err)
+      })
   }
 
   const konversiToNumber = (angka) => {
@@ -170,7 +172,7 @@ const DetailFundraiser = () => {
                 </svg>
               </NavLink>
             </div>
-            <h1>Firda Yuningsih {id}</h1>
+            <h1>{dataUmumTransaksi.fundraiserName}</h1>
           </Row>
           <Row style={{ marginTop: '20px', marginBottom: '20px' }}>
             <Col xs="6">
@@ -347,7 +349,7 @@ const DetailFundraiser = () => {
                                   <td>{itemDonasi.donatur}</td>
                                   <td>{itemDonasi.invoice}</td>
                                   <td>{itemDonasi.metode_pembayaran}</td>
-                                  <td>{(itemDonasi.waktu).slice(11, 16)} WIB</td>
+                                  <td>{itemDonasi.waktu.slice(11, 16)} WIB</td>
                                   <td>
                                     {itemDonasi.status === 'Berhasil' && (
                                       <TextAlert text={'Berhasil'} />
@@ -411,25 +413,48 @@ const DetailFundraiser = () => {
             <Col>
               <MiniCard2
                 title="Dana Terkumpul"
-                // text={`Rp ${
-                //   summaryData
-                //     ? IdrFormat(parseInt(summaryData?.donasi_terkumpul))
-                //     : '0'
-                // }`}
-                text={`Rp9.300.000`}
+                text={`Rp${
+                  dataUmumKomisi
+                    ? IdrFormat(parseInt(dataUmumKomisi.donasi_terkumpul))
+                    : '0'
+                }`}
               />
             </Col>
             <Col>
-              <MiniCard2 title="Total Donatur" text={'403'} />
+              <MiniCard2
+                title="Total Donatur"
+                text={dataUmumKomisi.total_donatur}
+              />
             </Col>
             <Col>
-              <MiniCard2 title="Total Pendapatan Komisi" text={`Rp1.902.000`} />
+              <MiniCard2
+                title="Total Pendapatan Komisi"
+                text={`Rp${
+                  dataUmumKomisi
+                    ? IdrFormat(parseInt(dataUmumKomisi.pendapatan))
+                    : '0'
+                }`}
+              />
             </Col>
             <Col>
-              <MiniCard2 title="Komisi Tersedia" text={`Rp902.000`} />
+              <MiniCard2
+                title="Komisi Tersedia"
+                text={`Rp${
+                  dataUmumKomisi
+                    ? IdrFormat(parseInt(dataUmumKomisi.komisi_tersedia))
+                    : '0'
+                }`}
+              />
             </Col>
             <Col>
-              <MiniCard2 title="Komisi Ditarik" text={`Rp1.000.000`} />
+              <MiniCard2
+                title="Komisi Ditarik"
+                text={`Rp${
+                  dataUmumKomisi
+                    ? IdrFormat(parseInt(dataUmumKomisi.komisi_ditarik))
+                    : '0'
+                }`}
+              />
             </Col>
           </Row>
           <Row>
@@ -464,7 +489,7 @@ const DetailFundraiser = () => {
                             currentPageKomisi * currentPageKomisiSize
                           )
                           .map((item) => (
-                            <tr key={item.id} style={{height: "60px"}}>
+                            <tr key={item.id} style={{ height: '60px' }}>
                               <td>
                                 Rp
                                 {konversiToNumber(item.riwayatPenarikanKomisi)}
@@ -475,14 +500,14 @@ const DetailFundraiser = () => {
                               <td>{item.namaBank}</td>
                               <td>{item.tanggal}</td>
                               <td>
-                                {item.status === 'Terkirim' && (
-                                  <TextAlert text={'Terkirim'} />
+                                {item.status === 'Approved' && (
+                                  <TextAlert text={'Approved'} />
                                 )}
                                 {item.status === 'Pending' && (
                                   <TextAlert text={'Pending'} type="warning" />
                                 )}
-                                {item.status === 'Ditolak' && (
-                                  <TextAlert text={'Ditolak'} type="danger" />
+                                {item.status === 'Rejected' && (
+                                  <TextAlert text={'Rejected'} type="danger" />
                                 )}
                               </td>
                             </tr>
