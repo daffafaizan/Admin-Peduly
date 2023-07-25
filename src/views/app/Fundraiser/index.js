@@ -56,15 +56,6 @@ const Fundraiser = () => {
       })
   }
 
-  const konversiToNumber = (angka) => {
-    const idrFormat = IdrFormat(parseInt(angka))
-    if (!isNaN(idrFormat)) {
-      return idrFormat
-    } else {
-      return 0
-    }
-  }
-
   function filteredData() {
     let s
 
@@ -149,8 +140,8 @@ const Fundraiser = () => {
                           </td>
                           <td>{item.nama}</td>
                           <td>{item.kode_referal}</td>
-                          <td>Rp{konversiToNumber(item.galangdana)}</td>
-                          <td>Rp{konversiToNumber(item.komisi)}</td>
+                          <td>Rp{IdrFormat(parseInt(item.galangdana))}</td>
+                          <td>Rp{IdrFormat(parseInt(item.komisi))}</td>
                           <td>{item.lokasi}</td>
                           <td>{item.bergabung}</td>
                         </tr>

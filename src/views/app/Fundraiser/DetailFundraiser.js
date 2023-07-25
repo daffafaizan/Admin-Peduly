@@ -106,15 +106,6 @@ const DetailFundraiser = () => {
       })
   }
 
-  const konversiToNumber = (angka) => {
-    const idrFormat = IdrFormat(parseInt(angka))
-    if (!isNaN(idrFormat)) {
-      return idrFormat
-    } else {
-      return 0
-    }
-  }
-
   function filteredDataTransaksi() {
     let s
 
@@ -333,7 +324,9 @@ const DetailFundraiser = () => {
                                   fontWeight: 'bold',
                                 }}
                               >
-                                <td>Rp{konversiToNumber(item.total_donasi)}</td>
+                                <td>
+                                  Rp{IdrFormat(parseInt(item.total_donasi))}
+                                </td>
                                 <td colSpan={3}></td>
                                 <td>{item.tanggal}</td>
                                 <td>{item.jumlah_donasi} Donasi Berhasil</td>
@@ -344,15 +337,15 @@ const DetailFundraiser = () => {
                                   style={{ height: '60px' }}
                                 >
                                   <td>
-                                    Rp{konversiToNumber(itemDonasi.nominal)}
+                                    Rp{IdrFormat(parseInt(itemDonasi.nominal))}
                                   </td>
                                   <td>{itemDonasi.donatur}</td>
                                   <td>{itemDonasi.invoice}</td>
                                   <td>{itemDonasi.metode_pembayaran}</td>
                                   <td>{itemDonasi.waktu.slice(11, 16)} WIB</td>
                                   <td>
-                                    {itemDonasi.status === 'Berhasil' && (
-                                      <TextAlert text={'Berhasil'} />
+                                    {itemDonasi.status === 'Approved' && (
+                                      <TextAlert text={'Approved'} />
                                     )}
                                     {itemDonasi.status === 'Pending' && (
                                       <TextAlert
@@ -360,9 +353,9 @@ const DetailFundraiser = () => {
                                         type="warning"
                                       />
                                     )}
-                                    {itemDonasi.status === 'Dibatalkan' && (
+                                    {itemDonasi.status === 'Rejected' && (
                                       <TextAlert
-                                        text={'Dibatalkan'}
+                                        text={'Rejected'}
                                         type="danger"
                                       />
                                     )}
@@ -492,7 +485,9 @@ const DetailFundraiser = () => {
                             <tr key={item.id} style={{ height: '60px' }}>
                               <td>
                                 Rp
-                                {konversiToNumber(item.riwayatPenarikanKomisi)}
+                                {IdrFormat(
+                                  parseInt(item.riwayatPenarikanKomisi)
+                                )}
                               </td>
                               <td>{item.noTransaksi}</td>
                               <td>{item.rekeningTujuan}</td>
