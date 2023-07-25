@@ -19,7 +19,7 @@ import DataTablePagination from 'components/DatatablePagination'
 import { useHistory } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
 import http from 'helpers/http'
-import { API_ENDPOINT } from 'config/api'
+// import { API_ENDPOINT } from 'config/api'
 
 const pageSizes = [20, 40, 80]
 
@@ -47,10 +47,10 @@ const Fundraiser = () => {
 
   const getSemuaFundraiserData = () => {
     http
-      .get(`${API_ENDPOINT.GET_LIST_FUNDRAISER}`)
+      .get(`https://dev.peduly.com/api/admin/fundraisers`)
       .then((res) => {
-        console.log(res.data)
-        const responseData = res.data
+        console.log(res.data.data)
+        const responseData = res.data.data
         setDataSemuaFundraiser(responseData)
       })
       .catch((err) => {
@@ -149,12 +149,12 @@ const Fundraiser = () => {
                           <td>
                             {(currentPage - 1) * currentPageSize + index + 1}
                           </td>
-                          <td>{item.name}</td>
+                          <td>{item.nama}</td>
                           <td>{item.kode_referal}</td>
                           <td>Rp{konversiToNumber(item.galangdana)}</td>
                           <td>Rp{konversiToNumber(item.komisi)}</td>
-                          <td>{item.kabupaten}</td>
-                          <td>{item.joinAt}</td>
+                          <td>{item.lokasi}</td>
+                          <td>{item.bergabung}</td>
                         </tr>
                       ))
                   ) : (

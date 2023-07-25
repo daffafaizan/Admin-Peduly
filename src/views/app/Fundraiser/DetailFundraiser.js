@@ -22,7 +22,7 @@ import { useParams, NavLink } from 'react-router-dom'
 // import { useHistory } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
 import http from 'helpers/http'
-import { API_ENDPOINT } from 'config/api'
+// import { API_ENDPOINT } from 'config/api'
 
 const pageSizes = [20, 40, 80]
 
@@ -84,9 +84,9 @@ const DetailFundraiser = () => {
 
   const getDataTransaksi = () => {
     http
-    .get(`${API_ENDPOINT.GET_LIST_FUNDRAISER}/${id}/transaksi`)
+    .get(`https://dev.peduly.com/api/admin/fundraisers/${id}/transaksi`)
     .then((res) => {
-      setDataTransaksi(res.data)
+      setDataTransaksi(res.data.data)
     })
     .catch((err) => {
       console.error('Error: ', err)
@@ -95,9 +95,9 @@ const DetailFundraiser = () => {
 
   const getDataKomisi = () => {
     http
-    .get(`${API_ENDPOINT.GET_LIST_FUNDRAISER}/${id}/komisi`)
+    .get(`https://dev.peduly.com/api/admin/fundraisers/${id}/komisi`)
     .then((res) => {
-      setDataKomisi(res.data)
+      setDataKomisi(res.data.data)
     })
     .catch((err) => {
       console.error('Error: ', err)
@@ -347,7 +347,7 @@ const DetailFundraiser = () => {
                                   <td>{itemDonasi.donatur}</td>
                                   <td>{itemDonasi.invoice}</td>
                                   <td>{itemDonasi.metode_pembayaran}</td>
-                                  <td>{itemDonasi.waktu}</td>
+                                  <td>{(itemDonasi.waktu).slice(11, 16)} WIB</td>
                                   <td>
                                     {itemDonasi.status === 'Berhasil' && (
                                       <TextAlert text={'Berhasil'} />
