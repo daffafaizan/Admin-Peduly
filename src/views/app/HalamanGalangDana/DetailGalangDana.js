@@ -86,6 +86,7 @@ const DetailGalangDana = ({ match }) => {
     status: '',
     keterangan: '',
   })
+  const [dataSupporter, setDataSupporter] = useState([])
   const [fetchStatus, setFetchStatus] = useState(false)
   const [idTarikDana, setIdTarikDana] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
@@ -135,6 +136,7 @@ const DetailGalangDana = ({ match }) => {
     getDetailGalangDana()
     getAllDataTarikDana()
     getDetailTransaksi()
+    getAllDataSupporter()
     getCurrentColor()
   }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -189,6 +191,19 @@ const DetailGalangDana = ({ match }) => {
         console.log('Error: ', err)
       })
   }
+
+    //get All data supporter
+    const getAllDataSupporter = () => {
+      http
+        .get(`https://dev.peduly.com/api/admin/galangdana/${id}/supports`)
+        .then((res) => {
+          console.log(res)
+          setDataSupporter(res.data)
+        })
+        .catch((err) => {
+          console.log('Error: ', err)
+        })
+    }
 
   // get one detail data tarik dana
   useEffect(() => {
@@ -263,6 +278,14 @@ const DetailGalangDana = ({ match }) => {
     let d
 
     d = dataTarikDana.data
+
+    return d
+  }
+
+  function filteredDataSupporter() {
+    let d
+
+    d = dataSupporter.data
 
     return d
   }
@@ -707,55 +730,23 @@ const DetailGalangDana = ({ match }) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {filteredDataTarikDana().length !== 0 ? (
-                        filteredDataTarikDana().map((item) => (
+                      {filteredDataSupporter().length !== 0 ? (
+                        filteredDataSupporter().map((item) => (
                           <tr
-                            onClick={() => {
-                              toggle(item.id)
-                            }}
                             style={{
                               cursor: 'pointer',
                               height: '60px',
-                              backgroundColor: '#E4E4E44D',
-                              fontWeight: 'bold',
                             }}
                             key={item.id}
                           >
-                            <td>{formatDate(item.updated_at)}</td>
-                            <td>Rp {IdrFormat(item.nominal)}</td>
-                            <td>{item.details}</td>
+                            <td>{item.judul}</td>
+                            <td>{item.pembuat}</td>
+                            <td>Rp{IdrFormat(item.target)}</td>
                             <td>
-                              {item.status === 'approved' && (
-                                <p
-                                  className="text-success rounded text-center status bg-status-success"
-                                  style={{
-                                    maxWidth: '94px',
-                                  }}
-                                >
-                                  Berhasil
-                                </p>
-                              )}
-                              {item.status === 'pending' && (
-                                <p
-                                  className="text-warning rounded text-center status bg-status-pending"
-                                  style={{
-                                    maxWidth: '94px',
-                                  }}
-                                >
-                                  Pending
-                                </p>
-                              )}
-                              {item.status === 'rejected' && (
-                                <p
-                                  className="text-danger rounded text-center status bg-status-danger"
-                                  style={{
-                                    maxWidth: '94px',
-                                  }}
-                                >
-                                  Dibatalkan
-                                </p>
-                              )}
+                              terkumpul
                             </td>
+                            <td>{formatDate(item.dibuat)}</td>
+                            <td>{formatDate(item.berakhir)}</td>
                           </tr>
                         ))
                       ) : (

@@ -18,6 +18,10 @@
   margin: 0 !important;
 }
 
+.center-text-table td {
+  vertical-align: middle;
+}
+
 .container-card {
   border: 1px solid #dedede;
   padding: 20px 0 24px 0px;
@@ -32,9 +36,6 @@
   }
   .content {
     font-size: 28px;
-  }
-  .center-text-table td {
-    vertical-align: middle;
   }
 }
 
