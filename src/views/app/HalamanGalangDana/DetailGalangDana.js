@@ -692,7 +692,7 @@ const DetailGalangDana = ({ match }) => {
                     responsive
                     className={`${
                       !color.indexOf('dark') ? 'table-dark-mode' : ''
-                    }`}
+                    } center-text-table`}
                   >
                     <thead>
                       <tr>
@@ -713,7 +713,12 @@ const DetailGalangDana = ({ match }) => {
                             onClick={() => {
                               toggle(item.id)
                             }}
-                            style={{ cursor: 'pointer' }}
+                            style={{
+                              cursor: 'pointer',
+                              height: '60px',
+                              backgroundColor: '#E4E4E44D',
+                              fontWeight: 'bold',
+                            }}
                             key={item.id}
                           >
                             <td>{formatDate(item.updated_at)}</td>
