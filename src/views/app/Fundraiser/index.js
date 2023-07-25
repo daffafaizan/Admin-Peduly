@@ -18,9 +18,8 @@ import DataTablePagination from 'components/DatatablePagination'
 // import TextAlert from 'components/TextAlert'
 import { useHistory } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
-// import http from 'helpers/http'
-// import { API_ENDPOINT } from 'config/api'
-import { DUMMY_SEMUA_FUNDRAISER } from './data/DummyDataSemua'
+import http from 'helpers/http'
+import { API_ENDPOINT } from 'config/api'
 
 const pageSizes = [20, 40, 80]
 
@@ -47,7 +46,16 @@ const Fundraiser = () => {
   }, [totalPage, currentPage])
 
   const getSemuaFundraiserData = () => {
-    setDataSemuaFundraiser(DUMMY_SEMUA_FUNDRAISER)
+    http
+      .get(`${API_ENDPOINT.GET_LIST_FUNDRAISER}`)
+      .then((res) => {
+        console.log(res.data)
+        const responseData = res.data
+        setDataSemuaFundraiser(responseData)
+      })
+      .catch((err) => {
+        console.error('Error: ', err)
+      })
   }
 
   const konversiToNumber = (angka) => {
@@ -63,7 +71,7 @@ const Fundraiser = () => {
     let s
 
     s = dataSemuaFundraiser.sort((a, b) => {
-      return new Date(b.created_at) - new Date(a.created_at)
+      return new Date(b.joinAt) - new Date(a.joinAt)
     })
 
     return s
@@ -108,7 +116,9 @@ const Fundraiser = () => {
               <Table
                 hover
                 responsive
-                className={`${!color.indexOf('dark') ? 'table-dark-mode' : ''}`}
+                className={`${
+                  !color.indexOf('dark') ? 'table-dark-mode' : ''
+                } center-text-table`}
               >
                 <thead>
                   <tr className="nowrap">
@@ -131,7 +141,7 @@ const Fundraiser = () => {
                       .map((item, index) => (
                         <tr
                           key={item.id}
-                          style={{ cursor: 'pointer' }}
+                          style={{ cursor: 'pointer', height: '60px' }}
                           onClick={() =>
                             history.push(`/app/fundraiser/detail/${item.id}`)
                           }
@@ -139,14 +149,12 @@ const Fundraiser = () => {
                           <td>
                             {(currentPage - 1) * currentPageSize + index + 1}
                           </td>
-                          <td>{item.nama}</td>
-                          <td>
-                            <p>{item.kode}</p>
-                          </td>
-                          <td>Rp{konversiToNumber(item.galangDana)}</td>
+                          <td>{item.name}</td>
+                          <td>{item.kode_referal}</td>
+                          <td>Rp{konversiToNumber(item.galangdana)}</td>
                           <td>Rp{konversiToNumber(item.komisi)}</td>
-                          <td>{item.lokasi}</td>
-                          <td>{item.bergabung}</td>
+                          <td>{item.kabupaten}</td>
+                          <td>{item.joinAt}</td>
                         </tr>
                       ))
                   ) : (

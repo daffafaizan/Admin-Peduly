@@ -13,19 +13,16 @@ import {
 } from 'reactstrap'
 import { Colxx } from 'components/common/CustomBootstrap'
 import MiniCard2 from '../../../components/MiniCard2'
-import TextAlert from 'components/TextAlert'
 import './index.scss'
 import IdrFormat from 'helpers/IdrFormat'
 // import moment from 'moment'
 import DataTablePagination from 'components/DatatablePagination'
-// import TextAlert from 'components/TextAlert'
+import TextAlert from 'components/TextAlert'
 import { useParams, NavLink } from 'react-router-dom'
 // import { useHistory } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
-// import http from 'helpers/http'
-// import { API_ENDPOINT } from 'config/api'
-import { DUMMY_DATA_TRANSAKSI } from './data/DummyDataTransaksi'
-import { DUMMY_DATA_KOMISI } from './data/DummyDataKomisi'
+import http from 'helpers/http'
+import { API_ENDPOINT } from 'config/api'
 
 const pageSizes = [20, 40, 80]
 
@@ -63,7 +60,7 @@ const DetailFundraiser = () => {
     getCurrentColor()
     getDataTransaksi()
     getDataKomisi()
-  }, [])
+  }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Page Transaksi
   useEffect(() => {
@@ -86,11 +83,25 @@ const DetailFundraiser = () => {
   }, [totalPageKomisi, currentPageKomisi])
 
   const getDataTransaksi = () => {
-    setDataTransaksi(DUMMY_DATA_TRANSAKSI)
+    http
+    .get(`${API_ENDPOINT.GET_LIST_FUNDRAISER}/${id}/transaksi`)
+    .then((res) => {
+      setDataTransaksi(res.data)
+    })
+    .catch((err) => {
+      console.error('Error: ', err)
+    })
   }
 
   const getDataKomisi = () => {
-    setDataKomisi(DUMMY_DATA_KOMISI)
+    http
+    .get(`${API_ENDPOINT.GET_LIST_FUNDRAISER}/${id}/komisi`)
+    .then((res) => {
+      setDataKomisi(res.data)
+    })
+    .catch((err) => {
+      console.error('Error: ', err)
+    })
   }
 
   const konversiToNumber = (angka) => {
