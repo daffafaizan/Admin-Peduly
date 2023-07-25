@@ -38,7 +38,7 @@ const TextAlertDropdown = ({ text, type = 'success', className }) => {
     position: 'absolute',
     top: 'calc(100% + 10px)',
     left: 0,
-    zIndex: 999,
+    zIndex: 9999,
     display: dropdownOpen ? 'block' : 'none',
   }
 
@@ -47,7 +47,7 @@ const TextAlertDropdown = ({ text, type = 'success', className }) => {
   }
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative'}}>
       <button
         className={`${textStyles[type]} rounded text-center ${className} p-2 border-0`}
         style={{ ...globalStyle, ...styles[type] }}

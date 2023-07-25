@@ -338,7 +338,8 @@ const DetailFundraiser = () => {
                                   style={{ height: '60px' }}
                                 >
                                   <td>
-                                    Rp{IdrFormat(parseInt(itemDonasi.nominal))}
+                                    Rp
+                                    {IdrFormat(parseInt(itemDonasi.nominal))}
                                   </td>
                                   <td>{itemDonasi.donatur}</td>
                                   <td>{itemDonasi.invoice}</td>
