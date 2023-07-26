@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import './index.scss'
 
-const TextAlertDropdown = ({ text, type = 'success', className, status, fundraiserId, id }) => {
+const TextAlertDropdown = ({ text, type = 'Approved', className, status, fundraiserId, id }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownRef = useRef(null)
 
@@ -12,27 +12,27 @@ const TextAlertDropdown = ({ text, type = 'success', className, status, fundrais
   }
 
   const styles = {
-    success: {
+    Approved: {
       background: 'rgba(52, 168, 83, 0.2)',
     },
-    warning: {
+    Pending: {
       background: 'rgba(252, 174, 3, 0.2)',
     },
-    danger: {
+    Rejected: {
       background: 'rgba(231, 81, 59, 0.2)',
     },
   }
 
   const textStyles = {
-    success: 'text-success',
-    warning: 'text-warning',
-    danger: 'text-danger',
+    Approved: 'text-success',
+    Pending: 'text-warning',
+    Rejected: 'text-danger',
   }
 
   const strokeStyles = {
-    success: 'rgba(52, 168, 83, 1)',
-    warning: 'rgba(252, 174, 3, 1)',
-    danger: 'rgba(231, 81, 59, 1)',
+    Approved: 'rgba(52, 168, 83, 1)',
+    Pending: 'rgba(252, 174, 3, 1)',
+    Rejected: 'rgba(231, 81, 59, 1)',
   }
 
   const dropdownStyle = {

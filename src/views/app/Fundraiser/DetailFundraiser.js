@@ -404,32 +404,13 @@ const DetailFundraiser = () => {
                                       : '-'}
                                   </td>
                                   <td>
-                                    {itemDonasi.status === 'Approved' && (
-                                      <TextAlertDropdown
-                                        fundraiserId={fundraiserId}
-                                        id={itemDonasi.id}
-                                        text={'Approved'}
-                                        status={status}
-                                      />
-                                    )}
-                                    {itemDonasi.status === 'Pending' && (
-                                      <TextAlertDropdown
-                                        fundraiserId={fundraiserId}
-                                        id={itemDonasi.id}
-                                        text={'Pending'}
-                                        status={status}
-                                        type="warning"
-                                      />
-                                    )}
-                                    {itemDonasi.status === 'Rejected' && (
-                                      <TextAlertDropdown
-                                        fundraiserId={fundraiserId}
-                                        id={itemDonasi.id}
-                                        text={'Rejected'}
-                                        status={status}
-                                        type="danger"
-                                      />
-                                    )}
+                                    <TextAlertDropdown
+                                      fundraiserId={fundraiserId}
+                                      id={itemDonasi.id}
+                                      text={itemDonasi.status}
+                                      status={status}
+                                      type={itemDonasi.status}
+                                    />
                                   </td>
                                 </tr>
                               ))}
