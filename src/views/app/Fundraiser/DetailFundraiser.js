@@ -44,7 +44,7 @@ const DetailFundraiser = () => {
 
   const [isHovered, setIsHovered] = useState(false)
   const [mode, setMode] = useState('transaksi')
-  const { id: fundraiserId } = useParams();
+  const { id: fundraiserId } = useParams()
 
   // const history = useHistory()
   const color = getCurrentColor()
@@ -85,7 +85,9 @@ const DetailFundraiser = () => {
 
   const getDataTransaksi = () => {
     http
-      .get(`https://dev.peduly.com/api/admin/fundraisers/${fundraiserId}/transaksi`)
+      .get(
+        `https://dev.peduly.com/api/admin/fundraisers/${fundraiserId}/transaksi`
+      )
       .then((res) => {
         setDataUmumTransaksi(res.data)
         setDataTransaksi(res.data.data)
@@ -97,7 +99,9 @@ const DetailFundraiser = () => {
 
   const getDataKomisi = () => {
     http
-      .get(`https://dev.peduly.com/api/admin/fundraisers/${fundraiserId}/komisi`)
+      .get(
+        `https://dev.peduly.com/api/admin/fundraisers/${fundraiserId}/komisi`
+      )
       .then((res) => {
         setDataUmumKomisi(res.data.data)
         setDataKomisi(res.data.data.riwayat_penarikan)
@@ -402,12 +406,16 @@ const DetailFundraiser = () => {
                                   <td>
                                     {itemDonasi.status === 'Approved' && (
                                       <TextAlertDropdown
+                                        fundraiserId={fundraiserId}
+                                        id={itemDonasi.id}
                                         text={'Approved'}
                                         status={status}
                                       />
                                     )}
                                     {itemDonasi.status === 'Pending' && (
                                       <TextAlertDropdown
+                                        fundraiserId={fundraiserId}
+                                        id={itemDonasi.id}
                                         text={'Pending'}
                                         status={status}
                                         type="warning"
@@ -415,6 +423,8 @@ const DetailFundraiser = () => {
                                     )}
                                     {itemDonasi.status === 'Rejected' && (
                                       <TextAlertDropdown
+                                        fundraiserId={fundraiserId}
+                                        id={itemDonasi.id}
                                         text={'Rejected'}
                                         status={status}
                                         type="danger"
@@ -546,24 +556,12 @@ const DetailFundraiser = () => {
                             <tr key={item.id} style={{ height: '60px' }}>
                               <td>
                                 {item.nominal
-                                  ? `Rp${IdrFormat(
-                                      parseInt(item.nominal)
-                                    )}`
+                                  ? `Rp${IdrFormat(parseInt(item.nominal))}`
                                   : '-'}
                               </td>
-                              <td>
-                                {item.invoice ? `${item.invoice}` : '-'}
-                              </td>
-                              <td>
-                                {item.tujuan
-                                  ? `${item.tujuan}`
-                                  : '-'}
-                              </td>
-                              <td>
-                                {item.tujuan
-                                  ? `${item.tujuan}`
-                                  : '-'}
-                              </td>
+                              <td>{item.invoice ? `${item.invoice}` : '-'}</td>
+                              <td>{item.tujuan ? `${item.tujuan}` : '-'}</td>
+                              <td>{item.tujuan ? `${item.tujuan}` : '-'}</td>
                               <td>
                                 {item.nama_bank ? `${item.nama_bank}` : '-'}
                               </td>

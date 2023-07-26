@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import './index.scss'
 
-const TextAlertDropdown = ({ text, type = 'success', className, status }) => {
+const TextAlertDropdown = ({ text, type = 'success', className, status, fundraiserId, id }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownRef = useRef(null)
 
@@ -45,6 +45,8 @@ const TextAlertDropdown = ({ text, type = 'success', className, status }) => {
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen)
+    console.log(fundraiserId)
+    console.log(id)
   }
 
   const handleClickOutside = (event) => {
