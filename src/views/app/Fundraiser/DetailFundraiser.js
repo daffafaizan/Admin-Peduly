@@ -404,13 +404,17 @@ const DetailFundraiser = () => {
                                       : '-'}
                                   </td>
                                   <td>
-                                    <TextAlertDropdown
-                                      fundraiserId={fundraiserId}
-                                      id={itemDonasi.id}
-                                      text={itemDonasi.status}
-                                      status={status}
-                                      type={itemDonasi.status}
-                                    />
+                                    {itemDonasi.status ? (
+                                      <TextAlertDropdown
+                                        fundraiserId={fundraiserId}
+                                        id={itemDonasi.id}
+                                        text={itemDonasi.status}
+                                        status={status}
+                                        type={itemDonasi.status}
+                                      />
+                                    ) : (
+                                      '-'
+                                    )}
                                   </td>
                                 </tr>
                               ))}
@@ -548,13 +552,17 @@ const DetailFundraiser = () => {
                               </td>
                               <td>{item.tanggal ? `${item.tanggal}` : '-'}</td>
                               <td>
-                                <TextAlertDropdown
-                                  fundraiserId={fundraiserId}
-                                  id={item.id}
-                                  text={item.status}
-                                  status={status}
-                                  type={item.status}
-                                />
+                                {item.status ? (
+                                  <TextAlertDropdown
+                                    fundraiserId={fundraiserId}
+                                    id={item.id}
+                                    text={item.status}
+                                    status={status}
+                                    type={item.status}
+                                  />
+                                ) : (
+                                  '-'
+                                )}
                               </td>
                             </tr>
                           ))
