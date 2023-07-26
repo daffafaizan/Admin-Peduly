@@ -548,26 +548,13 @@ const DetailFundraiser = () => {
                               </td>
                               <td>{item.tanggal ? `${item.tanggal}` : '-'}</td>
                               <td>
-                                {item.status === 'Approved' && (
-                                  <TextAlertDropdown
-                                    text={'Approved'}
-                                    status={status}
-                                  />
-                                )}
-                                {item.status === 'Pending' && (
-                                  <TextAlertDropdown
-                                    text={'Pending'}
-                                    status={status}
-                                    type="warning"
-                                  />
-                                )}
-                                {item.status === 'Rejected' && (
-                                  <TextAlertDropdown
-                                    text={'Rejected'}
-                                    status={status}
-                                    type="danger"
-                                  />
-                                )}
+                                <TextAlertDropdown
+                                  fundraiserId={fundraiserId}
+                                  id={item.id}
+                                  text={item.status}
+                                  status={status}
+                                  type={item.status}
+                                />
                               </td>
                             </tr>
                           ))
