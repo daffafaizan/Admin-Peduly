@@ -16,7 +16,6 @@ import MiniCard2 from '../../../components/MiniCard2'
 import './index.scss'
 import IdrFormat from 'helpers/IdrFormat'
 import DataTablePagination from 'components/DatatablePagination'
-import TextAlert from 'components/TextAlert'
 import TextAlertDropdown from 'views/app/Fundraiser/components/StatusAlert'
 import { useParams, NavLink } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
@@ -107,6 +106,19 @@ const DetailFundraiser = () => {
         console.error('Error: ', err)
       })
   }
+
+  // const editStatusTransaksi = () => {
+  //   http
+  //     .put(`${API_ENDPOINT.GET_LIST_GALANG_DANA_ADMIN}/${id}/status`, {
+  //       status: statusGalangDana,
+  //     })
+  //     .then(() => {
+  //       setFetchStatus(true)
+  //     })
+  //     .catch((err) => {
+  //       console.error('Error: ', err)
+  //     })
+  // }
 
   function filteredDataTransaksi() {
     let s
@@ -326,11 +338,21 @@ const DetailFundraiser = () => {
                                 }}
                               >
                                 <td>
-                                  Rp{IdrFormat(parseInt(item.total_donasi))}
+                                  {item.total_donasi
+                                    ? `Rp${IdrFormat(
+                                        parseInt(item.total_donasi)
+                                      )}`
+                                    : '-'}
                                 </td>
                                 <td colSpan={3}></td>
-                                <td>{item.tanggal}</td>
-                                <td>{item.jumlah_donasi} Donasi Berhasil</td>
+                                <td>
+                                  {item.tanggal ? `${item.tanggal}` : '-'}
+                                </td>
+                                <td>
+                                  {item.jumlah_donasi
+                                    ? `${item.jumlah_donasi} Donasi Berhasil`
+                                    : '-'}
+                                </td>
                               </tr>
                               {item.donasi.map((itemDonasi) => (
                                 <tr
@@ -338,13 +360,32 @@ const DetailFundraiser = () => {
                                   style={{ height: '60px' }}
                                 >
                                   <td>
-                                    Rp
-                                    {IdrFormat(parseInt(itemDonasi.nominal))}
+                                    {itemDonasi.nominal
+                                      ? `Rp${IdrFormat(
+                                          parseInt(itemDonasi.nominal)
+                                        )}`
+                                      : '-'}
                                   </td>
-                                  <td>{itemDonasi.donatur}</td>
-                                  <td>{itemDonasi.invoice}</td>
-                                  <td>{itemDonasi.metode_pembayaran}</td>
-                                  <td>{itemDonasi.waktu} WIB</td>
+                                  <td>
+                                    {itemDonasi.donatur
+                                      ? `${itemDonasi.donatur}`
+                                      : '-'}
+                                  </td>
+                                  <td>
+                                    {itemDonasi.invoice
+                                      ? `${itemDonasi.invoice}`
+                                      : '-'}
+                                  </td>
+                                  <td>
+                                    {itemDonasi.metode_pembayaran
+                                      ? `${itemDonasi.metode_pembayaran}`
+                                      : '-'}
+                                  </td>
+                                  <td>
+                                    {itemDonasi.waktu
+                                      ? `${itemDonasi.waktu} WIB`
+                                      : '-'}
+                                  </td>
                                   <td>
                                     {itemDonasi.status === 'Approved' && (
                                       <TextAlertDropdown
@@ -423,7 +464,7 @@ const DetailFundraiser = () => {
             <Col>
               <MiniCard2
                 title="Total Donatur"
-                text={dataUmumKomisi.total_donatur}
+                text={`${dataUmumKomisi ? dataUmumKomisi.total_donatur : '0'}`}
               />
             </Col>
             <Col>
@@ -491,25 +532,49 @@ const DetailFundraiser = () => {
                           .map((item) => (
                             <tr key={item.id} style={{ height: '60px' }}>
                               <td>
-                                Rp
-                                {IdrFormat(
-                                  parseInt(item.riwayatPenarikanKomisi)
-                                )}
+                                {item.tanggal
+                                  ? `Rp${IdrFormat(
+                                      parseInt(item.riwayatPenarikanKomisi)
+                                    )}`
+                                  : '-'}
                               </td>
-                              <td>{item.noTransaksi}</td>
-                              <td>{item.rekeningTujuan}</td>
-                              <td>{item.namaRekening}</td>
-                              <td>{item.namaBank}</td>
-                              <td>{item.tanggal}</td>
+                              <td>
+                                {item.noTransaksi ? `${item.noTransaksi}` : '-'}
+                              </td>
+                              <td>
+                                {item.rekeningTujuan
+                                  ? `${item.rekeningTujuan}`
+                                  : '-'}
+                              </td>
+                              <td>
+                                {item.namaRekening
+                                  ? `${item.namaRekening}`
+                                  : '-'}
+                              </td>
+                              <td>
+                                {item.namaBank ? `${item.namaBank}` : '-'}
+                              </td>
+                              <td>{item.tanggal ? `${item.tanggal}` : '-'}</td>
                               <td>
                                 {item.status === 'Approved' && (
-                                  <TextAlert text={'Approved'} />
+                                  <TextAlertDropdown
+                                    text={'Approved'}
+                                    status={status}
+                                  />
                                 )}
                                 {item.status === 'Pending' && (
-                                  <TextAlert text={'Pending'} type="warning" />
+                                  <TextAlertDropdown
+                                    text={'Pending'}
+                                    status={status}
+                                    type="warning"
+                                  />
                                 )}
                                 {item.status === 'Rejected' && (
-                                  <TextAlert text={'Rejected'} type="danger" />
+                                  <TextAlertDropdown
+                                    text={'Rejected'}
+                                    status={status}
+                                    type="danger"
+                                  />
                                 )}
                               </td>
                             </tr>
