@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import './index.scss'
 
 const TextAlertDropdown = ({ text, type = 'success', className, status }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const dropdownRef = useRef(null)
 
   const globalStyle = {
     padding: '3px 12px',
@@ -46,12 +47,29 @@ const TextAlertDropdown = ({ text, type = 'success', className, status }) => {
     setDropdownOpen(!dropdownOpen)
   }
 
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
+
   return (
     <div style={{ position: 'relative' }}>
       <button
         className={`${textStyles[type]} rounded text-center ${className} p-2 border-0`}
         style={{ ...globalStyle, ...styles[type] }}
-        onClick={toggleDropdown}
+        onClick={(e) => {
+          e.stopPropagation()
+          toggleDropdown()
+        }}
       >
         {text}
         <span className="ml-1">
@@ -74,9 +92,15 @@ const TextAlertDropdown = ({ text, type = 'success', className, status }) => {
         </span>
       </button>
       {dropdownOpen && (
-        <div className="dropdown-content" style={dropdownStyle}>
+        <div
+          className="dropdown-content"
+          style={dropdownStyle}
+          ref={dropdownRef}
+        >
           {status.map((item, index) => (
-            <li key={index}>{item}</li>
+            <li key={index} onClick={(e) => e.stopPropagation()}>
+              {item}
+            </li>
           ))}
         </div>
       )}
