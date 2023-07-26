@@ -44,7 +44,7 @@ const DetailFundraiser = () => {
 
   const [isHovered, setIsHovered] = useState(false)
   const [mode, setMode] = useState('transaksi')
-  const { id } = useParams()
+  const { id: fundraiserId } = useParams();
 
   // const history = useHistory()
   const color = getCurrentColor()
@@ -61,7 +61,7 @@ const DetailFundraiser = () => {
     getCurrentColor()
     getDataTransaksi()
     getDataKomisi()
-  }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [fundraiserId]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Page Transaksi
   useEffect(() => {
@@ -85,7 +85,7 @@ const DetailFundraiser = () => {
 
   const getDataTransaksi = () => {
     http
-      .get(`https://dev.peduly.com/api/admin/fundraisers/${id}/transaksi`)
+      .get(`https://dev.peduly.com/api/admin/fundraisers/${fundraiserId}/transaksi`)
       .then((res) => {
         setDataUmumTransaksi(res.data)
         setDataTransaksi(res.data.data)
@@ -97,7 +97,7 @@ const DetailFundraiser = () => {
 
   const getDataKomisi = () => {
     http
-      .get(`https://dev.peduly.com/api/admin/fundraisers/${id}/komisi`)
+      .get(`https://dev.peduly.com/api/admin/fundraisers/${fundraiserId}/komisi`)
       .then((res) => {
         setDataUmumKomisi(res.data.data)
         setDataKomisi(res.data.data.riwayat_penarikan)
@@ -109,8 +109,21 @@ const DetailFundraiser = () => {
 
   // const editStatusTransaksi = () => {
   //   http
-  //     .put(`${API_ENDPOINT.GET_LIST_GALANG_DANA_ADMIN}/${id}/status`, {
-  //       status: statusGalangDana,
+  //     .put(`https://api.peduly.com/api/admin/fundraisers/${fundraiserId}/transaksi/${id}`, {
+  //       status: statusTransaksi,
+  //     })
+  //     .then(() => {
+  //       setFetchStatus(true)
+  //     })
+  //     .catch((err) => {
+  //       console.error('Error: ', err)
+  //     })
+  // }
+
+  // const editStatusKomisi = () => {
+  //   http
+  //     .put(`https://api.peduly.com/api/admin/fundraisers/komisi/penarikan/${id}`, {
+  //       status: statusKomisi,
   //     })
   //     .then(() => {
   //       setFetchStatus(true)
@@ -532,27 +545,27 @@ const DetailFundraiser = () => {
                           .map((item) => (
                             <tr key={item.id} style={{ height: '60px' }}>
                               <td>
-                                {item.tanggal
+                                {item.nominal
                                   ? `Rp${IdrFormat(
-                                      parseInt(item.riwayatPenarikanKomisi)
+                                      parseInt(item.nominal)
                                     )}`
                                   : '-'}
                               </td>
                               <td>
-                                {item.noTransaksi ? `${item.noTransaksi}` : '-'}
+                                {item.invoice ? `${item.invoice}` : '-'}
                               </td>
                               <td>
-                                {item.rekeningTujuan
-                                  ? `${item.rekeningTujuan}`
+                                {item.tujuan
+                                  ? `${item.tujuan}`
                                   : '-'}
                               </td>
                               <td>
-                                {item.namaRekening
-                                  ? `${item.namaRekening}`
+                                {item.tujuan
+                                  ? `${item.tujuan}`
                                   : '-'}
                               </td>
                               <td>
-                                {item.namaBank ? `${item.namaBank}` : '-'}
+                                {item.nama_bank ? `${item.nama_bank}` : '-'}
                               </td>
                               <td>{item.tanggal ? `${item.tanggal}` : '-'}</td>
                               <td>
