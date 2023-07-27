@@ -22,7 +22,7 @@ const TextAlertDropdown = ({
 
   const toggleNested = () => {
     setNestedModal(!nestedModal)
-    console.log('masukkk')
+    setDropdownOpen(false)
     setCloseAll(false)
   }
 
