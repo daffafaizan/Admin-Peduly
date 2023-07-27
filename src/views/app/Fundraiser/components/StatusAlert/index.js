@@ -100,25 +100,27 @@ const TextAlertDropdown = ({
             toggleDropdown()
           }}
         >
-          {text}
-          <span className="ml-1">
-            <svg
-              width="12"
-              height="6"
-              viewBox="0 0 12 6"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M11 0.759766L6.88384 4.87593C6.39773 5.36204 5.60227 5.36204 5.11616 4.87593L1 0.759766"
-                stroke={strokeStyles[type]}
-                strokeWidth="1.5"
-                strokeMiterlimit="10"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span>{text}</span>
+            <span className="ml-1">
+              <svg
+                width="12"
+                height="6"
+                viewBox="0 0 12 6"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 0.759766L6.88384 4.87593C6.39773 5.36204 5.60227 5.36204 5.11616 4.87593L1 0.759766"
+                  stroke={strokeStyles[type]}
+                  strokeWidth="1.5"
+                  strokeMiterlimit="10"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+          </div>
         </button>
         {dropdownOpen && (
           <div
