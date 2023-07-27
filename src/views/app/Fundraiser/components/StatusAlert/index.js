@@ -93,7 +93,7 @@ const TextAlertDropdown = ({
     <>
       <div style={{ position: 'relative' }}>
         <button
-          className={`${textStyles[type]} rounded text-center ${className} p-2 border-0`}
+          className={`${textStyles[type]} ${className} rounded text-center p-2 border-0`}
           style={{ ...globalStyle, ...styles[type] }}
           onClick={(e) => {
             e.stopPropagation()
