@@ -587,6 +587,12 @@ const DetailFundraiser = () => {
                                     text={item.status}
                                     status={status}
                                     type={item.status}
+                                    isOpen={
+                                      openDropdownItemId === item.id
+                                    }
+                                    onToggleDropdown={() =>
+                                      handleToggleDropdown(item.id)
+                                    }
                                   />
                                 ) : (
                                   '-'
