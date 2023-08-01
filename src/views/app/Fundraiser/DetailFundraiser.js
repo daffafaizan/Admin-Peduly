@@ -45,6 +45,7 @@ const DetailFundraiser = () => {
 
   const [isHovered, setIsHovered] = useState(false)
   const [mode, setMode] = useState('transaksi')
+  const [openDropdownItemId, setOpenDropdownItemId] = useState(null)
   const { id: fundraiserId } = useParams()
 
   // const history = useHistory()
@@ -60,6 +61,12 @@ const DetailFundraiser = () => {
 
   const handleMouseLeave = () => {
     setIsHovered(false)
+  }
+
+  const handleToggleDropdown = (itemId) => {
+    setOpenDropdownItemId((prevOpenId) =>
+      prevOpenId === itemId ? null : itemId
+    )
   }
 
   useEffect(() => {
@@ -104,9 +111,7 @@ const DetailFundraiser = () => {
 
   const getDataKomisi = () => {
     http
-      .get(
-        `${API_ENDPOINT.GET_LIST_FUNDRAISER_ADMIN}/${fundraiserId}/komisi`
-      )
+      .get(`${API_ENDPOINT.GET_LIST_FUNDRAISER_ADMIN}/${fundraiserId}/komisi`)
       .then((res) => {
         setDataUmumKomisi(res.data.data)
         setDataKomisi(res.data.data.riwayat_penarikan)
@@ -368,7 +373,12 @@ const DetailFundraiser = () => {
                                 </td>
                                 <td colSpan={3}></td>
                                 <td>
-                                  {item.tanggal ? `${moment(item.tanggal, 'DD-MM-YYYY').format('DD MMMM YYYY')}` : '-'}
+                                  {item.tanggal
+                                    ? `${moment(
+                                        item.tanggal,
+                                        'DD-MM-YYYY'
+                                      ).format('DD MMMM YYYY')}`
+                                    : '-'}
                                 </td>
                                 <td>
                                   {item.jumlah_donasi
@@ -416,6 +426,12 @@ const DetailFundraiser = () => {
                                         text={itemDonasi.status}
                                         status={status}
                                         type={itemDonasi.status}
+                                        isOpen={
+                                          openDropdownItemId === itemDonasi.id
+                                        }
+                                        onToggleDropdown={() =>
+                                          handleToggleDropdown(itemDonasi.id)
+                                        }
                                       />
                                     ) : (
                                       '-'
@@ -555,7 +571,14 @@ const DetailFundraiser = () => {
                               <td>
                                 {item.nama_bank ? `${item.nama_bank}` : '-'}
                               </td>
-                              <td>{item.tanggal ? `${moment(item.tanggal, 'DD-MM-YYYY').format('DD/MM/YYYY')}` : '-'}</td>
+                              <td>
+                                {item.tanggal
+                                  ? `${moment(
+                                      item.tanggal,
+                                      'DD-MM-YYYY'
+                                    ).format('DD/MM/YYYY')}`
+                                  : '-'}
+                              </td>
                               <td>
                                 {item.status ? (
                                   <TextAlertDropdown

@@ -9,8 +9,9 @@ const TextAlertDropdown = ({
   status,
   fundraiserId,
   id,
+  isOpen,
+  onToggleDropdown,
 }) => {
-  const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownRef = useRef(null)
   const [nestedModal, setNestedModal] = useState(false)
   const [closeAll, setCloseAll] = useState(false)
@@ -18,12 +19,13 @@ const TextAlertDropdown = ({
 
   const toggle = () => {
     setModal(!modal)
+    console.log(fundraiserId)
+    console.log(id)
   }
 
   const toggleNested = () => {
     setNestedModal(!nestedModal)
-    setDropdownOpen(false)
-    setCloseAll(false)
+    onToggleDropdown()
   }
 
   const toggleAll = () => {
@@ -66,21 +68,15 @@ const TextAlertDropdown = ({
     top: 'calc(100% + 10px)',
     left: 0,
     zIndex: 9999,
-    display: dropdownOpen ? 'block' : 'none',
-  }
-
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen)
-    console.log(fundraiserId)
-    console.log(id)
   }
 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setDropdownOpen(false)
+      onToggleDropdown()
     }
   }
 
+  // eslint-disable-next-line
   useEffect(() => {
     document.addEventListener('click', handleClickOutside)
 
@@ -88,7 +84,7 @@ const TextAlertDropdown = ({
       document.removeEventListener('click', handleClickOutside)
     }
   }, [])
-
+ 
   return (
     <>
       <div style={{ position: 'relative' }}>
@@ -97,7 +93,7 @@ const TextAlertDropdown = ({
           style={{ ...globalStyle, ...styles[type] }}
           onClick={(e) => {
             e.stopPropagation()
-            toggleDropdown()
+            onToggleDropdown()
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -122,7 +118,7 @@ const TextAlertDropdown = ({
             </span>
           </div>
         </button>
-        {dropdownOpen && (
+        {isOpen && (
           <div
             className="dropdown-content"
             style={dropdownStyle}
