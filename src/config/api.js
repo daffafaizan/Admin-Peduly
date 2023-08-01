@@ -7,7 +7,7 @@ export const API_ENDPOINT = {
   GET_LIST_GALANG_DANA: '/galangdana',
   GET_ALL_USER: '/admin/users',
   GET_LIST_GALANG_DANA_ADMIN: '/admin/galangdana',
-  GET_LIST_SUPPORTER: '/supports',
+  GET_LIST_SUPPORTER_ADMIN: '/admin/galangdana',
   GET_ALL_TRANSAKSI: '/donation/all',
   GET_DETAIL_TRANSAKSI: '/donation/transaction',
   GET_PENARIKAN_DANA: '/admin/penarikandana',

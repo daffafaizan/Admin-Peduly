@@ -192,18 +192,18 @@ const DetailGalangDana = ({ match }) => {
       })
   }
 
-    //get All data supporter
-    const getAllDataSupporter = () => {
-      http
-        .get(`https://dev.peduly.com/api/admin/galangdana/${id}/supports`)
-        .then((res) => {
-          console.log(res)
-          setDataSupporter(res.data)
-        })
-        .catch((err) => {
-          console.log('Error: ', err)
-        })
-    }
+  //get All data supporter
+  const getAllDataSupporter = () => {
+    http
+      .get(`${API_ENDPOINT.GET_LIST_SUPPORTER_ADMIN}/${id}/supports`)
+      .then((res) => {
+        console.log(res)
+        setDataSupporter(res.data)
+      })
+      .catch((err) => {
+        console.log('Error: ', err)
+      })
+  }
 
   // get one detail data tarik dana
   useEffect(() => {
@@ -705,7 +705,7 @@ const DetailGalangDana = ({ match }) => {
             {mode === 'supporter' && (
               <div className="w-full px-4">
                 <div className="">
-                  <h2 className="ml-4 mt-4 mb-3 font-weight-bold pb-3">
+                  <h2 className="ml-5 mt-5 mb-3 font-weight-bold pb-3">
                     Daftar Supporter
                   </h2>
                 </div>
@@ -742,9 +742,7 @@ const DetailGalangDana = ({ match }) => {
                             <td>{item.judul}</td>
                             <td>{item.pembuat}</td>
                             <td>Rp{IdrFormat(item.target)}</td>
-                            <td>
-                              terkumpul
-                            </td>
+                            <td>Rp{IdrFormat(item.terkumpul)}</td>
                             <td>{formatDate(item.dibuat)}</td>
                             <td>{formatDate(item.berakhir)}</td>
                           </tr>
