@@ -15,6 +15,7 @@ import { Colxx } from 'components/common/CustomBootstrap'
 import MiniCard2 from '../../../components/MiniCard2'
 import './index.scss'
 import IdrFormat from 'helpers/IdrFormat'
+import moment from 'moment'
 import DataTablePagination from 'components/DatatablePagination'
 import TextAlertDropdown from 'views/app/Fundraiser/components/StatusAlert'
 import { useParams, NavLink } from 'react-router-dom'
@@ -49,6 +50,10 @@ const DetailFundraiser = () => {
   // const history = useHistory()
   const color = getCurrentColor()
 
+  const formatTime = (tanggal) => {
+    return moment(tanggal).format('HH:mm')
+  }
+  
   const handleMouseEnter = () => {
     setIsHovered(true)
   }
@@ -363,7 +368,7 @@ const DetailFundraiser = () => {
                                 </td>
                                 <td colSpan={3}></td>
                                 <td>
-                                  {item.tanggal ? `${item.tanggal}` : '-'}
+                                  {item.tanggal ? `${moment(item.tanggal, 'DD-MM-YYYY').format('DD MMMM YYYY')}` : '-'}
                                 </td>
                                 <td>
                                   {item.jumlah_donasi
@@ -400,7 +405,7 @@ const DetailFundraiser = () => {
                                   </td>
                                   <td>
                                     {itemDonasi.waktu
-                                      ? `${itemDonasi.waktu} WIB`
+                                      ? `${formatTime(itemDonasi.waktu)} WIB`
                                       : '-'}
                                   </td>
                                   <td>
