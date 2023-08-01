@@ -13,5 +13,5 @@ export const API_ENDPOINT = {
   GET_DANA_SUMMARY: '/admin/summary',
   GET_DATA_SLIDES: '/slides',
   CREATE_SLIDE: '/slides/create',
-  GET_LIST_FUNDRAISER: '/admin/fundraisers',
+  GET_LIST_FUNDRAISER_ADMIN: '/admin/fundraisers',
 }

@@ -20,7 +20,7 @@ import TextAlertDropdown from 'views/app/Fundraiser/components/StatusAlert'
 import { useParams, NavLink } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
 import http from 'helpers/http'
-// import { API_ENDPOINT } from 'config/api'
+import { API_ENDPOINT } from 'config/api'
 
 const pageSizes = [20, 40, 80]
 const status = ['Approved', 'Pending', 'Rejected']
@@ -86,7 +86,7 @@ const DetailFundraiser = () => {
   const getDataTransaksi = () => {
     http
       .get(
-        `https://dev.peduly.com/api/admin/fundraisers/${fundraiserId}/transaksi`
+        `${API_ENDPOINT.GET_LIST_FUNDRAISER_ADMIN}/${fundraiserId}/transaksi`
       )
       .then((res) => {
         setDataUmumTransaksi(res.data)
@@ -100,7 +100,7 @@ const DetailFundraiser = () => {
   const getDataKomisi = () => {
     http
       .get(
-        `https://dev.peduly.com/api/admin/fundraisers/${fundraiserId}/komisi`
+        `${API_ENDPOINT.GET_LIST_FUNDRAISER_ADMIN}/${fundraiserId}/komisi`
       )
       .then((res) => {
         setDataUmumKomisi(res.data.data)

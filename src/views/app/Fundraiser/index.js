@@ -17,7 +17,7 @@ import DataTablePagination from 'components/DatatablePagination'
 import { useHistory } from 'react-router-dom'
 import { getCurrentColor } from 'helpers/Utils'
 import http from 'helpers/http'
-// import { API_ENDPOINT } from 'config/api'
+import { API_ENDPOINT } from 'config/api'
 
 const pageSizes = [20, 40, 80]
 
@@ -45,7 +45,7 @@ const Fundraiser = () => {
 
   const getSemuaFundraiserData = () => {
     http
-      .get(`https://dev.peduly.com/api/admin/fundraisers`)
+      .get(`${API_ENDPOINT.GET_LIST_FUNDRAISER_ADMIN}`)
       .then((res) => {
         console.log(res.data.data)
         const responseData = res.data.data
