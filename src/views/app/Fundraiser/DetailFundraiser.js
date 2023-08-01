@@ -53,7 +53,7 @@ const DetailFundraiser = () => {
   const formatTime = (tanggal) => {
     return moment(tanggal).format('HH:mm')
   }
-  
+
   const handleMouseEnter = () => {
     setIsHovered(true)
   }
@@ -555,7 +555,7 @@ const DetailFundraiser = () => {
                               <td>
                                 {item.nama_bank ? `${item.nama_bank}` : '-'}
                               </td>
-                              <td>{item.tanggal ? `${item.tanggal}` : '-'}</td>
+                              <td>{item.tanggal ? `${moment(item.tanggal, 'DD-MM-YYYY').format('DD/MM/YYYY')}` : '-'}</td>
                               <td>
                                 {item.status ? (
                                   <TextAlertDropdown
