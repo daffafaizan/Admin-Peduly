@@ -739,12 +739,12 @@ const DetailGalangDana = ({ match }) => {
                             }}
                             key={item.id}
                           >
-                            <td>{item.judul}</td>
-                            <td>{item.pembuat}</td>
-                            <td>Rp{IdrFormat(item.target)}</td>
-                            <td>Rp{IdrFormat(item.terkumpul)}</td>
-                            <td>{formatDate(item.dibuat)}</td>
-                            <td>{formatDate(item.berakhir)}</td>
+                            <td>{item.judul ? `${item.judul}` : '-'}</td>
+                            <td>{item.pembuat ? `${item.pembuat}` : '-'}</td>
+                            <td>{item.target ? `Rp${IdrFormat(item.target)}` : '-'}</td>
+                            <td>{item.terkumpul ? `Rp${IdrFormat(item.terkumpul)}` : '-'}</td>
+                            <td>{item.dibuat ? `${formatDate(item.dibuat)}` : '-'}</td>
+                            <td>{item.berakhir ? `${formatDate(item.berakhir)}` : '-'}</td>
                           </tr>
                         ))
                       ) : (
