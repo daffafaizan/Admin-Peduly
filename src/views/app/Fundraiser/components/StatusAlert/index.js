@@ -16,11 +16,10 @@ const TextAlertDropdown = ({
   const [nestedModal, setNestedModal] = useState(false)
   const [closeAll, setCloseAll] = useState(false)
   const [modal, setModal] = useState(false)
+  const [newStatus, setNewStatus] = useState("")
 
   const toggle = () => {
     setModal(!modal)
-    console.log(fundraiserId)
-    console.log(id)
   }
 
   const toggleNested = () => {
@@ -28,8 +27,17 @@ const TextAlertDropdown = ({
     onToggleDropdown()
   }
 
+  const toggleCancel = () => {
+    setNewStatus("") // Set new status to empty in case user already clicked status item and cancels
+    setNestedModal(!nestedModal)
+    setCloseAll(true)
+  }
+
   const toggleAll = () => {
     setNestedModal(!nestedModal)
+    console.log(newStatus)
+    console.log(fundraiserId)
+    console.log(id)
     setCloseAll(true)
   }
 
@@ -129,6 +137,7 @@ const TextAlertDropdown = ({
                 key={index}
                 onClick={(e) => {
                   e.stopPropagation()
+                  setNewStatus(item)
                   toggleNested()
                 }}
               >
@@ -140,7 +149,7 @@ const TextAlertDropdown = ({
       </div>
       <Modal
         isOpen={nestedModal}
-        toggle={toggleNested}
+        toggle={toggleCancel}
         onClosed={closeAll ? toggle : undefined}
         className="card modal-status-nested"
         style={{
@@ -153,7 +162,7 @@ const TextAlertDropdown = ({
       >
         <ModalBody>Apakah kamu yakin ingin merubah status?</ModalBody>
         <div className="modal-nested-button">
-          <Button className="btn-secondary mr-4" onClick={toggleNested}>
+          <Button className="btn-secondary mr-4" onClick={toggleCancel}>
             Tidak
           </Button>
           <Button type="submit" color="primary" onClick={toggleAll}>
