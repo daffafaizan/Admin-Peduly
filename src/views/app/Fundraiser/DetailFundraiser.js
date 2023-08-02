@@ -24,7 +24,7 @@ import http from 'helpers/http'
 import { API_ENDPOINT } from 'config/api'
 
 const pageSizes = [20, 40, 80]
-const status = ['Approved', 'Pending', 'Rejected']
+const statusList = ['Approved', 'Pending', 'Rejected']
 
 const DetailFundraiser = () => {
   const [dataTransaksi, setDataTransaksi] = useState([])
@@ -141,12 +141,38 @@ const DetailFundraiser = () => {
   //       status: statusKomisi,
   //     })
   //     .then(() => {
-  //       
+  //
   //     })
   //     .catch((err) => {
   //       console.error('Error: ', err)
   //     })
   // }
+
+  const handleUpdateDonasiStatus = (donasiItemId, newStatus) => {
+    // Find the specific donasi item by its ID
+    const updatedDataTransaksi = dataTransaksi.map((fundraiserData) => {
+      // Find the specific fundraiser data by its ID
+      if (fundraiserData.donasi) {
+        const updatedData = fundraiserData.donasi.map((donasiItem) => {
+          if (donasiItem.id === donasiItemId) {
+            // Modify the status of the specific donasi item
+            const newDonasiItem = donasiItem
+            newDonasiItem.status = newStatus
+            console.log(newDonasiItem)
+            return { ...donasiItem, newDonasiItem }
+          }
+          return donasiItem
+        })
+
+        // Update the data property of the specific fundraiser data
+        return { ...fundraiserData, data: updatedData }
+      }
+      return fundraiserData
+    })
+
+    // Update the dataTransaksi state with the modified data
+    setDataTransaksi(updatedDataTransaksi)
+  }
 
   function filteredDataTransaksi() {
     let s
@@ -425,13 +451,16 @@ const DetailFundraiser = () => {
                                         fundraiserId={fundraiserId}
                                         id={itemDonasi.id}
                                         text={itemDonasi.status}
-                                        status={status}
+                                        status={statusList}
                                         type={itemDonasi.status}
                                         isOpen={
                                           openDropdownItemId === itemDonasi.id
                                         }
                                         onToggleDropdown={() =>
                                           handleToggleDropdown(itemDonasi.id)
+                                        }
+                                        handleUpdateDonasiStatus={
+                                          handleUpdateDonasiStatus
                                         }
                                       />
                                     ) : (
@@ -586,11 +615,9 @@ const DetailFundraiser = () => {
                                     fundraiserId={fundraiserId}
                                     id={item.id}
                                     text={item.status}
-                                    status={status}
+                                    status={statusList}
                                     type={item.status}
-                                    isOpen={
-                                      openDropdownItemId === item.id
-                                    }
+                                    isOpen={openDropdownItemId === item.id}
                                     onToggleDropdown={() =>
                                       handleToggleDropdown(item.id)
                                     }

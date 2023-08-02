@@ -11,6 +11,7 @@ const TextAlertDropdown = ({
   id,
   isOpen,
   onToggleDropdown,
+  handleUpdateDonasiStatus,
 }) => {
   const dropdownRef = useRef(null)
   const [nestedModal, setNestedModal] = useState(false)
@@ -38,6 +39,7 @@ const TextAlertDropdown = ({
     console.log(newStatus)
     console.log(fundraiserId)
     console.log(id)
+    handleUpdateDonasiStatus(id, newStatus)
     setCloseAll(true)
   }
 
