@@ -45,7 +45,7 @@ const Fundraiser = () => {
 
   const getSemuaFundraiserData = () => {
     http
-      .get(`${API_ENDPOINT.GET_LIST_FUNDRAISER_ADMIN}`)
+      .get(`${API_ENDPOINT.GET_DATA_FUNDRAISER_ADMIN}`)
       .then((res) => {
         console.log(res.data.data)
         const responseData = res.data.data

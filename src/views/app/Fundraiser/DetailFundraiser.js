@@ -98,11 +98,12 @@ const DetailFundraiser = () => {
   const getDataTransaksi = () => {
     http
       .get(
-        `${API_ENDPOINT.GET_LIST_FUNDRAISER_ADMIN}/${fundraiserId}/transaksi`
+        `${API_ENDPOINT.GET_DATA_FUNDRAISER_ADMIN}/${fundraiserId}/transaksi`
       )
       .then((res) => {
         setDataUmumTransaksi(res.data)
         setDataTransaksi(res.data.data)
+        console.log(res.data.data)
       })
       .catch((err) => {
         console.error('Error: ', err)
@@ -111,7 +112,7 @@ const DetailFundraiser = () => {
 
   const getDataKomisi = () => {
     http
-      .get(`${API_ENDPOINT.GET_LIST_FUNDRAISER_ADMIN}/${fundraiserId}/komisi`)
+      .get(`${API_ENDPOINT.GET_DATA_FUNDRAISER_ADMIN}/${fundraiserId}/komisi`)
       .then((res) => {
         setDataUmumKomisi(res.data.data)
         setDataKomisi(res.data.data.riwayat_penarikan)
@@ -121,26 +122,26 @@ const DetailFundraiser = () => {
       })
   }
 
-  // const editStatusTransaksi = () => {
+  // const editStatusTransaksi = (id, fundraiserId, statusTransaksi) => {
   //   http
-  //     .put(`https://api.peduly.com/api/admin/fundraisers/${fundraiserId}/transaksi/${id}`, {
+  //     .put(`${API_ENDPOINT.GET_DATA_FUNDRAISER_ADMIN}/${fundraiserId}/transaksi/${id}`, {
   //       status: statusTransaksi,
   //     })
   //     .then(() => {
-  //       setFetchStatus(true)
+  //       setDataTransaksi((prevState) => prevState.map(data => data.id == id ? editedBank : bank))
   //     })
   //     .catch((err) => {
   //       console.error('Error: ', err)
   //     })
   // }
 
-  // const editStatusKomisi = () => {
+  // const editStatusKomisi = (id, fundraiserId, statusKomisi) => {
   //   http
-  //     .put(`https://api.peduly.com/api/admin/fundraisers/komisi/penarikan/${id}`, {
+  //     .put(`${API_ENDPOINT.GET_DATA_FUNDRAISER_ADMIN}/komisi/penarikan/${id}`, {
   //       status: statusKomisi,
   //     })
   //     .then(() => {
-  //       setFetchStatus(true)
+  //       
   //     })
   //     .catch((err) => {
   //       console.error('Error: ', err)
