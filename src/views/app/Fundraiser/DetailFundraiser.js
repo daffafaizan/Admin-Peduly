@@ -614,7 +614,7 @@ const DetailFundraiser = () => {
                                   : '-'}
                               </td>
                               <td>{item.invoice ? `${item.invoice}` : '-'}</td>
-                              <td>{item.tujuan ? `${item.tujuan}` : '-'}</td>
+                              <td>{item.nomor_rekening ? `${item.nomor_rekening}` : '-'}</td>
                               <td>{item.tujuan ? `${item.tujuan}` : '-'}</td>
                               <td>
                                 {item.nama_bank ? `${item.nama_bank}` : '-'}
