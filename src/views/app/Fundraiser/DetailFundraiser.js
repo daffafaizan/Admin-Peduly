@@ -103,7 +103,6 @@ const DetailFundraiser = () => {
       .then((res) => {
         setDataUmumTransaksi(res.data)
         setDataTransaksi(res.data.data)
-        console.log(res.data.data)
       })
       .catch((err) => {
         console.error('Error: ', err)
@@ -116,38 +115,38 @@ const DetailFundraiser = () => {
       .then((res) => {
         setDataUmumKomisi(res.data.data)
         setDataKomisi(res.data.data.riwayat_penarikan)
-        console.log(res.data.data.riwayat_penarikan)
       })
       .catch((err) => {
         console.error('Error: ', err)
       })
   }
 
-  // const editStatusTransaksi = (id, fundraiserId, statusTransaksi) => {
-  //   http
-  //     .put(`${API_ENDPOINT.GET_DATA_FUNDRAISER_ADMIN}/${fundraiserId}/transaksi/${id}`, {
-  //       status: statusTransaksi,
-  //     })
-  //     .then(() => {
-  //       setDataTransaksi((prevState) => prevState.map(data => data.id == id ? editedBank : bank))
-  //     })
-  //     .catch((err) => {
-  //       console.error('Error: ', err)
-  //     })
-  // }
+  const editStatusTransaksi = (id, fundraiserId, statusTransaksi) => {
+    http
+      .put(`${API_ENDPOINT.GET_DATA_FUNDRAISER_ADMIN}/${fundraiserId}/transaksi/${id}`, {
+        status: statusTransaksi,
+      })
+      .then(() => {
+        console.log("berhasil")
+        handleUpdateDonasiStatusTransaksi(id, statusTransaksi)
+      })
+      .catch((err) => {
+        console.error('Error: ', err)
+      })
+  }
 
-  // const editStatusKomisi = (id, fundraiserId, statusKomisi) => {
-  //   http
-  //     .put(`${API_ENDPOINT.GET_DATA_FUNDRAISER_ADMIN}/komisi/penarikan/${id}`, {
-  //       status: statusKomisi,
-  //     })
-  //     .then(() => {
-  //
-  //     })
-  //     .catch((err) => {
-  //       console.error('Error: ', err)
-  //     })
-  // }
+  const editStatusKomisi = (id, fundraiserId, statusKomisi) => {
+    http
+      .put(`${API_ENDPOINT.GET_DATA_FUNDRAISER_ADMIN}/komisi/penarikan/${id}`, {
+        status: statusKomisi,
+      })
+      .then(() => {
+        handleUpdateDonasiStatusKomisi(id, statusKomisi)
+      })
+      .catch((err) => {
+        console.error('Error: ', err)
+      })
+  }
 
   const handleUpdateDonasiStatusTransaksi = (donasiItemId, newStatus) => {
     const updatedDataTransaksi = dataTransaksi.map((fundraiserData) => {
@@ -478,8 +477,8 @@ const DetailFundraiser = () => {
                                         onToggleDropdown={() =>
                                           handleToggleDropdown(itemDonasi.id)
                                         }
-                                        handleUpdateDonasiStatus={
-                                          handleUpdateDonasiStatusTransaksi
+                                        editStatus={
+                                          editStatusTransaksi
                                         }
                                       />
                                     ) : (
@@ -640,8 +639,8 @@ const DetailFundraiser = () => {
                                     onToggleDropdown={() =>
                                       handleToggleDropdown(item.id)
                                     }
-                                    handleUpdateDonasiStatus={
-                                      handleUpdateDonasiStatusKomisi
+                                    editStatus={
+                                      editStatusKomisi
                                     }
                                   />
                                 ) : (
