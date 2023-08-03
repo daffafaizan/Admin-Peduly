@@ -116,6 +116,7 @@ const DetailFundraiser = () => {
       .then((res) => {
         setDataUmumKomisi(res.data.data)
         setDataKomisi(res.data.data.riwayat_penarikan)
+        console.log(res.data.data.riwayat_penarikan)
       })
       .catch((err) => {
         console.error('Error: ', err)
@@ -170,27 +171,27 @@ const DetailFundraiser = () => {
     setDataTransaksi(updatedDataTransaksi)
   }
 
-  // const handleUpdateDonasiStatusKomisi = (komisiItemId, newStatus) => {
-  //   const updatedDataKomisi = dataKomisi.map((fundraiserData) => {
-  //     // Mencari item komisi berdasarkan komisiItemId
-  //     if (fundraiserData.riwayat_penarikan) {
-  //       const updatedData = fundraiserData.riwayat_penarikan.map((komisiItem) => {
-  //         if (komisiItem.id === komisiItemId) {
-  //           // Modifikasi status item komisi
-  //           const newKomisiItem = komisiItem
-  //           newKomisiItem.status = newStatus
-  //           return { ...komisiItem, newKomisiItem }
-  //         }
-  //         return komisiItem
-  //       })
+  const handleUpdateDonasiStatusKomisi = (komisiItemId, newStatus) => {
+    const updatedDataKomisi = dataUmumKomisi.map((fundraiserData) => {
+      // Mencari item komisi berdasarkan komisiItemId
+      if (fundraiserData.riwayat_penarikan) {
+        const updatedData = fundraiserData.riwayat_penarikan.map((komisiItem) => {
+          if (komisiItem.id === komisiItemId) {
+            // Modifikasi status item komisi
+            const newKomisiItem = komisiItem
+            newKomisiItem.status = newStatus
+            return { ...komisiItem, newKomisiItem }
+          }
+          return komisiItem
+        })
 
-  //      // Update properti data dari fundraiser data spesifik
-  //       return { ...fundraiserData, data: updatedData }
-  //     }
-  //     return fundraiserData
-  //   })
-  //   setDataKomisi(updatedDataKomisi)
-  // }
+       // Update properti data dari fundraiser data spesifik
+        return { ...fundraiserData, data: updatedData }
+      }
+      return fundraiserData
+    })
+    setDataKomisi(updatedDataKomisi)
+  }
 
   function filteredDataTransaksi() {
     let s
@@ -638,6 +639,9 @@ const DetailFundraiser = () => {
                                     isOpen={openDropdownItemId === item.id}
                                     onToggleDropdown={() =>
                                       handleToggleDropdown(item.id)
+                                    }
+                                    handleUpdateDonasiStatus={
+                                      handleUpdateDonasiStatusKomisi
                                     }
                                   />
                                 ) : (
